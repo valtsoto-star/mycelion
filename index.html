@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ConstruyeTe">
 <meta name="theme-color" content="#0B1B2B">
-<title>ConstruyeTe · Suite · DUOC UC</title>
+<title>MYCELION OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -7624,7 +7624,7 @@ function viewMas(){
     ["flashcards","🃏","Flashcards","Crea y repasa tarjetas de memoria"],
     ["tests","📝","Autoevaluaciones","Tests de opción múltiple por ramo"],
     ["glosario","📖","Glosario técnico","Diccionario buscable y editable"],
-    ["cronograma","🗓️","Cronograma","Pruebas y tareas con fechas"],
+    ["programacion","🗓️","Programación","Evaluaciones por fecha, notas y promedio"],
     ["repaso","⚡","Repaso rápido","Fórmulas + flashcards antes de una prueba"],
     ["logros","🏆","Logros y progreso","Insignias, racha, niveles por ramo"],
     ["ajustes","⚙️","Ajustes","Temas, respaldo, nombre"],
@@ -9207,7 +9207,7 @@ function buildDrawer(){
   let h=`<div class="nav-group-label">Navegación</div>`;
   [["dashboard","🏠 Avance"],["foco","⏱️ Modo foco"],["horario","🗓️ Horario"],["ruta","🏔️ Ruta de expedición"],["campus","🗺️ Campus"],["micelio","🍄 Micelio"],["ramos","📚 Ramos"],["formulas","🧮 Fórmulas"],
    ["flashcards","🃏 Flashcards"],["tests","📝 Tests"],["glosario","📖 Glosario"],
-   ["cronograma","🗓️ Cronograma"],["repaso","⚡ Repaso rápido"],
+   ["programacion","🗓️ Programación"],["repaso","⚡ Repaso rápido"],
    ["logros","🏆 Logros"],["ajustes","⚙️ Ajustes"]
   ].forEach(n=>h+=`<button class="nav-item" onclick="nav('${n[0]}')">${n[1]}</button>`);
   h+=`<div class="nav-group-label">Malla por semestre</div>`;
@@ -9496,7 +9496,7 @@ window.addEventListener("load",function(){
     var ring=document.getElementById("focoRing");if(ring)ring.classList.toggle("pausa",s.mode==="pausa");
     var md=document.getElementById("focoMode");if(md)md.textContent=s.mode==="foco"?"Foco":"Pausa";
     var b=document.getElementById("focoMain");if(b)b.textContent=s.endAt?"Pausar":(r<tot?"Seguir":"Empezar");
-    document.title=s.endAt?fmt(r)+" · "+(s.mode==="foco"?"Foco":"Pausa"):"ConstruyeTe · Suite · DUOC UC";
+    document.title=s.endAt?fmt(r)+" · "+(s.mode==="foco"?"Foco":"Pausa"):"MYCELION OS";
   }
   setInterval(tick,1000);
   document.addEventListener("visibilitychange",tick);
@@ -9533,6 +9533,1403 @@ window.addEventListener("load",function(){
     window.nav._myc=1;
   });
 })();
+</script>
+
+<style id="myc16-css">
+/* v1.6 · Ramo compacto, notas+, programación, noche */
+[data-theme="noche"]{--bg:#14110f;--bg-2:#1a1613;--surface:#221d19;--surface-2:#2b241f;--line:#3d342c;--line-soft:#322a24;--text:#efe6da;--text-2:#c4b5a3;--text-3:#8f8170;--accent:#f0a65a;--accent-2:#9fd3a8;--accent-ink:#1a1209;--gold:#f2c46d;--grid:rgba(240,166,90,.06);--danger:#ef7b6b;--good:#9fd3a8;--warn:#f2c46d;--sky-1:#1a1613;--sky-2:#14110f;--sky-3:#0e0c0a;--sky-ink:#efe6da;--sky-ink2:#a89886}
+body[data-big="on"]{font-size:17px}
+body[data-big="on"] .rp-unit-head .u-name,body[data-big="on"] .nt-body{font-size:1rem}
+
+/* Ramo panel compacto */
+#ramo-panel .rp-body{padding:12px 14px 110px}
+.rp-hero{padding:14px 16px!important;border-radius:16px!important;margin-bottom:10px!important}
+.rp-hero h1{font-size:1.12rem!important;margin-bottom:2px!important}
+.rp-hero .rp-meta{margin-bottom:10px!important}
+.rp-tools{display:flex;gap:6px;overflow-x:auto;margin:0 0 12px;padding-bottom:2px;scrollbar-width:none}
+.rp-tools::-webkit-scrollbar{display:none}
+.rp-tool{padding:8px 12px!important;font-size:.78rem!important;border-radius:100px!important;white-space:nowrap;flex:none}
+.rp-unit{border-radius:12px!important;margin-bottom:8px!important}
+.rp-unit-head{padding:10px 12px!important;gap:10px!important}
+.rp-unit-head .u-num{width:26px!important;height:26px!important;border-radius:8px!important;font-size:.72rem!important}
+.rp-unit-head .u-name{font-size:.9rem!important}
+.rp-unit-head .u-sub{font-size:.68rem!important;margin-top:1px!important}
+.rp-unit-head .u-check{width:22px!important;height:22px!important;border-radius:7px!important}
+.rp-unit-head .chev{width:16px!important;height:16px!important}
+.rp-unit-inner{padding:8px 12px 12px!important}
+.u-acts{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 10px}
+.u-act{padding:7px 11px;border-radius:9px;font-size:.76rem;font-weight:600;background:var(--surface-2);border:1px solid var(--line-soft);color:var(--text-2)}
+.u-act.on{border-color:var(--good);color:var(--good)}
+.u-act.add{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+
+/* Notas+ */
+.nt-list{display:flex;flex-direction:column;gap:8px}
+.nt-empty{font-size:.78rem;color:var(--text-3);padding:4px 2px 8px}
+.nt-card{background:var(--bg-2);border:1px solid var(--line-soft);border-left:3px solid var(--nc,var(--accent));border-radius:10px;padding:9px 10px}
+.nt-head{display:flex;align-items:center;gap:6px}
+.nt-pill{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--nc,var(--accent));white-space:nowrap}
+.nt-tt{flex:1;min-width:0;font-weight:600;font-size:.84rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nt-ib{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:var(--text-3);font-size:.8rem;flex:none}
+.nt-ib:active{background:var(--surface-2)}
+.nt-ib.warn{color:var(--danger)}
+.nt-body{font-size:.86rem;line-height:1.55;color:var(--text-2);white-space:pre-wrap;word-break:break-word;margin-top:4px}
+.nt-src{font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);margin-top:4px}
+.nt-tw{overflow-x:auto;margin-top:6px}
+.nt-table{border-collapse:collapse;font-size:.78rem;min-width:100%}
+.nt-table td{border:1px solid var(--line);padding:5px 7px;color:var(--text-2);vertical-align:top}
+.nt-table tr:first-child td{background:var(--surface-2);color:var(--text);font-weight:600}
+.nt-ed{background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:10px;margin:4px 0 10px;display:flex;flex-direction:column;gap:8px}
+.nt-types{display:flex;gap:5px;flex-wrap:wrap}
+.nt-chip{padding:6px 10px;border-radius:100px;font-size:.74rem;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--text-2)}
+.nt-chip.on{border-color:var(--nc,var(--accent));color:var(--nc,var(--accent));background:color-mix(in srgb,var(--nc,var(--accent)) 12%,transparent)}
+.nt-in,.nt-ta{width:100%;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:9px;color:var(--text);font:inherit;font-size:.86rem;padding:9px 10px}
+.nt-ta{min-height:96px;resize:vertical;line-height:1.5}
+.nt-tools{display:flex;gap:6px;flex-wrap:wrap}
+.nt-tb{padding:7px 10px;border-radius:9px;font-size:.74rem;font-weight:600;background:var(--bg-2);border:1px solid var(--line-soft);color:var(--text-2)}
+.nt-tb.on{border-color:var(--accent);color:var(--accent)}
+.nt-grid{overflow-x:auto}
+.nt-grid table{border-collapse:collapse}
+.nt-grid input{width:92px;background:var(--bg-2);border:1px solid var(--line);color:var(--text);font:inherit;font-size:.78rem;padding:6px}
+.nt-grid tr:first-child input{font-weight:700}
+.nt-save{display:flex;gap:8px}
+.nt-save button{flex:1;padding:10px;border-radius:10px;font-weight:700;font-size:.84rem;background:var(--surface-2);color:var(--text-2);border:1px solid var(--line-soft)}
+.nt-save button.pri{background:var(--accent);color:var(--accent-ink);border-color:transparent;flex:2}
+.nt-hint{font-size:.7rem;color:var(--text-3)}
+
+/* Hoja de clase */
+.cls-top{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.7rem;color:var(--cc);margin-bottom:4px}
+.cls-name{font-family:var(--font-display);font-weight:700;font-size:1.05rem;margin-bottom:8px}
+.cls-info{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.cls-info div{background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;padding:8px 10px;font-size:.78rem;color:var(--text-2);min-width:0;overflow:hidden;text-overflow:ellipsis}
+.cls-info b{display:block;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);font-weight:500}
+.cls-q{font-size:.86rem;color:var(--text-2);margin:2px 0 8px}
+.cls-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cls-act{padding:14px 10px;border-radius:14px;background:var(--surface);border:1px solid var(--line-soft);text-align:center;color:var(--text)}
+.cls-act .i{font-size:1.4rem;display:block}
+.cls-act .t{font-weight:700;font-size:.88rem;display:block;margin-top:2px}
+.cls-act .d{font-size:.7rem;color:var(--text-3)}
+.cls-act.pri{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.cls-act.pri .d{color:inherit;opacity:.75}
+.cls-mini{display:flex;gap:6px;margin-top:10px}
+.cls-mini button{flex:1;padding:9px;border-radius:10px;font-size:.76rem;background:none;border:1px solid var(--line-soft);color:var(--text-2)}
+.cls-next{margin:0 0 12px;padding:9px 11px;border-radius:10px;background:color-mix(in srgb,var(--warn) 12%,transparent);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);font-size:.8rem}
+.hcell.tbd .hcell-hora::after,.dcard.tbd .dcard-hora::after{content:" · por confirmar";color:var(--warn)}
+
+/* Programación */
+.pg-chips{display:flex;gap:6px;overflow-x:auto;margin:0 -16px 12px;padding:0 16px 2px;scrollbar-width:none}
+.pg-chips::-webkit-scrollbar{display:none}
+.pg-chip{flex:none;padding:7px 12px;border-radius:100px;font-size:.76rem;font-weight:600;background:var(--surface);border:1px solid var(--line-soft);color:var(--text-2);white-space:nowrap}
+.pg-chip.on{border-color:var(--cc,var(--accent));color:var(--cc,var(--accent))}
+.pg-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.pg-sum div{background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;padding:10px 8px;text-align:center}
+.pg-sum b{display:block;font-family:var(--font-display);font-size:1.2rem}
+.pg-sum span{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.pg-need{font-size:.8rem;color:var(--text-2);margin:-4px 0 12px;padding:9px 11px;border-radius:10px;background:var(--surface);border:1px dashed var(--line)}
+.pg-mes{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin:14px 0 6px}
+.ev{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line-soft);border-left:3px solid var(--cc,var(--accent));border-radius:12px;padding:10px 10px 10px 12px;margin-bottom:8px}
+.ev.done{opacity:.6}
+.ev-d{width:46px;text-align:center;flex:none}
+.ev-d b{display:block;font-family:var(--font-display);font-size:1.15rem;line-height:1}
+.ev-d span{font-family:var(--font-mono);font-size:.56rem;color:var(--text-3);text-transform:uppercase}
+.ev-i{flex:1;min-width:0}
+.ev-t{font-weight:600;font-size:.86rem}
+.ev-s{font-size:.7rem;color:var(--text-3);margin-top:1px}
+.ev-c{font-family:var(--font-mono);font-size:.66rem;font-weight:700}
+.ev-n{width:52px;text-align:center;padding:7px 4px;border-radius:9px;background:var(--bg-2);border:1px solid var(--line-soft);color:var(--text);font:inherit;font-size:.86rem;font-weight:700;flex:none}
+.ev-x{width:26px;height:26px;border-radius:8px;color:var(--text-3);font-size:.78rem;flex:none}
+.pg-add{width:100%;padding:12px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-family:var(--font-display);margin:4px 0 6px}
+.pg-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pg-form .full{grid-column:1/-1}
+.pg-form label{display:block;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:3px}
+.pg-form input,.pg-form select{width:100%;padding:11px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--text);font:inherit;font-size:.9rem}
+
+/* Esta noche (panel) */
+.noche{margin:12px 16px 0;padding:14px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line-soft)}
+.noche-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.noche-h b{font-family:var(--font-display);font-size:1rem}
+.noche-h span{font-family:var(--font-mono);font-size:.6rem;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.noche-l{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.noche-r{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-2);text-align:left;width:100%}
+.noche-r i{width:8px;height:8px;border-radius:50%;background:var(--cc,var(--accent));flex:none;font-style:normal}
+.noche-r .c{margin-left:auto;font-family:var(--font-mono);font-size:.66rem;font-weight:700;white-space:nowrap}
+.noche-a{display:flex;gap:6px}
+.noche-a button{flex:1;padding:11px 8px;border-radius:11px;font-weight:700;font-size:.8rem;background:var(--surface-2);border:1px solid var(--line-soft);color:var(--text)}
+.noche-a button.pri{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+
+/* Ramos: este semestre */
+.sem-now{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.sem-now button{background:var(--surface);border:1px solid var(--line-soft);border-top:3px solid var(--cc);border-radius:12px;padding:10px;text-align:left;color:var(--text);min-width:0}
+.sem-now .s{font-family:var(--font-mono);font-size:.58rem;color:var(--cc)}
+.sem-now .n{font-weight:600;font-size:.8rem;line-height:1.25;margin:2px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sem-now .m{font-size:.66rem;color:var(--text-3)}
+</style>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   v1.6 · Ramo compacto con Notas+, clase → entrar/programación,
+   evaluaciones por fecha, panel "Esta noche", tema Noche
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Horario: cambios del semestre (Inglés lun/jue, Economía jue 16:30) ── */
+(function(){
+  try{
+    var v=+(localStorage.getItem("myc_cfg_v")||0);
+    if(v>=16)return;
+    var H=MYCELION_CONFIG.horario;
+    H.forEach(function(c){if(c.sigla==="EPK6111"){c.dia="Jue";c.ini="16:30";c.fin="17:30";}});
+    if(!H.some(function(c){return c.sigla==="ING"})){
+      var base={sigla:"ING",nombre:"Inglés",prof:"Por confirmar",correo:"",sala:"Por confirmar",color:"#FF6FA3",creditos:0,tbd:true};
+      H.push(Object.assign({},base,{dia:"Lun",ini:"17:30",fin:"19:00"}));
+      H.push(Object.assign({},base,{dia:"Jue",ini:"19:01",fin:"20:30"}));
+    }
+    if(localStorage.getItem("mycelion_config")){
+      var s=JSON.parse(localStorage.getItem("mycelion_config"));s.horario=H;localStorage.setItem("mycelion_config",JSON.stringify(s));
+    }
+    localStorage.setItem("myc_cfg_v","16");
+  }catch(e){console.warn("horario v16",e)}
+})();
+
+/* ── Ramos del semestre ↔ malla ── */
+const SIG2RAMO={DOK6121:"model-coord",CEK6161:"analisis-estruct",EPK6111:"econ-eval",OCK6141:"mec-suelos",OCK6151:"taller-suelos",MAT4111:"g-estadistica",APK6431:"portafolio6",ING:"g-ingles"};
+const EXTRA_RAMOS=[{id:"portafolio6",cod:"APK6431",nom:"Proceso de Portafolio 6",ic:"📁",units:3}];
+(function(){
+  Object.keys(SIG2RAMO).forEach(function(s){
+    var r=allRamos().find(function(x){return x.id===SIG2RAMO[s]})||GENERAL.find(function(x){return x.id===SIG2RAMO[s]});
+    if(!r)return;
+    var ref=MALLA.flatMap(function(m){return m.ramos}).find(function(x){return x.id===r.id})||GENERAL.find(function(x){return x.id===r.id});
+    if(ref&&(ref.cod==="—"||!ref.cod)&&s!=="ING")ref.cod=s;
+  });
+  if(!DB.notes2)DB.notes2={};
+  if(!DB.unitNames)DB.unitNames={};
+  if(!DB.tasks)DB.tasks=[];
+  DB.tasks.forEach(function(t,i){if(!t.id)t.id="t"+Date.now().toString(36)+i});
+  if(DB.settings&&DB.settings.big)document.body.dataset.big="on";
+})();
+function findRamo(id){
+  return allRamos().find(function(r){return r.id===id})||GENERAL.find(function(r){return r.id===id})||EXTRA_RAMOS.find(function(r){return r.id===id});
+}
+function _ridDe(sigla){return SIG2RAMO[sigla]||null}
+function _clasesDe(rid){return MYCELION_CONFIG.horario.filter(function(c){return SIG2RAMO[c.sigla]===rid})}
+function _colorDe(rid){var c=_clasesDe(rid)[0];return c?c.color:"var(--accent)"}
+function _ramosSemestre(){
+  var seen={},out=[];
+  MYCELION_CONFIG.horario.forEach(function(c){var rid=_ridDe(c.sigla);if(!rid||seen[rid])return;seen[rid]=1;var r=findRamo(rid);if(r)out.push({rid:rid,r:r,c:c})});
+  return out;
+}
+
+/* ── Fechas ── */
+function _hoy0(){var d=new Date();d.setHours(0,0,0,0);return d}
+function _dias(f){return Math.round((new Date(f+"T00:00:00")-_hoy0())/864e5)}
+function _cuenta(f){var d=_dias(f);return d<0?"pasó":d===0?"HOY":d===1?"mañana":"en "+d+" días"}
+function _cColor(f){var d=_dias(f);return d<0?"var(--text-3)":d<=2?"var(--danger)":d<=7?"var(--warn)":"var(--accent)"}
+function _evsDe(rid,soloProx){
+  return (DB.tasks||[]).filter(function(t){return (!rid||t.ramo===rid)&&(!soloProx||(_dias(t.fecha)>=0&&!t.done&&t.nota==null))})
+    .sort(function(a,b){return a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0});
+}
+function _num(v){if(v==null||v==="")return null;var n=parseFloat(String(v).replace(",","."));return isNaN(n)?null:n}
+function _fmtN(n){return n==null?"–":n.toFixed(1).replace(".",",")}
+
+/* ══════════ NOTAS+ ══════════ */
+const NT={apunte:["📝","Apunte","#3DA9FC"],def:["📌","Definición","#8CE99A"],form:["🧮","Fórmula","#F2B84B"],ej:["💡","Ejemplo","#A78BFA"],duda:["❓","Duda","#FF6B6B"],ext:["📋","Extracto","#4ECDC4"]};
+function _notas(uid){
+  if(!DB.notes2[uid])DB.notes2[uid]=[];
+  if(DB.notes&&DB.notes[uid]&&!(DB.notesMig&&DB.notesMig[uid])){
+    DB.notes2[uid].unshift({id:"n"+Date.now().toString(36),tp:"apunte",tt:"Apuntes",tx:DB.notes[uid],ts:Date.now()});
+    DB.notesMig=DB.notesMig||{};DB.notesMig[uid]=1;save();
+  }
+  return DB.notes2[uid];
+}
+function _tablaHTML(tb){
+  if(!tb||!tb.length)return "";
+  return '<div class="nt-tw"><table class="nt-table">'+tb.map(function(r){return "<tr>"+r.map(function(c){return "<td>"+esc(c)+"</td>"}).join("")+"</tr>"}).join("")+"</table></div>";
+}
+function _notaHTML(uid,n){
+  var t=NT[n.tp]||NT.apunte;
+  return '<div class="nt-card" style="--nc:'+t[2]+'">'
+    +'<div class="nt-head"><span class="nt-pill">'+t[0]+" "+t[1]+'</span><span class="nt-tt">'+esc(n.tt||"")+'</span>'
+    +'<button class="nt-ib" title="Copiar" onclick="ntCopy(\''+uid+'\',\''+n.id+'\')">⧉</button>'
+    +'<button class="nt-ib" title="Editar" onclick="nedOpen(\''+uid+'\',\''+n.id+'\')">✎</button>'
+    +'<button class="nt-ib" title="Borrar" onclick="ntDel(this,\''+uid+'\',\''+n.id+'\')">✕</button></div>'
+    +(n.tx?'<div class="nt-body">'+esc(n.tx)+"</div>":"")
+    +_tablaHTML(n.tb)
+    +(n.src?'<div class="nt-src">Fuente: '+esc(n.src)+"</div>":"")
+    +"</div>";
+}
+function _listaHTML(uid){
+  var L=_notas(uid);
+  if(!L.length)return '<div class="nt-empty">Aún no hay notas. Toca <b>＋ Nota</b> para escribir, pegar un extracto o insertar una tabla.</div>';
+  return L.map(function(n){return _notaHTML(uid,n)}).join("");
+}
+function _unitSub(uid){
+  var n=_notas(uid).length;
+  return (n?n+(n===1?" nota":" notas"):"Sin notas")+(DB.topics[uid]?" · estudiada ✓":"");
+}
+function ntRefresh(uid){
+  var l=document.getElementById("ntl-"+uid);if(l)l.innerHTML=_listaHTML(uid);
+  var s=document.getElementById("us-"+uid);if(s)s.textContent=_unitSub(uid);
+  _fitUnit(uid);
+}
+function _fitUnit(uid){
+  var b=document.getElementById("ub-"+uid);
+  if(b&&b.previousElementSibling&&b.previousElementSibling.classList.contains("open"))b.style.maxHeight="none";
+}
+
+/* Editor */
+window._ned=null;
+function nedOpen(uid,id){
+  var n=id?_notas(uid).find(function(x){return x.id===id}):null;
+  if(window._ned&&window._ned.uid!==uid)nedCancel();
+  window._ned={uid:uid,id:id||null,tp:n?n.tp:"apunte",tt:n?n.tt||"":"",tx:n?n.tx||"":"",src:n?n.src||"":"",tb:n&&n.tb?JSON.parse(JSON.stringify(n.tb)):null};
+  _nedRender(true);
+}
+function _nedSync(){
+  var s=window._ned;if(!s)return;
+  var g=function(i){var e=document.getElementById(i);return e?e.value:null};
+  if(g("ned-tt")!=null)s.tt=g("ned-tt");
+  if(g("ned-tx")!=null)s.tx=g("ned-tx");
+  if(g("ned-src")!=null)s.src=g("ned-src");
+  if(s.tb){document.querySelectorAll("#ned-grid input").forEach(function(inp){var r=+inp.dataset.r,c=+inp.dataset.c;if(s.tb[r])s.tb[r][c]=inp.value})}
+}
+function _nedRender(focus){
+  var s=window._ned;if(!s)return;
+  var box=document.getElementById("ned-"+s.uid);if(!box)return;
+  var types=Object.keys(NT).map(function(k){return '<button class="nt-chip'+(s.tp===k?" on":"")+'" style="--nc:'+NT[k][2]+'" onclick="nedType(\''+k+'\')">'+NT[k][0]+" "+NT[k][1]+"</button>"}).join("");
+  var grid="";
+  if(s.tb){
+    grid='<div class="nt-grid"><table>'+s.tb.map(function(r,ri){return "<tr>"+r.map(function(c,ci){return '<td><input data-r="'+ri+'" data-c="'+ci+'" value="'+esc(c)+'" placeholder="'+(ri===0?"Título":"…")+'"></td>'}).join("")+"</tr>"}).join("")+"</table></div>"
+      +'<div class="nt-tools"><button class="nt-tb" onclick="nedTb(1,0)">＋ Fila</button><button class="nt-tb" onclick="nedTb(0,1)">＋ Columna</button><button class="nt-tb" onclick="nedTb(-1,0)">− Fila</button><button class="nt-tb" onclick="nedTb(0,-1)">− Columna</button><button class="nt-tb" onclick="nedTbOff()">Quitar tabla</button></div>';
+  }
+  var ph={apunte:"Escribe tu apunte…",def:"Concepto: significado en tus palabras…",form:"Ej: M = Σ(T − T₀)·Δt  (qué es cada variable)",ej:"Planteamiento y resultado…",duda:"¿Qué no entendiste? Pregúntalo en la próxima clase.",ext:"Pega aquí el texto copiado del PPT, PDF o apunte…"}[s.tp];
+  box.innerHTML='<div class="nt-ed">'
+    +'<div class="nt-types">'+types+"</div>"
+    +'<input class="nt-in" id="ned-tt" placeholder="Título (opcional)" value="'+esc(s.tt)+'">'
+    +'<textarea class="nt-ta" id="ned-tx" placeholder="'+ph+'">'+esc(s.tx)+"</textarea>"
+    +'<div class="nt-tools"><button class="nt-tb'+(s.tb?" on":"")+'" onclick="nedTabla()">▦ Insertar tabla</button><button class="nt-tb" onclick="nedPegar()">📋 Pegar extracto</button></div>'
+    +'<div id="ned-grid">'+grid+"</div>"
+    +((s.tp==="ext"||s.src)?'<input class="nt-in" id="ned-src" placeholder="Fuente (ej: PPT clase 3, diapositiva 12)" value="'+esc(s.src)+'">':"")
+    +'<div class="nt-save"><button onclick="nedCancel()">Cancelar</button><button class="pri" onclick="nedSave()">Guardar nota</button></div>'
+    +"</div>";
+  _fitUnit(s.uid);
+  if(focus){var t=document.getElementById("ned-tx");if(t){t.focus({preventScroll:true});box.scrollIntoView({behavior:"smooth",block:"nearest"})}}
+}
+function nedType(k){_nedSync();window._ned.tp=k;_nedRender()}
+function nedTabla(){_nedSync();var s=window._ned;if(!s.tb)s.tb=[["",""],["",""],["",""]];_nedRender();var f=document.querySelector("#ned-grid input");if(f)f.focus()}
+function nedTbOff(){_nedSync();window._ned.tb=null;_nedRender()}
+function nedTb(dr,dc){
+  _nedSync();var tb=window._ned.tb;if(!tb)return;var cols=tb[0].length;
+  if(dr>0)tb.push(new Array(cols).fill(""));
+  if(dr<0&&tb.length>1)tb.pop();
+  if(dc>0)tb.forEach(function(r){r.push("")});
+  if(dc<0&&cols>1)tb.forEach(function(r){r.pop()});
+  _nedRender();
+}
+function nedPegar(){
+  _nedSync();var s=window._ned;
+  var poner=function(txt){
+    if(!txt){toast("El portapapeles está vacío");return}
+    if(s.tp==="apunte"&&!s.tx)s.tp="ext";
+    s.tx=(s.tx?s.tx.replace(/\s*$/,"")+"\n\n":"")+txt.trim();
+    /* Si lo pegado parece una tabla (columnas con tabulación), ofrecerla como tabla */
+    var filas=txt.trim().split(/\r?\n/);
+    if(filas.length>1&&filas.every(function(f){return f.indexOf("\t")>=0})){s.tb=filas.map(function(f){return f.split("\t")});s.tx=s.tx.replace(txt.trim(),"").trim();toast("Tabla detectada ✓")}
+    _nedRender();
+  };
+  try{
+    if(navigator.clipboard&&navigator.clipboard.readText){navigator.clipboard.readText().then(poner,function(){_pegarManual()});return}
+  }catch(e){}
+  _pegarManual();
+}
+function _pegarManual(){
+  var s=window._ned;if(s.tp==="apunte"&&!s.tx){s.tp="ext";_nedRender()}
+  var t=document.getElementById("ned-tx");if(t)t.focus();
+  toast("Mantén presionado el cuadro de texto y elige Pegar");
+}
+function nedCancel(){var s=window._ned;window._ned=null;if(!s)return;var b=document.getElementById("ned-"+s.uid);if(b)b.innerHTML=""}
+function nedSave(){
+  _nedSync();var s=window._ned;if(!s)return;
+  var tb=s.tb&&s.tb.some(function(r){return r.some(function(c){return c.trim()})})?s.tb:null;
+  if(!s.tx.trim()&&!tb&&!s.tt.trim()){toast("La nota está vacía");return}
+  var L=_notas(s.uid),n={id:s.id||("n"+Date.now().toString(36)),tp:s.tp,tt:s.tt.trim(),tx:s.tx.replace(/\s+$/,""),src:(s.src||"").trim(),tb:tb,ts:Date.now()};
+  var i=L.findIndex(function(x){return x.id===n.id});
+  if(i>=0)L[i]=n;else L.unshift(n);
+  save();nedCancel();ntRefresh(s.uid);
+  if(typeof markStreak==="function")markStreak();
+  toast("Nota guardada ✓");
+}
+function ntDel(btn,uid,id){
+  if(!btn.classList.contains("warn")){btn.classList.add("warn");btn.textContent="¿?";btn.title="Toca otra vez para borrar";setTimeout(function(){btn.classList.remove("warn");btn.textContent="✕"},3000);return}
+  DB.notes2[uid]=_notas(uid).filter(function(x){return x.id!==id});save();ntRefresh(uid);toast("Nota borrada");
+}
+function _copiar(txt){
+  var ok=function(){toast("Copiado ✓ · pégalo donde quieras")};
+  var fb=function(){var ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){toast("No se pudo copiar")}ta.remove()};
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fb);return}}catch(e){}
+  fb();
+}
+function ntCopy(uid,id){
+  var n=_notas(uid).find(function(x){return x.id===id});if(!n)return;
+  var p=[];if(n.tt)p.push(n.tt);if(n.tx)p.push(n.tx);
+  if(n.tb)p.push(n.tb.map(function(r){return r.join("\t")}).join("\n"));
+  if(n.src)p.push("Fuente: "+n.src);
+  _copiar(p.join("\n\n"));
+}
+function uRename(uid,def){
+  document.getElementById("ct-sheetTitle").textContent="Nombre de la unidad";
+  document.getElementById("ct-sheetBody").innerHTML='<div class="field"><label>Ej: Unidad 1 · Clasificación de suelos</label><input id="un-in" value="'+esc(DB.unitNames[uid]||def)+'"></div><button class="btn primary" onclick="uRenameOk(\''+uid+'\')">Guardar</button>';
+  openSheet();setTimeout(function(){var i=document.getElementById("un-in");if(i){i.focus();i.select()}},300);
+}
+function uRenameOk(uid){
+  var v=(document.getElementById("un-in").value||"").trim();
+  if(v)DB.unitNames[uid]=v;else delete DB.unitNames[uid];
+  save();closeSheet();var e=document.getElementById("un-"+uid);if(e)e.textContent=v||e.dataset.def;
+}
+function uEstudiada(uid,btn){
+  toggleTopic(uid);
+  if(btn){btn.classList.toggle("on",!!DB.topics[uid]);btn.textContent=DB.topics[uid]?"✓ Estudiada":"○ Marcar estudiada"}
+  var s=document.getElementById("us-"+uid);if(s)s.textContent=_unitSub(uid);
+}
+function toggleRpUnit(btn){
+  var b=btn.nextElementSibling,abrir=!btn.classList.contains("open");
+  btn.classList.toggle("open",abrir);
+  if(abrir){b.style.maxHeight=b.scrollHeight+"px";clearTimeout(b._t);b._t=setTimeout(function(){if(btn.classList.contains("open"))b.style.maxHeight="none"},460)}
+  else{b.style.maxHeight=b.scrollHeight+"px";requestAnimationFrame(function(){requestAnimationFrame(function(){b.style.maxHeight=""})})}
+}
+
+/* ── Panel del ramo (compacto, desplegable tipo micelio) ── */
+function _unidadHTML(rid,uid,nombre,num,abierta){
+  var done=!!DB.topics[uid];
+  return '<div class="rp-unit">'
+    +'<button class="rp-unit-head'+(abierta?" open":"")+'" onclick="toggleRpUnit(this)">'
+    +'<div class="u-num">'+num+'</div>'
+    +'<div class="u-info"><div class="u-name" id="un-'+uid+'" data-def="'+esc(nombre)+'">'+esc(DB.unitNames[uid]||nombre)+'</div><div class="u-sub" id="us-'+uid+'">'+_unitSub(uid)+"</div></div>"
+    +'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>'
+    +"</button>"
+    +'<div class="rp-unit-body" id="ub-'+uid+'"'+(abierta?' style="max-height:none"':"")+'><div class="rp-unit-inner">'
+    +'<div class="u-acts"><button class="u-act add" onclick="nedOpen(\''+uid+'\')">＋ Nota</button>'
+    +(num!=="📌"?'<button class="u-act'+(done?" on":"")+'" onclick="uEstudiada(\''+uid+'\',this)">'+(done?"✓ Estudiada":"○ Marcar estudiada")+"</button>":"")
+    +(num!=="📌"?'<button class="u-act" onclick="uRename(\''+uid+'\',\''+esc(nombre)+'\')">✎ Nombre</button>':"")
+    +'<button class="u-act" onclick="openVideo(\''+uid+'\')">▶ '+((DB.videos&&DB.videos[uid])?"Video ✓":"Video")+"</button></div>"
+    +'<div id="ned-'+uid+'"></div>'
+    +'<div class="nt-list" id="ntl-'+uid+'">'+_listaHTML(uid)+"</div>"
+    +"</div></div></div>";
+}
+function openRamoPanel(rid){
+  var r=findRamo(rid);
+  if(!r){toast("Ramo no encontrado");return}
+  window._ned=null;
+  _currentRamoId=rid;DB.lastRamo=rid;save();
+  var sem=MALLA.find(function(s){return s.ramos.find(function(x){return x.id===rid})});
+  var clases=_clasesDe(rid),c=clases[0];
+  var semLabel=sem?sem.sem+"° semestre":(c?"Este semestre":"Formación general");
+  var done=countDone(rid),pct=Math.round(done/r.units*100)||0;
+  var prox=_evsDe(rid,true)[0];
+  var panel=document.getElementById("ramo-panel");if(!panel)return;
+  panel.querySelector(".rp-eyebrow").textContent=semLabel;
+  panel.querySelector("#rp-title-text").textContent=r.nom;
+  var h='<div class="rp-hero">'
+    +'<div class="rp-sem">'+(r.ic||"📚")+" "+(r.cod&&r.cod!=="—"?r.cod:(c?c.sigla:""))+(c?" · "+esc(c.prof):"")+"</div>"
+    +'<div class="rp-meta">'+(clases.length?clases.map(function(x){return x.dia+" "+x.ini+(x.tbd?" (por confirmar)":"")}).join(" · ")+" · ":"")+r.units+" unidades</div>"
+    +'<div class="rp-prog-row"><span class="rp-prog-label">Unidades estudiadas</span><span class="rp-pct">'+pct+"%</span></div>"
+    +'<div class="pbar"><i style="width:'+pct+'%"></i></div>'
+    +(prox?'<div style="margin-top:10px;font-size:.8rem;color:var(--text-2)">Próxima: <b style="color:var(--text)">'+esc(prox.nom)+'</b> · <span style="color:'+_cColor(prox.fecha)+';font-weight:700">'+_cuenta(prox.fecha)+"</span></div>":"")
+    +"</div>";
+  if(r.hasEvaluate){
+    h+='<div class="hormigon-cta" onclick="goToHormigon()" style="margin:0 0 12px;padding:12px 14px"><span class="hcta-icon">🪨</span><div class="hcta-info"><div class="hcta-title">Módulo de Hormigón</div><div class="hcta-sub">3 unidades + Evalúate</div></div><span class="hcta-arr">→</span></div>';
+  }
+  h+='<div class="rp-tools">'
+    +'<button class="rp-tool" onclick="closeRamoPanel();nav(\'programacion\',\''+rid+'\')">🗓️ Programación</button>'
+    +'<button class="rp-tool" onclick="closeRamoPanel();mycEstudiar(\''+(c?c.sigla:"")+'\')">⏱️ Estudiar 25 min</button>'
+    +'<button class="rp-tool" onclick="closeRamoPanel();nav(\'flashcards\')">🃏 Flashcards</button>'
+    +'<button class="rp-tool" onclick="closeRamoPanel();nav(\'tests\')">📝 Test</button>'
+    +"</div>";
+  h+=_unidadHTML(rid,rid+"_gen","Notas generales del ramo","📌",false);
+  for(var i=0;i<r.units;i++){
+    var isProj=(i===r.units-1);
+    h+=_unidadHTML(rid,rid+"_u"+i,isProj?"Proyecto final":"Unidad "+(i+1),isProj?"★":String(i+1),false);
+  }
+  panel.querySelector(".rp-body").innerHTML=h;
+  panel.classList.add("open");
+  panel.scrollTop=0;
+}
+
+/* ── Clase en el horario → info + entrar o programación ── */
+function mycAbrirClase(sigla,sala){
+  var all=MYCELION_CONFIG.horario.filter(function(x){return x.sigla===sigla});
+  var c=all.find(function(x){return x.sala===sala})||all[0];if(!c)return;
+  var rid=_ridDe(sigla),prox=rid?_evsDe(rid,true)[0]:null;
+  var enCampus=(MYCELION_CONFIG.campus&&MYCELION_CONFIG.campus.salas||[]).some(function(s){return s.id===c.sala});
+  document.getElementById("ct-sheetTitle").textContent=c.sigla==="ING"?"Inglés":c.sigla;
+  document.getElementById("ct-sheetBody").innerHTML=
+    '<div class="cls-top" style="--cc:'+c.color+'">● '+all.map(function(x){return x.dia+" "+x.ini+"–"+x.fin}).join(" · ")+(c.tbd?" · por confirmar":"")+"</div>"
+    +'<div class="cls-name">'+esc(c.nombre)+"</div>"
+    +'<div class="cls-info"><div><b>Profesor</b>'+esc(c.prof||"–")+'</div><div><b>Sala</b>'+esc(c.sala||"–")+'</div><div><b>Créditos</b>'+(c.creditos||"–")+'</div><div><b>Correo</b>'+esc(c.correo||"–")+"</div></div>"
+    +(prox?'<div class="cls-next">📅 <b>'+esc(prox.nom)+"</b> "+_cuenta(prox.fecha)+(prox.pond?" · "+prox.pond+"%":"")+"</div>":"")
+    +'<div class="cls-q">¿Qué quieres hacer?</div>'
+    +'<div class="cls-acts">'
+    +'<button class="cls-act pri" onclick="closeSheet();openRamoPanel(\''+rid+'\')"><span class="i">📚</span><span class="t">Entrar al ramo</span><span class="d">Unidades y notas</span></button>'
+    +'<button class="cls-act" onclick="closeSheet();nav(\'programacion\',\''+rid+'\')"><span class="i">🗓️</span><span class="t">Programación</span><span class="d">Evaluaciones por fecha</span></button>'
+    +"</div>"
+    +'<div class="cls-mini">'
+    +'<button onclick="closeSheet();mycEstudiar(\''+c.sigla+'\')">⏱️ Estudiar 25 min</button>'
+    +(c.correo?'<button onclick="_copiar(\''+esc(c.correo)+'\')">✉️ Copiar correo</button>':"")
+    +(enCampus?'<button onclick="closeSheet();nav(\'campus\')">📍 Campus</button>':"")
+    +"</div>";
+  openSheet();
+}
+function mycEstudiar(sigla){
+  try{var s=JSON.parse(localStorage.getItem("myc_foco")||"null")||{preset:0,mode:"foco",endAt:0,left:1500,ramo:""};if(sigla)s.ramo=sigla;localStorage.setItem("myc_foco",JSON.stringify(s));
+    nav("foco");if(!s.endAt&&typeof focoToggle==="function")focoToggle();}catch(e){nav("foco")}
+}
+
+/* ══════════ PROGRAMACIÓN (evaluaciones por fecha) ══════════ */
+window._pgR="";
+function viewProgramacion(){
+  var R=_ramosSemestre(),rid=window._pgR;
+  var h='<div class="view active"><div class="view-head"><div class="eyebrow">PROGRAMACIÓN</div><h2>Evaluaciones</h2><p class="desc" style="font-size:.84rem;color:var(--text-3);margin-top:4px">Anota cada prueba con su fecha y ponderación. La app te avisa y calcula tu promedio.</p></div>';
+  h+='<div class="pg-chips"><button class="pg-chip'+(!rid?" on":"")+'" onclick="pgRamo(\'\')">Todas</button>'
+    +R.map(function(x){return '<button class="pg-chip'+(rid===x.rid?" on":"")+'" style="--cc:'+x.c.color+'" onclick="pgRamo(\''+x.rid+'\')">'+(x.c.sigla==="ING"?"Inglés":x.c.sigla)+"</button>"}).join("")+"</div>";
+  var evs=_evsDe(rid,false);
+  if(rid){
+    var r=findRamo(rid),con=evs.filter(function(e){return _num(e.nota)!=null&&_num(e.pond)}),sp=0,sn=0;
+    con.forEach(function(e){sp+=_num(e.pond);sn+=_num(e.nota)*_num(e.pond)});
+    var prom=sp?sn/sp:null,totP=evs.reduce(function(a,e){return a+(_num(e.pond)||0)},0),falta=Math.max(0,100-sp);
+    h+='<div style="font-family:var(--font-display);font-weight:700;margin:0 0 8px">'+esc(r?r.nom:rid)+"</div>";
+    h+='<div class="pg-sum"><div><b>'+_fmtN(prom)+'</b><span>Promedio</span></div><div><b>'+Math.round(sp)+'%</b><span>Evaluado</span></div><div><b>'+evs.length+'</b><span>Evaluaciones</span></div></div>';
+    if(sp>0&&falta>0){
+      var need=(4*100-sn)/falta;
+      h+='<div class="pg-need">'+(need<=1?"🎉 Ya tienes asegurado el 4,0 con lo que llevas.":need>7?"⚠️ Necesitarías más de 7,0 en el "+Math.round(falta)+"% restante. Habla con tu profesor sobre el examen.":"Para aprobar con 4,0 necesitas promediar <b>"+_fmtN(need)+"</b> en el "+Math.round(falta)+"% que falta.")+"</div>";
+    } else if(totP&&totP!==100){
+      h+='<div class="pg-need">Las ponderaciones suman '+Math.round(totP)+"%. Revisa que lleguen a 100%.</div>";
+    }
+  }
+  h+='<button class="pg-add" onclick="pgForm()">＋ Agregar evaluación</button>';
+  if(!evs.length){
+    h+='<div class="nt-empty" style="text-align:center;padding:18px 8px">Sin evaluaciones registradas'+(rid?" en este ramo":"")+'.<br>Cópialas del programa del ramo o de Vivo Duoc.</div>';
+  } else {
+    var mesN=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],ult="";
+    var prox=evs.filter(function(e){return _dias(e.fecha)>=0&&_num(e.nota)==null&&!e.done}),pas=evs.filter(function(e){return prox.indexOf(e)<0});
+    var item=function(e){
+      var d=new Date(e.fecha+"T00:00:00"),rr=findRamo(e.ramo),col=e.ramo?_colorDe(e.ramo):"var(--accent)",hecho=_num(e.nota)!=null||e.done||_dias(e.fecha)<0;
+      return '<div class="ev'+(hecho?" done":"")+'" style="--cc:'+col+'">'
+        +'<div class="ev-d"><b>'+d.getDate()+"</b><span>"+["dom","lun","mar","mié","jue","vie","sáb"][d.getDay()]+"</span></div>"
+        +'<div class="ev-i" onclick="pgForm(\''+e.id+'\')"><div class="ev-t">'+esc(e.nom)+'</div><div class="ev-s">'+esc(e.tipo||"Evaluación")+(e.pond?" · "+e.pond+"%":"")+(e.hora?" · "+e.hora:"")+(!rid&&rr?" · "+esc(rr.nom):"")+"</div>"
+        +(!hecho?'<div class="ev-c" style="color:'+_cColor(e.fecha)+'">'+_cuenta(e.fecha)+"</div>":"")+"</div>"
+        +'<input class="ev-n" inputmode="decimal" placeholder="nota" value="'+(e.nota!=null?_fmtN(_num(e.nota)):"")+'" onchange="pgNota(\''+e.id+'\',this.value)">'
+        +'<button class="ev-x" onclick="pgDel(this,\''+e.id+'\')">✕</button></div>';
+    };
+    prox.forEach(function(e){var m=mesN[+e.fecha.slice(5,7)-1];if(m!==ult){h+='<div class="pg-mes">'+m+"</div>";ult=m}h+=item(e)});
+    if(pas.length){h+='<div class="pg-mes">Realizadas</div>';pas.slice().reverse().forEach(function(e){h+=item(e)})}
+  }
+  return h+"</div>";
+}
+function pgRamo(rid){window._pgR=rid;nav("programacion",rid)}
+function pgForm(id){
+  var e=id?(DB.tasks||[]).find(function(t){return t.id===id}):null,R=_ramosSemestre();
+  var hoy=new Date(),hs=hoy.getFullYear()+"-"+String(hoy.getMonth()+1).padStart(2,"0")+"-"+String(hoy.getDate()).padStart(2,"0");
+  var sel=e?e.ramo:window._pgR;
+  document.getElementById("ct-sheetTitle").textContent=e?"Editar evaluación":"Nueva evaluación";
+  document.getElementById("ct-sheetBody").innerHTML='<div class="pg-form">'
+    +'<div class="full"><label>Ramo</label><select id="pg-r"><option value="">— Sin ramo —</option>'+R.map(function(x){return '<option value="'+x.rid+'"'+(sel===x.rid?" selected":"")+">"+esc(x.r.nom)+"</option>"}).join("")+"</select></div>"
+    +'<div class="full"><label>Nombre</label><input id="pg-n" placeholder="Ej: Prueba 1 · Clasificación de suelos" value="'+esc(e?e.nom:"")+'"></div>'
+    +'<div><label>Tipo</label><select id="pg-t">'+["Prueba","Control","Trabajo","Informe","Presentación","Examen","Laboratorio","Otro"].map(function(t){return "<option"+(e&&e.tipo===t?" selected":"")+">"+t+"</option>"}).join("")+"</select></div>"
+    +'<div><label>Ponderación %</label><input id="pg-p" inputmode="decimal" placeholder="25" value="'+(e&&e.pond!=null?e.pond:"")+'"></div>'
+    +'<div><label>Fecha</label><input id="pg-f" type="date" value="'+(e?e.fecha:hs)+'"></div>'
+    +'<div><label>Hora (opcional)</label><input id="pg-h" type="time" value="'+(e&&e.hora?e.hora:"")+'"></div>'
+    +'<div class="full"><label>Nota obtenida (opcional)</label><input id="pg-o" inputmode="decimal" placeholder="Ej: 5,5" value="'+(e&&e.nota!=null?_fmtN(_num(e.nota)):"")+'"></div>'
+    +'<div class="full"><button class="btn primary" onclick="pgSave(\''+(id||"")+'\')">Guardar</button></div></div>';
+  openSheet();
+}
+function pgSave(id){
+  var g=function(i){return (document.getElementById(i).value||"").trim()};
+  var nom=g("pg-n"),fecha=g("pg-f");
+  if(!nom||!fecha){toast("Completa nombre y fecha");return}
+  var nota=_num(g("pg-o"));if(nota!=null&&(nota<1||nota>7)){toast("La nota va de 1,0 a 7,0");return}
+  var d={nom:nom,fecha:fecha,tipo:g("pg-t"),ramo:g("pg-r"),pond:_num(g("pg-p")),hora:g("pg-h"),nota:nota};
+  var e=id?DB.tasks.find(function(t){return t.id===id}):null;
+  if(e)Object.assign(e,d);else DB.tasks.push(Object.assign({id:"t"+Date.now().toString(36),done:false},d));
+  save();closeSheet();toast("Evaluación guardada ✓");nav("programacion",window._pgR);
+}
+function pgNota(id,v){
+  var e=DB.tasks.find(function(t){return t.id===id});if(!e)return;
+  var n=_num(v);if(n!=null&&(n<1||n>7)){toast("La nota va de 1,0 a 7,0");return}
+  e.nota=n;e.done=n!=null||e.done;save();toast(n!=null?"Nota guardada: "+_fmtN(n):"Nota borrada");nav("programacion",window._pgR);
+}
+function pgDel(btn,id){
+  if(!btn.classList.contains("warn")){btn.classList.add("warn");btn.textContent="¿?";btn.style.color="var(--danger)";setTimeout(function(){btn.classList.remove("warn");btn.textContent="✕";btn.style.color=""},3000);return}
+  DB.tasks=DB.tasks.filter(function(t){return t.id!==id});save();nav("programacion",window._pgR);
+}
+/* Cronograma antiguo = Programación */
+function viewCronograma(){window._pgR="";return viewProgramacion()}
+
+/* ══════════ Inyecciones en vistas existentes ══════════ */
+function _nocheHTML(){
+  var cfg=MYCELION_CONFIG,now=new Date(),hr=now.getHours();
+  var saludo=hr<12?"Buenos días":hr<20?"Buenas tardes":"Buenas noches";
+  var name=(DB.userName||cfg.user.nombre||"").split(" ")[0];
+  var map={1:"Lun",2:"Mar",3:"Mié",4:"Jue",5:"Vie",6:"Sáb"},dia=map[now.getDay()],min=hr*60+now.getMinutes();
+  var hoy=cfg.horario.filter(function(c){return c.dia===dia&&_hm(c.fin)>=min}).sort(function(a,b){return _hm(a.ini)-_hm(b.ini)});
+  var evs=_evsDe("",true).filter(function(e){return _dias(e.fecha)<=14}).slice(0,3);
+  var rows="";
+  hoy.forEach(function(c){rows+='<button class="noche-r" style="--cc:'+c.color+'" onclick="mycAbrirClase(\''+c.sigla+'\',\''+c.sala+'\')"><i></i><span>'+c.ini+" · "+esc(c.nombre)+'</span><span class="c" style="color:'+c.color+'">'+(_hm(c.ini)<=min?"ahora":"hoy")+"</span></button>"});
+  if(!hoy.length)rows+='<div class="noche-r"><i style="background:var(--good)"></i><span>'+(dia?"No te quedan clases hoy. Buen momento para 25 min de estudio.":"Hoy no hay clases. Avanza a tu ritmo.")+"</span></div>";
+  evs.forEach(function(e){var r=findRamo(e.ramo);rows+='<button class="noche-r" style="--cc:'+(e.ramo?_colorDe(e.ramo):"var(--accent)")+'" onclick="nav(\'programacion\',\''+(e.ramo||"")+'\')"><i></i><span>'+esc(e.nom)+(r?" · "+esc(r.nom.split(" ").slice(0,3).join(" ")):"")+'</span><span class="c" style="color:'+_cColor(e.fecha)+'">'+_cuenta(e.fecha)+"</span></button>"});
+  if(!evs.length)rows+='<button class="noche-r" onclick="nav(\'programacion\')"><i style="background:var(--text-3)"></i><span>Sin evaluaciones en las próximas 2 semanas. Toca para registrar fechas.</span></button>';
+  var last=DB.lastRamo&&findRamo(DB.lastRamo);
+  return '<div class="noche"><div class="noche-h"><b>'+saludo+", "+esc(name)+"</b><span>Tu plan de hoy</span></div>"
+    +'<div class="noche-l">'+rows+"</div>"
+    +'<div class="noche-a"><button class="pri" onclick="mycEstudiar()">⏱️ Estudiar 25 min</button>'
+    +(last?'<button onclick="openRamoPanel(\''+DB.lastRamo+'\')">📚 Seguir: '+esc(last.nom.split(" ")[0])+"</button>":"")
+    +'<button onclick="nav(\'programacion\')">🗓️ Fechas</button></div></div>';
+}
+function _semNowHTML(){
+  var R=_ramosSemestre();if(!R.length)return "";
+  return '<div class="sec-title"><h3>Este semestre</h3><div class="line"></div></div><div class="sem-now">'
+    +R.map(function(x){var p=_evsDe(x.rid,true)[0],n=0;Object.keys(DB.notes2||{}).forEach(function(k){if(k.indexOf(x.rid+"_")===0)n+=DB.notes2[k].length});
+      return '<button style="--cc:'+x.c.color+'" onclick="openRamoPanel(\''+x.rid+'\')"><div class="s">'+(x.c.sigla==="ING"?"INGLÉS":x.c.sigla)+'</div><div class="n">'+esc(x.r.nom)+'</div><div class="m">'+n+" notas"+(p?" · "+_cuenta(p.fecha):"")+"</div></button>"}).join("")
+    +'</div><div class="sec-title"><h3>Malla completa</h3><div class="line"></div></div>';
+}
+function _marcarTbd(){
+  MYCELION_CONFIG.horario.forEach(function(c){if(!c.tbd)return;document.querySelectorAll('[onclick*="mycAbrirClase(\''+c.sigla+'\'"]').forEach(function(el){if(el.classList.contains("hcell")||el.classList.contains("dcard"))el.classList.add("tbd")})});
+}
+window.focoPreset=function(i){
+  var s;try{s=JSON.parse(localStorage.getItem("myc_foco")||"null")}catch(e){}
+  s=s||{preset:0,mode:"foco",endAt:0,left:1500,ramo:""};
+  if(s.endAt&&!(window._fpT&&Date.now()-window._fpT<3500&&window._fpI===i)){window._fpT=Date.now();window._fpI=i;toast("Toca otra vez para cambiar: se reinicia el bloque");return}
+  var P=[[25,5],[50,10],[15,3]];s.preset=i;s.mode="foco";s.endAt=0;s.left=P[i][0]*60;
+  try{localStorage.setItem("myc_foco",JSON.stringify(s))}catch(e){}
+  nav("foco");
+};
+function toggleBig(el){DB.settings.big=!DB.settings.big;save();document.body.dataset.big=DB.settings.big?"on":"";if(el)el.classList.toggle("on",DB.settings.big)}
+
+window.addEventListener("load",function(){
+  var n=window.nav;if(typeof n!=="function")return;
+  window.nav=function(v,arg){
+    if(v==="cronograma")v="programacion";
+    if(v==="programacion"){
+      if(arg!==undefined)window._pgR=arg||"";
+      var r=n.call(this,"mas");var m=document.getElementById("main");if(m)m.innerHTML=viewProgramacion();
+      var ey=document.getElementById("tbEyebrow"),ti=document.getElementById("tbTitle");if(ey)ey.textContent="PROGRAMACIÓN";if(ti)ti.textContent="Evaluaciones";
+      window._mycLastView="programacion";if(window._mycSyncTabs)_mycSyncTabs("horario");return r;
+    }
+    var out=n.apply(this,arguments);
+    try{
+      var main=document.getElementById("main");
+      if(v==="dashboard"&&main){var hero=main.querySelector(".myc-hero");if(hero)hero.insertAdjacentHTML("afterend",_nocheHTML())}
+      if(v==="ajustes"&&main){
+        var g=main.querySelector(".theme-grid");
+        if(g)g.insertAdjacentHTML("afterbegin",'<button class="theme-opt '+(DB.settings.theme==="noche"?"sel":"")+'" onclick="setTheme(\'noche\')"><span class="theme-swatch" style="background:linear-gradient(135deg,#14110f,#f0a65a)"></span><span><span class="tn">Noche</span><br><span class="td">Cálido, cansa menos la vista</span></span></button>');
+        var sw=main.querySelector(".switch-row");
+        if(sw)sw.insertAdjacentHTML("afterend",'<div class="switch-row"><div class="sr-t"><div class="n">Letra grande</div><div class="d">Textos más grandes para leer cansado.</div></div><div class="sw '+(DB.settings.big?"on":"")+'" onclick="toggleBig(this)"></div></div>');
+      }
+      if(v==="horario"||v==="dashboard")_marcarTbd();
+    }catch(e){console.warn("v16 inject",e)}
+    return out;
+  };
+  window.nav._myc=1;
+});
+</script>
+
+<style id="myc17-css">
+/* v1.7 · Mallas 2024/2026, comparación, horario real */
+.hgrid{grid-template-columns:repeat(6,minmax(150px,1fr))!important;min-width:910px!important}
+.hgrid-timecol{display:none!important}
+.mseg{display:flex;gap:4px;padding:4px;border-radius:14px;background:var(--surface);border:1px solid var(--line-soft);margin:0 0 14px}
+.mseg button{flex:1;padding:9px 6px;border-radius:10px;font-size:.78rem;font-weight:700;color:var(--text-3);line-height:1.2}
+.mseg button.on{background:var(--accent);color:var(--accent-ink)}
+.mseg small{display:block;font-weight:500;font-size:.62rem;opacity:.8}
+.rl-tag{font-family:var(--font-mono);font-size:.54rem;padding:2px 6px;border-radius:5px;border:1px solid var(--line-soft);color:var(--text-3);flex:none}
+.m26-sem{margin-bottom:14px}
+.m26-h{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:.9rem;margin:0 0 6px}
+.m26-h .n{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--surface-2);font-family:var(--font-mono);font-size:.72rem;color:var(--accent)}
+.m26-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.m26-c{background:var(--surface);border:1px solid var(--line-soft);border-left:3px solid var(--kc);border-radius:10px;padding:8px 9px;text-align:left;color:var(--text);min-width:0}
+.m26-c .c{font-family:var(--font-mono);font-size:.56rem;color:var(--text-3)}
+.m26-c .t{font-size:.76rem;font-weight:600;line-height:1.25;margin-top:1px}
+.m26-leg{display:flex;flex-wrap:wrap;gap:10px;font-size:.68rem;color:var(--text-3);margin:-4px 0 12px}
+.m26-leg i{display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--kc);margin-right:4px}
+.cmp-k{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.cmp-k div{background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;padding:8px 4px;text-align:center}
+.cmp-k b{display:block;font-family:var(--font-display);font-size:1.1rem}
+.cmp-k span{font-size:.6rem;color:var(--text-3)}
+.cmp-note{font-size:.76rem;color:var(--text-3);margin:-4px 0 12px}
+.cmp-row{display:grid;grid-template-columns:1fr 18px 1fr;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line-soft);font-size:.76rem}
+.cmp-row .a{color:var(--text-2)}
+.cmp-row .b{color:var(--text)}
+.cmp-row .b small,.cmp-row .a small{display:block;font-family:var(--font-mono);font-size:.56rem;color:var(--text-3)}
+.cmp-row .x{color:var(--text-3);text-align:center}
+.cmp-st{font-family:var(--font-mono);font-size:.54rem;padding:1px 5px;border-radius:4px;margin-left:4px;vertical-align:1px}
+.st-igual{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.st-cambia{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+.st-fusion{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.st-sale{background:color-mix(in srgb,var(--danger) 18%,transparent);color:var(--danger)}
+.hyb{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:12px;margin-bottom:10px}
+.hyb h4{font-family:var(--font-display);font-size:.9rem;margin-bottom:6px}
+.hyb-r{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line-soft);font-size:.78rem;color:var(--text-2);width:100%;text-align:left}
+.hyb-r b{color:var(--text);font-weight:600}
+.hyb-r .go{margin-left:auto;color:var(--accent);font-family:var(--font-mono);font-size:.62rem;white-space:nowrap}
+.new-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.new-list button{padding:7px 10px;border-radius:100px;font-size:.72rem;background:var(--surface);border:1px solid var(--line-soft);color:var(--text-2)}
+</style>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   v1.7 · Horario real (Vivo Duoc), malla 2024 completa,
+   pestaña malla 2026, comparación y ruta híbrida
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Horario: Inglés Intermedio I y Economía según Vivo Duoc ── */
+(function(){
+  try{
+    if(+(localStorage.getItem("myc_cfg_v")||0)>=17)return;
+    var C=MYCELION_CONFIG,H=C.horario.filter(function(c){return c.sigla!=="ING"});
+    H.forEach(function(c){if(c.sigla==="EPK6111"){c.dia="Jue";c.ini="16:40";c.fin="18:50";c.sala="CO-H409";c.prof="Eva Gabriela Vásquez Hernández";c.correo="";}});
+    ["Lun","Jue"].forEach(function(d){H.push({sigla:"ING",nombre:"Inglés Intermedio I",prof:"Jorge Antonio Ruiz Burdiles",correo:"",sala:"CO-H504",dia:d,ini:"13:00",fin:"14:20",color:"#FF6FA3",creditos:0})});
+    C.horario=H;
+    var S=C.campus&&C.campus.salas;
+    if(S){
+      S.forEach(function(s){if(s.ramo==="EPK6111"){s.id="CO-H409";s.piso=4;s.grid=[0,0]}});
+      if(!S.some(function(s){return s.id==="CO-H504"}))S.push({id:"CO-H504",edificio:"H",piso:5,grid:[1,2],ramo:"ING",color:"#FF6FA3"});
+    }
+    if(localStorage.getItem("mycelion_config")){var s=JSON.parse(localStorage.getItem("mycelion_config"));s.horario=C.horario;if(C.campus)s.campus=C.campus;localStorage.setItem("mycelion_config",JSON.stringify(s));}
+    localStorage.setItem("myc_cfg_v","17");
+  }catch(e){console.warn("horario v17",e)}
+})();
+
+/* ── Malla 2024 completa (la de Matías). Se conservan los id para no perder avance ── */
+(function(){
+  var R=function(id,nom,ic,units,x){return Object.assign({id:id,cod:"—",nom:nom,ic:ic,units:units},x||{})};
+  var G={gen:true},I={gen:true,ing:true};
+  var M24=[
+    {sem:1,titulo:"Planos y obra gruesa",ramos:[R("herr-dig","Herramientas Digitales","💻",4),R("interp-planos","Interpretación de Planos","📐",4),R("partidas-gruesa","Partidas de Obra Gruesa","🏗️",4),R("taller-gruesa","Taller de Obra Gruesa","⚒️",3),R("g-com-basica","Habilidades Básicas de Comunicación","💬",3,G),R("g-nivelacion","Nivelación Matemática","➕",3,G),R("g-formas","Formas y Espacio","📦",3,G)]},
+    {sem:2,titulo:"Oficina técnica y terminaciones",ramos:[R("cubicacion","Cubicación","📏",4),R("dibujo-lectura","Dibujo y Lectura de Planos","📋",4),R("partidas-term","Partidas de Terminaciones","🪟",4),R("taller-term","Taller de Terminaciones","🔨",3),R("g-comunicacion","Habilidades de Comunicación Efectiva","💬",3,G),R("g-algebra","Álgebra","➗",4,G),R("ing-b1","Inglés Básico I","🌐",3,I)]},
+    {sem:3,titulo:"Obras civiles y costos",ramos:[R("presup-costos","Presupuesto y Análisis de Costos","💰",5),R("obras-civiles","Obras Civiles","🏛️",4),R("estructuras","Estructuras","🔩",5),R("legisl-seg","Legislación y Seguridad","⚠️",4),R("topografia","Topografía","🗺️",4),R("g-emprend","Mentalidad Emprendedora","🚀",3,G),R("ing-b2","Inglés Básico II","🌐",3,I),R("g-antropo","Fundamentos de Antropología","🧠",3,G)]},
+    {sem:4,titulo:"Hormigón e instalaciones",ramos:[R("planif-partidas","Planificación y Control de Partidas","📅",4),R("taller-hormigon","Taller de Hormigón","🪨",5,{hasEvaluate:true}),R("instal-dom","Instalaciones Domiciliarias","🚿",4),R("instal-domic","Taller de Instalaciones Domiciliarias","🔌",4),R("ing-e1","Inglés Elemental I","🌐",3,I),R("g-etica-t","Ética para el Trabajo","⚖️",3,G),R("g-cristiana","Curso de Formación Cristiana","✝️",3,G)]},
+    {sem:5,titulo:"Programación y obras civiles",ramos:[R("prog-obras","Programación de Obras","📊",4),R("contab-constr","Contabilidad en la Construcción","🧾",4),R("obras-infra","Obras de Infraestructura","🛣️",5),R("tec-hormigon","Tecnología del Hormigón","🪨",5,{cod:"OCK5141",hasEvaluate:true}),R("g-calculo","Cálculo Diferencial","∫",4,G),R("ing-e2","Inglés Elemental II","🌐",3,I)]},
+    {sem:6,titulo:"Dirección de obras y suelos",ramos:[R("econ-eval","Economía y Evaluación de Proyectos","📈",4),R("model-coord","Modelamiento y Coordinación de Proyectos","🏠",5),R("obras-viales","Obras Viales","🛤️",5),R("mec-suelos","Mecánica de Suelos","🌍",5),R("taller-suelos","Taller de Mecánica de Suelos","⚗️",3),R("analisis-estruct","Análisis Estructural","📐",5),R("g-estadistica","Estadística Descriptiva","📉",4,G),R("ing-int1","Inglés Intermedio I","🌐",3,I)]},
+    {sem:7,titulo:"Propuestas, calidad y estructuras",ramos:[R("estudio-prop","Estudio de Propuestas","📋",5),R("gest-calidad","Gestión de Calidad","✅",4),R("gest-personas","Gestión de Personas","👥",4),R("constr-sust","Construcción Sustentable","🌱",4),R("admin-log","Administración y Logística de Obras","⚙️",5),R("taller-estruct","Taller de Estructuras","🔩",4),R("g-herr-emp","Herramientas para el Emprendimiento","🧰",3,G),R("ing-int2","Inglés Intermedio II","🌐",3,I),R("g-etica-p","Ética Profesional","⚖️",3,G)]},
+    {sem:8,titulo:"Título",ramos:[R("portafolio","Portafolio de Título","🎓",3),R("practica","Práctica Profesional","🏆",3)]}
+  ];
+  /* conserva siglas ya asignadas (ej. OCK6141) */
+  var old={};MALLA.forEach(function(s){s.ramos.forEach(function(r){old[r.id]=r})});GENERAL.forEach(function(r){old[r.id]=r});
+  M24.forEach(function(s){s.ramos.forEach(function(r){var o=old[r.id];if(o&&o.cod&&o.cod!=="—"&&r.cod==="—"&&!/^SCK/.test(o.cod))r.cod=o.cod})});
+  MALLA.length=0;M24.forEach(function(s){MALLA.push(s)});
+  GENERAL.length=0;
+  GENERAL.push({id:"portafolio6",cod:"APK6431",nom:"Proceso de Portafolio (1° a 7°)",ic:"📁",units:3},{id:"form-compl",cod:"—",nom:"Formación Complementaria",ic:"🧩",units:3});
+  EXTRA_RAMOS.length=0;
+  SIG2RAMO.ING="ing-int1";
+})();
+
+/* ── Malla 2026 (solo asignaturas; el contenido se carga después) ── */
+const K26={e:["Especialidad","#F08A3C"],s:["Formación sello","#E9B949"],g:["Formación general","#5E9C76"],o:["Optativa","#8E6AA8"]};
+const MALLA26=[
+  {sem:1,r:[["CDC1101","Fundamentos Topográficos","e"],["SCK1101","Taller de Obras de Construcción","e"],["CGK1101","Construcción y Sociedad","e"],["MAT1121","Habilidades Numéricas","g"],["PLC1110","Habilidades de Comunicación","g"]]},
+  {sem:2,r:[["SCK1102","Taller de Instalaciones","e"],["OTK1101","IA en Obras de Construcción","e"],["OTK1102","Cubicaciones","e"],["CGK1102","IA en Herramientas Digitales","e"],["FC-OPT","Formación Cristiana (optativo)","s"],["MAT2140","Matemáticas para el Análisis Técnico","g"]]},
+  {sem:3,r:[["SCK1103","Obras Civiles","e"],["SCK1104","Taller de Hormigón","e"],["OTK1103","Costos y Presupuestos","e"],["CGK1103","Gestión de Riesgos en la Construcción","e"],["FCE1100","Fundamentos de Antropología","s"],["OPT-3","Optativo Disciplinar e Interdisciplinar","o"]]},
+  {sem:4,r:[["SCK1105","Comportamiento Estructural","e"],["SCK1106","Sostenibilidad y Economía Circular","e"],["OTK1104","Diagnóstico y Recuperación de Edificaciones","e"],["OTK1105","Planificación y Programación de Proyectos","e"],["EAK2220","Ética para el Trabajo","s"],["INV1201","Gestión de la Microempresa","g"],["OPT-4","Formación de Capacidades y Competencias Globales","o"]]},
+  {sem:5,r:[["SCK1107","Mecánica de Suelos","e"],["SCK1108","Análisis Estructural y Comportamiento Sísmico","e"],["OTK1106","Instalaciones Especiales","e"],["CGK1104","Gestión de Calidad","e"],["CGK1105","Coordinación BIM","e"],["MAT4132","Análisis de Datos","g"]]},
+  {sem:6,r:[["SCK1109","Tecnología del Hormigón","e"],["OTK1107","Obras de Infraestructura","e"],["CGK1106","Gestión del Agua en la Construcción","e"],["CGK1107","Gestión Avanzada de Proyectos","e"],["CGK1108","Gestión de Negocios y Evaluación de Proyectos","e"],["FCCG-6","Formación de Capacidades y Competencias Globales (optativo)","s"],["OPT-67","Optativo Disciplinar e Interdisciplinar (6° y 7°)","o"]]},
+  {sem:7,r:[["OTK1108","Estudio de Propuestas","e"],["OTK1109","Edificación en Altura","e"],["CGK1109","Optimización y Productividad","e"],["CGK1110","Liderazgo y Gestión de Personas","e"],["EAK4315","Ética Profesional","s"]]},
+  {sem:8,r:[["TCK1102","Taller Integrado","e"],["PCK1102","Práctica Profesional","e"]]}
+];
+function _r26(code){for(var i=0;i<MALLA26.length;i++){var x=MALLA26[i].r.find(function(r){return r[0]===code});if(x)return {id:"m26-"+code,cod:/-/.test(code)?"—":code,nom:x[1],ic:"🆕",units:4,sem26:MALLA26[i].sem,k:x[2]}}return null}
+
+/* 2024 → 2026 (equivalencia estimada por nombre y contenido; Duoc define las convalidaciones oficiales) */
+const EQ=[
+  ["herr-dig",["CGK1102"],"cambia"],["interp-planos",[],"sale"],["dibujo-lectura",[],"sale"],
+  ["partidas-gruesa",["SCK1101"],"fusion"],["taller-gruesa",["SCK1101"],"fusion"],["partidas-term",["SCK1101"],"fusion"],["taller-term",["SCK1101"],"fusion"],
+  ["cubicacion",["OTK1102"],"igual"],["presup-costos",["OTK1103"],"cambia"],["obras-civiles",["SCK1103"],"igual"],
+  ["estructuras",["SCK1105"],"cambia"],["legisl-seg",["CGK1103"],"cambia"],["topografia",["CDC1101"],"cambia"],
+  ["planif-partidas",["OTK1105"],"fusion"],["prog-obras",["OTK1105"],"fusion"],["taller-hormigon",["SCK1104"],"igual"],
+  ["instal-dom",["SCK1102"],"fusion"],["instal-domic",["SCK1102"],"fusion"],["contab-constr",["CGK1108"],"fusion"],
+  ["obras-infra",["OTK1107"],"igual"],["tec-hormigon",["SCK1109"],"igual"],["econ-eval",["CGK1108"],"cambia"],
+  ["model-coord",["CGK1105"],"cambia"],["obras-viales",["OTK1107"],"fusion"],["mec-suelos",["SCK1107"],"igual"],
+  ["taller-suelos",["SCK1107"],"fusion"],["analisis-estruct",["SCK1108"],"cambia"],["estudio-prop",["OTK1108"],"igual"],
+  ["gest-calidad",["CGK1104"],"igual"],["gest-personas",["CGK1110"],"cambia"],["constr-sust",["SCK1106"],"cambia"],
+  ["admin-log",["CGK1109","CGK1107"],"cambia"],["taller-estruct",["OTK1109"],"cambia"],["portafolio",["TCK1102"],"cambia"],["practica",["PCK1102"],"igual"],
+  ["g-nivelacion",["MAT1121"],"cambia"],["g-algebra",["MAT2140"],"cambia"],["g-calculo",[],"sale"],["g-estadistica",["MAT4132"],"cambia"],
+  ["g-com-basica",["PLC1110"],"fusion"],["g-comunicacion",["PLC1110"],"fusion"],["g-formas",[],"sale"],
+  ["g-emprend",["INV1201"],"fusion"],["g-herr-emp",["INV1201"],"fusion"],
+  ["ing-b1",[],"sale"],["ing-b2",[],"sale"],["ing-e1",[],"sale"],["ing-e2",[],"sale"],["ing-int1",[],"sale"],["ing-int2",[],"sale"],
+  ["g-antropo",["FCE1100"],"igual"],["g-etica-t",["EAK2220"],"igual"],["g-etica-p",["EAK4315"],"igual"],["g-cristiana",["FC-OPT"],"cambia"]
+];
+const ST={igual:"igual",cambia:"cambia",fusion:"se fusiona",sale:"sale"};
+function _eqDe(rid){var e=EQ.find(function(x){return x[0]===rid});return e?e[1]:[]}
+function _eq24De(code){return EQ.filter(function(x){return x[1].indexOf(code)>=0}).map(function(x){return findRamo(x[0])}).filter(Boolean)}
+const NUEVOS26=["OTK1101","CGK1101","OTK1104","OTK1106","CGK1106","CGK1107","OTK1109","CGK1109","SCK1106"];
+
+/* findRamo también conoce la malla 2026 */
+(function(){
+  var prev=findRamo;
+  window.findRamo=findRamo=function(id){if(id&&id.indexOf("m26-")===0)return _r26(id.slice(4));return prev(id)};
+})();
+
+/* Panel del ramo: enlace entre 2024 y 2026 */
+(function(){
+  var prev=openRamoPanel;
+  window.openRamoPanel=openRamoPanel=function(rid){
+    prev(rid);
+    var r=findRamo(rid),panel=document.getElementById("ramo-panel");if(!r||!panel)return;
+    var tools=panel.querySelector(".rp-tools");
+    if(r.sem26){
+      panel.querySelector(".rp-eyebrow").textContent="Malla 2026 · "+r.sem26+"° semestre";
+      var eq=_eq24De(r.cod==="—"?rid.slice(4):r.cod);
+      var html='<div class="cmp-note" style="margin:0 0 10px">'+K26[r.k][0]+(eq.length?" · En tu malla 2024 equivale a: "+eq.map(function(x){return '<b style="color:var(--text)">'+esc(x.nom)+"</b>"}).join(", "):" · Asignatura nueva en 2026")+"</div>";
+      var hero=panel.querySelector(".rp-hero");if(hero)hero.insertAdjacentHTML("afterend",html);
+      if(tools)eq.forEach(function(x){tools.insertAdjacentHTML("afterbegin",'<button class="rp-tool" onclick="openRamoPanel(\''+x.id+'\')">↩ 2024: '+esc(x.nom.split(" ").slice(0,2).join(" "))+"</button>")});
+    } else if(tools){
+      _eqDe(rid).forEach(function(c){var x=_r26(c);if(x)tools.insertAdjacentHTML("beforeend",'<button class="rp-tool" onclick="openRamoPanel(\'m26-'+c+'\')">🔄 Versión 2026: '+esc(x.nom.split(" ").slice(0,3).join(" "))+"</button>")});
+    }
+  };
+})();
+
+/* ── Vista Ramos con pestañas ── */
+window._mallaTab=(function(){try{return localStorage.getItem("myc_malla_tab")||"24"}catch(e){return "24"}})();
+function mallaTab(t){window._mallaTab=t;try{localStorage.setItem("myc_malla_tab",t)}catch(e){}nav("ramos")}
+function _ramos24(){
+  var h="";
+  if(typeof _semNowHTML==="function")h+=_semNowHTML();
+  MALLA.forEach(function(s){
+    var done=s.ramos.reduce(function(a,r){return a+countDone(r.id)},0),total=s.ramos.reduce(function(a,r){return a+r.units},0),pct=Math.round(done/total*100)||0;
+    var actual=s.sem===(MYCELION_CONFIG.progreso.semestreActual||0);
+    h+='<div class="sem-section"><button class="sem-toggle'+(actual?" open":"")+'" data-sem="'+s.sem+'" onclick="toggleSemList(this)"><div class="s-num">'+s.sem+'</div><div class="s-name">'+s.titulo+(actual?' <span style="color:var(--accent);font-size:.7rem">· cursando</span>':"")+'</div><span style="font-family:var(--font-mono);font-size:.66rem;color:var(--accent);margin-right:6px">'+pct+'%</span><svg class="s-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>'
+      +'<div class="sem-courses-list"'+(actual?' style="max-height:none"':"")+">";
+    s.ramos.forEach(function(r){
+      var p=Math.round(countDone(r.id)/r.units*100)||0;
+      h+='<button class="ramo-link'+(r.hasEvaluate?" star-link":"")+'" onclick="openRamoPanel(\''+r.id+'\')"><span class="rl-dot"></span><span class="rl-ic" style="font-size:.9rem;flex:none;width:20px">'+(r.ic||"📚")+'</span><span class="rl-name">'+esc(r.nom)+"</span>"
+        +(r.ing?'<span class="rl-tag">INGLÉS</span>':r.gen?'<span class="rl-tag">GENERAL</span>':"")
+        +(r.hasEvaluate?'<span class="rl-tag" style="color:var(--accent)">🎮 EVAL</span>':"")
+        +'<span class="rl-pct">'+(p>0?p+"%":"")+'</span><span style="color:var(--text-3);font-size:.9rem;flex:none">›</span></button>';
+    });
+    h+="</div></div>";
+  });
+  h+='<div class="sec-title"><h3>Transversal</h3><div class="line"></div></div><div class="sem-courses-list" style="max-height:none">';
+  GENERAL.forEach(function(r){h+='<button class="ramo-link" onclick="openRamoPanel(\''+r.id+'\')"><span class="rl-dot"></span><span style="font-size:.9rem;width:20px;flex:none">'+(r.ic||"📚")+'</span><span class="rl-name">'+esc(r.nom)+"</span>›</button>"});
+  return h+"</div>";
+}
+function _ramos26(){
+  var h='<div class="m26-leg">'+Object.keys(K26).map(function(k){return '<span style="--kc:'+K26[k][1]+'"><i></i>'+K26[k][0]+"</span>"}).join("")+"</div>";
+  MALLA26.forEach(function(s){
+    h+='<div class="m26-sem"><div class="m26-h"><span class="n">'+s.sem+"</span>"+s.sem+'° semestre</div><div class="m26-grid">'
+      +s.r.map(function(x){return '<button class="m26-c" style="--kc:'+K26[x[2]][1]+'" onclick="openRamoPanel(\'m26-'+x[0]+'\')"><div class="c">'+(/-/.test(x[0])?"OPTATIVO":x[0])+'</div><div class="t">'+esc(x[1])+"</div></button>"}).join("")+"</div></div>";
+  });
+  return h;
+}
+function _ramosCmp(){
+  var n={igual:0,cambia:0,fusion:0,sale:0};EQ.forEach(function(e){n[e[2]]++});
+  var h='<div class="cmp-k"><div><b>'+n.igual+'</b><span>iguales</span></div><div><b>'+n.cambia+'</b><span>cambian</span></div><div><b>'+n.fusion+'</b><span>se fusionan</span></div><div><b>'+n.sale+'</b><span>salen</span></div></div>';
+  h+='<div class="cmp-note">Comparación por nombre y contenido. Las convalidaciones oficiales las define Duoc UC.</div>';
+  /* Ruta híbrida: lo que le queda a Matías (6°, 7° y 8°) con el enfoque 2026 */
+  var semA=MYCELION_CONFIG.progreso.semestreActual||6;
+  h+='<div class="sec-title"><h3>Tu ruta híbrida</h3><div class="line"></div></div><div class="cmp-note">Sigues tu malla 2024 y, en cada ramo, estudias además lo nuevo de su versión 2026. Toca para abrir.</div>';
+  MALLA.filter(function(s){return s.sem>=semA}).forEach(function(s){
+    var rows="";
+    s.ramos.forEach(function(r){var eq=_eqDe(r.id).map(_r26).filter(Boolean);if(!eq.length)return;
+      var e=EQ.find(function(x){return x[0]===r.id});if(e&&e[2]==="igual")return;
+      rows+='<button class="hyb-r" onclick="openRamoPanel(\''+eq[0].id+'\')"><span><b>'+esc(r.nom)+"</b> + "+eq.map(function(x){return esc(x.nom)}).join(" / ")+'</span><span class="go">2026 ›</span></button>'});
+    if(rows)h+='<div class="hyb"><h4>'+s.sem+"° semestre"+(s.sem===semA?" · ahora":"")+"</h4>"+rows+"</div>";
+  });
+  h+='<div class="sec-title"><h3>Nuevo en 2026</h3><div class="line"></div></div><div class="cmp-note">Temas que tu malla no tiene. Buen material extra si quieres actualizarte.</div><div class="new-list">'
+    +NUEVOS26.map(function(c){var x=_r26(c);return '<button onclick="openRamoPanel(\'m26-'+c+'\')">'+esc(x.nom)+" · "+x.sem26+"°</button>"}).join("")+"</div>";
+  h+='<div class="sec-title"><h3>Ramo por ramo</h3><div class="line"></div></div>';
+  MALLA.forEach(function(s){s.ramos.forEach(function(r){
+    var e=EQ.find(function(x){return x[0]===r.id});if(!e)return;
+    var b=e[1].map(_r26).filter(Boolean);
+    h+='<div class="cmp-row"><div class="a">'+esc(r.nom)+"<small>2024 · "+s.sem+'°</small></div><div class="x">→</div><div class="b">'
+      +(b.length?b.map(function(x){return esc(x.nom)+"<small>"+x.cod+" · "+x.sem26+"°</small>"}).join(""):'<span style="color:var(--text-3)">Sin equivalente</span>')
+      +'<span class="cmp-st st-'+e[2]+'">'+ST[e[2]]+"</span></div></div>";
+  })});
+  return h;
+}
+function viewRamos(){
+  var t=window._mallaTab||"24";
+  var h='<div class="view active"><div class="view-head"><div class="eyebrow">MALLA CURRICULAR</div><h2>Ramos</h2></div>'
+    +'<div class="mseg"><button class="'+(t==="24"?"on":"")+'" onclick="mallaTab(\'24\')">Malla 2024<small>la tuya</small></button><button class="'+(t==="26"?"on":"")+'" onclick="mallaTab(\'26\')">Malla 2026<small>asignaturas</small></button><button class="'+(t==="cmp"?"on":"")+'" onclick="mallaTab(\'cmp\')">Qué cambia<small>y ruta híbrida</small></button></div>';
+  h+=t==="26"?_ramos26():t==="cmp"?_ramosCmp():_ramos24();
+  return h+"</div>";
+}
+</script>
+
+<style id="myc-v18">/* ══ v1.8 · Mecánica de Suelos · pestaña ramo abierto · Calendar ══ */
+#tb-evaluate{display:none!important}
+#tb-hormigon .tab-ic{font-size:20px;line-height:1}
+#tb-hormigon .tab-lbl{max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.pg-det{background:var(--surface);border:1px solid var(--line-soft);border-left:4px solid var(--cc,var(--accent));border-radius:14px;padding:12px 14px;margin:0 0 12px}
+.pg-det .t{font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:2px}
+.pg-det .s{font-family:var(--font-mono);font-size:.72rem;color:var(--cc,var(--accent));margin-bottom:8px}
+.pg-det .g{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:.8rem;color:var(--text-2)}
+.pg-det .g b{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);font-weight:600}
+.pg-det .a{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.pg-det .a button{padding:7px 11px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line-soft);color:var(--text);font-size:.76rem;font-weight:600}
+.pg-cal{width:100%;margin:0 0 10px;padding:11px;border-radius:12px;border:1px dashed var(--accent);background:transparent;color:var(--accent);font-weight:700;font-size:.84rem}
+.gc-list{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.gc-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line-soft)}
+.gc-row .i{flex:1;min-width:0}
+.gc-row .i b{display:block;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gc-row .i span{font-size:.72rem;color:var(--text-3)}
+.gc-row a{flex:none;padding:6px 10px;border-radius:9px;background:var(--accent);color:var(--accent-ink);font-size:.74rem;font-weight:700;text-decoration:none}
+.gc-note{font-size:.76rem;color:var(--text-3);line-height:1.45}
+.gc-acts{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+
+/* ── módulo Suelos ── */
+.ms-hero{background:linear-gradient(135deg,color-mix(in srgb,#8B5E3C 30%,var(--surface)),var(--surface));border:1px solid var(--line-soft);border-radius:18px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.ms-hero::after{content:"";position:absolute;right:-20px;bottom:-30px;width:150px;height:110px;background:repeating-linear-gradient(0deg,transparent 0 14px,rgba(139,94,60,.18) 14px 28px);border-radius:50%;pointer-events:none}
+.ms-hero .k{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;color:var(--text-3)}
+.ms-hero h3{font-family:var(--font-display);font-size:1.35rem;margin:4px 0 2px}
+.ms-hero .m{font-size:.8rem;color:var(--text-2)}
+.ms-hero .bar{height:6px;border-radius:4px;background:var(--bg-2);margin-top:12px;overflow:hidden}
+.ms-hero .bar i{display:block;height:100%;background:#C98A55;border-radius:4px}
+.ms-tabs{display:flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;margin-bottom:12px;position:sticky;top:0;z-index:5}
+.ms-tabs button{flex:1;padding:9px 4px;border-radius:10px;font-size:.78rem;font-weight:700;color:var(--text-3);background:transparent;border:0}
+.ms-tabs button.on{background:var(--bg-2);color:var(--text)}
+.ms-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:13px 14px;margin-bottom:10px}
+.ms-card h4{font-family:var(--font-display);font-size:.95rem;margin:0 0 6px}
+.ms-card p,.ms-card li{font-size:.84rem;line-height:1.5;color:var(--text-2)}
+.ms-card ul{padding-left:18px;margin:4px 0}
+.ms-card b{color:var(--text)}
+.ms-eval{border-color:#C98A55;background:color-mix(in srgb,#C98A55 10%,var(--surface))}
+.ms-u{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.ms-uh{width:100%;display:flex;align-items:center;gap:10px;padding:12px 14px;background:transparent;border:0;color:var(--text);text-align:left}
+.ms-uh .n{width:32px;height:32px;flex:none;border-radius:10px;display:grid;place-items:center;font-weight:800;background:var(--bg-2);color:#C98A55;font-family:var(--font-mono)}
+.ms-uh .n.ok{background:#C98A55;color:#fff}
+.ms-uh .x{flex:1;min-width:0}
+.ms-uh .x b{display:block;font-size:.9rem}
+.ms-uh .x span{font-size:.72rem;color:var(--text-3)}
+.ms-uh svg{width:18px;height:18px;color:var(--text-3);transition:transform .2s}
+.ms-u.open .ms-uh svg{transform:rotate(90deg)}
+.ms-ub{display:none;padding:0 14px 14px}
+.ms-u.open .ms-ub{display:block}
+.ms-ub h5{font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:#C98A55;margin:14px 0 6px}
+.ms-ub p,.ms-ub li{font-size:.85rem;line-height:1.55;color:var(--text-2)}
+.ms-ub ul{padding-left:18px;margin:2px 0}
+.ms-ub b{color:var(--text)}
+.ms-ojo{margin-top:10px;padding:9px 11px;border-radius:10px;background:color-mix(in srgb,var(--warn,#e9a23b) 12%,transparent);font-size:.8rem;color:var(--text-2);line-height:1.45}
+.ms-tw{overflow-x:auto;margin:6px 0;-webkit-overflow-scrolling:touch}
+.ms-tw table{border-collapse:collapse;font-size:.76rem;min-width:100%}
+.ms-tw th,.ms-tw td{border:1px solid var(--line-soft);padding:5px 7px;text-align:left;white-space:nowrap}
+.ms-tw th{background:var(--bg-2);color:var(--text);font-weight:700}
+.ms-tw td{color:var(--text-2)}
+.ms-f{font-family:var(--font-mono);font-size:.82rem;background:var(--bg-2);border-radius:8px;padding:7px 9px;margin:4px 0;color:var(--text);overflow-x:auto;white-space:nowrap}
+.ms-ua{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.ms-ua button{padding:8px 12px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line-soft);color:var(--text);font-size:.78rem;font-weight:700}
+.ms-ua button.on{background:#C98A55;border-color:#C98A55;color:#fff}
+.ms-fg h4{display:flex;justify-content:space-between;align-items:center}
+.ms-fg h4 button{font-size:.7rem;padding:4px 8px;border-radius:8px;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--text-2)}
+.ms-fr{display:flex;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px dashed var(--line-soft)}
+.ms-fr:last-child{border-bottom:0}
+.ms-fr .l{flex:none;width:42%;font-size:.76rem;color:var(--text-3)}
+.ms-fr .e{flex:1;min-width:0;font-family:var(--font-mono);font-size:.8rem;color:var(--text);overflow-x:auto;white-space:nowrap}
+.ms-calc{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.ms-calc>button{width:100%;display:flex;gap:10px;align-items:center;padding:12px 14px;background:transparent;border:0;color:var(--text);text-align:left;font-weight:700;font-size:.88rem}
+.ms-calc>button span{flex:1}
+.ms-calc>button small{font-weight:500;color:var(--text-3);font-size:.72rem;display:block}
+.ms-cb{display:none;padding:0 14px 14px}
+.ms-calc.open .ms-cb{display:block}
+.ms-in{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ms-in label{font-size:.7rem;color:var(--text-3);display:block;margin-bottom:3px}
+.ms-in input,.ms-in select{width:100%;padding:9px 10px;border-radius:10px;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--text);font-size:.9rem;font-family:var(--font-mono)}
+.ms-out{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--bg-2);font-size:.82rem;line-height:1.6;color:var(--text-2)}
+.ms-out b{color:var(--text);font-family:var(--font-mono)}
+.ms-out .big{font-size:1.15rem;font-family:var(--font-display);color:#C98A55;font-weight:800}
+.ms-q{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:13px 14px;margin-bottom:10px}
+.ms-q .p{font-size:.88rem;font-weight:600;margin-bottom:8px;line-height:1.45}
+.ms-q .o{display:flex;flex-direction:column;gap:6px}
+.ms-q .o button{text-align:left;padding:9px 11px;border-radius:10px;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--text);font-size:.82rem}
+.ms-q .o button.ok{border-color:#3BAA6B;background:color-mix(in srgb,#3BAA6B 18%,var(--bg-2))}
+.ms-q .o button.ko{border-color:#D9534F;background:color-mix(in srgb,#D9534F 16%,var(--bg-2))}
+.ms-q .ex{display:none;margin-top:8px;font-size:.8rem;color:var(--text-2);line-height:1.5}
+.ms-q.done .ex{display:block}
+.ms-score{font-family:var(--font-mono);font-size:.78rem;color:var(--text-3);margin:0 0 10px}
+.ms-step{display:none}
+.ms-step.show{display:block}
+.ms-step{padding:8px 10px;border-left:3px solid #C98A55;margin:6px 0;background:var(--bg-2);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text-2);line-height:1.5}
+.ms-step b{color:var(--text)}
+.ms-cta{margin:0 0 12px;padding:12px 14px;border-radius:14px;display:flex;gap:10px;align-items:center;background:linear-gradient(135deg,color-mix(in srgb,#8B5E3C 35%,var(--surface)),var(--surface));border:1px solid #C98A55;cursor:pointer}
+.ms-cta .i{font-size:1.5rem}
+.ms-cta .t{flex:1}
+.ms-cta .t b{display:block;font-size:.9rem}
+.ms-cta .t span{font-size:.74rem;color:var(--text-2)}
+</style>
+<script>
+/* ══════════════════════════════════════════════════════
+   MYCELION OS v1.8
+   · Pestaña inferior = ramo abierto (sale Evalúate)
+   · Programación con nombres de ramo + ficha del curso
+   · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
+   · Módulo Mecánica de Suelos (OCK6141)
+   ══════════════════════════════════════════════════════ */
+var CORTO={"model-coord":"Modelamiento","analisis-estruct":"Análisis Estructural","econ-eval":"Economía","mec-suelos":"Mecánica de Suelos","taller-suelos":"Taller de Suelos","g-estadistica":"Estadística","portafolio6":"Portafolio","ing-int1":"Inglés","tec-hormigon":"Hormigón","taller-hormigon":"Taller Hormigón"};
+var TABN={"mec-suelos":"Suelos","model-coord":"Modelam.","analisis-estruct":"Análisis","taller-suelos":"Taller MS","g-estadistica":"Estadística","portafolio6":"Portafolio","econ-eval":"Economía","ing-int1":"Inglés","tec-hormigon":"Hormigón"};
+function _corto(rid){var r=findRamo(rid);return CORTO[rid]||(r?r.nom.split(" ").slice(0,2).join(" "):rid)}
+function _f2(x,d){if(x==null||!isFinite(x))return "–";return Number(x).toFixed(d==null?2:d).replace(".",",")}
+function _v(id){var e=document.getElementById(id);if(!e)return NaN;var s=String(e.value||"").trim().replace(",",".");return s===""?NaN:parseFloat(s)}
+
+/* ══════════ 1 · Pestaña "ramo abierto" ══════════ */
+function _tabRamoPaint(){
+  var tb=document.getElementById("tb-hormigon");if(!tb)return;
+  var rid=DB.lastRamo||"mec-suelos",r=findRamo(rid);if(!r){rid="mec-suelos";r=findRamo(rid)}
+  tb.setAttribute("onclick","mycRamoTab()");
+  tb.setAttribute("aria-label","Ramo abierto: "+(r?r.nom:""));
+  tb.innerHTML='<span class="tab-ic">'+(r&&r.ic||"📚")+'</span><span class="tab-lbl">'+esc(TABN[rid]||_corto(rid).split(" ")[0])+"</span>";
+}
+function _tabActivo(id){document.querySelectorAll("#master-tabs .tab-btn").forEach(function(b){b.classList.toggle("active",b.id===id)})}
+function mycRamoTab(){
+  var rid=DB.lastRamo||"mec-suelos",r=findRamo(rid);
+  if(r&&r.hasEvaluate){switchTab("hormigon");_tabActivo("tb-hormigon");return}
+  if(rid==="mec-suelos"){mycGo("suelos");return}
+  mycGo("ramos");setTimeout(function(){openRamoPanel(rid);_tabActivo("tb-hormigon")},60);
+}
+(function(){
+  var _o=window.openRamoPanel;
+  window.openRamoPanel=function(rid){
+    var out=_o.apply(this,arguments);
+    try{
+      _tabRamoPaint();
+      if(rid==="mec-suelos"){
+        var body=document.querySelector("#ramo-panel .rp-body"),hero=body&&body.querySelector(".rp-hero");
+        if(hero&&!body.querySelector(".ms-cta"))hero.insertAdjacentHTML("afterend",'<div class="ms-cta" onclick="closeRamoPanel();mycGo(\'suelos\')"><span class="i">🌍</span><span class="t"><b>Módulo de estudio</b><span>4 unidades, fórmulas, calculadoras y práctica</span></span><span>→</span></div>');
+      }
+    }catch(e){}
+    return out;
+  };
+})();
+
+/* ══════════ 2 · Programación con nombres + ficha ══════════ */
+function _fichaRamo(rid){
+  var r=findRamo(rid),cl=_clasesDe(rid),c=cl[0];
+  if(!r)return "";
+  var horas=cl.map(function(x){return x.dia+" "+x.ini+"–"+x.fin}).join(" · ");
+  return '<div class="pg-det" style="--cc:'+(c?c.color:"var(--accent)")+'">'
+    +'<div class="t">'+esc(r.nom)+"</div>"
+    +'<div class="s">'+esc(c?(c.sigla==="ING"?"Inglés":c.sigla):(r.cod||""))+(c&&c.creditos?" · "+c.creditos+" créditos":"")+"</div>"
+    +'<div class="g"><div><b>Profesor</b>'+esc(c&&c.prof||"–")+'</div><div><b>Sala</b>'+esc(c&&c.sala||"–")+'</div><div><b>Horario</b>'+esc(horas||"–")+'</div><div><b>Correo</b>'+esc(c&&c.correo||"–")+"</div></div>"
+    +'<div class="a"><button onclick="openRamoPanel(\''+rid+'\')">📚 Entrar al ramo</button>'
+    +(rid==="mec-suelos"?'<button onclick="mycGo(\'suelos\')">🌍 Módulo de estudio</button>':"")
+    +(c&&c.correo?'<button onclick="_copiar(\''+esc(c.correo)+'\')">✉️ Copiar correo</button>':"")
+    +"</div></div>";
+}
+function viewProgramacion(){
+  var R=_ramosSemestre(),rid=window._pgR;
+  var h='<div class="view active"><div class="view-head"><div class="eyebrow">PROGRAMACIÓN</div><h2>Evaluaciones</h2><p class="desc" style="font-size:.84rem;color:var(--text-3);margin-top:4px">Anota cada prueba con su fecha y ponderación. La app te avisa y calcula tu promedio.</p></div>';
+  h+='<div class="pg-chips"><button class="pg-chip'+(!rid?" on":"")+'" onclick="pgRamo(\'\')">Todas</button>'
+    +R.map(function(x){return '<button class="pg-chip'+(rid===x.rid?" on":"")+'" style="--cc:'+x.c.color+'" onclick="pgRamo(\''+x.rid+'\')">'+esc(_corto(x.rid))+"</button>"}).join("")+"</div>";
+  var evs=_evsDe(rid,false);
+  if(rid){
+    var con=evs.filter(function(e){return _num(e.nota)!=null&&_num(e.pond)}),sp=0,sn=0;
+    con.forEach(function(e){sp+=_num(e.pond);sn+=_num(e.nota)*_num(e.pond)});
+    var prom=sp?sn/sp:null,totP=evs.reduce(function(a,e){return a+(_num(e.pond)||0)},0),falta=Math.max(0,100-sp);
+    h+=_fichaRamo(rid);
+    h+='<div class="pg-sum"><div><b>'+_fmtN(prom)+'</b><span>Promedio</span></div><div><b>'+Math.round(sp)+'%</b><span>Evaluado</span></div><div><b>'+evs.length+'</b><span>Evaluaciones</span></div></div>';
+    if(sp>0&&falta>0){
+      var need=(4*100-sn)/falta;
+      h+='<div class="pg-need">'+(need<=1?"🎉 Ya tienes asegurado el 4,0 con lo que llevas.":need>7?"⚠️ Necesitarías más de 7,0 en el "+Math.round(falta)+"% restante. Habla con tu profesor sobre el examen.":"Para aprobar con 4,0 necesitas promediar <b>"+_fmtN(need)+"</b> en el "+Math.round(falta)+"% que falta.")+"</div>";
+    } else if(totP&&totP!==100){
+      h+='<div class="pg-need">Las ponderaciones suman '+Math.round(totP)+"%. Revisa que lleguen a 100%.</div>";
+    }
+  }
+  h+='<button class="pg-add" onclick="pgForm()">＋ Agregar evaluación</button>';
+  if(_evsCal().length)h+='<button class="pg-cal" onclick="gcOpen()">📅 Pasar '+(_evsCal().length===1?"la evaluación":"las "+_evsCal().length+" evaluaciones")+" a Google Calendar</button>";
+  if(!evs.length){
+    h+='<div class="nt-empty" style="text-align:center;padding:18px 8px">Sin evaluaciones registradas'+(rid?" en este ramo":"")+'.<br>Cópialas del programa del ramo o de Vivo Duoc.</div>';
+  } else {
+    var mesN=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],ult="";
+    var prox=evs.filter(function(e){return _dias(e.fecha)>=0&&_num(e.nota)==null&&!e.done}),pas=evs.filter(function(e){return prox.indexOf(e)<0});
+    var item=function(e){
+      var d=new Date(e.fecha+"T00:00:00"),col=e.ramo?_colorDe(e.ramo):"var(--accent)",hecho=_num(e.nota)!=null||e.done||_dias(e.fecha)<0;
+      return '<div class="ev'+(hecho?" done":"")+'" style="--cc:'+col+'">'
+        +'<div class="ev-d"><b>'+d.getDate()+"</b><span>"+["dom","lun","mar","mié","jue","vie","sáb"][d.getDay()]+"</span></div>"
+        +'<div class="ev-i" onclick="pgForm(\''+e.id+'\')"><div class="ev-t">'+esc(e.nom)+'</div><div class="ev-s">'+esc(e.tipo||"Evaluación")+(e.pond?" · "+e.pond+"%":"")+(e.hora?" · "+e.hora:"")+(!rid&&e.ramo?" · "+esc(_corto(e.ramo)):"")+"</div>"
+        +(!hecho?'<div class="ev-c" style="color:'+_cColor(e.fecha)+'">'+_cuenta(e.fecha)+"</div>":"")+"</div>"
+        +'<input class="ev-n" inputmode="decimal" placeholder="nota" value="'+(e.nota!=null?esc(_fmtN(_num(e.nota))):"")+'" onchange="pgNota(\''+e.id+'\',this.value)">'
+        +'<button class="ev-x" onclick="pgDel(this,\''+e.id+'\')">✕</button></div>';
+    };
+    prox.forEach(function(e){var m=mesN[+e.fecha.slice(5,7)-1];if(m!==ult){h+='<div class="pg-mes">'+m+"</div>";ult=m}h+=item(e)});
+    if(pas.length){h+='<div class="pg-mes">Realizadas</div>';pas.slice().reverse().forEach(function(e){h+=item(e)})}
+  }
+  return h+"</div>";
+}
+
+/* ══════════ 3 · Google Calendar ══════════ */
+var _DIAJS={Dom:0,Lun:1,Mar:2,"Mié":3,Mie:3,Jue:4,Vie:5,"Sáb":6,Sab:6};
+function _evsCal(){return (DB.tasks||[]).filter(function(t){return t.fecha&&_dias(t.fecha)>=0&&_num(t.nota)==null&&!t.done}).sort(function(a,b){return a.fecha<b.fecha?-1:1})}
+function _gcDatos(e){
+  var r=e.ramo?findRamo(e.ramo):null,cls=e.ramo?_clasesDe(e.ramo):[];
+  var dow=new Date(e.fecha+"T00:00:00").getDay();
+  var cl=cls.find(function(c){return _DIAJS[c.dia]===dow})||null;
+  var ini=e.hora||(cl?cl.ini:""),fin="";
+  if(ini){
+    if(!e.hora&&cl)fin=cl.fin;
+    else{var p=ini.split(":"),m=(+p[0])*60+(+p[1])+90;fin=String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0")}
+  }
+  var c=cls[0];
+  return {id:e.id,titulo:(e.tipo&&e.tipo!=="Otro"&&e.nom.toLowerCase().indexOf(e.tipo.toLowerCase())!==0?e.tipo+": ":"")+e.nom+(r?" · "+_corto(e.ramo):""),
+    fecha:e.fecha,ini:ini,fin:fin,
+    lugar:c&&c.sala?"Duoc UC "+c.sala:"",
+    desc:(r?r.nom+(c?" ("+(c.sigla==="ING"?"Inglés":c.sigla)+")":"")+"\n":"")+(e.pond?"Ponderación: "+e.pond+"%\n":"")+(c&&c.prof?"Profesor: "+c.prof+"\n":"")+"Registrada en MYCELION OS [MYC:"+e.id+"]"};
+}
+function _ymd(f){return f.replace(/-/g,"")}
+function _sig(f){var d=new Date(f+"T00:00:00");d.setDate(d.getDate()+1);return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")}
+function _gcURL(g){
+  var dates=g.ini?_ymd(g.fecha)+"T"+g.ini.replace(":","")+"00/"+_ymd(g.fecha)+"T"+g.fin.replace(":","")+"00":_ymd(g.fecha)+"/"+_sig(g.fecha);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(g.titulo)+"&dates="+dates+"&ctz=America/Santiago&details="+encodeURIComponent(g.desc)+(g.lugar?"&location="+encodeURIComponent(g.lugar):"");
+}
+function _icsTxt(lista){
+  var x=function(s){return String(s).replace(/\\/g,"\\\\").replace(/\n/g,"\\n").replace(/,/g,"\\,").replace(/;/g,"\\;")};
+  var now=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
+  var L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//MYCELION OS//ES","CALSCALE:GREGORIAN","X-WR-CALNAME:Evaluaciones Duoc"];
+  lista.forEach(function(g){
+    L.push("BEGIN:VEVENT","UID:"+g.id+"@mycelion-os","DTSTAMP:"+now);
+    if(g.ini){L.push("DTSTART;TZID=America/Santiago:"+_ymd(g.fecha)+"T"+g.ini.replace(":","")+"00","DTEND;TZID=America/Santiago:"+_ymd(g.fecha)+"T"+g.fin.replace(":","")+"00")}
+    else{L.push("DTSTART;VALUE=DATE:"+_ymd(g.fecha),"DTEND;VALUE=DATE:"+_sig(g.fecha))}
+    L.push("SUMMARY:"+x(g.titulo),"DESCRIPTION:"+x(g.desc));
+    if(g.lugar)L.push("LOCATION:"+x(g.lugar));
+    L.push("BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+x(g.titulo),"TRIGGER:-P1D","END:VALARM","END:VEVENT");
+  });
+  L.push("END:VCALENDAR");return L.join("\r\n");
+}
+function _enAppsScript(){try{return typeof google!=="undefined"&&google.script&&google.script.run}catch(e){return false}}
+function gcOpen(){
+  var lista=_evsCal().map(_gcDatos);
+  document.getElementById("ct-sheetTitle").textContent="Google Calendar";
+  var h='<div class="gc-note">'+lista.length+" evaluaciones pendientes. Si no tienen hora, uso el horario de la clase de ese día; si ese día no hay clase, queda como evento de día completo. Cada una lleva aviso un día antes.</div>";
+  h+='<div class="gc-acts">';
+  if(_enAppsScript())h+='<button class="btn primary" id="gc-sync" onclick="gcSync()">📅 Agregar todas a mi Google Calendar</button>';
+  h+='<button class="btn'+(_enAppsScript()?"":" primary")+'" onclick="gcIcs()">⬇️ Descargar archivo .ics (todas juntas)</button></div>';
+  h+='<div class="gc-list">'+lista.map(function(g){
+    var d=new Date(g.fecha+"T00:00:00");
+    return '<div class="gc-row"><div class="i"><b>'+esc(g.titulo)+"</b><span>"+["dom","lun","mar","mié","jue","vie","sáb"][d.getDay()]+" "+d.getDate()+"/"+(d.getMonth()+1)+(g.ini?" · "+g.ini+"–"+g.fin:" · día completo")+'</span></div><a href="'+_gcURL(g)+'" target="_blank" rel="noopener">Agregar</a></div>';
+  }).join("")+"</div>";
+  h+='<div class="gc-note">'+(_enAppsScript()?"El botón de arriba crea los eventos directo en tu calendario y no los duplica si lo vuelves a tocar.":"El .ics se abre con Google Calendar (Configuración → Importar) o en el celular. Con “Agregar” los pasas uno por uno. En la versión de Apps Script hay un botón que los crea todos de una vez.")+"</div>";
+  document.getElementById("ct-sheetBody").innerHTML=h;openSheet();
+}
+function gcIcs(){
+  var txt=_icsTxt(_evsCal().map(_gcDatos));
+  try{
+    var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/calendar"}));a.download="evaluaciones-duoc.ics";
+    document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);
+    toast("Descargando evaluaciones-duoc.ics. Si no aparece, usa “Agregar” en cada una.",3600);
+  }catch(e){_copiar(txt);toast("No pude descargar: copié el .ics al portapapeles")}
+}
+function gcSync(){
+  var b=document.getElementById("gc-sync");if(b){b.disabled=true;b.textContent="Agregando…"}
+  google.script.run.withSuccessHandler(function(r){
+    if(b){b.disabled=false;b.textContent="📅 Agregar todas a mi Google Calendar"}
+    toast("Calendar: "+r.nuevos+" nuevas, "+r.actualizadas+" actualizadas ✓",3200);
+  }).withFailureHandler(function(err){
+    if(b){b.disabled=false;b.textContent="📅 Reintentar"}
+    toast("Calendar no respondió: "+(err&&err.message||err),4000);
+  }).agregarAlCalendar(JSON.stringify(_evsCal().map(_gcDatos)));
+}
+
+/* ══════════ 4 · MECÁNICA DE SUELOS ══════════ */
+function T(head,rows){return '<div class="ms-tw"><table><tr>'+head.map(function(x){return "<th>"+x+"</th>"}).join("")+"</tr>"+rows.map(function(r){return "<tr>"+r.map(function(x){return "<td>"+x+"</td>"}).join("")+"</tr>"}).join("")+"</table></div>"}
+function F(s){return '<div class="ms-f">'+s+"</div>"}
+var MS_U=[
+{t:"Formación y exploración del suelo",s:"EA1 · 1.1.1 y 1.1.2 · NCh 1508, SPT, Vs30",h:
+ "<h5>Qué es el suelo</h5><p>Agregado <b>no cementado</b> de partículas minerales (y algo de materia orgánica) con vacíos llenos de agua y/o aire. Nace de la <b>meteorización</b> de la roca.</p>"
++"<ul><li><b>Meteorización física</b> (temperatura, hielo, abrasión, raíces): rompe la roca sin cambiar su mineralogía → <b>gravas, arenas y limos</b>.</li><li><b>Meteorización química</b> (hidrólisis, oxidación, carbonatación, disolución): cambia los minerales → <b>arcillas</b> (caolinita, illita, montmorillonita).</li></ul>"
++"<h5>Residuales vs transportados</h5><ul><li><b>Residual:</b> se queda donde se formó, sobre su roca madre.</li><li><b>Transportados:</b> aluvial (ríos, gravas redondeadas), lacustre (lagos, finos), glaciar (mezcla sin selección), eólico (viento, arenas finas y limos), coluvial (gravedad, ladera), marino.</li></ul>"
++"<p>Perfil del suelo: horizontes O (orgánico) → A → B → C (roca meteorizada) → roca madre.</p>"
++"<h5>Suelos de Santiago (unidades)</h5>"+T(["Unidad","Material"],[["I","Roca"],["II","Grava de los ríos Maipo, Mapocho y Clarillo"],["IIIa / IIIb","Bloques y gravas de conos aluviales (IIIb con matriz areno-arcillosa)"],["IV","Gravas y bloques de remociones en masa antiguas"],["Va / Vb","Gravas con arenas, limos y arcillas / arenas con limo y arcilla"],["VI","Ceniza volcánica (pumicita)"],["VII","Limos y arcillas con intercalaciones"],["VIII","Depósitos recientes"]])
++"<h5>Exploración según NCh 1508</h5><p>Etapas: <b>gabinete</b> (antecedentes, planos, geología) → <b>campo</b> (calicatas, sondajes, geofísica) → <b>laboratorio</b> (clasificación, resistencia) → <b>informe de mecánica de suelos</b>.</p>"
++"<p><b>Profundidad mínima de exploración</b></p>"
++F("Superficiales: Zp ≥ Df + z,  z = 1,5·B  (z ≥ 2 m),  Zp mín = 2,5 m")
++"<ul><li>Profundas, bajo la punta: 5 m pilotes · 7 m cepas y estribos · 10 m grupo de pilotes.</li><li>Pozos: cada 150 m en vías urbanas, cada 250 m en caminos.</li></ul>"
++"<h5>SPT (ASTM D1586 · NCh 3364)</h5><ul><li>Martillo <b>63,5 kg</b> que cae <b>0,76 m</b>; cuchara partida en 3 tramos de 15 cm.</li><li><b>N = golpes de los dos últimos tramos</b> (el primero es de asentamiento).</li><li><b>Rechazo:</b> &gt;50 golpes en un tramo, 100 golpes en total, o 10 golpes sin avance.</li><li>Energía: Donut 45%, Safety 60%, automático 95–100%.</li></ul>"
++F("N60 = (Ef / 60)·N")+F("(N60)1 = CN·N60,  CN = (σ'v / 100 kPa)^−0,5 ≤ 1,7")+F("φ' ≈ √(15,4·(N60)1) + 20°   (Mayne 2009)")
++T(["N60","Compacidad (arenas)"],[["0–4","Muy suelta"],["4–10","Suelta"],["10–30","Media"],["30–50","Densa"],["&gt;50","Muy densa"]])
++"<h5>Muestras, RQD y Vs30</h5><ul><li>Cuchara SPT = muestra <b>alterada</b>; tubo <b>Shelby</b> = <b>inalterada</b> (finos blandos).</li><li>RQD en sondaje con testigo:</li></ul>"+F("RQD = Σ(trozos &gt; 100 mm) / largo de la corrida · 100%")
++"<p>NCh 433 clasifica el suelo sísmico por la velocidad de onda de corte en los primeros 30 m:</p>"+F("Vs30 = Σhi / Σ(hi / Vsi)")+F("G = ρ·Vs²")
++'<div class="ms-ojo">⚠️ <b>Ojo en la prueba:</b> el primer tramo de 15 cm del SPT no se cuenta. En Vs30 se promedia el tiempo de viaje (h/Vs), no las velocidades.</div>'},
+{t:"Propiedades y clasificación",s:"EA2 · 2.1.1 a 2.1.3 · entra en la Evaluación 2",h:
+ "<h5>Diagrama de fases</h5><p>Seco: vacíos con aire. No saturado: agua + aire. <b>Saturado: vacíos llenos de agua</b> (Sr = 100%).</p>"
++F("Vv = Va + Vw    Vt = Vv + Vs    Wt = Ww + Ws   (Wa = 0)")
++T(["Propiedad","Fórmula","Rango típico"],[["Humedad w","Ww / Ws","arena 20–30%, arcilla 25–60%"],["Relación de vacíos e","Vv / Vs","e &gt; 1 → muy deformable"],["Porosidad n","Vv / Vt","0 a 1"],["Saturación Sr","Vw / Vv","arcillas suelen &gt; 80%"],["Densidad relativa Dr","(emáx − e)/(emáx − emín)","0 suelto, 100% denso"],["γs (sólidos)","Ws / Vs = Gs·γw","≈ 26–27,8 kN/m³"],["γd seco","Ws / Vt","arena 14–18 kN/m³"]])
++F("n = e / (1 + e)      e = n / (1 − n)")+F("Sr·e = w·Gs")+F("γ = γd·(1 + w)      γd = Gs·γw / (1 + e)")+F("γsat = (Gs + e)·γw / (1 + e)      γ' = γsat − γw")
++"<p>Truco: si no te dan volúmenes, <b>asume Vs = 1</b> (o Vt = 1) y arma el diagrama.</p>"
++T(["Suelo","emáx","emín"],[["Arena limpia","0,9","0,2"],["Limo","1,1","0,4"],["Arcilla blanda","2,3","0,6"],["Turba","25","2"]])
++"<h5>Granulometría</h5><ul><li><b>Tamiz N°4 (4,75 mm)</b> separa grava de arena; <b>N°200 (0,075 mm)</b> separa arena de finos (limo + arcilla).</li><li>Si pasa <b>más del 50%</b> por la N°200 es <b>suelo fino</b>; si queda retenido más del 50% es <b>grueso</b>.</li></ul>"
++F("Cu = D60 / D10      Cc = D30² / (D10·D60)")
++"<ul><li>Bien graduada (W): grava Cu ≥ 4 y 1 ≤ Cc ≤ 3; arena Cu ≥ 6 y 1 ≤ Cc ≤ 3. Si no cumple, mal graduada (P).</li><li>Graduación continua = bien graduada; uniforme = mal graduada; con saltos = discontinua.</li></ul>"
++"<h5>Límites de Atterberg</h5><p>Sólido → <b>LP</b> → plástico → <b>LL</b> → líquido.</p><ul><li><b>LL</b>: humedad con que la ranura de la cuchara de Casagrande se cierra a los <b>25 golpes</b>.</li><li><b>LP</b>: humedad con que el rollito se agrieta a <b>3 mm</b> (promedio de varias determinaciones).</li></ul>"
++F("IP = LL − LP")+F("Línea A:  IP = 0,73·(LL − 20)")+F("IL = (w − LP) / IP")
++"<p>IP alto → mucha retención de agua, comportamiento arcilloso y expansivo.</p>"
++"<h5>SUCS: dos letras</h5>"+T(["1ª letra","","2ª letra",""],[["G","Grava","W","Bien graduado"],["S","Arena","P","Mal graduado"],["M","Limo","M","Con finos limosos"],["C","Arcilla","C","Con finos arcillosos"],["O","Orgánico","L","LL &lt; 50"],["Pt","Turba","H","LL ≥ 50"]])
++"<p><b>Gruesos, según finos (% que pasa N°200):</b></p><ul><li>&lt; 5% → GW, GP, SW, SP (manda la graduación).</li><li>5–12% → <b>símbolo doble</b>, ej. GW-GM “grava bien graduada con limo”.</li><li>&gt; 12% → GM, GC, SM, SC (manda la plasticidad de los finos).</li></ul>"
++"<p><b>Finos:</b> sobre la línea A y IP &gt; 7 → arcilla (CL/CH); bajo la línea A o IP &lt; 4 → limo (ML/MH). Entre 4 y 7 sobre la línea A → CL-ML.</p>"
++T(["Suelo","Drenaje"],[["CH","Prácticamente impermeable"],["ML","Pobre"],["SC","Pobre a medio"],["SM","El mejor de los cuatro"]])
++"<h5>AASHTO (caminos)</h5><p>Grupos A-1 a A-7. Granulares (A-1, A-2, A-3) si pasa ≤ 35% por la N°200; limo-arcillosos (A-4 a A-7) si pasa más. Se acompaña con el índice de grupo:</p>"
++F("IG = (F − 35)·[0,2 + 0,005·(LL − 40)] + 0,01·(F − 15)·(IP − 10)")
++'<div class="ms-ojo">⚠️ <b>Ojo en la prueba:</b> el LL <b>no</b> es una propiedad volumétrica, es un índice de consistencia. La “H” en SUCS es alerta de suelo compresible y expansivo.</div>'},
+{t:"Esfuerzos en el suelo",s:"EA3 · 3.1.1 y 3.1.2 · geostáticos y por cargas",h:
+ "<h5>Esfuerzos geostáticos (peso propio)</h5>"+F("σv = Σ γi · hi")+F("u = γw · hw   (hw = profundidad bajo el nivel freático)")+F("σ'v = σv − u      (Terzaghi)")
++"<ul><li>Sobre la napa usa γ (natural); bajo la napa usa γsat.</li><li>Atajo: bajo la napa σ'v suma γ'·h con γ' = γsat − γw.</li><li>Si el agua está <b>sobre</b> el terreno (río, lago), σ y u suben igual, así que <b>σ' no cambia</b>.</li></ul>"
++"<h5>Esfuerzo horizontal</h5>"+F("σ'h = K0 · σ'v      K0 = 1 − sen φ'   (Jaky)")+F("σh = σ'h + u")
++"<p>El coeficiente K se aplica solo al esfuerzo <b>efectivo</b>; el agua empuja igual en todas direcciones.</p>"
++"<h5>Esfuerzos por cargas (Boussinesq)</h5>"
++F("Puntual:  Δσz = 3P / (2π z²) · [1 / (1 + (r/z)²)]^(5/2)")
++F("Lineal:  Δσz = 2q z³ / [π (x² + z²)²]")
++F("Circular (centro):  Δσz = q · {1 − [1 / (1 + (R/z)²)]^(3/2)}")
++F("Rectangular (esquina):  Δσz = q · I(m, n),  m = B/z,  n = L/z")
++F("Aproximado 2:1:  Δσz = q·B·L / [(B + z)(L + z)]")
++"<p>Para un punto interior divide la fundación en rectángulos que tengan el punto en su esquina y <b>suma</b> los aportes. Después, σ' final = σ'v inicial + Δσz.</p>"
++'<div class="ms-ojo">⚠️ <b>Ojo en la prueba:</b> la presión de poros se mide desde el nivel del agua, no desde la superficie. En el ábaco I(m,n), m y n son intercambiables.</div>'},
+{t:"Empuje de tierras: Rankine y Coulomb",s:"EA4 · 4.1.1 y 4.1.2 · muros de contención",h:
+ '<div class="ms-ojo">ℹ️ Los PPT de Rankine y Coulomb llegaron vacíos (una diapositiva en blanco). Esta unidad está armada con la teoría estándar (Das, Budhu). Compárala con lo que pase el profe en clase.</div>'
++"<h5>Tres estados</h5><ul><li><b>Reposo (K0)</b>: el muro no se mueve. K0 = 1 − sen φ'.</li><li><b>Activo (Ka)</b>: el muro se aleja del suelo; el empuje baja al mínimo.</li><li><b>Pasivo (Kp)</b>: el muro empuja contra el suelo; el empuje sube al máximo.</li></ul><p>Siempre Ka &lt; K0 &lt; Kp.</p>"
++"<h5>Rankine (muro vertical liso, relleno horizontal)</h5>"
++F("Ka = tan²(45° − φ/2) = (1 − sen φ)/(1 + sen φ)")+F("Kp = tan²(45° + φ/2) = 1 / Ka")
++F("σ'a = Ka·σ'v − 2c·√Ka      σ'p = Kp·σ'v + 2c·√Kp")
++F("Pa = ½·Ka·γ·H²   (aplicada a H/3 desde la base)")+F("Pp = ½·Kp·γ·H²")
++F("Sobrecarga q:  Pq = Ka·q·H   (a H/2)")+F("Grieta de tracción (c ≠ 0):  zc = 2c / (γ·√Ka)")
++"<p><b>Con napa:</b> bajo el agua usa γ' en el empuje del suelo y suma aparte el empuje del agua ½·γw·hw² (sin Ka).</p>"
++"<h5>Coulomb (cuña de falla con roce muro-suelo δ)</h5><p>Considera el roce δ entre muro y suelo, la inclinación del muro θ (desde la vertical) y la pendiente del relleno β. Pa queda inclinado δ respecto de la normal al muro.</p>"
++F("Ka = cos²(φ − θ) / { cos²θ · cos(δ + θ) · [1 + √( sen(φ+δ)·sen(φ−β) / (cos(δ+θ)·cos(θ−β)) )]² }")
++"<p>Con θ = β = δ = 0, Coulomb da lo mismo que Rankine. Valores típicos: δ ≈ ⅔φ.</p>"
++T(["φ","Ka Rankine","Kp Rankine"],[["25°","0,406","2,464"],["30°","0,333","3,000"],["35°","0,271","3,690"],["40°","0,217","4,599"]])
++'<div class="ms-ojo">⚠️ <b>Ojo en la prueba:</b> la resultante de un diagrama triangular va a H/3 desde la base; la de una sobrecarga uniforme va a H/2. Suma momentos por separado.</div>'}
+];
+var MS_FORM=[
+["Fases",[["Humedad","w = Ww / Ws"],["Relación de vacíos","e = Vv / Vs"],["Porosidad","n = Vv / Vt = e/(1+e)"],["Saturación","Sr = Vw / Vv"],["Relación clave","Sr·e = w·Gs"],["Densidad relativa","Dr = (emáx−e)/(emáx−emín)"],["Peso de sólidos","Ws = Gs·γw·Vs"],["Seco ↔ húmedo","γ = γd(1+w)"],["Seco","γd = Gs·γw/(1+e)"],["Saturado","γsat = (Gs+e)·γw/(1+e)"],["Sumergido","γ' = γsat − γw"]]],
+["Granulometría y Atterberg",[["Uniformidad","Cu = D60/D10"],["Curvatura","Cc = D30²/(D10·D60)"],["Índice plástico","IP = LL − LP"],["Línea A","IP = 0,73(LL−20)"],["Índice de liquidez","IL = (w−LP)/IP"],["Índice de grupo","IG=(F−35)[0,2+0,005(LL−40)]+0,01(F−15)(IP−10)"]]],
+["Exploración",[["Prof. superficial","Zp ≥ Df + 1,5B (z ≥ 2 m)"],["SPT energía","N60 = (Ef/60)·N"],["SPT sobrecarga","(N60)1 = (σ'v/100)^−0,5·N60"],["Fricción (Mayne)","φ' = √(15,4(N60)1) + 20°"],["Vs30","Σhi / Σ(hi/Vsi)"],["Módulo de corte","G = ρ·Vs²"],["RQD","Σ(>100 mm)/L·100%"]]],
+["Esfuerzos",[["Total","σv = Σγi·hi"],["Poros","u = γw·hw"],["Efectivo","σ' = σ − u"],["Horizontal","σ'h = K0·σ'v"],["Jaky","K0 = 1 − sen φ'"],["Puntual","Δσ = 3P/(2πz²)·[1+(r/z)²]^−5/2"],["Rectángulo","Δσ = q·I(B/z, L/z)"],["2:1","Δσ = qBL/[(B+z)(L+z)]"]]],
+["Empuje",[["Ka Rankine","tan²(45 − φ/2)"],["Kp Rankine","tan²(45 + φ/2)"],["Activo con c","σ'a = Ka·σ'v − 2c√Ka"],["Resultante","Pa = ½KaγH² a H/3"],["Sobrecarga","Pq = Ka·q·H a H/2"],["Grieta","zc = 2c/(γ√Ka)"]]]
+];
+var MS_Q=[
+["¿Qué tipo de meteorización produce principalmente arcillas?",["Física","Química","Eólica","Glaciar"],1,"La meteorización química altera los minerales (hidrólisis, oxidación) y genera minerales arcillosos. La física solo fragmenta."],
+["En el SPT, el valor N corresponde a:",["Los golpes de los 3 tramos","Los golpes del primer tramo","Los golpes de los dos últimos tramos de 15 cm","Los golpes hasta el rechazo"],2,"El primer tramo de 15 cm es de asentamiento. N = suma de los tramos 2 y 3."],
+["Masa y altura de caída del martillo SPT:",["63,5 kg y 0,76 m","50 kg y 1 m","63,5 kg y 0,50 m","100 kg y 0,76 m"],0,"Martillo de 63,5 kg (140 lb) que cae 0,76 m (30 pulgadas)."],
+["Una zapata con B = 2 m y Df = 1,5 m. Profundidad mínima de exploración:",["2,5 m","3,5 m","4,5 m","3,0 m"],2,"Zp ≥ Df + 1,5B = 1,5 + 3,0 = 4,5 m (mayor que 2,5 m)."],
+["¿Cuál NO es una propiedad volumétrica/gravimétrica?",["Relación de vacíos","Peso específico","Límite líquido","Densidad"],2,"El LL es un índice de consistencia: la humedad donde el suelo pasa de plástico a líquido."],
+["Si e = 0,75, la porosidad es:",["0,43","0,57","0,75","1,33"],0,"n = e/(1+e) = 0,75/1,75 = 0,43."],
+["e = 0,65, w = 18%, Gs = 2,7. ¿Sr?",["65%","75%","85%","48%"],1,"Sr = w·Gs/e = 0,18·2,7/0,65 = 0,748 ≈ 75%."],
+["ρd = 2,0 g/cm³ y w = 10%. ¿ρ húmeda?",["1,82 g/cm³","2,10 g/cm³","2,20 g/cm³","2,00 g/cm³"],2,"ρ = ρd(1+w) = 2,0·1,10 = 2,20 g/cm³."],
+["LL = 60% y LP = 25%. ¿IP y clasificación típica?",["35%, CH","35%, ML","85%, CH","25%, CL"],0,"IP = 60 − 25 = 35. Con LL ≥ 50 y sobre la línea A → CH."],
+["60% arena, 30% limo, 10% arcilla. Primera letra SUCS:",["G","S","M","C"],1,"Pasa 40% por la N°200 (menos de 50%) → grueso. Domina la arena → S."],
+["Arena con 8% de finos. El símbolo SUCS será:",["Simple (SW o SP)","Doble, ej. SP-SM","SM o SC","Fino (ML)"],1,"Entre 5% y 12% de finos se usa símbolo doble."],
+["Entre CH, ML, SC y SM, el de mejor drenaje es:",["CH","ML","SC","SM"],3,"SM es matriz granular con finos no plásticos: drena mejor que los otros."],
+["Tamiz que separa suelo grueso de fino:",["N°4","N°10","N°40","N°200"],3,"N°200 (0,075 mm). Si pasa más de 50%, es suelo fino."],
+["Arena: D10 = 0,2, D30 = 0,5, D60 = 1,4 mm. ¿Graduación?",["Bien graduada (SW)","Mal graduada (SP)","Discontinua","No se puede saber"],1,"Cu = 1,4/0,2 = 7 (≥ 6, cumple), pero Cc = 0,5²/(0,2·1,4) = 0,89 no está entre 1 y 3. Falla Cc → mal graduada (SP)."],
+["Si el nivel de un río sube sobre el terreno, en el suelo bajo el lecho el esfuerzo efectivo:",["Aumenta","Disminuye","No cambia","Se hace cero"],2,"σ y u aumentan lo mismo (γw·h), por lo que σ' no cambia."],
+["Arena saturada γsat = 20 kN/m³, napa en superficie. σ' a 4 m:",["80 kPa","40 kPa","120 kPa","20 kPa"],1,"σ = 80, u = 40 → σ' = 40 kPa (o γ'·h = 10·4)."],
+["K0 para φ' = 30° (Jaky):",["0,33","0,50","0,87","3,0"],1,"K0 = 1 − sen 30° = 0,5."],
+["Ka de Rankine para φ = 30°:",["0,50","3,00","0,33","0,87"],2,"Ka = tan²(45 − 15) = tan²30° = 1/3."],
+["Dónde actúa Pa para un relleno sin sobrecarga:",["H/2","H/3 desde la base","2H/3 desde la base","En la superficie"],1,"Diagrama triangular → resultante a H/3 desde la base."],
+["Bajo una carga, un punto en el centro de una fundación rectangular se calcula:",["Con un solo rectángulo","Sumando 4 rectángulos con esquina en el punto","Con la fórmula de carga lineal","Con K0"],1,"El factor I(m,n) es para la esquina; se divide en 4 rectángulos y se suma."]
+];
+
+var MS_CASOS=[
+{t:"Formativa 2 · Caso 1: arena húmeda",p:"Muestra de arena húmeda: V = 464 cm³, masa 793 g, masa seca 735 g, Gs = 2,68. Diagrama de fases, e, w y Sr.",s:[
+"<b>Agua:</b> Mw = 793 − 735 = <b>58 g</b> → Vw = 58 cm³ (ρw = 1 g/cm³).",
+"<b>Sólidos:</b> Vs = Ms/(Gs·ρw) = 735/2,68 = <b>274,25 cm³</b>.",
+"<b>Vacíos y aire:</b> Vv = 464 − 274,25 = <b>189,75 cm³</b>; Va = 189,75 − 58 = <b>131,75 cm³</b>.",
+"<b>Relación de vacíos:</b> e = 189,75/274,25 = <b>0,692</b> (porosidad n = 0,409).",
+"<b>Humedad:</b> w = 58/735 = <b>7,9%</b>.",
+"<b>Saturación:</b> Sr = 58/189,75 = <b>30,6%</b>. Control: w·Gs/e = 0,0789·2,68/0,692 = 0,306 ✓",
+"Extras: ρ = 793/464 = 1,71 g/cm³; ρd = 735/464 = 1,58 g/cm³."]},
+{t:"Formativa 2 · Caso 2: arena bien graduada",p:"ρ = 2,20 g/cm³ (la pauta dice “Kg/cm³”, es g/cm³ o t/m³), w = 3,5%, Gs = 2,7. Densidad seca.",s:[
+"<b>Densidad seca:</b> ρd = ρ/(1 + w) = 2,20/1,035 = <b>2,126 g/cm³</b>.",
+"<b>Relación de vacíos:</b> e = Gs·ρw/ρd − 1 = 2,7/2,126 − 1 = <b>0,270</b>.",
+"<b>Saturación:</b> Sr = w·Gs/e = 0,035·2,7/0,270 = <b>35%</b>; n = 0,213."]},
+{t:"Formativa 3 · Estribo de puente en un río",p:"Estribo de 4 m de alto, área 10 m², carga 1 MN, γc = 20 kN/m³. Arena saturada γsat = 20 kN/m³ (mín. 4 m). σ, u y σ' con (a) río al nivel del terreno y (b) río de 3 m. Supuesto: punto a 4 m bajo el lecho y carga del estribo repartida en su área, sin disiparse.",s:[
+"<b>Presión del estribo en el lecho:</b> peso propio 4·10·20 = 800 kN; total 1000 + 800 = 1800 kN → q = 1800/10 = <b>180 kPa</b>.",
+"<b>(a) Río a nivel del terreno, a 4 m:</b> σ = 180 + 20·4 = <b>260 kPa</b>; u = 10·4 = <b>40 kPa</b>; σ' = <b>220 kPa</b>.",
+"<b>(b) Río de 3 m, a 4 m:</b> σ = 180 + 80 = <b>260 kPa</b>; u = 10·(3 + 4) = <b>70 kPa</b>; σ' = <b>190 kPa</b>. Bajo el estribo el agua no suma peso (el estribo ocupa ese lugar), pero sí sube u.",
+"<b>Lejos del estribo</b> (campo libre, a 4 m): (a) σ = 80, u = 40, σ' = 40 kPa; (b) σ = 30 + 80 = 110, u = 70, σ' = <b>40 kPa</b>. El río no cambia σ' en campo libre.",
+"Si tu profe pide el punto justo en la base del estribo: (a) σ = 180, u = 0, σ' = 180; (b) σ = 180, u = 30, σ' = 150 kPa."]},
+{t:"Esfuerzos por cargas · Tanque (q = 8 t/m²)",p:"Incremento bajo la esquina de un rectángulo B = 1,5 m, L = 4 m a z = 2,5 m (como en el ejercicio del PPT 3.1.2).",s:[
+"<b>Parámetros:</b> m = B/z = 1,5/2,5 = 0,6; n = L/z = 4/2,5 = 1,6.",
+"<b>Factor:</b> I(0,6; 1,6) = <b>0,150</b> (fórmula de Newmark o ábaco).",
+"<b>Incremento en la esquina:</b> Δσ = 8·0,150 = <b>1,20 t/m²</b>.",
+"Si A está al medio del lado largo de una base de 3 × 4 m, son 2 rectángulos de 1,5 × 4: Δσ = 2·1,20 = <b>2,40 t/m²</b>.",
+"Finalmente σ'final = σ'v (peso propio, con γsat − γw bajo la napa) + Δσ. Usa la calculadora de esfuerzos para el σ'v."]},
+{t:"Resumen Eval 2 · Clasificar SC",p:"60% arena, 30% limo, 10% arcilla; LL = 32%, LP = 20%.",s:[
+"Finos = 30 + 10 = 40% &lt; 50% → <b>grueso</b>; domina la arena → <b>S</b>.",
+"Finos &gt; 12% → símbolo simple, manda la plasticidad.",
+"IP = 32 − 20 = 12; línea A: 0,73·(32 − 20) = 8,8. IP = 12 &gt; 8,8 y &gt; 7 → finos arcillosos → <b>C</b>.",
+"Resultado: <b>SC, arena arcillosa</b>."]}
+];
+
+window._msTab=(function(){try{return localStorage.getItem("myc_ms_tab")||"estudiar"}catch(e){return "estudiar"}})();
+window._msQ={};
+function msTab(t){window._msTab=t;try{localStorage.setItem("myc_ms_tab",t)}catch(e){}var m=document.getElementById("main");if(m){m.innerHTML=viewSuelos();m.scrollTop=0}try{window.scrollTo(0,0)}catch(e){}}
+function viewSuelos(){
+  var cl=_clasesDe("mec-suelos"),c=cl[0],done=0;for(var i=0;i<4;i++)if(DB.topics["mec-suelos_u"+i])done++;
+  var prox=_evsDe("mec-suelos",true)[0],tab=window._msTab;
+  var h='<div class="view active"><div class="ms-hero"><div class="k">OCK6141'+(c?" · "+esc(c.prof):"")+'</div><h3>Mecánica de Suelos</h3>'
+    +'<div class="m">'+(cl.length?cl.map(function(x){return x.dia+" "+x.ini+"–"+x.fin+" · "+x.sala}).join(" | "):"")+"</div>"
+    +'<div class="m" style="margin-top:4px">'+done+" de 4 unidades estudiadas"+(prox?" · Próxima: <b>"+esc(prox.nom)+"</b> "+_cuenta(prox.fecha):"")+"</div>"
+    +'<div class="bar"><i style="width:'+(done*25)+'%"></i></div></div>';
+  h+='<div class="ms-tabs">'+[["estudiar","📖 Estudiar"],["formulas","∑ Fórmulas"],["calcular","🧮 Calcular"],["practicar","✍️ Practicar"]].map(function(x){return '<button class="'+(tab===x[0]?"on":"")+'" onclick="msTab(\''+x[0]+'\')">'+x[1]+"</button>"}).join("")+"</div>";
+  if(tab==="formulas")h+=_msForm();else if(tab==="calcular")h+=_msCalc();else if(tab==="practicar")h+=_msPract();else h+=_msEst();
+  return h+"</div>";
+}
+function _msEst(){
+  var h='<div class="ms-card ms-eval"><h4>🎯 Qué entra en la Evaluación 2</h4><ul><li><b>Sistema trifásico:</b> w, e, n, Sr, γ, γd, γsat.</li><li><b>Atterberg:</b> LL, LP, IP y carta de Casagrande.</li><li><b>Clasificación SUCS</b> a partir de granulometría y plasticidad.</li></ul><p style="margin-top:6px">Ruta sugerida para esta noche: Unidad 2 → Fórmulas → quiz → caso “Clasificar SC”.</p></div>';
+  MS_U.forEach(function(u,i){
+    var uid="mec-suelos_u"+i,ok=!!DB.topics[uid],ab=(window._msOpen===i);
+    h+='<div class="ms-u'+(ab?" open":"")+'" id="msu-'+i+'"><button class="ms-uh" onclick="msU('+i+')"><span class="n'+(ok?" ok":"")+'">'+(ok?"✓":i+1)+'</span><span class="x"><b>'+esc(u.t)+"</b><span>"+esc(u.s)+'</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>'
+      +'<div class="ms-ub">'+u.h
+      +'<div class="ms-ua"><button class="'+(ok?"on":"")+'" onclick="msHecha('+i+',this)">'+(ok?"✓ Estudiada":"○ Marcar estudiada")+'</button><button onclick="nedOpenMs('+i+')">＋ Nota</button><button onclick="msTab(\'practicar\')">✍️ Practicar</button></div>'
+      +"</div></div>";
+  });
+  return h;
+}
+function msU(i){var el=document.getElementById("msu-"+i);if(!el)return;var ab=!el.classList.contains("open");document.querySelectorAll(".ms-u").forEach(function(x){x.classList.remove("open")});if(ab){el.classList.add("open");window._msOpen=i;setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"})},30)}else window._msOpen=null}
+function msHecha(i,b){toggleTopic("mec-suelos_u"+i);var ok=!!DB.topics["mec-suelos_u"+i];b.classList.toggle("on",ok);b.textContent=ok?"✓ Estudiada":"○ Marcar estudiada";var n=document.querySelector("#msu-"+i+" .n");if(n){n.classList.toggle("ok",ok);n.textContent=ok?"✓":i+1}if(ok)toast("Unidad "+(i+1)+" lista ✓")}
+function nedOpenMs(i){openRamoPanel("mec-suelos");setTimeout(function(){var b=document.querySelectorAll("#ramo-panel .rp-unit-head")[i+1];if(b&&!b.classList.contains("open"))toggleRpUnit(b);nedOpen("mec-suelos_u"+i)},120)}
+function _msForm(){
+  return MS_FORM.map(function(g,gi){
+    return '<div class="ms-card ms-fg"><h4>'+esc(g[0])+'<button onclick="msCopyF('+gi+')">Copiar</button></h4>'+g[1].map(function(f){return '<div class="ms-fr"><span class="l">'+esc(f[0])+'</span><span class="e">'+esc(f[1])+"</span></div>"}).join("")+"</div>";
+  }).join("")+'<div class="gc-note" style="padding:0 4px 12px">Las formativas piden escribir solo las ecuaciones en una hoja: copia un grupo y pégalo en tus notas o en Excel.</div>';
+}
+function msCopyF(gi){var g=MS_FORM[gi];_copiar(g[0]+"\n"+g[1].map(function(f){return f[0]+": "+f[1]}).join("\n"))}
+
+/* ── Calculadoras ── */
+var MS_CALC=[
+{id:"fases",t:"Diagrama de fases",d:"Desde masa húmeda, masa seca, volumen y Gs",
+ in:[["fM","Masa húmeda (g)",793],["fMs","Masa seca (g)",735],["fV","Volumen total (cm³)",464],["fG","Gs",2.68]]},
+{id:"dens",t:"Densidad seca y saturación",d:"Desde ρ húmeda, w y Gs",
+ in:[["dR","ρ húmeda (g/cm³)",2.2],["dW","Humedad w (%)",3.5],["dG","Gs",2.7]]},
+{id:"sucs",t:"Clasificador SUCS",d:"Granulometría + límites → símbolo",
+ in:[["sG","% grava (retenido N°4)",0],["sF","% finos (pasa N°200)",40],["sS","% arena (el resto)",""],["sLL","LL (%)",32],["sLP","LP (%)",20],["sCu","Cu (si finos < 12%)",""],["sCc","Cc (si finos < 12%)",""]]},
+{id:"esf",t:"Esfuerzos geostáticos",d:"σ, u y σ' a una profundidad",
+ in:[["eZ","Profundidad del punto z (m)",4],["eN","Nivel freático bajo terreno (m) · negativo si hay agua encima",0],["eG","γ sobre la napa (kN/m³)",18],["eGs","γsat bajo la napa (kN/m³)",20],["eQ","Sobrecarga en superficie q (kPa)",0],["eP","φ' para K0 (°)",30],["eW","γw (kN/m³)",10]]},
+{id:"bous",t:"Carga rectangular (Boussinesq)",d:"Factor I(m,n) en la esquina",
+ in:[["bB","B (m)",1.5],["bL","L (m)",4],["bZ","z (m)",2.5],["bQ","q (t/m² o kPa)",8],["bK","N° de rectángulos que suman",1]]},
+{id:"spt",t:"SPT corregido y φ'",d:"N60, (N60)1 y ángulo de fricción",
+ in:[["pN","N de terreno",18],["pE","Energía del martillo (%)",60],["pS","σ'v en el punto (kPa)",80]]},
+{id:"emp",t:"Empuje: Rankine y Coulomb",d:"Ka, Kp, Pa y su punto de aplicación",
+ in:[["kP","φ (°)",30],["kC","c (kPa)",0],["kG","γ (kN/m³)",18],["kH","Altura del muro H (m)",4],["kQ","Sobrecarga q (kPa)",0],["kD","δ roce muro-suelo (°) · Coulomb",0]]}
+];
+function _msCalc(){
+  return MS_CALC.map(function(c){
+    return '<div class="ms-calc" id="msc-'+c.id+'"><button onclick="this.parentNode.classList.toggle(\'open\');msRun(\''+c.id+'\')"><span>'+c.t+"<small>"+c.d+'</small></span>›</button><div class="ms-cb"><div class="ms-in">'
+      +c.in.map(function(x){return '<div><label for="'+x[0]+'">'+x[1]+'</label><input id="'+x[0]+'" inputmode="decimal" value="'+(x[2]===""?"":String(x[2]).replace(".",","))+'" oninput="msRun(\''+c.id+'\')"></div>'}).join("")
+      +'</div><div class="ms-out" id="mso-'+c.id+'"></div></div></div>';
+  }).join("")+'<div class="gc-note" style="padding:0 4px 12px">Los valores de partida son los de las formativas y del resumen de la Eval 2, para que compares con tu desarrollo.</div>';
+}
+function _I(m,n){var a=m*m+n*n+1,b=m*n,s=Math.sqrt(a);return((2*b*s/(a+b*b))*((a+1)/a)+Math.atan2(2*b*s,a-b*b))/(4*Math.PI)}
+function _sucs(G,F,LL,LP,Cu,Cc){
+  var IP=LL-LP,A=0.73*(LL-20),nofin=isNaN(LL)||isNaN(LP);
+  var plast=function(){if(nofin)return "M";if(IP>7&&IP>=A)return "C";if(IP>=4&&IP<=7&&IP>=A)return "CL-ML";return "M"};
+  if(F>=50){
+    if(nofin)return {s:"ML o CL",d:"Faltan LL y LP para decidir."};
+    var hl=LL>=50?"H":"L",p=plast();
+    if(p==="CL-ML")return {s:"CL-ML",d:"Limo arcilloso de baja plasticidad (IP entre 4 y 7, sobre la línea A)."};
+    return {s:(p==="C"?"C":"M")+hl,d:(p==="C"?"Arcilla":"Limo")+" de "+(hl==="H"?"alta":"baja")+" plasticidad. IP = "+_f2(IP,1)+"; línea A = "+_f2(A,1)+"."};
+  }
+  var S=100-G-F,L1=G>S?"G":"S",nom=L1==="G"?"Grava":"Arena";
+  var bien=!isNaN(Cu)&&!isNaN(Cc)&&Cc>=1&&Cc<=3&&Cu>=(L1==="G"?4:6),gr=isNaN(Cu)||isNaN(Cc)?null:(bien?"W":"P");
+  if(F<5){if(!gr)return {s:L1+"W o "+L1+"P",d:"Con menos de 5% de finos manda la graduación: ingresa Cu y Cc."};return {s:L1+gr,d:nom+(gr==="W"?" bien":" mal")+" graduada. Cu = "+_f2(Cu,1)+", Cc = "+_f2(Cc,2)+"."}}
+  var p=plast(),f2=p==="CL-ML"?"C-"+L1+"M":(p==="C"?"C":"M");
+  if(F>12){
+    if(p==="CL-ML")return {s:L1+"C-"+L1+"M",d:nom+" limo-arcillosa (finos CL-ML)."};
+    return {s:L1+f2,d:nom+(f2==="C"?" arcillosa":" limosa")+"."+(nofin?"":" IP = "+_f2(IP,1)+"; línea A = "+_f2(A,1)+".")};
+  }
+  var ff=p==="C"?"C":"M";
+  if(!gr)return {s:L1+"W-"+L1+ff+" o "+L1+"P-"+L1+ff,d:"Entre 5% y 12% de finos va símbolo doble: ingresa Cu y Cc para elegir W o P."};
+  return {s:L1+gr+"-"+L1+ff,d:nom+(gr==="W"?" bien":" mal")+" graduada con "+(ff==="C"?"arcilla":"limo")+" (símbolo doble)."};
+}
+function msRun(id){
+  var o=document.getElementById("mso-"+id);if(!o)return;var h="";
+  try{
+  if(id==="fases"){
+    var M=_v("fM"),Ms=_v("fMs"),V=_v("fV"),G=_v("fG"),Mw=M-Ms,Vs=Ms/G,Vv=V-Vs,Va=Vv-Mw,e=Vv/Vs;
+    h="Agua <b>"+_f2(Mw,1)+" g</b> · Vs <b>"+_f2(Vs,2)+" cm³</b> · Vv <b>"+_f2(Vv,2)+"</b> · Va <b>"+_f2(Va,2)+"</b><br>e = <b>"+_f2(e,3)+"</b> · n = <b>"+_f2(Vv/V,3)+"</b><br>w = <b>"+_f2(Mw/Ms*100,1)+"%</b> · Sr = <b>"+_f2(Mw/Vv*100,1)+"%</b><br>ρ = <b>"+_f2(M/V,3)+"</b> · ρd = <b>"+_f2(Ms/V,3)+" g/cm³</b>"+(Va<0?"<br>⚠️ Va negativo: revisa los datos.":"");
+  } else if(id==="dens"){
+    var R=_v("dR"),w=_v("dW")/100,G2=_v("dG"),rd=R/(1+w),e2=G2/rd-1;
+    h='<span class="big">ρd = '+_f2(rd,3)+" g/cm³</span><br>e = <b>"+_f2(e2,3)+"</b> · n = <b>"+_f2(e2/(1+e2),3)+"</b> · Sr = <b>"+_f2(w*G2/e2*100,1)+"%</b><br>γd ≈ <b>"+_f2(rd*9.81,2)+" kN/m³</b> · γsat = <b>"+_f2((G2+e2)/(1+e2)*9.81,2)+" kN/m³</b>";
+  } else if(id==="sucs"){
+    var g=_v("sG")||0,F=_v("sF"),sEl=document.getElementById("sS");if(sEl&&document.activeElement!==sEl)sEl.value=isNaN(F)?"":_f2(100-g-F,1);
+    var r=_sucs(g,F,_v("sLL"),_v("sLP"),_v("sCu"),_v("sCc"));
+    h='<span class="big">'+r.s+"</span><br>"+r.d+(F<50?"<br>Grueso: pasa "+_f2(F,1)+"% por la N°200.":"<br>Fino: pasa "+_f2(F,1)+"% por la N°200.");
+  } else if(id==="esf"){
+    var z=_v("eZ"),N=_v("eN"),g1=_v("eG"),gs=_v("eGs"),q=_v("eQ")||0,ph=_v("eP"),gw=_v("eW")||10;
+    var sig=q+(N<0?-N*gw:0),seco=Math.max(0,Math.min(z,N)),sat=Math.max(0,z-Math.max(N,0));
+    sig+=g1*seco+gs*sat;var u=z>N?gw*(z-N):0,ef=sig-u,K0=isNaN(ph)?NaN:1-Math.sin(ph*Math.PI/180);
+    h="σv = <b>"+_f2(sig,1)+" kPa</b> · u = <b>"+_f2(u,1)+" kPa</b><br>"+'<span class="big">σ\'v = '+_f2(ef,1)+" kPa</span>"+(isNaN(K0)?"":"<br>K0 = "+_f2(K0,3)+" → σ'h = <b>"+_f2(K0*ef,1)+"</b> · σh = <b>"+_f2(K0*ef+u,1)+" kPa</b>");
+  } else if(id==="bous"){
+    var B=_v("bB"),L=_v("bL"),Z=_v("bZ"),Q=_v("bQ"),k=_v("bK")||1,m=B/Z,n=L/Z,I=_I(m,n);
+    h="m = <b>"+_f2(m,3)+"</b> · n = <b>"+_f2(n,3)+"</b> · I = <b>"+_f2(I,4)+"</b><br>"+'<span class="big">Δσ = '+_f2(Q*I*k,3)+"</span> (mismas unidades que q)"+(k>1?"<br>= "+k+" × "+_f2(Q*I,3):"")+"<br>2:1 de control (fundación completa B×L): "+_f2(Q*B*L/((B+Z)*(L+Z)),3);
+  } else if(id==="spt"){
+    var Nn=_v("pN"),E=_v("pE"),sv=_v("pS"),N60=E/60*Nn,CN=Math.min(1.7,Math.pow(sv/100,-0.5)),N1=CN*N60,phi=Math.sqrt(15.4*N1)+20;
+    var cmp=N60<4?"muy suelta":N60<10?"suelta":N60<30?"media":N60<50?"densa":"muy densa";
+    h="N60 = <b>"+_f2(N60,1)+"</b> ("+cmp+") · CN = <b>"+_f2(CN,3)+"</b><br>(N60)1 = <b>"+_f2(N1,1)+"</b><br>"+'<span class="big">φ\' ≈ '+_f2(phi,1)+"°</span>";
+  } else if(id==="emp"){
+    var p=_v("kP")*Math.PI/180,c=_v("kC")||0,gg=_v("kG"),H=_v("kH"),qq=_v("kQ")||0,d=(_v("kD")||0)*Math.PI/180;
+    var Ka=Math.pow(Math.tan(Math.PI/4-p/2),2),Kp=1/Ka,K0=1-Math.sin(p);
+    var KaC=Math.pow(Math.cos(p),2)/(Math.cos(d)*Math.pow(1+Math.sqrt(Math.sin(p+d)*Math.sin(p)/Math.cos(d)),2));
+    var Pa1=0.5*Ka*gg*H*H,Pq=Ka*qq*H,zc=c>0?2*c/(gg*Math.sqrt(Ka)):0;
+    var Pa=c>0?Math.max(0,0.5*(Ka*gg*H+Ka*qq-2*c*Math.sqrt(Ka))*Math.max(0,H-Math.max(0,zc-qq/gg))):Pa1+Pq;
+    var y=c>0?Math.max(0,H-Math.max(0,zc-qq/gg))/3:(Pa1*H/3+Pq*H/2)/(Pa1+Pq||1);
+    h="K0 = <b>"+_f2(K0,3)+"</b> · Ka = <b>"+_f2(Ka,3)+"</b> · Kp = <b>"+_f2(Kp,3)+"</b><br>"+'<span class="big">Pa = '+_f2(Pa,1)+" kN/m</span> a <b>"+_f2(y,2)+" m</b> de la base"
+      +(c>0?"<br>Grieta de tracción zc = <b>"+_f2(zc,2)+" m</b>":"")+(qq>0&&!c?"<br>Suelo "+_f2(Pa1,1)+" (a H/3) + sobrecarga "+_f2(Pq,1)+" (a H/2)":"")
+      +"<br>Pp (Rankine) = <b>"+_f2(0.5*Kp*gg*H*H+2*c*Math.sqrt(Kp)*H,1)+" kN/m</b>"
+      +"<br>Coulomb (muro vertical, relleno horizontal, δ = "+_f2(_v("kD")||0,0)+"°): Ka = <b>"+_f2(KaC,3)+"</b> → Pa = <b>"+_f2(0.5*KaC*gg*H*H,1)+" kN/m</b>";
+  }
+  }catch(err){h="Revisa los datos."}
+  o.innerHTML=h;
+}
+
+/* ── Práctica ── */
+function _msPract(){
+  var ok=0,tot=0;Object.keys(window._msQ).forEach(function(k){tot++;if(window._msQ[k])ok++});
+  var h='<div class="ms-score">Quiz: '+ok+" de "+tot+" correctas ("+MS_Q.length+' preguntas) · <a href="#" onclick="window._msQ={};msTab(\'practicar\');return false" style="color:var(--accent)">reiniciar</a></div>';
+  h+=MS_Q.map(function(q,i){
+    var r=window._msQ[i],resp=r!==undefined;
+    return '<div class="ms-q'+(resp?" done":"")+'" id="msq-'+i+'"><div class="p">'+(i+1)+". "+q[0]+'</div><div class="o">'+q[1].map(function(op,j){
+      var cl=resp?(j===q[2]?" ok":(window._msQa&&window._msQa[i]===j?" ko":"")):"";
+      return '<button class="'+cl+'" onclick="msResp('+i+","+j+')"'+(resp?" disabled":"")+">"+op+"</button>"}).join("")+'</div><div class="ex">'+q[3]+"</div></div>";
+  }).join("");
+  h+='<div class="ms-card"><h4>Casos resueltos paso a paso</h4><p>Intenta cada paso en tu hoja antes de revelarlo.</p></div>';
+  h+=MS_CASOS.map(function(c,i){
+    return '<div class="ms-card ms-case" id="mscase-'+i+'"><h4>'+c.t+"</h4><p>"+c.p+"</p>"+c.s.map(function(s){return '<div class="ms-step">'+s+"</div>"}).join("")
+      +'<div class="ms-ua"><button onclick="msPaso('+i+',this)">Ver paso 1 de '+c.s.length+'</button><button onclick="msPaso('+i+',this,1)">Ver todo</button></div></div>';
+  }).join("");
+  return h;
+}
+function msResp(i,j){window._msQ[i]=(j===MS_Q[i][2]);window._msQa=window._msQa||{};window._msQa[i]=j;
+  var el=document.getElementById("msq-"+i);if(!el)return;el.classList.add("done");
+  el.querySelectorAll(".o button").forEach(function(b,k){b.disabled=true;if(k===MS_Q[i][2])b.classList.add("ok");else if(k===j)b.classList.add("ko")});
+  var ok=0,tot=0;Object.keys(window._msQ).forEach(function(k){tot++;if(window._msQ[k])ok++});
+  var sc=document.querySelector(".ms-score");if(sc)sc.firstChild.textContent="Quiz: "+ok+" de "+tot+" correctas ("+MS_Q.length+" preguntas) · ";
+}
+function msPaso(i,b,todo){
+  var c=document.getElementById("mscase-"+i);if(!c)return;var st=c.querySelectorAll(".ms-step"),n=0;
+  st.forEach(function(s){if(s.classList.contains("show"))n++});
+  if(todo){st.forEach(function(s){s.classList.add("show")});n=st.length}else if(n<st.length){st[n].classList.add("show");n++}
+  var bb=c.querySelector(".ms-ua button");if(bb)bb.textContent=n>=st.length?"✓ Completo":"Ver paso "+(n+1)+" de "+st.length;
+}
+
+/* ══════════ 5 · Arranque ══════════ */
+(function(){
+  try{
+    if(!DB.unitNames)DB.unitNames={};
+    MS_U.forEach(function(u,i){if(!DB.unitNames["mec-suelos_u"+i])DB.unitNames["mec-suelos_u"+i]=u.t});
+    if(!DB.lastRamo)DB.lastRamo="mec-suelos";
+  }catch(e){}
+})();
+window.addEventListener("load",function(){
+  _tabRamoPaint();
+  var n=window.nav;if(typeof n!=="function")return;
+  window.nav=function(v,arg){
+    if(v==="suelos"){
+      var r=n.call(this,"mas");var m=document.getElementById("main");if(m)m.innerHTML=viewSuelos();
+      var ey=document.getElementById("tbEyebrow"),ti=document.getElementById("tbTitle");if(ey)ey.textContent="OCK6141";if(ti)ti.textContent="Mecánica de Suelos";
+      window._mycLastView="suelos";DB.lastRamo="mec-suelos";try{save()}catch(e){}_tabRamoPaint();_tabActivo("tb-hormigon");
+      try{window.scrollTo(0,0)}catch(e){}
+      return r;
+    }
+    return n.apply(this,arguments);
+  };
+  window.nav._myc=1;
+  /* Volver al ramo dentro de Hormigón: sigue marcando la pestaña del ramo */
+  var _st=window.switchTab;
+  window.switchTab=function(t){
+    if(t==="evaluate"){_st.call(this,"evaluate");_tabActivo("tb-hormigon");return}
+    var o=_st.apply(this,arguments);if(t==="hormigon")_tabRamoPaint();return o;
+  };
+});
 </script>
 
 </body>
