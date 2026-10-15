@@ -5368,9 +5368,9 @@ function iniciarArq(){
   var cont=document.getElementById('arq-params');cont.innerHTML='';
   caso.parametros.forEach(function(p){
     var div=document.createElement('div');div.className='arq-param';
-    div.innerHTML='<div class="arq-ph"><div class="arq-plabel">'+p.label+'</div><div class="arq-pval" id="av-'+p.id+'">'+(p.tipo==='select'?p.ops[0]:p.correcto)+'</div></div>'+(p.hint?'<div class="arq-hint">Recordatorio: '+p.hint+'</div>':'')+(p.norma?'<div class="arq-norma">Ref: '+p.norma+'</div>':'');
+    div.innerHTML='<div class="arq-ph"><div class="arq-plabel">'+p.label+'</div><div class="arq-pval" id="av-'+p.id+'">'+(p.tipo==='select'?p.ops[0]:p.min)+'</div></div>'+(p.hint?'<div class="arq-hint">Recordatorio: '+p.hint+'</div>':'')+(p.norma?'<div class="arq-norma">Ref: '+p.norma+'</div>':'');
     if(p.tipo==='select'){var sel=document.createElement('select');sel.className='arq-sel';sel.id='ae-'+p.id;p.ops.forEach(function(o){var opt=document.createElement('option');opt.value=o;opt.textContent=o;sel.appendChild(opt)});sel.onchange=function(){document.getElementById('av-'+p.id).textContent=this.value};div.appendChild(sel)}
-    else{var sl=document.createElement('input');sl.type='range';sl.className='arq-slider';sl.min=p.min;sl.max=p.max;sl.step=p.step||1;sl.value=p.correcto;sl.id='ae-'+p.id;sl.oninput=function(){document.getElementById('av-'+p.id).textContent=parseFloat(this.value).toFixed(this.step&&this.step<1?2:0)};div.appendChild(sl)}
+    else{var sl=document.createElement('input');sl.type='range';sl.className='arq-slider';sl.min=p.min;sl.max=p.max;sl.step=p.step||1;sl.value=p.min;sl.id='ae-'+p.id;sl.oninput=function(){document.getElementById('av-'+p.id).textContent=parseFloat(this.value).toFixed(this.step&&this.step<1?2:0)};div.appendChild(sl)}
     cont.appendChild(div);
   });
   irA('s-arq');
@@ -6750,6 +6750,11 @@ document.addEventListener('touchstart',function(e){
 })();
 
 
+  /* v1.9 · puente para cambiar el set de preguntas según el ramo */
+  window.__eva={
+    g:function(n){switch(n){case"RAMO_META":return RAMO_META;case"DUELO":return DUELO;case"SUPERVISOR_CASOS":return SUPERVISOR_CASOS;case"CONECTA_SETS":return CONECTA_SETS;case"CRISIS_CASOS":return CRISIS_CASOS;case"VF":return VF;case"ITO_CASOS":return ITO_CASOS;case"FT":return FT;case"ETAPAS_CFG":return ETAPAS_CFG;case"STATE":return STATE;case"FIN":return FIN;case"CUR_EMAIL":return CUR_EMAIL;case"CUR_USER":return CUR_USER;case"_curScreen":return _curScreen;case"PRESUPUESTO_INICIAL":return PRESUPUESTO_INICIAL;case"restoreFin":return restoreFin;case"saveState":return saveState;case"mostrarInforme":return mostrarInforme;case"entrar":return entrar}},
+    s:function(n,v){switch(n){case"RAMO_META":RAMO_META=v;break;case"DUELO":DUELO=v;break;case"SUPERVISOR_CASOS":SUPERVISOR_CASOS=v;break;case"CONECTA_SETS":CONECTA_SETS=v;break;case"CRISIS_CASOS":CRISIS_CASOS=v;break;case"VF":VF=v;break;case"ITO_CASOS":ITO_CASOS=v;break;case"FT":FT=v;break;case"ETAPAS_CFG":ETAPAS_CFG=v;break;case"STATE":STATE=v;break;case"FIN":FIN=v;break;case"saveState":saveState=v;break;case"mostrarInforme":mostrarInforme=v;break;case"entrar":entrar=v;break}window[n]=v}
+  };
   /* funciones públicas */
   try{
     if(typeof activarError==="function") window.activarError=activarError;
@@ -10476,7 +10481,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v1.8
+   MYCELION OS v1.8 (base de v1.9)
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -10956,6 +10961,1194 @@ window.addEventListener("load",function(){
     var o=_st.apply(this,arguments);if(t==="hormigon")_tabRamoPaint();return o;
   };
 });
+</script>
+
+<style id="myc-v19">#pane-suelos .wrap{ padding-bottom: 110px !important; }#view-ms{
+  --font-display:'Sora',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);
+  
+  --bg:#0E1116;--bg-2:#131820;--surface:#171E28;--surface-2:#1E2733;--line:#2A3543;--line-soft:#212B37;
+  --text:#EAF1F8;--text-2:#9FB2C6;--text-3:#6B7E92;--accent:#4EA8FF;--accent-2:#5FE0B0;--accent-ink:#04121f;--gold:#F2B84B;--danger:#FF7A7A;
+  --u1a:#4EA8FF;--u1b:#4EA8FF;
+}#view-ms *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}#view-ms{scroll-behavior:smooth}#view-ms{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}#view-ms::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(rgba(120,170,225,.10) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,170,225,.10) 1px,transparent 1px);
+  background-size:128px 128px,128px 128px,32px 32px,32px 32px;
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 55%,transparent 100%)}#view-ms::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(circle,rgba(255,255,255,.20) 1px,transparent 1.6px);
+  background-size:128px 128px;background-position:64px 64px;
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 45%,transparent 90%)}#view-ms h1,#view-ms h2,#view-ms h3,#view-ms h4{font-family:var(--font-display);line-height:1.15;font-weight:700}#view-ms b,#view-ms strong{color:var(--text);font-weight:600}#view-ms .wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:16px 16px 90px}#view-ms .topbar{position:sticky;top:0;z-index:40;background:linear-gradient(to bottom,var(--bg) 70%,transparent);padding:calc(env(safe-area-inset-top) + 10px) 0 10px;margin-bottom:8px}#view-ms .topbar-row{display:flex;align-items:center;gap:10px;max-width:820px;margin:0 auto;padding:0 16px}#view-ms .brandmini{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:.95rem;flex:none}#view-ms .brandmini .dot{width:9px;height:9px;border-radius:2px;background:var(--accent);transform:rotate(45deg)}#view-ms .search-box{flex:1;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 13px;transition:border .2s}#view-ms .search-box:focus-within{border-color:var(--accent)}#view-ms .search-box svg{width:16px;height:16px;color:var(--text-3);flex:none}#view-ms .search-box input{flex:1;background:none;border:none;color:var(--text);font-size:.9rem;outline:none;font-family:inherit}#view-ms .search-box input::placeholder{color:var(--text-3)}#view-ms .search-box .clr{color:var(--text-3);cursor:pointer;font-size:1rem;display:none}#view-ms .search-box .clr.on{display:block}#view-ms #ms-searchResults{max-width:820px;margin:0 auto;padding:0 16px}#view-ms .sr-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;display:none}#view-ms .sr-panel.on{display:block;animation:srIn .3s var(--ease)}#view-ms .sr-head{padding:11px 14px;font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);border-bottom:1px solid var(--line-soft)}#view-ms .sr-item{padding:12px 14px;border-bottom:1px solid var(--line-soft);cursor:pointer;transition:background .16s}#view-ms .sr-item:last-child{border-bottom:none}#view-ms .sr-item:active{background:var(--surface-2)}#view-ms .sr-item .sr-t{font-weight:600;font-size:.9rem;display:flex;align-items:center;gap:7px}#view-ms .sr-item .sr-loc{font-family:var(--font-mono);font-size:.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}#view-ms .sr-item .sr-desc{font-size:.82rem;color:var(--text-2);margin-top:3px;line-height:1.45}#view-ms .sr-item .sr-desc mark{background:rgba(78,168,255,.25);color:var(--text);border-radius:3px;padding:0 2px}#view-ms .sr-empty{padding:16px 14px;color:var(--text-3);font-size:.85rem;text-align:center}#view-ms .hero{background:color-mix(in srgb,var(--surface) 82%,transparent);border:1px solid var(--line-soft);border-radius:18px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden;backdrop-filter:blur(3px);display:flex;align-items:center;gap:16px}#view-ms .hero-icon{flex:none;width:76px;height:76px}#view-ms .hero-svg{width:76px;height:76px}#view-ms .hero-text{flex:1;min-width:0}#view-ms .hero .code{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);letter-spacing:.08em;margin-bottom:4px}#view-ms .hero h1{font-size:1.3rem;margin:0 0 4px;letter-spacing:-.01em;line-height:1.2}#view-ms .hero .meta{font-size:.76rem;color:var(--text-3);font-family:var(--font-mono)}#view-ms .normas{margin:14px 0}#view-ms .normas-label{font-family:var(--font-mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:8px;display:flex;align-items:center;gap:6px}#view-ms .normas-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}#view-ms .normas-scroll::-webkit-scrollbar{display:none}#view-ms .norma-chip{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:9px 14px;cursor:pointer;transition:border .2s,background .2s,box-shadow .3s;font-family:var(--font-mono);font-size:.76rem;font-weight:600;color:var(--text);white-space:nowrap}#view-ms .norma-chip:active{transform:scale(.96)}#view-ms .norma-chip.active{border-color:var(--accent);background:rgba(78,168,255,.08);box-shadow:0 0 0 2px rgba(78,168,255,.25),0 0 14px rgba(78,168,255,.2);color:var(--accent);animation:normaGlow 2.5s var(--ease) infinite}#view-ms .norma-chip small{color:var(--text-3);font-weight:400;margin-left:5px}#view-ms .norma-detail{background:rgba(23,30,40,.9);border:1px solid rgba(78,168,255,.2);border-radius:13px;margin-top:10px;padding:0 15px;max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .4s var(--ease),border-color .3s}#view-ms .norma-detail.on{max-height:400px;padding:15px;border-color:rgba(78,168,255,.4);box-shadow:0 0 18px rgba(78,168,255,.08)}#view-ms .norma-detail h4{font-size:.95rem;color:var(--accent);margin-bottom:4px}#view-ms .norma-detail .nd-code{font-family:var(--font-mono);font-size:.7rem;color:var(--text-3)}#view-ms .norma-detail p{font-size:.85rem;color:var(--text-2);margin-top:8px}#view-ms .norma-detail .nd-mention{margin-top:10px;font-size:.8rem;color:var(--text);background:rgba(95,224,176,.06);border-left:2px solid var(--accent-2);border-radius:0 8px 8px 0;padding:8px 11px}#view-ms .norma-detail.on{max-height:400px;padding:15px}#view-ms .norma-detail h4{font-size:.95rem;color:var(--accent);margin-bottom:4px}#view-ms .norma-detail .nd-code{font-family:var(--font-mono);font-size:.7rem;color:var(--text-3)}#view-ms .norma-detail p{font-size:.85rem;color:var(--text-2);margin-top:8px}#view-ms .norma-detail .nd-mention{margin-top:10px;font-size:.8rem;color:var(--text);background:var(--bg-2);border-left:2px solid var(--accent-2);border-radius:0 8px 8px 0;padding:8px 11px}#view-ms .unit-title{display:flex;align-items:center;gap:12px;margin:26px 0 4px;scroll-margin-top:80px}#view-ms .unit-title .idx{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--u1a),var(--u1b));display:grid;place-items:center;font-family:var(--font-mono);font-weight:700;color:#04121f;flex:none;font-size:.9rem}#view-ms .unit-title h2{font-size:1.3rem;letter-spacing:-.01em}#view-ms .unit-sub{font-size:.85rem;color:var(--text-3);margin:0 0 14px 50px}#view-ms .topic{display:block;padding:0;gap:0;width:auto;text-align:inherit;border-radius:16px;margin-bottom:12px;overflow:hidden;border:1px solid var(--line-soft);background:color-mix(in srgb,var(--surface) 82%,transparent);backdrop-filter:blur(3px);scroll-margin-top:80px}#view-ms .topic-bar{display:flex;align-items:center;gap:13px;padding:15px 16px;width:100%;text-align:left;border:none;color:var(--text);cursor:pointer;font-family:inherit;background:none;position:relative}#view-ms .topic-bar::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:linear-gradient(var(--tg1),var(--tg2))}#view-ms .topic-bar .tnum{font-family:var(--font-mono);font-weight:700;font-size:.8rem;color:var(--tg2);flex:none;width:28px}#view-ms .topic-bar .tn{flex:1;font-family:var(--font-display);font-weight:600;font-size:1rem}#view-ms .topic-bar .tn small{display:block;font-weight:400;font-size:.75rem;color:var(--text-3);margin-top:2px;line-height:1.4}#view-ms .topic-bar .chev{color:var(--text-3);transition:transform .35s var(--ease);flex:none}#view-ms .topic-bar.open .chev{transform:rotate(90deg)}#view-ms .topic-body{max-height:0;overflow:hidden;transition:max-height .55s var(--ease)}#view-ms .topic-inner{padding:4px 16px 18px}#view-ms .resumen{font-size:.93rem;color:var(--text);background:var(--bg-2);border-radius:10px;padding:12px 14px;margin-bottom:12px}#view-ms .keypoints{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}#view-ms .keypoints li{font-size:.88rem;color:var(--text-2);padding-left:17px;position:relative;line-height:1.55}#view-ms .keypoints li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:1px;background:var(--tg2);transform:rotate(45deg)}#view-ms .vermas{margin-top:12px}#view-ms .vermas-btn{font-size:.82rem;font-weight:600;color:var(--text);background:var(--bg-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:space-between;transition:border .18s}#view-ms .vermas-btn:active{border-color:var(--tg2)}#view-ms .vermas-btn .vm-badge{font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);font-weight:400}#view-ms .detalle{max-height:0;overflow:hidden;transition:max-height .55s var(--ease)}#view-ms .detalle-inner{padding-top:14px;font-size:.88rem;color:var(--text-2)}#view-ms .detalle-inner h4{font-size:.78rem;color:var(--tg2);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;margin:18px 0 8px;display:flex;align-items:center;gap:8px}#view-ms .detalle-inner h4::before{content:"";width:16px;height:2px;background:var(--tg2);border-radius:2px;flex:none}#view-ms .detalle-inner h4:first-child{margin-top:0}#view-ms .detalle-inner p{margin-bottom:10px}#view-ms .tbl-wrap{overflow-x:auto;margin:10px 0;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.015)}#view-ms .mini-tbl{width:100%;border-collapse:collapse;font-size:.82rem;min-width:340px}#view-ms .mini-tbl th,#view-ms .mini-tbl td{padding:8px 10px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.14);border-right:1px solid rgba(255,255,255,.14)}#view-ms .mini-tbl th{background:rgba(255,255,255,.05);color:var(--tg2);font-family:var(--font-mono);font-weight:600;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em}#view-ms .mini-tbl tr:last-child td{border-bottom:none}#view-ms .mini-tbl td b{color:var(--accent-2)}#view-ms .tbl-ex{cursor:pointer;position:relative}#view-ms .tbl-ex:hover{background:rgba(255,255,255,.04)}#view-ms .tbl-ex td:first-child::before{content:"▸";color:var(--tg2);margin-right:5px;font-size:.7rem;display:inline-block;transition:transform .2s}#view-ms .tbl-ex.open td:first-child::before{transform:rotate(90deg)}#view-ms .tbl-exrow{display:none}#view-ms .tbl-exrow.on{display:table-row}#view-ms .tbl-exrow td{background:rgba(78,168,255,.06);font-size:.82rem;color:var(--text-2);padding:12px 14px}#view-ms .tbl-exrow .ex-lbl{font-family:var(--font-mono);font-size:.6rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:4px}#view-ms .tag-nch{font-family:var(--font-mono);font-size:.68rem;color:var(--accent-2);background:var(--bg-2);border:1px solid var(--line-soft);padding:2px 7px;border-radius:6px;display:inline-block;margin:2px 3px 2px 0;cursor:pointer}#view-ms .tag-nch:active{opacity:.6}#view-ms .diagram{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;padding:16px 14px;margin:12px 0}#view-ms .diagram .dcap{font-family:var(--font-mono);font-size:.66rem;color:var(--text-3);text-align:center;margin-top:10px;letter-spacing:.02em}#view-ms .diagram svg{width:100%;height:auto;display:block}#view-ms .node{cursor:pointer}#view-ms .node:active{opacity:.6}#view-ms .node:hover rect,#view-ms .node:hover circle,#view-ms .node:hover path{filter:brightness(1.18)}#view-ms .tapdot{animation:tapPulse 2s var(--ease) infinite}#view-ms .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.5s var(--ease) forwards}#view-ms .fade{opacity:0;animation:fade .6s var(--ease) forwards}#view-ms .pop{opacity:0;transform:scale(.85);transform-origin:center;animation:pop .5s var(--ease) forwards}#view-ms .gw{transform:scaleX(0);transform-origin:left;animation:gw .9s var(--ease) forwards}#view-ms .glow{filter:drop-shadow(0 0 4px currentColor)}#view-ms .dona-seg{transform-origin:center;transition:transform .3s var(--ease);cursor:pointer}#view-ms .dona-seg:hover{transform:scale(1.04)}#view-ms .dash-draw{stroke-dasharray:var(--dl);stroke-dashoffset:var(--dl);animation:dashIn 1.3s var(--ease) forwards}#view-ms .scanline{animation:scan 3s linear infinite}#view-ms .pulse-ring{animation:pulseRing 2.2s var(--ease) infinite}#view-ms .grade-bar{cursor:pointer;transition:filter .2s}#view-ms .grade-bar:hover{filter:brightness(1.25)}#view-ms .breathe{animation:breathe 5s var(--ease) infinite}#view-ms .flow{stroke-dasharray:3 5;animation:flow 2.2s linear infinite;opacity:.75}#view-ms .travel{animation:travel 4.5s var(--ease) infinite}#view-ms .glow-pulse{animation:glowPulse 4.5s var(--ease) infinite}#view-ms .floaty{animation:floaty 6s var(--ease) infinite}#view-ms .floaty2{animation:floaty 6s var(--ease) .8s infinite}#view-ms .floaty3{animation:floaty 6s var(--ease) 1.6s infinite}#view-ms .sweep{animation:sweep 5s var(--ease) infinite}#view-ms .diagram.demo .dash-draw{animation:dashIn 1.2s var(--ease)}#view-ms .diagram.demo .gw{animation:gw 1s var(--ease)}#view-ms .diagram.demo .grade-bar rect{animation:dashIn 1s var(--ease)}#view-ms .diagram.demo .travel{animation:travel 1.8s var(--ease)}#view-ms .diagram{cursor:pointer;position:relative}#view-ms .demo-hint{position:absolute;top:6px;right:8px;font-size:.6rem;color:var(--text-3);opacity:.5;font-family:var(--font-mono);pointer-events:none}#view-ms .d1{animation-delay:.1s}#view-ms .d2{animation-delay:.3s}#view-ms .d3{animation-delay:.5s}#view-ms .d4{animation-delay:.7s}#view-ms .d5{animation-delay:.9s}#view-ms .d6{animation-delay:1.1s}#view-ms .d7{animation-delay:1.3s}#view-ms .d8{animation-delay:1.5s}#view-ms .ejemplo{background:linear-gradient(135deg,var(--surface),var(--surface-2));border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:14px;margin:12px 0}#view-ms .ejemplo .ej-h{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:.9rem;color:var(--gold);margin-bottom:4px}#view-ms .ejemplo .ej-sub{font-size:.8rem;color:var(--text-3);margin-bottom:10px}#view-ms .ejemplo .ej-step{display:flex;gap:10px;padding:7px 0;font-size:.85rem;align-items:baseline}#view-ms .ejemplo .ej-step .n{width:22px;height:22px;border-radius:6px;background:var(--bg-2);border:1px solid var(--line-soft);color:var(--gold);font-family:var(--font-mono);font-size:.72rem;font-weight:700;display:grid;place-items:center;flex:none}#view-ms .ejemplo .ej-step .stxt{flex:1}#view-ms .ejemplo .ej-step .stxt code{font-family:var(--font-mono);color:var(--accent-2);font-size:.82rem}#view-ms .ejemplo .ej-res{margin-top:10px;padding:10px 12px;background:var(--bg-2);border-radius:9px;font-family:var(--font-mono);font-weight:600;color:var(--accent-2);font-size:.9rem;text-align:center}#view-ms .videobtn{display:inline-flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.82rem;font-weight:600;color:var(--text);cursor:pointer;margin:10px 0;transition:border .18s}#view-ms .videobtn:active{border-color:var(--danger)}#view-ms .videobtn .yt{width:22px;height:16px;background:var(--danger);border-radius:4px;display:grid;place-items:center;flex:none}#view-ms .videobtn .yt::after{content:"";border-left:6px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:1px}#view-ms .imgframe{border:1.5px dashed var(--line);border-radius:12px;padding:15px;margin:12px 0;background:repeating-linear-gradient(45deg,transparent,transparent 11px,rgba(78,168,255,.025) 11px,rgba(78,168,255,.025) 22px)}#view-ms .imgframe .ifh{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;color:var(--tg2);margin-bottom:6px}#view-ms .imgframe .ifd{font-size:.82rem;color:var(--text-2);margin-bottom:10px}#view-ms .imgframe .ifprompt{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:9px;padding:10px 12px;font-size:.78rem;color:var(--text-2);font-style:italic}#view-ms .imgframe .ifprompt .pl{font-family:var(--font-mono);font-size:.58rem;color:var(--tg2);text-transform:uppercase;letter-spacing:.1em;font-style:normal;display:block;margin-bottom:4px}#view-ms .imgframe .ifcopy{margin-top:8px;font-size:.74rem;font-weight:600;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer}#view-ms .biblio{border-radius:16px;margin:16px 0 0;overflow:hidden;border:1px solid var(--line-soft);background:var(--surface)}#view-ms .biblio-bar{display:flex;align-items:center;gap:12px;padding:15px 16px;width:100%;text-align:left;border:none;color:var(--text);cursor:pointer;font-family:inherit;background:none}#view-ms .biblio-bar .tn{flex:1;font-family:var(--font-display);font-weight:600;font-size:.98rem}#view-ms .biblio-bar .chev{transition:transform .35s var(--ease);color:var(--text-3)}#view-ms .biblio-bar.open .chev{transform:rotate(90deg)}#view-ms .biblio-body{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}#view-ms .biblio-inner{padding:2px 16px 16px}#view-ms .ref{display:flex;gap:10px;padding:11px 0;border-top:1px solid var(--line-soft);font-size:.84rem}#view-ms .ref .rnum{font-family:var(--font-mono);color:var(--accent-2);font-size:.72rem;flex:none;margin-top:2px}#view-ms .ref .rbody{flex:1}#view-ms .ref a{color:var(--accent);text-decoration:none;font-size:.78rem;word-break:break-all}#view-ms .ref .rtype{font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);display:block;margin:3px 0}#view-ms #ms-panel-scrim{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .35s var(--ease);backdrop-filter:blur(2px)}#view-ms #ms-panel-scrim.on{opacity:1;pointer-events:auto}#view-ms #ms-panel{position:fixed;top:0;right:0;bottom:0;z-index:61;width:min(92vw,540px);background:linear-gradient(160deg,var(--bg-2),var(--bg));border-left:1px solid var(--line);box-shadow:-12px 0 50px rgba(0,0,0,.5);transform:translateX(100%);transition:transform .5s var(--ease);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}#view-ms #ms-panel.on{transform:translateX(0);animation:panelBorder 3s var(--ease) infinite}#view-ms .panel-spine{position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--accent),var(--accent-2))}#view-ms .panel-head{display:flex;align-items:center;gap:12px;padding:16px 16px 13px 20px;border-bottom:1px solid var(--line-soft)}#view-ms .panel-head .p-ic{width:44px;height:44px;border-radius:12px;background:var(--surface);border:1px solid var(--line-soft);display:grid;place-items:center;font-size:1.35rem;flex:none}#view-ms .panel-head .p-tt{flex:1;min-width:0}#view-ms .panel-head .p-tt h3{font-size:1.12rem;line-height:1.2}#view-ms .panel-head .p-tt .p-tag{font-family:var(--font-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-top:3px}#view-ms .panel-close{width:38px;height:38px;border-radius:11px;background:var(--surface);border:1px solid var(--line-soft);color:var(--text);display:grid;place-items:center;flex:none;cursor:pointer}#view-ms .panel-close:active{transform:scale(.9)}#view-ms .panel-crumbs{display:flex;align-items:center;gap:6px;padding:9px 16px 0 20px;flex-wrap:wrap;font-size:.7rem;color:var(--text-3);min-height:12px}#view-ms .panel-crumbs .cb{cursor:pointer;color:var(--accent);font-family:var(--font-mono)}#view-ms .panel-crumbs .sep{opacity:.5}#view-ms .panel-body{flex:1;overflow-y:auto;padding:14px 20px 30px;font-size:.94rem;color:var(--text-2);line-height:1.72}#view-ms .panel-body.turn{animation:fadeSlide .4s var(--ease)}#view-ms .panel-body b{color:var(--text)}#view-ms .link{color:var(--accent);border-bottom:1px dashed var(--accent);cursor:pointer;font-weight:500}#view-ms .link:active{opacity:.6}#view-ms .p-dato{margin-top:20px;background:var(--surface);border:1px solid var(--line-soft);border-left:3px solid var(--accent-2);border-radius:0 12px 12px 0;padding:13px 15px;font-size:.86rem;color:var(--text)}#view-ms .p-dato .pl{font-family:var(--font-mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent-2);display:block;margin-bottom:5px}#view-ms .p-rel{margin-top:22px}#view-ms .p-tree{margin:18px 0 8px;padding:12px 14px;background:rgba(78,168,255,.04);border:1px solid rgba(78,168,255,.12);border-radius:12px}#view-ms .tree-root{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.82rem;color:var(--text);margin-bottom:10px}#view-ms .tree-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent);flex:none}#view-ms .tree-branches{display:flex;flex-direction:column;gap:5px;padding-left:4px}#view-ms .tree-branch{display:flex;align-items:center;cursor:pointer;transition:transform .2s var(--ease);opacity:0;animation:treeFade .35s var(--ease) forwards}#view-ms .tree-branch:hover,#view-ms .tree-branch:active{transform:translateX(4px)}#view-ms .tree-branch:nth-child(1){animation-delay:.05s}#view-ms .tree-branch:nth-child(2){animation-delay:.13s}#view-ms .tree-branch:nth-child(3){animation-delay:.21s}#view-ms .tree-branch:nth-child(4){animation-delay:.29s}#view-ms .tree-branch:nth-child(5){animation-delay:.37s}#view-ms .tree-line{width:22px;height:1px;background:linear-gradient(90deg,var(--accent),var(--accent-2));margin-right:8px;flex:none;position:relative}#view-ms .tree-line::after{content:"";position:absolute;right:-3px;top:-2.5px;width:5px;height:5px;border-radius:50%;background:var(--accent-2)}#view-ms .tree-leaf{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:5px 10px;font-size:.78rem;flex:1;transition:background .2s,border-color .2s}#view-ms .tree-branch:hover .tree-leaf,#view-ms .tree-branch:active .tree-leaf{background:rgba(78,168,255,.1);border-color:rgba(78,168,255,.4)}#view-ms .tree-ic{font-size:.9rem;flex:none}#view-ms .tree-lock{margin-left:auto;opacity:.45;font-size:.7rem}#view-ms .tree-branch.gancho .tree-leaf{border-style:dashed;opacity:.7}#view-ms .tree-header{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:.62rem;color:var(--accent-2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;opacity:.8}#view-ms .tree-hint{margin-left:auto;font-size:.62rem;font-family:var(--font-mono);color:var(--text-3);white-space:nowrap;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.04)}#view-ms .tree-arrow{margin-left:auto;color:var(--accent);font-size:.9rem;opacity:.7}#view-ms .p-rel .rl-t{font-family:var(--font-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:9px}#view-ms .p-rel .rl-chips{display:flex;flex-wrap:wrap;gap:8px}#view-ms .p-rel .chip{display:flex;align-items:center;gap:6px;padding:9px 13px;border-radius:11px;background:var(--surface);border:1px solid var(--line-soft);font-size:.82rem;font-weight:600;color:var(--text);cursor:pointer;transition:border .18s}#view-ms .p-rel .chip:active{transform:scale(.94)}#view-ms .tip-fab{position:fixed;top:calc(env(safe-area-inset-top) + 64px);right:14px;z-index:30;display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line);border-radius:100px;padding:7px 12px 7px 10px;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:70vw;cursor:pointer}#view-ms .tip-fab .tip-txt{font-size:.7rem;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48vw}#view-ms .tip-fab .tip-x{color:var(--text-3);font-size:.85rem}#view-ms .tip-fab.expanded{border-radius:14px;flex-direction:column;align-items:flex-start;max-width:80vw;padding:11px 13px}#view-ms .tip-fab.expanded .tip-txt{white-space:normal;max-width:100%;font-size:.8rem}#view-ms .tip-fab.hidden{display:none}#view-ms .foot-note{font-size:.74rem;color:var(--text-3);text-align:center;margin-top:26px;padding-top:16px;border-top:1px solid var(--line-soft)}#view-ms .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);z-index:70;background:var(--surface);border:1px solid var(--line);color:var(--text);padding:10px 18px;border-radius:100px;font-size:.82rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--ease)}#view-ms .toast.on{opacity:1;transform:translate(-50%,0)}#view-ms mark.hl{background:rgba(242,184,75,.3);color:var(--text);border-radius:3px;padding:0 2px}#view-ms .topic.flash{animation:topicFlash 1.6s var(--ease)}#view-ms .tcheck{
+  flex:none;width:26px;height:26px;border-radius:8px;
+  border:1.6px solid var(--line);background:var(--surface-2);
+  display:grid;place-items:center;cursor:pointer;
+  color:transparent;margin-right:2px;
+  transition:background .22s var(--ease),border-color .22s var(--ease),
+             color .22s var(--ease),transform .18s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}#view-ms .tcheck svg{width:15px;height:15px;
+  stroke-dasharray:26;stroke-dashoffset:26;
+  transition:stroke-dashoffset .34s var(--ease) .04s;}#view-ms .tcheck:hover{border-color:var(--accent);transform:scale(1.07)}#view-ms .tcheck:active{transform:scale(.92)}#view-ms .tcheck:focus-visible{outline:2px solid var(--accent);outline-offset:2px}#view-ms .tcheck.on{
+  background:linear-gradient(135deg,var(--accent-2),#2eb98a);
+  border-color:transparent;color:var(--accent-ink);
+}#view-ms .tcheck.on svg{stroke-dashoffset:0}#view-ms .tcheck.pop{animation:checkPop .42s var(--ease)}#view-ms .topic.leido .topic-bar .tnum{background:var(--accent-2);color:var(--accent-ink)}#view-ms .topic.leido .topic-bar .tn{color:var(--text-2)}#view-ms .topic.leido{border-color:rgba(95,224,176,.28)}#view-ms .prog-lectura{
+  margin:26px 0 18px;padding:16px 18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;
+}#view-ms .pl-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}#view-ms .pl-lbl{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--text-3)}#view-ms .pl-num{font-family:var(--font-mono);font-size:.78rem;color:var(--text-2)}#view-ms .pl-num b{color:var(--accent-2);font-size:1rem}#view-ms .pl-track{height:7px;border-radius:4px;background:var(--surface-2);
+  overflow:hidden;border:1px solid var(--line-soft)}#view-ms .pl-fill{height:100%;width:0;border-radius:4px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  transition:width .7s var(--ease);
+  box-shadow:0 0 14px rgba(95,224,176,.4)}#view-ms .pl-units{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}#view-ms .pl-u{
+  flex:1;min-width:88px;padding:8px 10px;border-radius:10px;
+  background:var(--surface-2);border:1px solid var(--line-soft);
+}#view-ms .pl-u-top{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:5px}#view-ms .pl-u-name{font-size:.68rem;color:var(--text-2);font-weight:600}#view-ms .pl-u-n{font-family:var(--font-mono);font-size:.6rem;color:var(--text-3)}#view-ms .pl-u-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.06);overflow:hidden}#view-ms .pl-u-fill{height:100%;border-radius:2px;transition:width .6s var(--ease)}#view-ms .pl-u.full{border-color:rgba(95,224,176,.35);background:rgba(95,224,176,.07)}#view-ms .pl-u.full .pl-u-name{color:var(--accent-2)}#view-ms .eval-gate{
+  margin:22px 0 30px;padding:22px;border-radius:20px;
+  background:linear-gradient(150deg,var(--surface),var(--surface-2));
+  border:1px solid var(--line);
+  position:relative;overflow:hidden;
+  transition:border-color .5s var(--ease),box-shadow .5s var(--ease);
+}#view-ms .eval-gate::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(760px 200px at 50% -40%,rgba(95,224,176,.16),transparent 70%);
+  transition:opacity .7s var(--ease);
+}#view-ms .eval-gate.ready{border-color:rgba(95,224,176,.45);
+  box-shadow:0 0 0 1px rgba(95,224,176,.12),0 18px 50px -22px rgba(95,224,176,.5)}#view-ms .eval-gate.ready::before{opacity:1}#view-ms .eg-inner{display:flex;gap:16px;align-items:flex-start;position:relative;z-index:1}#view-ms .eg-ic{
+  flex:none;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+  background:var(--surface-2);border:1px solid var(--line);color:var(--text-3);
+  transition:color .5s var(--ease),border-color .5s var(--ease),background .5s var(--ease);
+}#view-ms .eg-ic svg{width:28px;height:28px}#view-ms .eval-gate.ready .eg-ic{
+  color:var(--accent-2);border-color:rgba(95,224,176,.4);
+  background:rgba(95,224,176,.1);
+}#view-ms .eg-txt{flex:1;min-width:0}#view-ms .eg-kicker{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-3);margin-bottom:5px;
+  transition:color .4s var(--ease)}#view-ms .eval-gate.ready .eg-kicker{color:var(--accent-2)}#view-ms .eg-h{font-family:var(--font-display);font-size:1.12rem;font-weight:700;
+  margin:0 0 5px;letter-spacing:-.01em;color:var(--text)}#view-ms .eg-p{font-size:.84rem;line-height:1.6;color:var(--text-2);margin:0}#view-ms .eg-btn{
+  margin-top:18px;width:100%;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 20px;border-radius:14px;border:1px solid var(--line);
+  background:var(--surface-2);color:var(--text-3);
+  font-family:var(--font-display);font-size:.96rem;font-weight:700;
+  cursor:not-allowed;position:relative;overflow:hidden;
+  transition:all .4s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}#view-ms .eg-btn-arrow{transition:transform .3s var(--ease)}#view-ms .eg-btn.ready{
+  cursor:pointer;color:var(--accent-ink);border-color:transparent;
+  background:linear-gradient(120deg,var(--accent-2),#7af0c6 45%,var(--accent-2));
+  box-shadow:0 10px 34px -12px rgba(95,224,176,.85);
+  animation:egGlow 2.6s var(--ease) infinite;
+}#view-ms .eg-btn.ready:hover{transform:translateY(-2px);
+  box-shadow:0 16px 42px -12px rgba(95,224,176,1)}#view-ms .eg-btn.ready:hover .eg-btn-arrow{transform:translateX(5px)}#view-ms .eg-btn.ready:active{transform:translateY(0) scale(.985)}#view-ms .eg-btn.ready::after{
+  content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-18deg);animation:egSweep 2.8s var(--ease) infinite;
+}#view-ms .eg-mini{margin-top:10px;text-align:center;font-family:var(--font-mono);
+  font-size:.66rem;color:var(--text-3);letter-spacing:.06em}#view-ms .eval-gate.ready .eg-mini{color:var(--accent-2)}#view-ms .btn-volver-ramo{
+  display:inline-flex;align-items:center;gap:6px;flex:none;
+  padding:6px 12px;border-radius:9px;cursor:pointer;
+  background:rgba(78,168,255,.12);border:1px solid rgba(78,168,255,.3);
+  color:#4EA8FF;font-size:.74rem;font-weight:700;font-family:inherit;
+  text-decoration:none;white-space:nowrap;
+  transition:background .18s;-webkit-tap-highlight-color:transparent;
+}#view-ms .btn-volver-ramo:active{background:rgba(78,168,255,.24)}@media(max-width:520px){#view-ms .eg-inner{gap:12px}#view-ms .eg-ic{width:44px;height:44px;border-radius:12px}#view-ms .eg-ic svg{width:24px;height:24px}#view-ms .eg-h{font-size:1rem}#view-ms .pl-units{gap:6px}#view-ms .pl-u{min-width:0;padding:7px 8px}#view-ms .pl-u-name{font-size:.62rem}}#view-ms{height:auto!important;min-height:100dvh;
+  overflow:visible!important;overflow-y:visible!important;
+  position:static!important;display:block}#view-ms svg [fill="#EAF1F8"]{fill:var(--text)}#view-ms svg [fill="#9FB2C6"]{fill:var(--text-2)}#view-ms svg [fill="#6B7E92"]{fill:var(--text-3)}#view-ms svg [fill="#171E28"]{fill:var(--surface)}#view-ms svg [fill="#0E1116"]{fill:var(--bg)}#view-ms svg [stroke="#3A4A5C"],#view-ms svg [stroke="#2A3F52"]{stroke:var(--line)}body[data-theme]:not([data-theme="blueprint"]) #view-ms{
+  --bg:inherit;--bg-2:inherit;--surface:inherit;--surface-2:inherit;--line:inherit;--line-soft:inherit;
+  --text:inherit;--text-2:inherit;--text-3:inherit;--accent:inherit;--accent-2:inherit;--accent-ink:inherit;--gold:inherit;--danger:inherit;
+  --u1a:var(--accent);--u1b:var(--accent);
+}#pane-suelos .wrap{
+  height: auto !important;
+  overflow: visible !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 130px) !important;
+}
+/* ══ v1.9 · Suelos al estilo blueprint (NotebookLM) + Evalúate por ramo ══ */
+#pane-suelos{background:#0E1116;min-height:100dvh}
+#view-ms{position:relative}
+#view-ms .wrap,#view-ms .topbar,#ms-searchResults{position:relative;z-index:1}
+#view-ms .ms-back{flex:none;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text-2);font:600 .78rem var(--font-body);cursor:pointer}
+#view-ms .ms-herobar{height:5px;border-radius:4px;background:var(--line-soft);margin-top:10px;overflow:hidden;max-width:220px}
+#view-ms .ms-herobar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#C98A55,#5FE0B0);border-radius:4px;transition:width .5s var(--ease)}
+#view-ms .ms-unav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+#view-ms .ms-unav button{background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid var(--c);color:var(--c);border-radius:11px;padding:9px 4px;font:600 .72rem var(--font-body);cursor:pointer;line-height:1.25}
+#view-ms .ms-evalchip{width:100%;display:flex;align-items:center;gap:10px;padding:11px 14px;margin:0 0 16px;border-radius:14px;border:1px dashed var(--accent-2);background:rgba(95,224,176,.07);color:var(--text);cursor:pointer;text-align:left;font-family:var(--font-body)}
+#view-ms .ms-evalchip b{font-size:.88rem}
+#view-ms .ms-evalchip small{flex:1;font-size:.72rem;color:var(--text-3)}
+#view-ms .ms-evalchip span:last-child{color:var(--accent-2);font-weight:700}
+/* papel milimetrado en diagramas y ejemplos, como las láminas del resumen */
+#view-ms .diagram,#view-ms .ejemplo{background-color:#101722;background-image:linear-gradient(rgba(120,170,225,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,225,.09) 1px,transparent 1px),linear-gradient(rgba(120,170,225,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,225,.04) 1px,transparent 1px);background-size:40px 40px,40px 40px,10px 10px,10px 10px;border:1px solid #2A3A50}
+#view-ms .diagram{position:relative}
+#view-ms .diagram::before{content:"FIG";position:absolute;top:6px;left:8px;font:700 .55rem var(--font-mono);letter-spacing:.14em;color:#4EA8FF;opacity:.6}
+#view-ms .ejemplo{border-radius:12px;padding:12px 12px 6px;margin:12px 0}
+#view-ms .ejemplo .ej-h{font:700 .8rem var(--font-display);color:var(--gold);margin-bottom:6px;letter-spacing:.01em}
+#view-ms .ejemplo .ej-sub{font-size:.76rem;color:var(--text-2);margin-bottom:8px;line-height:1.5}
+#view-ms .ejemplo .ej-step{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;margin-bottom:6px;border-radius:10px;background:rgba(14,17,22,.78);border:1px solid #243246}
+#view-ms .ejemplo .ej-step .n{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:700 .7rem var(--font-mono);color:#04121f;background:#4EA8FF}
+#view-ms .ejemplo .ej-step .stxt{font-size:.8rem;line-height:1.55;color:var(--text);min-width:0;overflow-wrap:anywhere}
+#view-ms .ms-vids{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+#view-ms .ms-vids a{display:block;padding:8px 11px;border-radius:10px;background:rgba(255,64,64,.08);border:1px solid rgba(255,90,90,.35);color:#FFB3B3;font-size:.78rem;text-decoration:none}
+/* hoja resumen tipo cheat-sheet */
+#view-ms .ms-tooltabs{display:flex;gap:4px;padding:4px;border-radius:13px;background:var(--surface);border:1px solid var(--line-soft);margin:6px 0 12px}
+#view-ms .ms-tooltabs button{flex:1;padding:9px 4px;border-radius:10px;border:0;background:transparent;color:var(--text-3);font:700 .76rem var(--font-body);cursor:pointer}
+#view-ms .ms-tooltabs button.on{background:var(--bg-2);color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
+#view-ms .ms-cheat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:14px}
+#view-ms .ms-cheat{min-width:0;border-radius:12px;padding:10px 12px;background-color:#101722;background-image:linear-gradient(rgba(120,170,225,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,225,.07) 1px,transparent 1px);background-size:20px 20px;border:1px solid #2A3A50}
+#view-ms .ms-cheat .ch-h{display:flex;align-items:center;gap:8px;font:700 .82rem var(--font-display);margin-bottom:6px;color:var(--text)}
+#view-ms .ms-cheat .ch-n{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font:700 .66rem var(--font-mono);background:var(--gold);color:#1a1205}
+#view-ms .ms-cheat .ch-h button{margin-left:auto;font:600 .66rem var(--font-mono);padding:3px 8px;border-radius:7px;border:1px solid var(--line);background:transparent;color:var(--text-3);cursor:pointer}
+#view-ms .ms-cheat .ch-r{display:flex;gap:8px;align-items:baseline;padding:5px 0;border-top:1px dashed #243246}
+#view-ms .ms-cheat .ch-r span{flex:none;width:40%;font-size:.7rem;color:var(--text-3)}
+#view-ms .ms-cheat .ch-r code{flex:1;min-width:0;font:500 .76rem var(--font-mono);color:#BFE3FF;overflow-x:auto;white-space:nowrap}
+/* CTA Evalúate en el panel de cualquier ramo */
+.eva-cta{margin:0 0 12px;padding:12px 14px;border-radius:14px;display:flex;gap:10px;align-items:center;background:linear-gradient(135deg,color-mix(in srgb,#5FE0B0 18%,var(--surface)),var(--surface));border:1px solid #5FE0B0;cursor:pointer}
+.eva-cta .i{font-size:1.4rem}.eva-cta .t{flex:1;min-width:0}.eva-cta .t b{display:block;font-size:.9rem}.eva-cta .t span{font-size:.74rem;color:var(--text-2)}
+.eva-cta.off{border-style:dashed;border-color:var(--line-soft);background:var(--surface);opacity:.85}
+#ms-panel .videobtn{display:flex}
+
+#view-ms .ms-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:13px 14px;margin-bottom:10px}
+#view-ms .ms-card h4{font-family:var(--font-display);font-size:.95rem;margin:0 0 6px}
+#view-ms .ms-card p,#view-ms .ms-card li{font-size:.84rem;line-height:1.5;color:var(--text-2)}
+#view-ms .ms-card ul{padding-left:18px;margin:4px 0}
+#view-ms .ms-card b{color:var(--text)}
+#view-ms .ms-tw{overflow-x:auto;margin:6px 0;-webkit-overflow-scrolling:touch}
+#view-ms .ms-tw table{border-collapse:collapse;font-size:.76rem;min-width:100%}
+#view-ms .ms-tw th,#view-ms .ms-tw td{border:1px solid var(--line-soft);padding:5px 7px;text-align:left;white-space:nowrap}
+#view-ms .ms-tw th{background:var(--bg-2);color:var(--text);font-weight:700}
+#view-ms .ms-tw td{color:var(--text-2)}
+#view-ms .ms-f{font-family:var(--font-mono);font-size:.82rem;background:var(--bg-2);border-radius:8px;padding:7px 9px;margin:4px 0;color:var(--text);overflow-x:auto;white-space:nowrap}
+#view-ms .ms-ua{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+#view-ms .ms-ua button{padding:8px 12px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line-soft);color:var(--text);font-size:.78rem;font-weight:700}
+#view-ms .ms-ua button.on{background:#C98A55;border-color:#C98A55;color:#fff}
+#view-ms .ms-fg h4{display:flex;justify-content:space-between;align-items:center}
+#view-ms .ms-fg h4 button{font-size:.7rem;padding:4px 8px;border-radius:8px;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--text-2)}
+#view-ms .ms-fr{display:flex;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px dashed var(--line-soft)}
+#view-ms .ms-fr:last-child{border-bottom:0}
+#view-ms .ms-fr .l{flex:none;width:42%;font-size:.76rem;color:var(--text-3)}
+#view-ms .ms-fr .e{flex:1;min-width:0;font-family:var(--font-mono);font-size:.8rem;color:var(--text);overflow-x:auto;white-space:nowrap}
+#view-ms .ms-calc{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;margin-bottom:10px;overflow:hidden}
+#view-ms .ms-calc>button{width:100%;display:flex;gap:10px;align-items:center;padding:12px 14px;background:transparent;border:0;color:var(--text);text-align:left;font-weight:700;font-size:.88rem}
+#view-ms .ms-calc>button span{flex:1}
+#view-ms .ms-calc>button small{font-weight:500;color:var(--text-3);font-size:.72rem;display:block}
+#view-ms .ms-cb{display:none;padding:0 14px 14px}
+#view-ms .ms-calc.open .ms-cb{display:block}
+#view-ms .ms-in{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#view-ms .ms-in label{font-size:.7rem;color:var(--text-3);display:block;margin-bottom:3px}
+#view-ms .ms-in input,#view-ms .ms-in select{width:100%;padding:9px 10px;border-radius:10px;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--text);font-size:.9rem;font-family:var(--font-mono)}
+#view-ms .ms-out{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--bg-2);font-size:.82rem;line-height:1.6;color:var(--text-2)}
+#view-ms .ms-out b{color:var(--text);font-family:var(--font-mono)}
+#view-ms .ms-out .big{font-size:1.15rem;font-family:var(--font-display);color:#C98A55;font-weight:800}
+#view-ms .ms-q{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:13px 14px;margin-bottom:10px}
+#view-ms .ms-q .p{font-size:.88rem;font-weight:600;margin-bottom:8px;line-height:1.45}
+#view-ms .ms-q .o{display:flex;flex-direction:column;gap:6px}
+#view-ms .ms-q .o button{text-align:left;padding:9px 11px;border-radius:10px;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--text);font-size:.82rem}
+#view-ms .ms-q .o button.ok{border-color:#3BAA6B;background:color-mix(in srgb,#3BAA6B 18%,var(--bg-2))}
+#view-ms .ms-q .o button.ko{border-color:#D9534F;background:color-mix(in srgb,#D9534F 16%,var(--bg-2))}
+#view-ms .ms-q .ex{display:none;margin-top:8px;font-size:.8rem;color:var(--text-2);line-height:1.5}
+#view-ms .ms-q.done .ex{display:block}
+#view-ms .ms-score{font-family:var(--font-mono);font-size:.78rem;color:var(--text-3);margin:0 0 10px}
+#view-ms .ms-step{display:none}
+#view-ms .ms-step.show{display:block}
+#view-ms .ms-step{padding:8px 10px;border-left:3px solid #C98A55;margin:6px 0;background:var(--bg-2);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text-2);line-height:1.5}
+#view-ms .ms-step b{color:var(--text)}
+#view-ms .ms-card ul{padding-left:18px}
+</style>
+<script>
+/* MYCELION OS v1.9 */
+/* ══════════════════════════════════════════════════════
+   v1.9 · MECÁNICA DE SUELOS al estilo Tecnología del Hormigón
+   Parte A: helpers + fichas micelio + normas
+   ══════════════════════════════════════════════════════ */
+var MS_YT=function(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q)};
+function msVid(q,label){return '<a class="videobtn" href="'+MS_YT(q)+'" target="_blank" rel="noopener"><span class="yt"></span>Ver video: '+label+'</a>'}
+function msVids(arr){return '<div class="ms-vids">'+arr.map(function(v){return '<a href="'+MS_YT(v[0])+'" target="_blank" rel="noopener">▶ '+v[1]+'</a>'}).join("")+'</div>'}
+function msVM(label,badge,inner){return '<div class="vermas"><button class="vermas-btn" onclick="vermas(this)"><span>▾ Ver más — '+label+'</span><span class="vm-badge">'+badge+'</span></button><div class="detalle"><div class="detalle-inner">'+inner+'</div></div></div>'}
+function msTbl(head,rows){return '<div class="tbl-wrap"><table class="mini-tbl"><tr>'+head.map(function(h){return "<th>"+h+"</th>"}).join("")+"</tr>"+rows.map(function(r){
+  var ex=r.length>head.length?r[head.length]:null,cells=r.slice(0,head.length);
+  return '<tr'+(ex?' class="tbl-ex" onclick="tblEx(this)"':'')+'>'+cells.map(function(c){return "<td>"+c+"</td>"}).join("")+"</tr>"+(ex?'<tr class="tbl-exrow"><td colspan="'+head.length+'"><span class="ex-lbl">🔎 Ejemplo</span>'+ex+'</td></tr>':'');
+}).join("")+"</table></div>"}
+function msEj(t,sub,steps){return '<div class="ejemplo"><div class="ej-h">🎯 '+t+'</div>'+(sub?'<div class="ej-sub">'+sub+'</div>':'')+steps.map(function(s,i){return '<div class="ej-step"><span class="n">'+(i+1)+'</span><span class="stxt">'+s+'</span></div>'}).join("")+'</div>'}
+function msL(k,txt){return '<span class="link" onclick="msFicha(\''+k+'\')">'+txt+'</span>'}
+function msTopic(id,num,tit,sub,col,inner){
+  return '<div class="topic" id="'+id+'" style="--tg1:'+col+';--tg2:'+col+'"><button class="topic-bar" onclick="tog(this)"><span class="tnum">'+num+'</span><span class="tn">'+tit+'<small>'+sub+'</small></span>'
+   +'<span class="tcheck" id="chk-'+id+'" role="checkbox" aria-checked="false" tabindex="0" title="Marcar tema como leído" onclick="event.stopPropagation();msLeido(\''+id+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();event.stopPropagation();msLeido(\''+id+'\')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>'
+   +'<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>'
+   +'<div class="topic-body"><div class="topic-inner">'+inner+'</div></div></div>';
+}
+function msBiblio(n,refs){return '<div class="biblio"><button class="biblio-bar" onclick="togBiblio(this)"><span style="font-size:1.1rem">📚</span><span class="tn">Bibliografía · Unidad '+n+'</span><svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button><div class="biblio-body"><div class="biblio-inner">'
+  +refs.map(function(r,i){return '<div class="ref"><span class="rnum">['+(i+1)+']</span><div class="rbody"><b>'+r[0]+'</b> '+r[1]+'<span class="rtype">'+r[2]+'</span></div></div>'}).join("")+'</div></div></div>'}
+function msNormas(suf){return '<div class="normas"><div class="normas-label">📐 Normas de esta unidad · toca para ver el detalle</div><div class="normas-scroll" id="msNormas'+suf+'">'
+  +MS_NORMAS[suf].map(function(n){return '<button class="norma-chip" data-code="'+n.code+'" data-mss="'+suf+'" onclick="msNorma(\''+n.code+'\',\''+suf+'\')">'+n.code+' <small>'+n.short+'</small></button>'}).join("")
+  +'</div><div class="norma-detail" id="msNormaDet'+suf+'"></div></div>'}
+function msNorma(code,suf){
+  var n=MS_NORMAS[suf].find(function(x){return x.code===code}),det=document.getElementById("msNormaDet"+suf);if(!n||!det)return;
+  var chips=document.querySelectorAll('.norma-chip[data-mss="'+suf+'"]');
+  if(det.dataset.code===code&&det.classList.contains("on")){det.classList.remove("on");det.dataset.code="";chips.forEach(function(c){c.classList.remove("active")});return}
+  chips.forEach(function(c){c.classList.toggle("active",c.dataset.code===code)});
+  det.dataset.code=code;
+  det.innerHTML='<div class="nd-code">'+n.code+'</div><h4>'+n.titulo+'</h4><p>'+n.desc+'</p><div class="nd-mention">📍 En esta unidad: '+n.mention+'</div>';
+  det.classList.add("on");
+}
+
+/* ── NORMAS por unidad ── */
+var MS_NORMAS={
+ "1":[
+  {code:"NCh 1508",short:"Estudio de suelos",titulo:"Geotecnia · Estudio de mecánica de suelos",desc:"Define qué debe tener un estudio de mecánica de suelos para edificación: etapas (gabinete, terreno, laboratorio, informe), número mínimo de prospecciones, profundidades y ensayos mínimos.",mention:"profundidad de exploración Zp ≥ Df + 1,5B y contenido del informe."},
+  {code:"NCh 433",short:"Diseño sísmico",titulo:"Diseño sísmico de edificios",desc:"Clasifica el suelo de fundación (tipos A a F) según la velocidad de onda de corte promedio en los 30 m superiores (Vs30), además del N del SPT y la resistencia no drenada. Con eso se obtienen los parámetros del espectro de diseño.",mention:"Vs30 = Σhi / Σ(hi/Vsi) para clasificar el sitio."},
+  {code:"NCh 3364",short:"SPT",titulo:"Ensayo de penetración estándar (SPT)",desc:"Versión chilena del procedimiento SPT: martillo de 63,5 kg, caída 0,76 m, cuchara partida hincada en 3 tramos de 15 cm; N = golpes de los dos últimos tramos.",mention:"N, rechazo y corrección por energía N60."},
+  {code:"ASTM D1586",short:"SPT (EE.UU.)",titulo:"Standard Test Method for Standard Penetration Test (SPT)",desc:"Norma de origen del SPT, citada en los PPT del ramo junto a NCh 3364. Mismos parámetros de martillo y caída.",mention:"misma definición de N y del rechazo."},
+  {code:"ASTM D6032",short:"RQD",titulo:"Determinación del RQD en testigos de roca",desc:"Procedimiento para calcular la calidad de roca a partir de testigos de sondaje: suma de trozos sanos mayores a 100 mm sobre el largo de la corrida.",mention:"RQD = Σ(>100 mm)/L·100%."}
+ ],
+ "2":[
+  {code:"NCh 1515",short:"Humedad",titulo:"Mecánica de suelos · Determinación de la humedad",desc:"Secado en horno a 110 ± 5 °C hasta masa constante. w = masa de agua / masa de suelo seco.",mention:"humedad w de las relaciones de fases."},
+  {code:"NCh 1532",short:"Gs",titulo:"Mecánica de suelos · Densidad de partículas sólidas",desc:"Determinación de la densidad (gravedad específica) de los sólidos con picnómetro. Gs típico 2,60–2,80.",mention:"Gs para pasar de masas a volúmenes (Vs = Ws/(Gs·γw))."},
+  {code:"NCh 1517/1",short:"Límite líquido",titulo:"Límites de consistencia · Parte 1: límite líquido",desc:"Cuchara de Casagrande: humedad con que la ranura se cierra 10 mm a los 25 golpes. Se interpola en escala semilogarítmica con varios puntos.",mention:"LL para el índice plástico y la carta de plasticidad."},
+  {code:"NCh 1517/2",short:"Límite plástico",titulo:"Límites de consistencia · Parte 2: límite plástico",desc:"Humedad con que un cilindro de suelo se agrieta al llegar a 3 mm de diámetro. Se promedian varias determinaciones.",mention:"LP; IP = LL − LP."},
+  {code:"NCh 1726",short:"Dens. relativa",titulo:"Mecánica de suelos · Densidades máxima y mínima y densidad relativa",desc:"Ensayo para suelos granulares no cohesivos que entrega emáx y emín para calcular la densidad relativa Dr.",mention:"Dr = (emáx − e)/(emáx − emín)."},
+  {code:"ASTM D2487",short:"SUCS",titulo:"Unified Soil Classification System",desc:"Sistema Unificado: dos letras según fracción dominante (G, S, M, C, O, Pt) y graduación o plasticidad (W, P, L, H).",mention:"clasificación SUCS con carta de Casagrande."},
+  {code:"AASHTO M145",short:"AASHTO",titulo:"Clasificación de suelos para caminos",desc:"Grupos A-1 a A-7 según % que pasa N°200, LL e IP, más el índice de grupo IG. Se usa en el Manual de Carreteras para subrasantes.",mention:"IG = (F−35)[0,2+0,005(LL−40)] + 0,01(F−15)(IP−10)."}
+ ],
+ "3":[
+  {code:"Terzaghi",short:"σ' = σ − u",titulo:"Principio de esfuerzo efectivo (Terzaghi, 1925)",desc:"La resistencia y la deformación del suelo dependen del esfuerzo efectivo, el que transmiten los contactos entre granos. El agua en los poros soporta la parte u.",mention:"cálculo de σ, u y σ' por estrato."},
+  {code:"Boussinesq",short:"Cargas",titulo:"Distribución de esfuerzos en medio elástico (Boussinesq, 1885)",desc:"Solución para carga puntual en la superficie de un semiespacio elástico, base de las fórmulas de carga lineal, circular y rectangular (Newmark).",mention:"Δσz bajo zapatas, tanques y cargas lineales."},
+  {code:"NCh 1508",short:"Memoria",titulo:"Estudio de mecánica de suelos · memoria de cálculo",desc:"El informe debe incluir los parámetros del suelo y los esfuerzos usados en el diseño de fundaciones.",mention:"memoria de cálculo de la EA3."}
+ ],
+ "4":[
+  {code:"Rankine",short:"1857",titulo:"Teoría de empuje de Rankine",desc:"Estado límite de un suelo en equilibrio plástico detrás de un muro vertical liso con relleno horizontal. Da Ka y Kp en función de φ.",mention:"Ka = tan²(45 − φ/2), Kp = tan²(45 + φ/2)."},
+  {code:"Coulomb",short:"1776",titulo:"Teoría de la cuña de Coulomb",desc:"Equilibrio de una cuña de falla plana considerando el roce muro-suelo δ, la inclinación del muro y del relleno.",mention:"Ka con δ, θ y β."},
+  {code:"NCh 433",short:"Empuje sísmico",titulo:"Diseño sísmico · empujes en muros",desc:"En Chile los muros de contención se verifican además con el incremento sísmico de empuje (método de Mononobe-Okabe o el que indique el proyecto).",mention:"más allá del curso: el sismo suma empuje."}
+ ]
+};
+
+/* ── FICHAS MICELIO ── {clave} enlaza a otra ficha · "gancho-" = otro ramo ── */
+var MS_FICHAS={
+ "meteorizacion":{t:"Meteorización",ic:"🌦️",tag:"Cómo nace el suelo",cuerpo:"Es la descomposición de la roca expuesta en la superficie. La <b>física</b> la rompe sin cambiar sus minerales: cambios de temperatura, congelamiento del agua en grietas, abrasión del viento y de los ríos, y raíces que la parten. La <b>química</b> cambia los minerales: hidrólisis, oxidación, carbonatación y disolución.<br><br>Lo que sale de cada una es distinto: la física deja {granulares} (gravas, arenas, limos) con la misma mineralogía de la roca; la química deja {arcillas}. Por eso en climas húmedos y cálidos hay más arcilla.",rel:["perfil","granulares","arcillas","residual"],dato:"Física → gravas, arenas y limos. Química → arcillas."},
+ "perfil":{t:"Perfil del suelo",ic:"🧱",tag:"Horizontes O · A · B · C · R",cuerpo:"Si cortas el terreno verticalmente ves capas llamadas <b>horizontes</b>: O (materia orgánica), A (suelo superficial, raíces), B (acumulación de arcillas y óxidos lavados desde arriba), C (roca meteorizada) y R (roca madre).<br><br>En obra, el horizonte orgánico se <b>retira siempre</b> (escarpe) porque es compresible y se pudre. Las fundaciones se apoyan en material competente, que el {nch1508} te obliga a caracterizar.",rel:["meteorizacion","residual","nch1508"],dato:"La capa vegetal (O–A) nunca se usa como sello de fundación."},
+ "residual":{t:"Suelo residual vs transportado",ic:"🧭",tag:"Dónde se formó",cuerpo:"<b>Residual</b>: se queda sobre la roca de la que viene, con transición gradual. <b>Transportado</b>: el agua, el hielo, el viento o la gravedad lo movieron. Así nacen los depósitos {aluvial}, lacustre (lagos, finos blandos), glaciar (mezcla sin selección), eólico (arenas finas y limos uniformes) y coluvial (laderas).<br><br>El origen anticipa el comportamiento: un depósito lacustre suele ser arcilla blanda; uno aluvial, grava densa.",rel:["aluvial","meteorizacion","perfil"],dato:"El tipo de depósito te dice qué ensayos pedir."},
+ "aluvial":{t:"Grava de Santiago (aluvial)",ic:"🏞️",tag:"Unidad II · ríos Maipo y Mapocho",cuerpo:"La mayor parte de Santiago está sobre <b>grava aluvial</b> densa, con bolones, depositada por los ríos Maipo y Mapocho. Es un suelo excelente para fundar: alta capacidad de soporte y buen comportamiento sísmico.<br><br>Hacia el norte y poniente aparecen finos (unidades V y VII) y en sectores como Pudahuel la <b>ceniza volcánica</b> (pumicita, unidad VI), que es colapsable. Ahí el {nch1508} pide más exploración.",rel:["residual","spt","vs30"],dato:"Grava de Santiago: Vs alto → suelo tipo A o B en NCh 433."},
+ "nch1508":{t:"NCh 1508 · Estudio de suelos",ic:"📋",tag:"Geotecnia · edificación",cuerpo:"Ordena el estudio en cuatro etapas: <b>gabinete</b> (planos, geología, antecedentes), <b>terreno</b> (calicatas, sondajes, geofísica), <b>laboratorio</b> (clasificación, resistencia) e <b>informe</b>.<br><br>La profundidad mínima para fundaciones superficiales es <b>Zp ≥ Df + 1,5B</b>, con al menos 2 m bajo el sello y 2,5 m en total. Para pilotes: 5 m bajo la punta; cepas y estribos: 7 m; grupos de pilotes: 10 m. Los datos de terreno salen del {spt}, calicatas y {vs30}.",rel:["spt","vs30","rqd","perfil"],dato:"Zp ≥ Df + 1,5·B · mín 2 m bajo sello · mín 2,5 m."},
+ "spt":{t:"SPT · Penetración estándar",ic:"🔨",tag:"NCh 3364 · ASTM D1586",cuerpo:"Se hinca una cuchara partida con un martillo de <b>63,5 kg</b> que cae <b>0,76 m</b>. Se cuentan los golpes en 3 tramos de 15 cm; el primero es de asentamiento y <b>N = tramo 2 + tramo 3</b>.<br><br>Hay rechazo con más de 50 golpes en un tramo, 100 en total o 10 golpes sin avance. N depende de la energía del martillo, por eso se corrige a {n60}. La muestra que sale es <b>alterada</b>: sirve para clasificar, no para resistencia.",rel:["n60","nch1508","granulares"],dato:"N = golpes de los dos últimos 15 cm."},
+ "n60":{t:"N60 y (N60)1",ic:"⚙️",tag:"Correcciones del SPT",cuerpo:"<b>N60 = (Ef/60)·N</b> lleva el conteo a 60% de energía (martillo safety). Un Donut tiene ~45%, uno automático 95–100%.<br><br>Luego se normaliza por confinamiento: <b>(N60)1 = CN·N60</b> con CN = (σ'v/100 kPa)^−0,5 ≤ 1,7. El σ'v sale del {efectivo}. Con (N60)1 se estima el ángulo de fricción: φ' ≈ √(15,4·(N60)1) + 20° (Mayne).",rel:["spt","efectivo","rankine"],dato:"Más energía → menos golpes. Por eso se corrige."},
+ "vs30":{t:"Vs30 · NCh 433",ic:"📡",tag:"Clasificación sísmica del sitio",cuerpo:"Es la velocidad de onda de corte promedio de los primeros 30 m: <b>Vs30 = Σhi / Σ(hi/Vsi)</b>. Se promedian <b>tiempos de viaje</b>, no velocidades.<br><br>Con Vs30 la NCh 433 asigna el tipo de suelo (A roca … E blando). Además G = ρ·Vs² es el módulo de corte a baja deformación.",rel:["nch1508","aluvial"],dato:"Un estrato blando delgado baja mucho el Vs30."},
+ "rqd":{t:"RQD · calidad de roca",ic:"🪨",tag:"Testigos de sondaje",cuerpo:"En un sondaje rotatorio con recuperación de testigo se suman los trozos sanos mayores a 100 mm y se dividen por el largo de la corrida. <b>RQD &lt; 25% muy mala · 25–50 mala · 50–75 regular · 75–90 buena · &gt;90 excelente.</b>",rel:["nch1508"],dato:"RQD = Σ(trozos > 100 mm)/L × 100%."},
+ "fases":{t:"Diagrama de fases",ic:"🧊",tag:"Sólido · agua · aire",cuerpo:"El suelo es un medio con tres fases. Se dibuja separando volúmenes (izquierda) y pesos (derecha): <b>Vt = Vs + Vw + Va</b> y <b>Wt = Ws + Ww</b> (el aire no pesa).<br><br>De ahí salen todas las relaciones: {vacios}, {saturacion}, humedad y pesos unitarios. Si no te dan volúmenes, asume <b>Vs = 1</b> y usa {gs}.",rel:["vacios","saturacion","gs"],dato:"Truco de prueba: Vs = 1 → Ws = Gs·γw."},
+ "vacios":{t:"Relación de vacíos y porosidad",ic:"🕳️",tag:"e = Vv/Vs · n = Vv/Vt",cuerpo:"<b>e</b> compara los vacíos con los sólidos y puede ser mayor que 1; <b>n</b> los compara con el total y siempre está entre 0 y 1. Se pasan con <b>n = e/(1+e)</b>.<br><br>Con emáx y emín se calcula la <b>densidad relativa</b> Dr = (emáx − e)/(emáx − emín), clave en {granulares}.",rel:["fases","saturacion","granulares"],dato:"e > 1 → suelo muy deformable."},
+ "saturacion":{t:"Grado de saturación",ic:"💧",tag:"Sr = Vw/Vv",cuerpo:"Dice qué parte de los vacíos tiene agua: 0% seco, 100% saturado. La relación que más se usa en prueba es <b>Sr·e = w·Gs</b>.<br><br>Bajo la napa el suelo está saturado y se usa γsat para el {efectivo}.",rel:["vacios","gs","efectivo"],dato:"Sr·e = w·Gs"},
+ "gs":{t:"Gravedad específica Gs",ic:"⚖️",tag:"NCh 1532",cuerpo:"Cuántas veces más denso que el agua es el sólido. Suelos comunes: 2,60–2,80 (cuarzo 2,65; arcillas ~2,7). Es el puente entre pesos y volúmenes: <b>Vs = Ws/(Gs·γw)</b>.",rel:["fases","saturacion"],dato:"γs = Gs·γw ≈ 26–27 kN/m³"},
+ "granulares":{t:"Suelos granulares",ic:"🏖️",tag:"Gravas y arenas",cuerpo:"Más del 50% queda retenido en el tamiz N°200. Su resistencia viene de la <b>fricción</b> entre granos, drenan rápido y no tienen plasticidad. Se describen con la {granulometria} y la densidad relativa.<br><br>Los sufijos W y P dicen si están bien o mal graduados según {cucc}.",rel:["granulometria","cucc","sucs"],dato:"Fricción, drenan, sin cohesión."},
+ "arcillas":{t:"Arcillas",ic:"🧪",tag:"Finos plásticos",cuerpo:"Partículas laminares menores a 0,002 mm (caolinita, illita, montmorillonita). Atraen agua en su superficie: son <b>plásticas, expansivas y compresibles</b>, y drenan muy lento.<br><br>Se describen con los {atterberg} y se ubican en la {casagrande}. La montmorillonita es la más expansiva.",rel:["atterberg","casagrande","meteorizacion"],dato:"Cohesión, baja permeabilidad, cambian de volumen."},
+ "granulometria":{t:"Granulometría",ic:"🧺",tag:"Tamizado · curva granulométrica",cuerpo:"Se pasa la muestra seca por una serie de tamices y se grafica el % que pasa contra el tamaño en escala logarítmica. Los cortes clave son <b>N°4 (4,75 mm)</b> entre grava y arena y <b>N°200 (0,075 mm)</b> entre arena y finos.<br><br>De la curva se leen D10, D30 y D60 para {cucc}. Los finos se analizan con {atterberg}, no con tamiz.",rel:["cucc","granulares","sucs"],dato:"Pasa > 50% N°200 → suelo fino."},
+ "cucc":{t:"Cu y Cc",ic:"📈",tag:"Coeficientes de graduación",cuerpo:"<b>Cu = D60/D10</b> mide la amplitud de tamaños. <b>Cc = D30²/(D10·D60)</b> mide la forma de la curva.<br><br>Bien graduada (W): grava Cu ≥ 4 y arena Cu ≥ 6, y además 1 ≤ Cc ≤ 3. Si falla cualquiera → P (mal graduada).",rel:["granulometria","sucs"],dato:"W exige las dos condiciones a la vez."},
+ "atterberg":{t:"Límites de Atterberg",ic:"🫙",tag:"LL · LP · IP",cuerpo:"Al agregar agua un suelo fino pasa de sólido a semisólido, plástico y líquido. <b>LP</b> marca el paso a plástico (rollito de 3 mm) y <b>LL</b> el paso a líquido (25 golpes en la cuchara de Casagrande).<br><br><b>IP = LL − LP</b> es el rango plástico. IP alto = arcilla muy plástica y expansiva. Se grafican en la {casagrande}.",rel:["casagrande","arcillas","sucs"],dato:"IP = LL − LP"},
+ "casagrande":{t:"Carta de plasticidad",ic:"📉",tag:"Casagrande · línea A",cuerpo:"Eje x: LL. Eje y: IP. La <b>línea A</b> (IP = 0,73·(LL − 20)) separa arcillas (arriba) de limos (abajo). La vertical <b>LL = 50</b> separa baja (L) de alta (H) plasticidad.<br><br>Zona sombreada: IP entre 4 y 7 sobre la línea A → CL-ML. La letra resultante va al {sucs}.",rel:["atterberg","sucs","arcillas"],dato:"Arriba de A = C · abajo = M · LL 50 = L|H"},
+ "sucs":{t:"SUCS",ic:"🔤",tag:"Sistema Unificado",cuerpo:"Dos letras: la primera es la fracción (G, S, M, C, O, Pt) y la segunda describe graduación (W, P) o plasticidad (L, H) o el tipo de fino (M, C).<br><br>Gruesos: &lt;5% finos → manda {cucc}; 5–12% → símbolo doble (SW-SM); &gt;12% → manda la {casagrande}. Para caminos se usa además {aashto}.",rel:["cucc","casagrande","aashto","drenaje"],dato:"Ej: 60% arena, 40% finos arcillosos → SC."},
+ "aashto":{t:"Clasificación AASHTO",ic:"🛣️",tag:"Subrasantes de caminos",cuerpo:"Grupos A-1 (mejor) a A-7 (peor). Granulares si pasa ≤ 35% por N°200. Se acompaña del índice de grupo IG: mientras más alto, peor subrasante.<br><br>Conecta con {gancho-viales} y con el {sucs}.",rel:["sucs","gancho-viales"],dato:"IG = (F−35)[0,2+0,005(LL−40)] + 0,01(F−15)(IP−10)"},
+ "drenaje":{t:"Drenaje según el tipo de suelo",ic:"🚿",tag:"Permeabilidad",cuerpo:"Gravas y arenas limpias drenan muy bien; SM drena aceptable; SC y ML drenan poco; CH es prácticamente impermeable. Esto define si un relleno detrás de un muro necesita dren: si el agua no sale, aparece el empuje del agua en {rankine}.",rel:["sucs","rankine","efectivo"],dato:"Mejor de CH, ML, SC, SM → SM."},
+ "efectivo":{t:"Esfuerzo efectivo",ic:"🧮",tag:"σ' = σ − u",cuerpo:"El peso de todo lo que hay arriba es el esfuerzo total <b>σ = Σγ·h</b>. El agua de los poros soporta <b>u = γw·hw</b> (medido desde la napa). Lo que queda, <b>σ' = σ − u</b>, es lo que cargan los granos y controla resistencia y asentamientos.<br><br>Si el agua sube sobre el terreno (río), σ y u suben igual y σ' no cambia. Para el empuje lateral ver {k0}.",rel:["presion","k0","boussinesq","n60"],dato:"σ' controla todo: resistencia, asentamiento y empuje."},
+ "presion":{t:"Presión de poros",ic:"💦",tag:"u = γw·hw",cuerpo:"Es la presión del agua en los vacíos. En condición hidrostática crece lineal desde la napa: u = γw × profundidad bajo el nivel freático. Sobre la napa u = 0 (despreciando capilaridad).<br><br>Bajar la napa (agotamiento) sube el {efectivo} y puede causar asentamientos en obras vecinas.",rel:["efectivo","drenaje"],dato:"γw = 9,81 ≈ 10 kN/m³"},
+ "k0":{t:"Coeficiente K0",ic:"↔️",tag:"Empuje en reposo",cuerpo:"Relaciona el esfuerzo horizontal efectivo con el vertical cuando el suelo no se mueve: <b>σ'h = K0·σ'v</b>. Jaky: <b>K0 = 1 − sen φ'</b>.<br><br>Ojo: K se aplica solo a σ'. El esfuerzo horizontal total es σh = K0·σ'v + u. Si el muro se mueve pasamos a {rankine}.",rel:["efectivo","rankine"],dato:"K0 (φ=30°) = 0,5"},
+ "boussinesq":{t:"Boussinesq",ic:"🎯",tag:"Esfuerzos por cargas",cuerpo:"Calcula cuánto aumenta el esfuerzo vertical en profundidad por una carga en superficie. Puntual: Δσ = 3P/(2πz²)·[1+(r/z)²]^−5/2. Rectangular: <b>Δσ = q·I(m,n)</b> bajo la esquina, con m = B/z y n = L/z.<br><br>Para un punto interior se divide en rectángulos y se suma. Ese Δσ se suma al {efectivo} inicial.",rel:["efectivo","gancho-analisis"],dato:"Bajo 2B de profundidad el aumento ya es pequeño (bulbo de presiones)."},
+ "rankine":{t:"Rankine",ic:"🧱",tag:"Empuje activo y pasivo",cuerpo:"Muro vertical liso y relleno horizontal. <b>Ka = tan²(45 − φ/2)</b>, <b>Kp = tan²(45 + φ/2)</b>. El empuje activo crece lineal: σ'a = Ka·σ'v − 2c√Ka y la resultante <b>Pa = ½·Ka·γ·H²</b> actúa a H/3.<br><br>Si hay agua detrás: γ' para el suelo y se suma el empuje del agua completo. Si hay roce muro-suelo usa {coulomb}.",rel:["coulomb","k0","drenaje","gancho-hormigon"],dato:"Ka < K0 < Kp"},
+ "coulomb":{t:"Coulomb",ic:"📐",tag:"Cuña de falla con roce",cuerpo:"Supone una cuña plana que desliza detrás del muro y considera el roce muro-suelo δ, la inclinación del muro θ y la pendiente del relleno β. Con δ = θ = β = 0 coincide con {rankine}.<br><br>El roce baja Ka y el empuje queda inclinado δ respecto de la normal al muro.",rel:["rankine"],dato:"δ típico ≈ ⅔φ"},
+ "gancho-hormigon":{t:"Tecnología del Hormigón",ic:"🪨",tag:"Otro ramo · 5° semestre",cuerpo:"El muro y la zapata que diseñas con empujes y esfuerzos se construyen en hormigón: grado, recubrimiento, curado. Toca abajo para abrir ese ramo.",rel:[],dato:"<span class=\"link\" onclick=\"closeMsPanel();mycRamoGo('tec-hormigon')\">Abrir Tecnología del Hormigón →</span>"},
+ "gancho-analisis":{t:"Análisis Estructural",ic:"📐",tag:"Otro ramo · este semestre",cuerpo:"Las cargas que bajan por la estructura son las q que reparte Boussinesq en el suelo.",rel:[],dato:"<span class=\"link\" onclick=\"closeMsPanel();mycRamoGo('analisis-estruct')\">Abrir Análisis Estructural →</span>"},
+ "gancho-viales":{t:"Obras Viales",ic:"🛤️",tag:"Otro ramo",cuerpo:"La clasificación AASHTO y el índice de grupo deciden cómo se trata la subrasante de un camino.",rel:[],dato:"<span class=\"link\" onclick=\"closeMsPanel();mycRamoGo('obras-viales')\">Abrir Obras Viales →</span>"}
+};
+var _msHist=[],_msCur=null;
+function msRL(txt){return txt.replace(/\{([a-z0-9\-]+)\}/g,function(m,k){var f=MS_FICHAS[k];if(!f)return m;return '<span class="link" onclick="msGoFicha(\''+k+'\')">'+f.t.split("·")[0].split("(")[0].trim()+"</span>"})}
+function msFicha(k){_msHist=[];msShowFicha(k);document.getElementById("ms-panel-scrim").classList.add("on");document.getElementById("ms-panel").classList.add("on");try{_lockRamo()}catch(e){}}
+function msGoFicha(k){if(_msCur&&_msCur!==k)_msHist.push(_msCur);msShowFicha(k)}
+function msBackFicha(){var k=_msHist.pop();if(k)msShowFicha(k)}
+function closeMsPanel(){var p=document.getElementById("ms-panel");if(!p||!p.classList.contains("on"))return;p.classList.remove("on");document.getElementById("ms-panel-scrim").classList.remove("on");_msHist=[];try{_unlockRamo()}catch(e){}}
+function msShowFicha(k){
+  var f=MS_FICHAS[k];if(!f)return;_msCur=k;
+  document.getElementById("msPIc").textContent=f.ic||"📘";document.getElementById("msPTitle").textContent=f.t;document.getElementById("msPTag").textContent=f.tag||"";
+  var mi='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#5FE0B0" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>';
+  var tree=(f.rel&&f.rel.length)?'<div class="p-tree"><div class="tree-header">'+mi+' Micelio · conecta con</div><div class="tree-root"><span class="tree-dot"></span>'+f.t.split("·")[0].trim()+'</div><div class="tree-branches">'
+    +f.rel.map(function(k2){var r=MS_FICHAS[k2];if(!r)return "";var g=k2.indexOf("gancho")===0;
+      return '<div class="tree-branch'+(g?" gancho":"")+'" onclick="msGoFicha(\''+k2+'\')"><div class="tree-line"></div><div class="tree-leaf"><span class="tree-ic">'+r.ic+'</span><span>'+r.t.split("·")[0].split("(")[0].trim()+'</span><span class="tree-hint">'+(g?"↗ otro ramo":"⬡ este ramo")+'</span><span class="tree-arrow">›</span></div></div>'}).join("")+'</div></div>':"";
+  var b=document.getElementById("msPBody");
+  b.innerHTML=msRL(f.cuerpo)+(f.dato?'<div class="p-dato"><span class="pl">🔑 Dato clave</span>'+msRL(f.dato)+'</div>':'')
+    +'<a class="videobtn" style="margin-top:14px" href="'+MS_YT(f.t.split("·")[0]+" mecánica de suelos")+'" target="_blank" rel="noopener"><span class="yt"></span>Buscar en YouTube: '+f.t.split("·")[0].trim()+'</a>'+tree;
+  b.scrollTop=0;
+  var cr=document.getElementById("msPCrumbs");
+  cr.innerHTML=_msHist.length?'<span class="cb" onclick="msBackFicha()">‹ atrás</span>'+_msHist.map(function(x){return '<span class="sep">·</span><span class="cb" onclick="msGoFicha(\''+x+'\')">'+MS_FICHAS[x].t.split(" ")[0]+'</span>'}).join("")+'<span class="sep">›</span> <span style="color:var(--text-2)">'+f.t.split(" ")[0]+'</span>':"";
+}
+function mycRamoGo(rid){var r=findRamo(rid);if(r&&r.hasEvaluate){switchTab("hormigon");return}switchTab("malla");nav("ramos");setTimeout(function(){openRamoPanel(rid)},80)}
+
+/* ══ Parte B: contenido de las 4 unidades (14 temas) ══ */
+var MS_C1="#C98A55",MS_C2="#4EA8FF",MS_C3="#5FE0B0",MS_C4="#F2B84B";
+var MS_SVG={
+ perfil:'<div class="diagram"><svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<g class="fade d1"><rect x="20" y="14" width="150" height="16" fill="#3b2a1a"/><text x="180" y="25" fill="#EAF1F8" font-size="9">O · orgánico</text></g>'
+  +'<g class="fade d2"><rect x="20" y="30" width="150" height="26" fill="#6b4a2b"/><text x="180" y="46" fill="#EAF1F8" font-size="9">A · suelo superficial</text></g>'
+  +'<g class="fade d3"><rect x="20" y="56" width="150" height="30" fill="#8a6239"/><text x="180" y="74" fill="#EAF1F8" font-size="9">B · acumulación (arcillas)</text></g>'
+  +'<g class="fade d4"><rect x="20" y="86" width="150" height="30" fill="#9b8a76"/><circle cx="50" cy="100" r="6" fill="#b9a891"/><circle cx="110" cy="96" r="8" fill="#b9a891"/><circle cx="140" cy="106" r="5" fill="#b9a891"/><text x="180" y="104" fill="#EAF1F8" font-size="9">C · roca meteorizada</text></g>'
+  +'<g class="fade d5"><rect x="20" y="116" width="150" height="24" fill="#5a6470"/><path d="M40 116 l10 24 M90 116 l-8 24 M130 116 l12 24" stroke="#3a424c" stroke-width="2"/><text x="180" y="132" fill="#EAF1F8" font-size="9">R · roca madre</text></g>'
+  +'<g class="node" onclick="msFicha(\'perfil\')"><circle class="tapdot" cx="160" cy="22" r="3" fill="#5FE0B0"/></g>'
+  +'<g class="node" onclick="msFicha(\'meteorizacion\')"><circle class="tapdot" cx="160" cy="100" r="3" fill="#5FE0B0"/></g>'
+  +'<line x1="12" y1="14" x2="12" y2="140" stroke="#6B7E92" stroke-width="1"/><text x="8" y="80" fill="#6B7E92" font-size="7" transform="rotate(-90 8 80)">profundidad</text>'
+  +'</svg><div class="dcap">Perfil típico · 🟢 toca los puntos para la teoría</div></div>',
+ spt:'<div class="diagram"><svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<rect x="0" y="40" width="320" height="110" fill="#2a2016"/><line x1="0" y1="40" x2="320" y2="40" stroke="#8a6239" stroke-width="2"/>'
+  +'<g class="floaty"><rect x="58" y="4" width="28" height="18" rx="2" fill="#8FA0B2"/><text x="72" y="16" fill="#0E1116" font-size="7" text-anchor="middle" font-weight="700">63,5 kg</text></g>'
+  +'<line x1="72" y1="22" x2="72" y2="48" stroke="#9FB2C6" stroke-width="2"/><path d="M96 4 v32" stroke="#F2B84B" stroke-width="1" marker-end="url(#a)"/><text x="100" y="22" fill="#F2B84B" font-size="8">0,76 m</text>'
+  +'<rect x="68" y="48" width="8" height="90" fill="#6B7E92"/>'
+  +'<g font-size="8"><rect x="66" y="94" width="12" height="14" fill="#5b6b7a"/><rect x="66" y="108" width="12" height="14" fill="#4EA8FF" class="glow-pulse"/><rect x="66" y="122" width="12" height="14" fill="#4EA8FF" class="glow-pulse"/>'
+  +'<text x="86" y="104" fill="#9FB2C6">15 cm · asiento (no cuenta)</text><text x="86" y="118" fill="#EAF1F8">15 cm · golpes n₂</text><text x="86" y="132" fill="#EAF1F8">15 cm · golpes n₃</text></g>'
+  +'<text x="200" y="70" fill="#5FE0B0" font-size="11" font-weight="700">N = n₂ + n₃</text><text x="200" y="84" fill="#9FB2C6" font-size="8">rechazo: &gt;50 en un tramo</text><text x="200" y="95" fill="#9FB2C6" font-size="8">o 100 en total</text>'
+  +'<g class="node" onclick="msFicha(\'spt\')"><circle class="tapdot" cx="72" cy="60" r="3.5" fill="#5FE0B0"/></g><g class="node" onclick="msFicha(\'n60\')"><circle class="tapdot" cx="290" cy="70" r="3.5" fill="#5FE0B0"/></g>'
+  +'</svg><div class="dcap">Ensayo SPT · cuchara partida hincada 45 cm · 🟢 toca para la teoría</div></div>',
+ fases:'<div class="diagram"><svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<g class="fade d1"><rect x="110" y="10" width="100" height="34" fill="#5b6b7a" opacity=".45" stroke="#6B7E92"/><text x="160" y="31" fill="#EAF1F8" font-size="10" text-anchor="middle">AIRE</text></g>'
+  +'<g class="fade d2"><rect x="110" y="44" width="100" height="36" fill="#1a6fd4" opacity=".6" stroke="#4EA8FF"/><text x="160" y="66" fill="#EAF1F8" font-size="10" text-anchor="middle">AGUA</text></g>'
+  +'<g class="fade d3"><rect x="110" y="80" width="100" height="60" fill="#8a6239" opacity=".8" stroke="#C98A55"/><text x="160" y="114" fill="#EAF1F8" font-size="10" text-anchor="middle">SÓLIDOS</text></g>'
+  +'<g font-size="8" fill="#9FB2C6"><text x="100" y="31" text-anchor="end">Va</text><text x="100" y="66" text-anchor="end">Vw</text><text x="100" y="114" text-anchor="end">Vs</text>'
+  +'<path d="M70 10 v70" stroke="#4EA8FF" stroke-width="1.2"/><text x="64" y="48" text-anchor="end" fill="#4EA8FF">Vv</text><path d="M44 10 v130" stroke="#6B7E92"/><text x="38" y="78" text-anchor="end" fill="#EAF1F8">Vt</text>'
+  +'<text x="220" y="31">Wa = 0</text><text x="220" y="66">Ww</text><text x="220" y="114">Ws</text><path d="M262 44 v96" stroke="#6B7E92"/><text x="268" y="96" fill="#EAF1F8">Wt</text></g>'
+  +'<g class="node" onclick="msFicha(\'fases\')"><circle class="tapdot" cx="204" cy="16" r="3.5" fill="#5FE0B0"/></g><g class="node" onclick="msFicha(\'vacios\')"><circle class="tapdot" cx="76" cy="44" r="3" fill="#5FE0B0"/></g><g class="node" onclick="msFicha(\'gs\')"><circle class="tapdot" cx="204" cy="86" r="3" fill="#5FE0B0"/></g>'
+  +'</svg><div class="dcap">Volúmenes a la izquierda · pesos a la derecha · 🟢 toca</div></div>',
+ curva:'<div class="diagram"><svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<rect x="34" y="10" width="270" height="120" fill="none" stroke="#2A3543"/>'
+  +'<g stroke="#212B37"><line x1="34" y1="40" x2="304" y2="40"/><line x1="34" y1="70" x2="304" y2="70"/><line x1="34" y1="100" x2="304" y2="100"/><line x1="124" y1="10" x2="124" y2="130"/><line x1="214" y1="10" x2="214" y2="130"/></g>'
+  +'<g font-size="7" fill="#6B7E92"><text x="30" y="13" text-anchor="end">100</text><text x="30" y="73" text-anchor="end">50</text><text x="30" y="132" text-anchor="end">0</text><text x="304" y="142" text-anchor="end">0,001</text><text x="214" y="142" text-anchor="middle">0,075 (N°200)</text><text x="124" y="142" text-anchor="middle">4,75 (N°4)</text><text x="38" y="142">100 mm</text><text x="170" y="154" text-anchor="middle">tamaño de partícula (escala log) →</text></g>'
+  +'<path class="dash-draw d1" d="M40 12 C 90 20, 150 60, 200 100 S 260 126, 300 128" fill="none" stroke="#5FE0B0" stroke-width="2"/>'
+  +'<path class="dash-draw d2" d="M40 12 C 120 14, 150 18, 165 70 S 180 126, 300 128" fill="none" stroke="#4EA8FF" stroke-width="2"/>'
+  +'<path class="dash-draw d3" d="M40 12 C 70 14, 90 40, 110 60 L 170 64 C 185 80, 200 120, 300 128" fill="none" stroke="#F2B84B" stroke-width="2" stroke-dasharray="4 3"/>'
+  +'<g font-size="8"><text x="236" y="54" fill="#5FE0B0">bien graduada (W)</text><text x="236" y="66" fill="#4EA8FF">mal graduada (P)</text><text x="236" y="78" fill="#F2B84B">discontinua</text></g>'
+  +'<g class="node" onclick="msFicha(\'cucc\')"><circle class="tapdot" cx="290" cy="40" r="3.5" fill="#5FE0B0"/></g>'
+  +'</svg><div class="dcap">% que pasa vs tamaño · 🟢 toca para Cu y Cc</div></div>',
+ carta:'<div class="diagram"><svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<rect x="34" y="10" width="270" height="130" fill="none" stroke="#2A3543"/>'
+  +'<line x1="169" y1="10" x2="169" y2="140" stroke="#6B7E92" stroke-dasharray="3 3"/><text x="171" y="20" fill="#6B7E92" font-size="7">LL = 50</text>'
+  +'<line class="dash-draw d1" x1="88" y1="140" x2="304" y2="54" stroke="#4EA8FF" stroke-width="1.8"/><text x="262" y="62" fill="#4EA8FF" font-size="8">Línea A</text>'
+  +'<polygon points="65,129 92,129 102,119 73,119" fill="#5FE0B0" opacity=".25"/>'
+  +'<g font-size="10" font-weight="700"><text x="110" y="80" fill="#EAF1F8">CL</text><text x="220" y="50" fill="#EAF1F8">CH</text><text x="120" y="130" fill="#9FB2C6">ML/OL</text><text x="240" y="118" fill="#9FB2C6">MH/OH</text></g>'
+  +'<g font-size="7" fill="#6B7E92"><text x="30" y="143" text-anchor="end">0</text><text x="30" y="78" text-anchor="end">30</text><text x="30" y="13" text-anchor="end">60</text><text x="34" y="150">0</text><text x="304" y="150" text-anchor="end">100</text><text x="169" y="162" text-anchor="middle">Límite líquido LL (%)</text><text x="12" y="80" transform="rotate(-90 12 80)" text-anchor="middle">IP (%)</text></g>'
+  +'<g class="node" onclick="msFicha(\'casagrande\')"><circle cx="120" cy="114" r="4.5" fill="#F2B84B" class="pulse-ring"/><circle cx="120" cy="114" r="2.5" fill="#F2B84B"/><text x="126" y="112" fill="#F2B84B" font-size="7">LL 32 · IP 12 → CL</text></g>'
+  +'</svg><div class="dcap">Carta de Casagrande · línea A: IP = 0,73(LL − 20) · 🟡 toca el punto</div></div>',
+ esf:'<div class="diagram"><svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<rect x="10" y="20" width="90" height="40" fill="#6b4a2b" opacity=".7"/><rect x="10" y="60" width="90" height="90" fill="#3b4a5a" opacity=".8"/>'
+  +'<line x1="10" y1="60" x2="100" y2="60" stroke="#4EA8FF" stroke-dasharray="4 3"/><text x="104" y="63" fill="#4EA8FF" font-size="8">▽ NF</text>'
+  +'<text x="55" y="44" fill="#EAF1F8" font-size="8" text-anchor="middle">γ = 18</text><text x="55" y="108" fill="#EAF1F8" font-size="8" text-anchor="middle">γsat = 20</text>'
+  +'<line x1="150" y1="20" x2="150" y2="150" stroke="#6B7E92"/><line x1="150" y1="20" x2="310" y2="20" stroke="#6B7E92"/>'
+  +'<path class="dash-draw d1" d="M150 20 L 186 60 L 300 150" stroke="#EAF1F8" stroke-width="2" fill="none"/><text x="262" y="126" fill="#EAF1F8" font-size="8">σ</text>'
+  +'<path class="dash-draw d2" d="M150 60 L 205 150" stroke="#4EA8FF" stroke-width="2" fill="none"/><text x="196" y="140" fill="#4EA8FF" font-size="8">u</text>'
+  +'<path class="dash-draw d3" d="M150 20 L 186 60 L 245 150" stroke="#5FE0B0" stroke-width="2" fill="none" stroke-dasharray="5 3"/><text x="236" y="152" fill="#5FE0B0" font-size="8">σ\'</text>'
+  +'<text x="230" y="14" fill="#6B7E92" font-size="7">esfuerzo (kPa) →</text>'
+  +'<g class="node" onclick="msFicha(\'efectivo\')"><circle class="tapdot" cx="245" cy="120" r="3.5" fill="#5FE0B0"/></g><g class="node" onclick="msFicha(\'presion\')"><circle class="tapdot" cx="190" cy="120" r="3" fill="#4EA8FF"/></g>'
+  +'</svg><div class="dcap">Bajo la napa σ\' crece con γ\' = γsat − γw · 🟢 toca</div></div>',
+ bulbo:'<div class="diagram"><svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<rect x="0" y="30" width="320" height="120" fill="#2a2016" opacity=".6"/><rect x="130" y="20" width="60" height="10" fill="#8FA0B2"/><text x="160" y="16" fill="#EAF1F8" font-size="8" text-anchor="middle">q</text>'
+  +'<g fill="none" stroke-width="1.4"><path class="dash-draw d1" d="M130 30 C 110 70, 210 70, 190 30" stroke="#FF7A7A"/><path class="dash-draw d2" d="M130 30 C 95 100, 225 100, 190 30" stroke="#F2B84B"/><path class="dash-draw d3" d="M130 30 C 70 140, 250 140, 190 30" stroke="#5FE0B0"/></g>'
+  +'<g font-size="7"><text x="196" y="52" fill="#FF7A7A">0,8q</text><text x="214" y="76" fill="#F2B84B">0,4q</text><text x="240" y="110" fill="#5FE0B0">0,2q</text></g>'
+  +'<text x="20" y="140" fill="#9FB2C6" font-size="8">bulbo de presiones · el aumento cae con z</text>'
+  +'<g class="node" onclick="msFicha(\'boussinesq\')"><circle class="tapdot" cx="160" cy="60" r="3.5" fill="#5FE0B0"/></g>'
+  +'</svg><div class="dcap">Isóbaras bajo una zapata · 🟢 toca para Boussinesq</div></div>',
+ muro:'<div class="diagram"><svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">'
+  +'<rect x="140" y="20" width="18" height="120" fill="#8FA0B2"/><rect x="110" y="140" width="80" height="12" fill="#8FA0B2"/>'
+  +'<rect x="158" y="20" width="150" height="120" fill="#6b4a2b" opacity=".55"/><line class="dash-draw d2" x1="158" y1="140" x2="250" y2="20" stroke="#F2B84B" stroke-dasharray="4 3"/><text x="226" y="40" fill="#F2B84B" font-size="7">cuña · 45+φ/2</text>'
+  +'<polygon class="fade d3" points="138,20 138,140 88,140" fill="#FF7A7A" opacity=".35" stroke="#FF7A7A"/><text x="70" y="132" fill="#FF7A7A" font-size="8">Ka·γ·H</text>'
+  +'<line x1="40" y1="100" x2="136" y2="100" stroke="#EAF1F8" stroke-width="2"/><polygon points="136,100 128,96 128,104" fill="#EAF1F8"/><text x="40" y="94" fill="#EAF1F8" font-size="8">Pa a H/3</text>'
+  +'<g class="node" onclick="msFicha(\'rankine\')"><circle class="tapdot" cx="112" cy="120" r="3.5" fill="#5FE0B0"/></g><g class="node" onclick="msFicha(\'coulomb\')"><circle class="tapdot" cx="236" cy="30" r="3" fill="#F2B84B"/></g>'
+  +'<text x="232" y="152" fill="#9FB2C6" font-size="7">relleno · φ, γ, c</text>'
+  +'</svg><div class="dcap">Empuje activo triangular · resultante a H/3 · 🟢 toca</div></div>'
+};
+
+function msUnidades(){
+ var h="";
+ /* ═════ UNIDAD 1 ═════ */
+ h+='<div class="unit-title" id="ms-u1"><div class="idx" style="background:linear-gradient(135deg,#C98A55,#9a6436)">1</div><h2>Formación y exploración del suelo</h2></div>'
+  +'<p class="unit-sub">Cómo se forma el suelo, qué hay bajo Santiago y cómo se explora según NCh 1508, con SPT y Vs30.</p>'+msNormas("1");
+ h+=msTopic("ms-1-1","1.1","Formación del suelo","meteorización · perfil · horizontes",MS_C1,
+  '<div class="resumen">El suelo es un agregado <b>no cementado</b> de partículas minerales con vacíos llenos de agua y/o aire. Nace de la '+msL("meteorizacion","meteorización")+' de la roca: la física la rompe y la química la transforma.</div>'+MS_SVG.perfil
+  +'<ul class="keypoints"><li><b>Física</b> (temperatura, hielo, abrasión, raíces) → gravas, arenas y limos con la misma mineralogía de la roca.</li><li><b>Química</b> (hidrólisis, oxidación, carbonatación, disolución) → '+msL("arcillas","arcillas")+'.</li><li>El '+msL("perfil","perfil")+' muestra horizontes O, A, B, C y R. La capa orgánica se retira siempre antes de fundar.</li></ul>'
+  +msVid("meteorización física y química formación del suelo","meteorización física y química")
+  +msVM("procesos y productos","tabla · ejemplos",'<h4>Procesos de meteorización</h4>'+msTbl(["Proceso","Tipo","Resultado"],[
+    ["Ciclos de hielo-deshielo","Física","Fragmentos angulosos","En la cordillera el agua se congela en grietas, se expande ~9% y parte la roca: por eso los conos de deyección tienen bloques angulosos."],
+    ["Abrasión de ríos","Física","Gravas redondeadas","Los bolones del Mapocho están redondeados porque el río los fue rodando y desgastando."],
+    ["Hidrólisis de feldespatos","Química","Arcillas (caolinita)","El granito meteorizado de la costa se vuelve maicillo y, más avanzado, arcilla."],
+    ["Oxidación","Química","Óxidos de hierro","El color rojizo de muchos suelos del sur viene del hierro oxidado."]])
+   +'<h4>Por qué importa en obra</h4><p>El origen anticipa el comportamiento: si el suelo vino de meteorización química, espera finos plásticos; si es física, granulares que drenan.</p>')
+ );
+ h+=msTopic("ms-1-2","1.2","Tipos de depósitos y suelos de Santiago","residual · aluvial · lacustre · eólico · unidades I–VIII",MS_C1,
+  '<div class="resumen">Un suelo es '+msL("residual","residual")+' si se queda sobre su roca, o <b>transportado</b> si el agua, el hielo, el viento o la gravedad lo movieron. Santiago está mayoritariamente sobre '+msL("aluvial","grava aluvial")+' densa.</div>'
+  +'<ul class="keypoints"><li><b>Aluvial</b>: ríos, gravas y arenas redondeadas y estratificadas.</li><li><b>Lacustre</b>: lagos, limos y arcillas blandas.</li><li><b>Glaciar</b>: mezcla de todos los tamaños sin selección.</li><li><b>Eólico</b>: viento, arenas finas y limos uniformes.</li><li><b>Coluvial</b>: laderas, material anguloso caído por gravedad.</li></ul>'
+  +msVid("tipos de depósitos de suelo aluvial lacustre eólico glaciar","tipos de depósitos")
+  +msVM("unidades geotécnicas de Santiago","tabla · 8 unidades",msTbl(["Unidad","Material"],[
+    ["I","Roca","Cerros islas como el San Cristóbal y el Santa Lucía."],["II","Grava de los ríos Maipo, Mapocho y Clarillo","La 'grava de Santiago': fundaciones de edificios en Providencia y Las Condes."],["IIIa / IIIb","Bloques y gravas de conos aluviales (IIIb con matriz areno-arcillosa)","Piedemonte de La Reina y Peñalolén."],["IV","Gravas y bloques de remociones en masa antiguas",""],["Va / Vb","Gravas con arenas, limos y arcillas / arenas con limo y arcilla",""],["VI","Ceniza volcánica (pumicita)","Pudahuel y sector poniente: suelo colapsable al saturarse."],["VII","Limos y arcillas con intercalaciones","Sectores norte (Quilicura, Lampa)."],["VIII","Depósitos recientes","Rellenos y cauces actuales."]]))
+ );
+ h+=msTopic("ms-1-3","1.3","Exploración según NCh 1508","etapas · profundidad mínima · calicatas y sondajes",MS_C1,
+  '<div class="resumen">La '+msL("nch1508","NCh 1508")+' ordena el estudio en <b>gabinete → terreno → laboratorio → informe</b>, y fija cuánto hay que explorar bajo las fundaciones.</div>'
+  +'<ul class="keypoints"><li>Superficiales: <b>Zp ≥ Df + 1,5·B</b>, con z mínimo 2 m bajo el sello y Zp mínimo 2,5 m.</li><li>Profundas, bajo la punta: 5 m pilotes · 7 m cepas y estribos · 10 m grupo de pilotes.</li><li>Pozos cada <b>150 m</b> en vías urbanas y cada <b>250 m</b> en caminos.</li><li>Muestras: cuchara SPT = <b>alterada</b>; tubo Shelby = <b>inalterada</b>.</li></ul>'
+  +msVid("calicata y sondaje exploración geotécnica","calicatas y sondajes")
+  +msVM("métodos de exploración y ejemplo","tabla · ejemplo resuelto",msTbl(["Método","Qué entrega","Cuándo"],[
+    ["Calicata","Perfil visible, muestras, densidad in situ","Hasta ~4 m, suelos estables. Es lo más común en viviendas."],
+    ["Sondaje con SPT","N cada 1–1,5 m, muestras alteradas","Edificios, arenas y suelos finos profundos."],
+    ["Sondaje rotatorio","Testigo de roca, RQD","Roca o gravas muy gruesas; obras grandes."],
+    ["Geofísica (MASW, refracción)","Vs en profundidad, Vs30","Clasificación sísmica NCh 433 sin perforar."]])
+   +msEj("Profundidad mínima de exploración","Zapata aislada B = 2,0 m, sello a Df = 1,5 m.",["z = 1,5·B = 1,5·2,0 = <code>3,0 m</code> (≥ 2 m ✓)","Zp = Df + z = 1,5 + 3,0 = <code>4,5 m</code>","4,5 m ≥ 2,5 m mínimo → explorar <b>4,5 m</b> desde la superficie."]))
+ );
+ h+=msTopic("ms-1-4","1.4","SPT, Vs30 y RQD","N · N60 · (N60)1 · φ\' · NCh 433",MS_C1,
+  '<div class="resumen">El '+msL("spt","SPT")+' cuenta golpes para hincar 30 cm una cuchara: <b>N = golpes de los dos últimos tramos de 15 cm</b>. Se corrige por energía y confinamiento ('+msL("n60","N60")+') para estimar compacidad y φ\'.</div>'+MS_SVG.spt
+  +'<ul class="keypoints"><li>Energía: Donut 45% · safety 60% · automático 95–100% → <b>N60 = (Ef/60)·N</b>.</li><li><b>(N60)1 = (σ\'v/100)^−0,5 · N60</b>, con CN ≤ 1,7.</li><li><b>φ\' ≈ √(15,4·(N60)1) + 20°</b> (Mayne 2009).</li><li>'+msL("vs30","Vs30")+' = Σhi / Σ(hi/Vsi) clasifica el sitio en la NCh 433. '+msL("rqd","RQD")+' mide la calidad de roca.</li></ul>'
+  +msVids([["ensayo SPT penetración estándar","SPT en terreno"],["corrección N60 SPT energía","corrección N60"],["Vs30 MASW clasificación sísmica suelo","Vs30 y MASW"]])
+  +msVM("tablas de correlación y ejercicio","tabla · ejemplo resuelto",'<h4>Compacidad de arenas (Budhu 2011)</h4>'+msTbl(["N60","Compacidad","φ\' aprox."],[["0–4","Muy suelta","26–28°"],["4–10","Suelta","28–30°"],["10–30","Media","30–36°","Un N60 de 18 a 8 m de profundidad en Santiago indica arena media: fundación posible con buena compactación."],["30–50","Densa","36–41°"],["&gt;50","Muy densa","&gt;41°"]])
+   +msEj("Corregir un N de terreno","N = 18 con martillo safety (60%), σ\'v = 80 kPa.",["N60 = (60/60)·18 = <code>18</code>","CN = (80/100)^−0,5 = <code>1,118</code> (≤ 1,7 ✓)","(N60)1 = 1,118·18 = <code>20,1</code>","φ\' ≈ √(15,4·20,1) + 20 = <code>37,6°</code> → arena densa a media."])
+   +msEj("Vs30 de un perfil","5 m con Vs = 200 m/s, 10 m con 400 m/s y 15 m con 700 m/s.",["Σ(h/Vs) = 5/200 + 10/400 + 15/700 = 0,025 + 0,025 + 0,0214 = <code>0,0714 s</code>","Vs30 = 30 / 0,0714 = <code>420 m/s</code>"]))
+ );
+ h+=msBiblio(1,[["NCh 1508 Of.2014 — Geotecnia · Estudio de mecánica de suelos.","INN.","Norma · fuente principal"],["NCh 433 — Diseño sísmico de edificios.","INN.","Norma · Vs30"],["Manual de Carreteras, Vol. 8 · Manual del Laboratorista Vial.","MOP, Dirección de Vialidad.","Manual · citado en los PPT"],["Budhu, M. (2011). Soil Mechanics and Foundations.","Wiley.","Libro · correlaciones SPT"]]);
+
+ /* ═════ UNIDAD 2 ═════ */
+ h+='<div class="unit-title" id="ms-u2"><div class="idx" style="background:linear-gradient(135deg,#4EA8FF,#1a6fd4)">2</div><h2>Propiedades y clasificación</h2></div>'
+  +'<p class="unit-sub">Diagrama de fases, granulometría, límites de Atterberg y SUCS. Es lo que entra en la Evaluación 2.</p>'+msNormas("2");
+ h+=msTopic("ms-2-1","2.1","Fases y relaciones","w · e · n · Sr · γ · γd · γsat",MS_C2,
+  '<div class="resumen">El suelo tiene tres fases: sólidos, agua y aire. Con el '+msL("fases","diagrama de fases")+' calculas todo: humedad, '+msL("vacios","relación de vacíos")+', porosidad, '+msL("saturacion","saturación")+' y pesos unitarios.</div>'+MS_SVG.fases
+  +'<ul class="keypoints"><li><b>w = Ww/Ws</b> · <b>e = Vv/Vs</b> · <b>n = Vv/Vt = e/(1+e)</b> · <b>Sr = Vw/Vv</b></li><li>Relación estrella de la prueba: <b>Sr·e = w·Gs</b>.</li><li><b>γ = γd(1+w)</b> · γd = Gs·γw/(1+e) · γsat = (Gs+e)γw/(1+e) · γ\' = γsat − γw.</li><li>Sin volúmenes: asume <b>Vs = 1</b> y usa '+msL("gs","Gs")+'.</li></ul>'
+  +msVids([["diagrama de fases mecánica de suelos ejercicio","diagrama de fases"],["relación de vacíos porosidad grado de saturación ejercicio","e, n y Sr resueltos"]])
+  +msVM("rangos típicos y caso de la Formativa 2","tabla · ejemplo resuelto",msTbl(["Propiedad","Fórmula","Rango típico"],[["Humedad w","Ww/Ws","arena 20–30% · arcilla 25–60% · turba 100–3000%"],["e","Vv/Vs","arena 0,2–0,9 · arcilla blanda hasta 2,3","Con e = 1,1 un limo es muy deformable: asentará bastante bajo carga."],["Dr","(emáx−e)/(emáx−emín)","0% suelto · 100% denso"],["γs","Gs·γw","caolinita 26,3 · illita 27,8 · cuarzo 26,3 kN/m³"],["γd","Ws/Vt","arena 14–18 · arcilla 8–20 kN/m³"]])
+   +msEj("Formativa 2 · Caso 1","V = 464 cm³, masa 793 g, masa seca 735 g, Gs = 2,68.",["Mw = 793 − 735 = <code>58 g</code> → Vw = 58 cm³","Vs = 735/2,68 = <code>274,25 cm³</code>","Vv = 464 − 274,25 = <code>189,75</code> · Va = <code>131,75 cm³</code>","e = 189,75/274,25 = <code>0,692</code> · n = <code>0,409</code>","w = 58/735 = <code>7,9%</code> · Sr = 58/189,75 = <code>30,6%</code>"])
+   +msEj("γsat sin volúmenes (resumen Eval 2)","Gs = 2,68 y ρd = 1,75 g/cm³.",["Asumo Vs = 1 → Ws = 2,68 g","Vt = 2,68/1,75 = <code>1,53 cm³</code> → Vv = 0,53","ρsat = (2,68 + 0,53)/1,53 = <code>2,10 g/cm³</code>"]))
+ );
+ h+=msTopic("ms-2-2","2.2","Granulometría","tamices · curva · Cu · Cc",MS_C2,
+  '<div class="resumen">La '+msL("granulometria","granulometría")+' separa el suelo por tamaños. <b>N°4 (4,75 mm)</b> divide grava y arena; <b>N°200 (0,075 mm)</b> divide arena y finos. Si pasa más del 50% por la N°200 es <b>suelo fino</b>.</div>'+MS_SVG.curva
+  +'<ul class="keypoints"><li><b>Cu = D60/D10</b> y <b>Cc = D30²/(D10·D60)</b> ('+msL("cucc","ver ficha")+').</li><li>Bien graduada: grava Cu ≥ 4, arena Cu ≥ 6, y 1 ≤ Cc ≤ 3.</li><li>Graduación continua = W · uniforme = P · con saltos = discontinua.</li></ul>'
+  +msVids([["ensayo granulometría por tamizado suelos","ensayo de tamizado"],["curva granulométrica coeficiente de uniformidad curvatura","Cu y Cc en la curva"]])
+  +msVM("tamices y ejercicio","tabla · ejemplo resuelto",msTbl(["Tamiz","Abertura","Separa"],[["3\"","75 mm","bolones / grava"],["N°4","4,75 mm","grava / arena"],["N°10","2,0 mm","arena gruesa / media"],["N°40","0,425 mm","arena media / fina · material para límites"],["N°200","0,075 mm","arena / finos","Si pasan 40 g de 100 g por la N°200 → 40% finos → suelo grueso con finos."]])
+   +msEj("¿Bien o mal graduada?","Arena con D10 = 0,2 mm, D30 = 0,5 mm, D60 = 1,4 mm.",["Cu = 1,4/0,2 = <code>7</code> ≥ 6 ✓","Cc = 0,5²/(0,2·1,4) = <code>0,89</code> → fuera de 1–3 ✗","Falla Cc → <b>SP, arena mal graduada</b>."]))
+ );
+ h+=msTopic("ms-2-3","2.3","Límites de Atterberg","LL · LP · IP · carta de plasticidad",MS_C2,
+  '<div class="resumen">Los '+msL("atterberg","límites de Atterberg")+' miden cómo cambia un suelo fino con el agua. <b>LP</b>: paso a plástico. <b>LL</b>: paso a líquido. <b>IP = LL − LP</b> se lleva a la '+msL("casagrande","carta de Casagrande")+'.</div>'+MS_SVG.carta
+  +'<ul class="keypoints"><li><b>LL</b>: cuchara de Casagrande, la ranura cierra a los <b>25 golpes</b> (NCh 1517/1).</li><li><b>LP</b>: rollito que se agrieta a <b>3 mm</b> (NCh 1517/2).</li><li>Línea A: <b>IP = 0,73(LL − 20)</b>. Arriba = arcilla, abajo = limo. <b>LL = 50</b> separa L de H.</li><li>IP alto → mucha retención de agua, comportamiento expansivo.</li></ul>'
+  +msVids([["límite líquido cuchara de Casagrande ensayo","límite líquido"],["límite plástico ensayo rollito 3 mm","límite plástico"],["carta de plasticidad Casagrande línea A","carta de plasticidad"]])
+  +msVM("estados de consistencia y casos","tabla · ejemplos",msTbl(["Estado","Humedad","Comportamiento"],[["Sólido / semisólido","w < LP","Se agrieta, no se moldea"],["Plástico","LP < w < LL","Se moldea sin agrietarse","Una arcilla con w = 30%, LP = 20% y LL = 45% está plástica: se pega a la pala."],["Líquido","w > LL","Fluye como barro"]])
+   +msEj("Leer la carta","LL = 45%, LP = 25%.",["IP = 45 − 25 = <code>20</code>","Línea A en LL 45: 0,73·25 = <code>18,3</code> → IP 20 queda arriba","LL &lt; 50 → baja plasticidad → <b>CL</b>"])
+   +msEj("IP alto","LL = 60%, LP = 25%.",["IP = <code>35</code>; línea A = 0,73·40 = 29,2 → arriba","LL ≥ 50 → <b>CH</b>, arcilla de alta plasticidad: compresible y expansiva."]))
+ );
+ h+=msTopic("ms-2-4","2.4","Clasificación SUCS y AASHTO","dos letras · símbolo doble · índice de grupo",MS_C2,
+  '<div class="resumen">El '+msL("sucs","SUCS")+' da dos letras: fracción principal (G, S, M, C, O, Pt) + graduación (W, P) o plasticidad (L, H). Para caminos se usa '+msL("aashto","AASHTO")+'.</div>'
+  +'<ul class="keypoints"><li>Grueso: &lt;5% finos → GW, GP, SW, SP · 5–12% → doble (GW-GM) · &gt;12% → GM, GC, SM, SC.</li><li>Fino: CL, CH, ML, MH (y OL, OH, Pt).</li><li>'+msL("drenaje","Drenaje")+': de CH, ML, SC y SM, el que mejor drena es <b>SM</b>.</li><li>La H es alerta roja: suelo compresible y expansivo.</li></ul>'
+  +msVids([["clasificación SUCS ejercicio paso a paso","SUCS paso a paso"],["clasificación AASHTO índice de grupo ejercicio","AASHTO e índice de grupo"]])
+  +msVM("letras, flujo y caso Eval 2","tabla · ejemplo resuelto",msTbl(["Letra","1ª posición","2ª posición"],[["G / S","Grava / Arena","—"],["M / C","Limo / Arcilla","con finos limosos / arcillosos"],["W / P","—","bien / mal graduado"],["L / H","—","LL &lt; 50 / LL ≥ 50"],["O / Pt","Orgánico / Turba","—"]])
+   +msEj("Clasificar (resumen Eval 2)","60% arena, 30% limo, 10% arcilla. LL = 32%, LP = 20%.",["Finos = 40% &lt; 50% → <b>grueso</b>; domina arena → <code>S</code>","Finos &gt; 12% → manda la plasticidad","IP = 12; línea A = 0,73·12 = 8,8 → arriba y IP &gt; 7 → <code>C</code>","Resultado: <b>SC, arena arcillosa</b>"])
+   +msEj("AASHTO · índice de grupo","F = 58%, LL = 42%, IP = 18%.",["(F−35) = 23 → 23·[0,2 + 0,005·2] = <code>4,83</code>","0,01·(F−15)(IP−10) = 0,01·43·8 = <code>3,44</code>","IG = 8,27 → <b>8</b>. Pasa &gt;35% → A-7-6 (8): subrasante mala."]))
+ );
+ h+=msBiblio(2,[["NCh 1515 · 1517/1 · 1517/2 · 1532 · 1726.","Normas de ensayos de mecánica de suelos, INN.","Normas · laboratorio"],["Berry, P. y Reid, D. Mecánica de suelos.","McGraw-Hill.","Libro · citado en los PPT"],["Lambe, W. y Whitman, R. Mecánica de suelos.","Limusa.","Libro · citado en los PPT"],["Das, B. M. Fundamentos de ingeniería de cimentaciones.","Cengage.","Libro · propiedades geotécnicas"]]);
+
+ /* ═════ UNIDAD 3 ═════ */
+ h+='<div class="unit-title" id="ms-u3"><div class="idx" style="background:linear-gradient(135deg,#5FE0B0,#2eb98a)">3</div><h2>Esfuerzos en el suelo</h2></div>'
+  +'<p class="unit-sub">Esfuerzo total, presión de poros y efectivo; esfuerzo horizontal; y el aumento por cargas (Boussinesq).</p>'+msNormas("3");
+ h+=msTopic("ms-3-1","3.1","Esfuerzos geostáticos","σ · u · σ\' · napa · río sobre el terreno",MS_C3,
+  '<div class="resumen">El '+msL("efectivo","esfuerzo efectivo")+' es lo que cargan los granos: <b>σ\' = σ − u</b>, con σ = Σγ·h y '+msL("presion","u = γw·hw")+' medido desde la napa.</div>'+MS_SVG.esf
+  +'<ul class="keypoints"><li>Sobre la napa usa γ; bajo la napa γsat.</li><li>Atajo bajo la napa: σ\' suma <b>γ\'·h</b> con γ\' = γsat − γw.</li><li>Agua <b>sobre</b> el terreno (río): σ y u suben igual → <b>σ\' no cambia</b>.</li></ul>'
+  +msVids([["esfuerzo efectivo presión de poros ejercicio","esfuerzo efectivo"],["esfuerzos geostáticos nivel freático ejercicio","σ, u y σ\' con napa"]])
+  +msVM("Formativa 3 resuelta","ejemplo resuelto · tabla",msEj("Estribo en el lecho de un río","Estribo de 4 m, 10 m², carga 1 MN, γc = 20 kN/m³. Arena γsat = 20 kN/m³. Punto a 4 m bajo el lecho; carga repartida sin disipación.",["Presión del estribo: (1000 + 4·10·20)/10 = <code>180 kPa</code>","(a) Río a nivel del terreno: σ = 180 + 80 = 260 · u = 40 · <b>σ\' = 220 kPa</b>","(b) Río de 3 m: σ = 260 · u = 10·7 = 70 · <b>σ\' = 190 kPa</b>","Campo libre (sin estribo): σ\' = 40 kPa en ambos casos → el río no cambia σ\'."])
+   +msTbl(["Punto","σ (kPa)","u (kPa)","σ\' (kPa)"],[["Campo libre (a)","80","40","40"],["Campo libre (b)","110","70","40","El río suma 30 kPa de agua arriba: suben σ y u igual."],["Bajo estribo (a)","260","40","220"],["Bajo estribo (b)","260","70","190"]]))
+ );
+ h+=msTopic("ms-3-2","3.2","Esfuerzo horizontal","K0 · Jaky · σh = K0σ\'v + u",MS_C3,
+  '<div class="resumen">En reposo el suelo empuja de lado con <b>σ\'h = K0·σ\'v</b>. Jaky: '+msL("k0","K0 = 1 − sen φ\'")+'. El agua se suma aparte, completa.</div>'
+  +'<ul class="keypoints"><li>K se aplica <b>solo</b> al esfuerzo efectivo.</li><li><b>σh = K0·σ\'v + u</b>.</li><li>Arena φ = 30° → K0 = 0,5. Arcillas preconsolidadas pueden tener K0 &gt; 1.</li></ul>'
+  +msVid("coeficiente de empuje en reposo K0 Jaky","empuje en reposo K0")
+  +msVM("ejercicio","ejemplo resuelto",msEj("σh a 4 m","Arena saturada γsat = 20 kN/m³, napa en superficie, φ = 30°, γw = 10.",["σ\'v = (20 − 10)·4 = <code>40 kPa</code>","K0 = 1 − sen 30° = <code>0,5</code> → σ\'h = <code>20 kPa</code>","u = 40 kPa → σh = 20 + 40 = <b>60 kPa</b>"]))
+ );
+ h+=msTopic("ms-3-3","3.3","Esfuerzos por cargas","Boussinesq · puntual · lineal · circular · rectangular",MS_C3,
+  '<div class="resumen">Una carga en superficie aumenta el esfuerzo en profundidad según '+msL("boussinesq","Boussinesq")+'. Bajo la esquina de un rectángulo: <b>Δσ = q·I(m,n)</b> con m = B/z, n = L/z.</div>'+MS_SVG.bulbo
+  +'<ul class="keypoints"><li>Puntual: Δσ = 3P/(2πz²)·[1+(r/z)²]^−5/2.</li><li>Lineal: Δσ = 2q·z³/[π(x²+z²)²].</li><li>Circular (centro): Δσ = q·{1 − [1/(1+(R/z)²)]^1,5}.</li><li>Punto interior: divide en rectángulos y <b>suma</b>. Aproximado 2:1: Δσ = qBL/[(B+z)(L+z)].</li></ul>'
+  +msVids([["Boussinesq carga puntual esfuerzo vertical","Boussinesq"],["método de Newmark carga rectangular esquina","carga rectangular"]])
+  +msVM("ejercicio del tanque (PPT 3.1.2)","ejemplo resuelto",msEj("Tanque con q = 8 t/m²","Esquina de un rectángulo B = 1,5 m, L = 4 m, a z = 2,5 m.",["m = 1,5/2,5 = <code>0,6</code> · n = 4/2,5 = <code>1,6</code>","I(0,6; 1,6) = <code>0,150</code>","Δσ esquina = 8·0,150 = <code>1,20 t/m²</code>","Si A está al centro del lado de una base 3×4 → 2 rectángulos: <b>2,40 t/m²</b>","σ\'final = σ\'v inicial + Δσ"]))
+ );
+ h+=msBiblio(3,[["Terzaghi, K. (1943). Theoretical Soil Mechanics.","Wiley.","Libro · esfuerzo efectivo"],["Das, B. M. Principios de ingeniería geotécnica.","Cengage.","Libro · Boussinesq y Newmark"],["Budhu, M. Soil Mechanics and Foundations.","Wiley.","Libro · caso del estribo"]]);
+
+ /* ═════ UNIDAD 4 ═════ */
+ h+='<div class="unit-title" id="ms-u4"><div class="idx" style="background:linear-gradient(135deg,#F2B84B,#e0952e)">4</div><h2>Empuje de tierras</h2></div>'
+  +'<p class="unit-sub">Estados de reposo, activo y pasivo. Teorías de Rankine y Coulomb para muros de contención.</p>'
+  +'<div class="unit-sub" style="color:var(--gold)">ℹ️ Los PPT de Rankine y Coulomb llegaron vacíos. Esta unidad está armada con teoría estándar (Das, Budhu): compárala con la clase.</div>'+msNormas("4");
+ h+=msTopic("ms-4-1","4.1","Estados de empuje","reposo · activo · pasivo",MS_C4,
+  '<div class="resumen">Si el muro no se mueve el suelo empuja en <b>reposo</b> ('+msL("k0","K0")+'). Si se aleja, el empuje baja a <b>activo</b> (Ka). Si se lo empuja contra el suelo, sube a <b>pasivo</b> (Kp). Siempre <b>Ka &lt; K0 &lt; Kp</b>.</div>'
+  +'<ul class="keypoints"><li>Activo: basta un giro de ~0,1–0,2% de H en arenas.</li><li>Pasivo: requiere bastante más desplazamiento (~1–4% de H).</li><li>Muros rígidos o subterráneos arriostrados → diseñar con K0.</li></ul>'
+  +msVid("empuje activo pasivo y en reposo muros de contención","empuje activo, pasivo y reposo")
+  +msVM("valores típicos","tabla",msTbl(["φ","K0","Ka","Kp"],[["25°","0,577","0,406","2,464"],["30°","0,500","0,333","3,000","Con φ = 30° el empuje activo es 1/3 del vertical y el pasivo 3 veces."],["35°","0,426","0,271","3,690"],["40°","0,357","0,217","4,599"]]))
+ );
+ h+=msTopic("ms-4-2","4.2","Método de Rankine","Ka · Kp · Pa a H/3 · cohesión · napa",MS_C4,
+  '<div class="resumen">'+msL("rankine","Rankine")+': muro vertical liso y relleno horizontal. <b>Ka = tan²(45 − φ/2)</b>, <b>Kp = tan²(45 + φ/2)</b>. Resultante activa <b>Pa = ½·Ka·γ·H²</b> a H/3 de la base.</div>'+MS_SVG.muro
+  +'<ul class="keypoints"><li>Con cohesión: σ\'a = Ka·σ\'v − 2c√Ka; grieta de tracción zc = 2c/(γ√Ka).</li><li>Sobrecarga q: Pq = Ka·q·H a H/2.</li><li>Napa detrás: γ\' para el suelo + empuje del agua ½·γw·hw² completo (sin Ka). Por eso los muros llevan '+msL("drenaje","dren")+'.</li></ul>'
+  +msVids([["método de Rankine empuje activo ejercicio muro","Rankine resuelto"],["empuje de tierras con nivel freático muro de contención","empuje con napa"]])
+  +msVM("ejercicios","ejemplo resuelto",msEj("Muro de 4 m","Arena φ = 30°, γ = 18 kN/m³, c = 0, sin napa.",["Ka = tan²(30°) = <code>0,333</code>","σ\'a en la base = 0,333·18·4 = <code>24 kPa</code>","Pa = ½·24·4 = <b>48 kN/m</b> a 4/3 = <b>1,33 m</b> de la base"])
+   +msEj("Con sobrecarga q = 10 kPa","Mismo muro.",["Pq = 0,333·10·4 = <code>13,3 kN/m</code> a H/2 = 2 m","Total = 48 + 13,3 = <b>61,3 kN/m</b>","Brazo = (48·1,33 + 13,3·2)/61,3 = <b>1,48 m</b>"]))
+ );
+ h+=msTopic("ms-4-3","4.3","Método de Coulomb","cuña de falla · roce δ · muro y relleno inclinados",MS_C4,
+  '<div class="resumen">'+msL("coulomb","Coulomb")+' equilibra una cuña plana que desliza detrás del muro y considera el <b>roce muro-suelo δ</b>, la inclinación del muro θ y del relleno β. Con δ = θ = β = 0 coincide con Rankine.</div>'
+  +'<ul class="keypoints"><li>Ka = cos²(φ−θ) / {cos²θ·cos(δ+θ)·[1 + √(sen(φ+δ)·sen(φ−β)/(cos(δ+θ)·cos(θ−β)))]²}</li><li>δ típico ≈ ⅔φ; el roce baja Ka.</li><li>Pa queda inclinado δ respecto de la normal al muro.</li></ul>'
+  +msVid("método de Coulomb empuje activo cuña","Coulomb")
+  +msVM("comparación","tabla",msTbl(["Caso (φ = 30°)","Ka Rankine","Ka Coulomb"],[["δ = 0","0,333","0,333"],["δ = 20° (⅔φ)","0,333","0,297","El roce muro-suelo reduce el empuje ~11%: Coulomb da muros algo más económicos."],["δ = 30°","0,333","0,297*"]])+'<p style="font-size:.78rem;color:var(--text-3)">* Para muro vertical y relleno horizontal el valor cambia poco entre δ = 20° y 30°.</p>')
+ );
+ h+=msBiblio(4,[["Das, B. M. Fundamentos de ingeniería de cimentaciones, cap. Muros de contención.","Cengage.","Libro · Rankine y Coulomb"],["Budhu, M. Soil Mechanics and Foundations, cap. Lateral earth pressure.","Wiley.","Libro · empuje lateral"],["NCh 433 — Diseño sísmico de edificios.","INN.","Norma · empuje sísmico"]]);
+ return h;
+}
+
+/* ══════════════════════════════════════════════════════
+   v1.9 · EVALÚATE de Mecánica de Suelos (mismo motor que Hormigón)
+   ══════════════════════════════════════════════════════ */
+var EVA_MS={
+ meta:{nombre:"Mecánica de Suelos",codigo:"OCK6141",semestre:"6° Semestre"},
+ duelo:(typeof MS_Q!=="undefined"?MS_Q.map(function(q){return {p:q[0],ops:q[1],r:q[2],exp:q[3]}}):[]).concat([
+  {p:"Un suelo saturado tiene w = 20% y Gs = 2,7. ¿Cuál es su relación de vacíos e?",ops:["0,20","0,54","0,74","1,35"],r:1,exp:"Saturado: Sr·e = w·Gs → e = 0,20 × 2,7 = 0,54."},
+  {p:"γ = 19 kN/m³ y w = 18%. ¿Cuánto vale γd?",ops:["22,4 kN/m³","19,0 kN/m³","15,6 kN/m³","16,1 kN/m³"],r:3,exp:"γd = γ/(1 + w) = 19/1,18 = 16,1 kN/m³."},
+  {p:"Coeficiente activo de Rankine Ka para φ = 30°:",ops:["0,333","0,500","3,000","0,577"],r:0,exp:"Ka = tan²(45° − φ/2) = tan²30° = 1/3 ≈ 0,333."},
+  {p:"Coeficiente pasivo de Rankine Kp para φ = 30°:",ops:["0,333","1,0","2,0","3,0"],r:3,exp:"Kp = tan²(45° + φ/2) = tan²60° = 3,0 (es 1/Ka)."},
+  {p:"Muro H = 4 m, relleno seco γ = 18 kN/m³, Ka = 1/3. ¿Empuje activo total Pa?",ops:["48 kN/m","96 kN/m","24 kN/m","144 kN/m"],r:0,exp:"Pa = ½·Ka·γ·H² = 0,5 × (1/3) × 18 × 16 = 48 kN/m, aplicado a H/3 = 1,33 m de la base."},
+  {p:"Con diagrama triangular de presiones, ¿dónde actúa la resultante Pa?",ops:["A H/2","A H/3 desde la base","A 2H/3 desde la base","En la corona del muro"],r:1,exp:"El centroide de un triángulo está a un tercio de su altura medido desde la base."},
+  {p:"K0 según Jaky para φ' = 36°:",ops:["0,26","0,59","0,41","0,73"],r:2,exp:"K0 = 1 − sen φ' = 1 − 0,588 ≈ 0,41."},
+  {p:"Nivel freático en superficie, γsat = 20 kN/m³, γw = 10. ¿σ' a 5 m?",ops:["100 kPa","150 kPa","10 kPa","50 kPa"],r:3,exp:"σ = 5 × 20 = 100 kPa; u = 5 × 10 = 50 kPa; σ' = 100 − 50 = 50 kPa."},
+  {p:"Boussinesq: carga puntual Q = 100 kN, punto a z = 2 m bajo la carga (r = 0). ¿Δσz?",ops:["11,9 kPa","25 kPa","4,8 kPa","47,7 kPa"],r:0,exp:"Δσz = 3Q/(2π z²) = 300/(2π × 4) = 11,9 kPa."},
+  {p:"Si el nivel freático sube, el esfuerzo efectivo en un punto bajo él:",ops:["Aumenta","Disminuye","No cambia","Se duplica"],r:1,exp:"Sube u y el peso efectivo del suelo sumergido es menor, así que σ' = σ − u baja."},
+  {p:"El estado pasivo se produce cuando el muro:",ops:["Se aleja del suelo","No se mueve","Se empuja contra el suelo","Se asienta"],r:2,exp:"Pasivo: el muro comprime el suelo y este resiste con el máximo empuje (Kp). Activo: el muro se aleja."},
+  {p:"w = 15%, Gs = 2,65 y e = 0,60. ¿Grado de saturación Sr?",ops:["40%","66%","100%","25%"],r:1,exp:"Sr = w·Gs/e = 0,15 × 2,65 / 0,60 = 0,66 → 66%."}
+ ]),
+ supervisor:[
+  {id:"ms_fund",titulo:"Supervisión · Excavación de zapatas Z1-Z6",desc:"Excavación de 3,5 m para zapatas aisladas de un edificio en Ñuñoa. El informe de mecánica de suelos indica fundar en grava aluvial densa (2ª depositación del Mapocho).",svg_escena:"fundacion",errores:[
+   {id:"s1",etiq:"Sello",x:25,y:65,desc:"El sello quedó con material suelto y removido por la retroexcavadora.",pregunta:"¿Qué exige el sello de fundación antes de hormigonar?",ops:["Nada, el emplantillado lo corrige","Retirar el material suelto, perfilar a mano y que el mecánico de suelos recepcione el sello en el estrato de diseño","Regarlo para que se compacte solo","Agregar más armadura a la zapata"],r:1,exp:"El suelo removido pierde densidad y se asienta bajo carga. Se limpia hasta el estrato natural y el especialista recepciona el sello (queda en el libro de obra)."},
+   {id:"s2",etiq:"Napa",x:60,y:58,desc:"Aflora agua en el fondo y se sigue excavando sin control.",pregunta:"¿Qué haces con la napa en el sello?",ops:["Sigo excavando para pasar el agua","Hormigono rápido antes de que suba","Detengo, mido el nivel freático y deprimo la napa (bombas o punteras) antes de seguir","Echo cemento en polvo al agua"],r:2,exp:"El agua sube u y baja σ'. En arenas puede haber sifonamiento y el sello se ablanda. Primero se controla la napa y se avisa al mecánico de suelos."},
+   {id:"s3",etiq:"Talud",x:42,y:42,desc:"Talud vertical de 3,5 m sin entibar y con acopio de material en el borde.",pregunta:"¿Cuál es el riesgo principal?",ops:["Derrumbe: la sobrecarga en el borde y el talud sin entibar ponen en riesgo a los trabajadores","Ninguno si el suelo es grava","Solo afecta la estética","Que se seque el suelo del fondo"],r:0,exp:"El acopio aumenta el empuje sobre el talud. Se retira a distancia segura y se entiba o se da la inclinación que indique el informe de suelos."}
+  ]},
+  {id:"ms_muro",titulo:"Supervisión · Muro de contención MC-1",desc:"Muro en voladizo de 4 m que contiene el relleno de un estacionamiento. Se está colocando el relleno del trasdós.",svg_escena:"muro",errores:[
+   {id:"w1",etiq:"Drenaje",x:22,y:40,desc:"El muro no tiene barbacanas ni dren detrás.",pregunta:"¿Por qué es crítico el drenaje del relleno?",ops:["Solo para evitar manchas de humedad","Sin drenaje el agua suma presión hidrostática y el empuje total puede llegar casi al doble","Porque el agua mejora la compactación","No es crítico en Santiago"],r:1,exp:"Con relleno saturado: Ka·γ'·z + γw·z. Para Ka = 1/3 y γ = 20 kN/m³ la presión pasa de 6,7·z a 13,3·z kPa. Barbacanas + dren + geotextil."},
+   {id:"w2",etiq:"Relleno",x:55,y:30,desc:"El trasdós se rellena con la arcilla plástica sacada de la misma excavación.",pregunta:"¿Qué material conviene tras un muro?",ops:["Arcilla CH, porque es impermeable","Escombro de la obra","Cualquiera, el muro lo resiste","Material granular limpio y drenante, compactado en capas"],r:3,exp:"La arcilla retiene agua, se expande y empuja más de lo calculado. El diseño (Rankine/Coulomb) supone un relleno granular con φ conocido."},
+   {id:"w3",etiq:"Compact.",x:70,y:55,desc:"Una compactadora pesada trabaja pegada al muro con capas de 60 cm.",pregunta:"¿Cómo se debe compactar junto al muro?",ops:["En capas de 20 a 30 cm y con equipo liviano junto al muro","Así está bien, queda más firme","Mejor no compactar","Compactar solo la última capa"],r:0,exp:"El equipo pesado induce empujes mayores que los de diseño y capas gruesas no se densifican. Capas delgadas y control de densidad."}
+  ]}
+ ],
+ conecta:[
+  {titulo:"Relaciones de fases · une cada símbolo con su definición",pares:[
+   {a:"w (humedad)",b:"Peso del agua / peso de sólidos"},
+   {a:"e (vacíos)",b:"Volumen de vacíos / volumen de sólidos"},
+   {a:"n (porosidad)",b:"Volumen de vacíos / volumen total"},
+   {a:"Sr",b:"Volumen de agua / volumen de vacíos"},
+   {a:"γd",b:"Peso de sólidos / volumen total"},
+   {a:"Gs",b:"Densidad de sólidos / densidad del agua"},
+   {a:"γsat",b:"Peso unitario con todos los vacíos llenos de agua"}]},
+  {titulo:"Granulometría y plasticidad",pares:[
+   {a:"LL",b:"Humedad entre estado plástico y líquido"},
+   {a:"LP",b:"Humedad a la que el rollo de 3 mm se agrieta"},
+   {a:"IP",b:"LL − LP: rango plástico"},
+   {a:"Cu",b:"D60 / D10"},
+   {a:"Cc",b:"D30² / (D10 · D60)"},
+   {a:"Tamiz N° 200",b:"0,075 mm: separa finos de gruesos"},
+   {a:"Tamiz N° 4",b:"4,75 mm: separa grava de arena"}]},
+  {titulo:"Esfuerzos y empujes",pares:[
+   {a:"σ'",b:"σ − u: controla la resistencia"},
+   {a:"u",b:"Presión del agua en los poros"},
+   {a:"K0",b:"Reposo: 1 − sen φ'"},
+   {a:"Ka",b:"Activo: tan²(45° − φ/2)"},
+   {a:"Kp",b:"Pasivo: tan²(45° + φ/2)"},
+   {a:"Boussinesq",b:"Δσ bajo una carga en superficie"},
+   {a:"Coulomb",b:"Cuña de falla con roce muro-suelo δ"}]}
+ ],
+ crisis:[
+  {titulo:"🚨 Aflora agua en el sello del subterráneo",contexto:"Excavación de un subterráneo en arena limosa. A −3,8 m aparece agua y faltan 0,7 m para la cota de fundación. El estudio de suelos (sondaje de verano) indicaba el nivel freático a −6 m.",nodos:{
+   inicio:{texto:"El fondo empieza a llenarse de agua. ¿Qué haces primero?",ops:[
+    {txt:"Sigo excavando, el agua se va a ir sola",sig:"seguir",xp:0},
+    {txt:"Detengo la excavación, mido el nivel freático y llamo al mecánico de suelos",sig:"detener",xp:80},
+    {txt:"Relleno con grava y hormigono encima",sig:"rellenar",xp:10}]},
+   detener:{texto:"El nivel freático real está a −3,6 m. ¿Cómo sigues?",ops:[
+    {txt:"Bombeo directo desde el fondo con una bomba sumergible",sig:"bombeo",xp:40},
+    {txt:"Sistema de punteras para deprimir la napa bajo el sello antes de excavar",sig:"punteras",xp:120},
+    {txt:"Excavo bajo agua y hormigono con tubo tremie sin consultar",sig:"tremie",xp:20}]},
+   punteras:{texto:"✅ Deprimes la napa cerca de 1 m bajo el sello, el fondo queda seco y firme y el especialista lo recepciona. Además se actualiza el nivel freático de diseño: con agua más alta baja σ' y aparece subpresión en la losa.",ops:[],fin:true,xp:200},
+   bombeo:{texto:"⚠️ Funciona a medias: al bombear desde el fondo el flujo sube por la arena, arrastra finos y ablanda el sello (riesgo de sifonamiento). Hubo que sobreexcavar y reponer con hormigón pobre.",ops:[],fin:true,xp:60},
+   tremie:{texto:"⚠️ Es una técnica válida, pero cambiaste el método sin aprobación del proyectista ni del mecánico de suelos. La ITO lo objeta y debes respaldarlo todo.",ops:[],fin:true,xp:20},
+   seguir:{texto:"❌ El fondo se vuelve barro, la arena fluye (sifonamiento) y los taludes se socavan. Paralización y sobrecosto.",ops:[],fin:true,xp:0},
+   rellenar:{texto:"❌ Tapaste el problema: la grava queda sobre un sello blando y saturado. Aparecen asentamientos diferenciales en las fundaciones.",ops:[],fin:true,xp:10}}},
+  {titulo:"🚨 El laboratorio entrega Atterberg del sello: LL = 52, IP = 28",contexto:"Zapatas aisladas para un galpón en Quilicura. El informe supuso grava arenosa con q adm = 3 kg/cm², pero en la calicata del eje C aparece un suelo fino.",nodos:{
+   inicio:{texto:"Con LL = 52 e IP = 28, ¿cómo clasificas el fino en la carta de Casagrande?",ops:[
+    {txt:"ML: limo de baja plasticidad",sig:"malclas",xp:0},
+    {txt:"CH: sobre la línea A (0,73·(52 − 20) = 23,4 < 28) y LL > 50",sig:"ch",xp:100},
+    {txt:"GW: grava bien graduada",sig:"malclas",xp:0}]},
+   ch:{texto:"Correcto: arcilla de alta plasticidad, compresible y potencialmente expansiva. ¿Qué decides?",ops:[
+    {txt:"Hormigono igual, la zapata es grande",sig:"igual",xp:0},
+    {txt:"Informo al proyectista y al mecánico de suelos y pido nueva capacidad de soporte o un reemplazo de suelo",sig:"informar",xp:120},
+    {txt:"Agrando la zapata a ojo un 50%",sig:"agrandar",xp:30}]},
+   informar:{texto:"✅ Se sobreexcava 1,2 m y se reemplaza con grava compactada en capas al 95% del Proctor modificado, con control de densidad. Todo queda en el libro de obra.",ops:[],fin:true,xp:200},
+   igual:{texto:"❌ La CH se hincha en invierno y se contrae en verano: grietas y asentamientos diferenciales en el galpón al primer año.",ops:[],fin:true,xp:0},
+   agrandar:{texto:"⚠️ Bajas la presión de contacto, pero no resuelves la expansividad ni conoces la capacidad real. Sin respaldo técnico la responsabilidad queda en ti.",ops:[],fin:true,xp:30},
+   malclas:{texto:"❌ Clasificación errónea. Con IP = 28, sobre la línea A y LL > 50, es CH. Una mala clasificación lleva a una fundación mal diseñada.",ops:[],fin:true,xp:0}}}
+ ],
+ vf:[
+  {enunciado:"Según Terzaghi, σ' = σ − u, y es σ' el que controla la resistencia del suelo.",resp:true,justificacion:"VERDADERO. Es el principio de esfuerzos efectivos: el agua no resiste corte, solo el esqueleto de partículas."},
+  {enunciado:"Si el LP no se puede determinar, el suelo se informa como NP (no plástico).",resp:true,justificacion:"VERDADERO. Pasa en arenas y limos sin plasticidad: no se forma el rollo de 3 mm."},
+  {enunciado:"Una grava con Cu = 3 es una grava bien graduada (GW).",resp:false,justificacion:"FALSO. GW exige Cu ≥ 4 y 1 ≤ Cc ≤ 3. Con Cu = 3 es GP."},
+  {enunciado:"Para una arena bien graduada SW se exige Cu ≥ 6 y 1 ≤ Cc ≤ 3.",resp:true,justificacion:"VERDADERO. En arenas el límite de Cu sube a 6 (en gravas es 4)."},
+  {enunciado:"La línea A de Casagrande es IP = 0,73·(LL − 20).",resp:true,justificacion:"VERDADERO. Sobre ella están las arcillas (C) y bajo ella los limos (M)."},
+  {enunciado:"Un suelo fino sobre la línea A con LL = 60 es un limo MH.",resp:false,justificacion:"FALSO. Sobre la línea A es arcilla; con LL > 50 es CH."},
+  {enunciado:"El empuje pasivo siempre es menor que el activo.",resp:false,justificacion:"FALSO. Kp > K0 > Ka. Para φ = 30°: Kp = 3, Ka = 0,33."},
+  {enunciado:"Rankine supone un muro liso, sin roce entre suelo y muro.",resp:true,justificacion:"VERDADERO. Coulomb sí incorpora el roce δ."},
+  {enunciado:"El N del SPT se cuenta con los golpes de los primeros 15 cm.",resp:false,justificacion:"FALSO. El primer tramo es de asentamiento; N es la suma de los tramos 2 y 3 (30 cm)."},
+  {enunciado:"La relación de vacíos e puede ser mayor que 1.",resp:true,justificacion:"VERDADERO. Arcillas blandas y suelos orgánicos pueden tener e > 1 (más vacíos que sólidos)."},
+  {enunciado:"La porosidad n puede ser mayor que 1.",resp:false,justificacion:"FALSO. n = Vv/V = e/(1 + e), siempre entre 0 y 1."},
+  {enunciado:"Bajo una carga en superficie, el incremento de esfuerzo disminuye con la profundidad.",resp:true,justificacion:"VERDADERO. Es el bulbo de presiones de Boussinesq: a z ≈ 2B queda cerca del 10%."}
+ ],
+ ito:[
+  {titulo:"Clasificación SUCS — calicata C-3",contexto:"Granulometría: pasa N° 4 = 72%, pasa N° 200 = 8%. D10 = 0,09 mm, D30 = 0,31 mm, D60 = 0,65 mm. Los finos son limo no plástico (ML). La ITO pide la clasificación justificada.",parametros:[
+   {id:"tipo",label:"¿Suelo grueso o fino?",tipo:"select",ops:["Fino: más del 50% pasa el N° 200","Grueso: más del 50% queda retenido en el N° 200"],correcto:"Grueso: más del 50% queda retenido en el N° 200",hint:"Mira cuánto pasa el N° 200",norma:"ASTM D2487 / SUCS"},
+   {id:"ret4",label:"Grava: % del total retenido en el N° 4",tipo:"slider",min:0,max:60,step:1,correcto:28,tolerancia:1,hint:"Lo que no pasa el N° 4 es grava",norma:"NCh 165"},
+   {id:"cucc",label:"Cu y Cc",tipo:"select",ops:["Cu = 3,4 · Cc = 0,8 → mal graduada","Cu = 7,2 · Cc = 1,6 → bien graduada","Cu = 1,6 · Cc = 7,2 → mal graduada","Cu = 7,2 · Cc = 4,1 → mal graduada"],correcto:"Cu = 7,2 · Cc = 1,6 → bien graduada",hint:"Cu = D60/D10 · Cc = D30²/(D10·D60)",norma:"SUCS: SW si Cu ≥ 6 y 1 ≤ Cc ≤ 3"},
+   {id:"sim",label:"Símbolo SUCS",tipo:"select",ops:["SW","SM","SW-SM","GW-GM"],correcto:"SW-SM",hint:"Arena bien graduada con 5–12% de finos limosos → doble símbolo",norma:"ASTM D2487"}]},
+  {titulo:"Esfuerzo efectivo a 6 m — edificio en Ñuñoa",contexto:"Perfil: 0–2 m arena con γ = 18 kN/m³; nivel freático a 2 m; 2–6 m arena con γsat = 20 kN/m³, φ' = 30°. Usa γw = 10 kN/m³.",parametros:[
+   {id:"sig",label:"σ total a 6 m (kPa)",tipo:"slider",min:60,max:160,step:2,correcto:116,tolerancia:2,hint:"Suma γ·espesor de cada estrato; bajo la napa usa γsat",norma:"Esfuerzos geostáticos"},
+   {id:"u",label:"Presión de poros u a 6 m",tipo:"select",ops:["0 kPa","20 kPa","40 kPa — 4 m bajo el NF × 10","60 kPa"],correcto:"40 kPa — 4 m bajo el NF × 10",hint:"u = γw · profundidad bajo el nivel freático",norma:"Hidrostática"},
+   {id:"sef",label:"σ' a 6 m (kPa)",tipo:"slider",min:40,max:120,step:2,correcto:76,tolerancia:2,hint:"σ' = σ − u",norma:"Terzaghi σ' = σ − u"},
+   {id:"k0",label:"K0 para φ' = 30°",tipo:"select",ops:["0,33 — Rankine activo","0,50 — Jaky: 1 − sen 30°","1,00 — hidrostático","3,00 — pasivo"],correcto:"0,50 — Jaky: 1 − sen 30°",hint:"Jaky: K0 = 1 − sen φ'",norma:"Jaky (1944)"}]}
+ ],
+ ft:["El agua no se ve, pero empuja. Por eso el buen constructor drena antes de calcular. - Tío Lucho","Un sello mal recibido no lo arregla ningún fierro. - Tío Lucho","Primero clasifica, después opina: el suelo no miente, el que miente es el que no ensaya. - Tío Lucho","La grava de Santiago es noble, pero hasta la grava se rinde con una napa mal controlada. - Tío Lucho"]
+};
+
+var EVA_PACKS_X = {
+  "analisis-estruct": {
+    meta:{nombre:"Análisis Estructural", codigo:"CEK6161", semestre:"6° Semestre"},
+    duelo:[
+      {p:"Viga simplemente apoyada de L = 6 m con una carga puntual P = 12 kN a 2 m del apoyo A. ¿Cuánto vale la reacción en A?", ops:["4 kN","6 kN","8 kN","12 kN"], r:2, exp:"Tomando momentos en B: RA·6 = 12·4, entonces RA = 48/6 = 8 kN y RB = 12 − 8 = 4 kN. El apoyo más cercano a la carga toma más."},
+      {p:"Viga simplemente apoyada de L = 4 m con carga uniforme q = 10 kN/m. ¿Cuál es el momento flector máximo?", ops:["40 kN·m","20 kN·m","10 kN·m","80 kN·m"], r:1, exp:"Mmáx = qL²/8 = 10·16/8 = 20 kN·m, ubicado al centro del vano, donde el corte es cero."},
+      {p:"Voladizo de 3 m con una carga puntual de 5 kN en el extremo libre. ¿Cuál es el momento en el empotramiento?", ops:["15 kN·m","7,5 kN·m","5 kN·m","45 kN·m"], r:0, exp:"M = P·L = 5·3 = 15 kN·m. En un voladizo el momento máximo siempre está en el empotramiento."},
+      {p:"Una viga empotrada en un extremo y con apoyo simple (rodillo) en el otro, ¿qué grado de indeterminación estática tiene?", ops:["0, es isostática","1","2","3"], r:1, exp:"Reacciones: 3 del empotramiento + 1 del rodillo = 4. Ecuaciones de equilibrio en el plano: 3. Grado = 4 − 3 = 1 (hiperestática de primer grado)."},
+      {p:"Una cercha plana tiene 6 nudos y 3 reacciones externas. ¿Cuántas barras necesita para ser estáticamente determinada?", ops:["6","8","12","9"], r:3, exp:"Condición m + r = 2j: m = 2·6 − 3 = 9 barras. Con menos es inestable; con más es hiperestática."},
+      {p:"En una viga, ¿dónde se produce el momento flector máximo (o mínimo) en un tramo?", ops:["Donde la carga es máxima","Siempre en los apoyos","Donde la pendiente de la elástica es máxima","Donde el esfuerzo de corte es cero"], r:3, exp:"Como dM/dx = V, el momento tiene un extremo local donde el corte cambia de signo o se anula."},
+      {p:"¿Qué ventaja tiene el método de las secciones (Ritter) frente al método de los nudos en cerchas?", ops:["Permite obtener la fuerza en una barra específica sin resolver toda la cercha","Considera la flexión de las barras","Sirve solo para cerchas hiperestáticas","No requiere calcular reacciones nunca"], r:0, exp:"Se corta la cercha por un máximo de 3 barras con fuerza desconocida y se aplican las ecuaciones de equilibrio a una de las partes."},
+      {p:"¿Cuál es la flecha máxima de una viga simplemente apoyada con carga uniforme q, luz L y rigidez EI?", ops:["qL³/(48EI)","qL⁴/(8EI)","5qL⁴/(384EI)","PL³/(3EI)"], r:2, exp:"La fórmula clásica es 5qL⁴/(384EI), al centro del vano. qL⁴/(8EI) corresponde a un voladizo con carga uniforme."},
+      {p:"En el método de doble integración, ¿qué ecuación diferencial se integra?", ops:["EI·y = V(x)","EI·y' = q(x)","y'' = EI·M(x)","EI·y'' = M(x)"], r:3, exp:"La ecuación de la elástica es EI·y'' = M(x). Se integra dos veces y las constantes salen de las condiciones de borde (apoyos)."},
+      {p:"Según el primer teorema de área-momento, el cambio de pendiente entre dos puntos de la elástica es igual a:", ops:["El área del diagrama M/EI entre esos puntos","El área del diagrama de corte entre esos puntos","El momento máximo dividido por la luz","La flecha máxima por EI"], r:0, exp:"θB − θA = área del diagrama M/EI entre A y B. El segundo teorema usa el momento estático de esa área para obtener desviaciones tangenciales."},
+      {p:"En una losa con sobrecarga de uso importante, ¿qué combinación de diseño por resistencia (NCh 3171) suele controlar?", ops:["1,0D + 1,0L","0,9D + 1,0E","1,2D + 1,6L","1,4L"], r:2, exp:"Cuando la carga viva es relevante, 1,2D + 1,6L (+ 0,5 de techo, nieve o lluvia) suele gobernar frente a 1,4D. 0,9D + E se usa para revisar volcamiento o tracción con sismo."},
+      {p:"Una carga triangular parte en 0 y llega a 6 kN/m en 3 m. ¿Cuánto vale su resultante?", ops:["18 kN","9 kN","6 kN","3 kN"], r:1, exp:"Resultante = área del triángulo = (6·3)/2 = 9 kN, aplicada a L/3 del extremo de mayor intensidad (a 2 m del extremo con valor 0)."}
+    ],
+    vf:[
+      {enunciado:"Una viga simplemente apoyada (rótula + rodillo) es isostática.", resp:true, justificacion:"VERDADERO. Tiene 3 reacciones y 3 ecuaciones de equilibrio, así que se resuelve solo con estática."},
+      {enunciado:"Una viga continua de dos tramos sobre tres apoyos simples es isostática.", resp:false, justificacion:"FALSO. Tiene 4 reacciones (rótula 2 + dos rodillos) y 3 ecuaciones: es hiperestática de grado 1."},
+      {enunciado:"En un tramo de viga, donde el esfuerzo de corte se anula, el momento flector tiene un máximo o mínimo local.", resp:true, justificacion:"VERDADERO. Como dM/dx = V, el momento es extremo donde V = 0."},
+      {enunciado:"En un voladizo con carga en el extremo libre, el momento máximo está en el extremo libre.", resp:false, justificacion:"FALSO. En el extremo libre el momento es cero; el máximo (P·L) está en el empotramiento."},
+      {enunciado:"La NCh 433 regula el diseño sísmico de edificios en Chile.", resp:true, justificacion:"VERDADERO. NCh 433 es la norma de diseño sísmico de edificios; define zonificación, tipo de suelo y métodos de análisis."},
+      {enunciado:"La NCh 1537 trata las cargas permanentes y las sobrecargas de uso.", resp:true, justificacion:"VERDADERO. NCh 1537 entrega pesos de materiales y sobrecargas de uso según el destino del recinto."},
+      {enunciado:"En una cercha ideal las barras trabajan principalmente a flexión.", resp:false, justificacion:"FALSO. En la cercha ideal (nudos articulados, cargas en los nudos) las barras solo trabajan a esfuerzo axial: tracción o compresión."},
+      {enunciado:"Bajo una carga uniformemente distribuida, el diagrama de momento flector es lineal.", resp:false, justificacion:"FALSO. Con carga uniforme el corte es lineal y el momento es parabólico (segundo grado)."}
+    ],
+    conecta:[
+      {titulo:"Relaciona el concepto con su definición", pares:[
+        {a:"Isostática", b:"Se resuelve solo con ecuaciones de equilibrio"},
+        {a:"Hiperestática", b:"Tiene más reacciones que ecuaciones de equilibrio"},
+        {a:"Empotramiento", b:"Restringe desplazamientos y giro: tres reacciones"},
+        {a:"Rodillo", b:"Una reacción perpendicular a la superficie de apoyo"},
+        {a:"Método de Ritter", b:"Corte de cercha por máximo tres barras incógnitas"},
+        {a:"Rigidez EI", b:"Producto del módulo elástico por la inercia"},
+        {a:"Carga muerta", b:"Peso propio y elementos permanentes de la estructura"},
+        {a:"Sobrecarga de uso", b:"Carga variable por ocupación y uso del recinto"}
+      ]}
+    ],
+    crisis:[
+      {titulo:"🚨 Viga de segundo piso con flecha visible tras descimbrar", contexto:"Al retirar los puntales de una viga de hormigón armado de 7 m, el capataz nota una flecha que se ve a simple vista. Hay tabiques programados para mañana encima de esa viga. Eres el profesional de oficina técnica de turno.", nodos:{
+        inicio:{texto:"¿Qué haces primero?", ops:[
+          {txt:"Re-apuntalar la viga y medir la flecha con nivel",sig:"medir",xp:100},
+          {txt:"Dejar que sigan los tabiques, la flecha es normal al descimbrar",sig:"ignorar",xp:0},
+          {txt:"Ordenar demoler la viga de inmediato",sig:"demoler",xp:20}
+        ]},
+        medir:{texto:"Mides 28 mm en 7 m. El calculista pide antecedentes. ¿Qué entregas?", ops:[
+          {txt:"Fecha de hormigonado, resultados de probetas, plazo de descimbre y carga actual",sig:"bien",xp:120},
+          {txt:"Solo una foto de la viga",sig:"parcial",xp:40},
+          {txt:"Nada, reabres la zona para no atrasar",sig:"ignorar",xp:0}
+        ]},
+        bien:{texto:"✅ Con los datos, el calculista detecta descimbre prematuro (hormigón con baja resistencia a esa edad). Se mantiene apuntalada hasta alcanzar resistencia y se verifica la flecha diferida. Decisión técnica y documentada.",ops:[],fin:true,xp:200},
+        parcial:{texto:"⚠️ La viga quedó segura por el re-apuntalamiento, pero sin datos el calculista no puede diagnosticar y se pierden días pidiendo información.",ops:[],fin:true,xp:80},
+        ignorar:{texto:"❌ Cargar con tabiques una viga con flecha anómala sin evaluar arriesga fisuración severa o falla. Ante una deformación inesperada siempre se apuntala y se consulta al calculista.",ops:[],fin:true,xp:0},
+        demoler:{texto:"❌ Demoler sin diagnóstico es caro e innecesario: muchas veces basta con esperar resistencia o reforzar. Primero se asegura (apuntalar) y luego se evalúa.",ops:[],fin:true,xp:10}
+      }}
+    ]
+  },
+
+  "model-coord": {
+    meta:{nombre:"Modelamiento y Coordinación de Proyectos", codigo:"DOK6121", semestre:"6° Semestre"},
+    duelo:[
+      {p:"¿Qué es IFC en el contexto BIM?", ops:["Un formato nativo exclusivo de Revit","Un plugin de Navisworks","Un estándar abierto de intercambio de modelos (buildingSMART, ISO 16739)","Un nivel de detalle gráfico"], r:2, exp:"IFC (Industry Foundation Classes) es el formato abierto y neutral que permite intercambiar modelos entre softwares de distintos fabricantes."},
+      {p:"¿Qué significa LOD en la especificación de BIMForum?", ops:["Level of Development","Level of Drawing","Load of Design","List of Deliverables"], r:0, exp:"LOD = Level of Development: indica cuánta confianza se puede tener en la geometría e información de un elemento del modelo."},
+      {p:"¿Qué herramienta se usa típicamente para la detección de interferencias entre especialidades?", ops:["AutoCAD LT","Excel","MS Project","Navisworks Manage (Clash Detective)"], r:3, exp:"Navisworks Manage, con su módulo Clash Detective, cruza modelos de distintas especialidades y reporta las interferencias."},
+      {p:"¿Qué es el BEP?", ops:["Un software de modelado","El Plan de Ejecución BIM que define objetivos, roles, entregables y estándares","Un formato de archivo de planos","Un tipo de interferencia"], r:1, exp:"El BIM Execution Plan fija cómo se usará BIM en el proyecto: usos, responsables, LOD, software, nomenclatura y flujo de información."},
+      {p:"Un ducto que no choca con una viga, pero no deja el espacio libre mínimo para mantención, es un:", ops:["Hard clash","Error de IFC","Soft clash (interferencia de holgura)","Clash 4D"], r:2, exp:"El soft clash viola una tolerancia o espacio libre requerido, aunque los elementos no se toquen físicamente. El hard clash es intersección geométrica real."},
+      {p:"¿Qué es Planbim en Chile?", ops:["Una norma NCh de hormigón","Un programa impulsado por CORFO para incorporar BIM en proyectos públicos y en la industria","Un software chileno de modelado","Un registro de contratistas del MOP"], r:1, exp:"Planbim es la iniciativa estatal, alojada en CORFO, que promueve el uso de BIM y desarrolló el Estándar BIM para Proyectos Públicos."},
+      {p:"¿Cómo se obtiene normalmente una nube de puntos de un edificio existente?", ops:["Con escáner láser 3D o fotogrametría","Exportando un IFC","Con un plano en PDF","Con una carta Gantt"], r:0, exp:"El escaneo láser (o fotogrametría con drones) captura millones de puntos con coordenadas, base del flujo scan-to-BIM."},
+      {p:"¿Qué caracteriza a un elemento en LOD 300?", ops:["Es un símbolo genérico sin dimensiones","Incluye información de fabricación y montaje","Está verificado en terreno (as-built)","Tiene cantidad, tamaño, forma, ubicación y orientación definidos con precisión"], r:3, exp:"LOD 300 define geometría precisa medible directamente del modelo. LOD 400 agrega detalle de fabricación."},
+      {p:"¿Qué es un modelo federado?", ops:["Un modelo hecho por el mandante","Un archivo IFC comprimido","La unión vinculada de los modelos de cada especialidad para revisarlos en conjunto","Un modelo de licitación pública"], r:2, exp:"Cada especialidad mantiene su modelo; el federado los reúne (por ejemplo en Navisworks) para coordinar sin fusionar la autoría."},
+      {p:"¿Para qué sirve el formato BCF?", ops:["Para guardar nubes de puntos","Para comunicar incidencias (vista, comentario, responsable) entre softwares BIM","Para exportar planos a PDF","Para calcular presupuestos"], r:1, exp:"BIM Collaboration Format transporta issues con vista y comentarios, sin enviar el modelo completo."},
+      {p:"Según ISO 19650, ¿qué es el CDE?", ops:["El Entorno Común de Datos donde se gestiona y comparte la información del proyecto","Un código de diseño estructural","Un tipo de interferencia","El coordinador de especialidades"], r:0, exp:"El Common Data Environment centraliza los contenedores de información con estados (en trabajo, compartido, publicado, archivado)."},
+      {p:"En Revit, ¿qué herramienta permite monitorear ejes y niveles de un modelo vinculado de otra especialidad?", ops:["Render","Tabla de planificación","Grupo de modelo","Copiar/Supervisar (Copy/Monitor)"], r:3, exp:"Copy/Monitor crea copias de ejes y niveles del vínculo y avisa si cambian, manteniendo coordinadas las especialidades."}
+    ],
+    vf:[
+      {enunciado:"IFC es un formato propietario de Autodesk.", resp:false, justificacion:"FALSO. IFC es un estándar abierto de buildingSMART, reconocido como ISO 16739."},
+      {enunciado:"Detectar interferencias en el modelo reduce retrabajos en obra.", resp:true, justificacion:"VERDADERO. Resolver choques en etapa de diseño es mucho más barato que picar o rehacer en terreno."},
+      {enunciado:"En la clasificación AIA, LOD 500 corresponde a elementos verificados en terreno (as-built).", resp:true, justificacion:"VERDADERO. LOD 500 representa lo efectivamente construido, verificado en terreno."},
+      {enunciado:"El BEP se elabora al terminar la obra para documentar lo hecho.", resp:false, justificacion:"FALSO. El BEP se define al inicio del proyecto para guiar cómo se producirá y compartirá la información."},
+      {enunciado:"Navisworks permite simulaciones 4D vinculando el modelo a la programación con TimeLiner.", resp:true, justificacion:"VERDADERO. TimeLiner asocia elementos del modelo a tareas del programa y simula la secuencia constructiva."},
+      {enunciado:"Una nube de puntos puede servir de base para modelar condiciones existentes.", resp:true, justificacion:"VERDADERO. Es el flujo scan-to-BIM, muy usado en remodelaciones y ampliaciones."},
+      {enunciado:"Un modelo federado significa fusionar todas las especialidades en un único archivo editable por todos.", resp:false, justificacion:"FALSO. El federado vincula los modelos; cada especialidad conserva la autoría y responsabilidad de su modelo."},
+      {enunciado:"La serie ISO 19650 trata la gestión de la información en proyectos que usan BIM.", resp:true, justificacion:"VERDADERO. ISO 19650 define conceptos como CDE, requisitos de información y roles de gestión."}
+    ],
+    conecta:[
+      {titulo:"Relaciona el concepto con su definición", pares:[
+        {a:"IFC", b:"Formato abierto de intercambio entre softwares BIM"},
+        {a:"LOD", b:"Nivel de desarrollo de geometría e información"},
+        {a:"BEP", b:"Plan que define cómo se usará BIM"},
+        {a:"Clash detection", b:"Búsqueda automática de interferencias entre especialidades"},
+        {a:"CDE", b:"Entorno común para gestionar información del proyecto"},
+        {a:"BCF", b:"Formato para comunicar incidencias entre softwares"},
+        {a:"Modelo federado", b:"Modelos de especialidades vinculados para revisión conjunta"},
+        {a:"Nube de puntos", b:"Captura 3D de condiciones existentes por escáner"}
+      ]}
+    ],
+    crisis:[
+      {titulo:"🚨 Ducto de clima choca con viga a 10 días de hormigonar", contexto:"En la reunión de coordinación, Navisworks muestra que el ducto principal de climatización atraviesa una viga del piso 4. El hormigonado está programado en 10 días y las especialidades se culpan entre sí.", nodos:{
+        inicio:{texto:"¿Cómo enfrentas la interferencia?", ops:[
+          {txt:"Registrar el clash en BCF, asignar responsables y convocar a estructura y clima",sig:"reunion",xp:100},
+          {txt:"Que el subcontratista de clima lo resuelva en terreno",sig:"terreno",xp:0},
+          {txt:"Pedir al calculista que agrande la viga sin consultar a nadie más",sig:"unilateral",xp:30}
+        ]},
+        reunion:{texto:"En la reunión se plantean opciones. ¿Cuál impulsas?", ops:[
+          {txt:"Evaluar pasada en la viga aprobada por el calculista o desvío del ducto, y actualizar modelos",sig:"bien",xp:120},
+          {txt:"Hacer la pasada en obra con taladro después de hormigonar",sig:"terreno",xp:0},
+          {txt:"Postergar la decisión hasta la próxima reunión mensual",sig:"tarde",xp:20}
+        ]},
+        bien:{texto:"✅ Se aprueba un desvío del ducto con una pasada menor validada por el calculista. Los modelos se actualizan, se vuelve a correr el clash y el hormigonado sale a tiempo.",ops:[],fin:true,xp:200},
+        tarde:{texto:"⚠️ La decisión llega tarde y se reprograma el hormigonado. No hubo error constructivo, pero sí atraso y costo.",ops:[],fin:true,xp:60},
+        terreno:{texto:"❌ Perforar una viga sin diseño puede cortar armaduras y comprometer la estructura. Para eso existe la coordinación BIM antes de construir.",ops:[],fin:true,xp:0},
+        unilateral:{texto:"⚠️ Agrandar la viga puede generar nuevas interferencias con otras instalaciones y alturas libres. La solución debe coordinarse entre especialidades.",ops:[],fin:true,xp:50}
+      }}
+    ]
+  },
+
+  "econ-eval": {
+    meta:{nombre:"Economía y Evaluación de Proyectos", codigo:"EPK6111", semestre:"6° Semestre"},
+    duelo:[
+      {p:"Inversión de $1.000; flujos de $600 en el año 1 y $600 en el año 2; tasa 10%. ¿Cuál es el VAN aproximado?", ops:["$41,32","$200,00","−$41,32","$95,04"], r:0, exp:"VAN = −1.000 + 600/1,1 + 600/1,21 = −1.000 + 545,45 + 495,87 = 41,32. Como VAN > 0, el proyecto rinde más que el 10% exigido."},
+      {p:"Depositas $1.000.000 al 5% anual con interés compuesto. ¿Cuánto tienes al cabo de 2 años?", ops:["$1.100.000","$1.102.500","$1.050.000","$1.105.000"], r:1, exp:"VF = 1.000.000·(1,05)² = 1.000.000·1,1025 = 1.102.500. Los $2.500 extra son interés sobre interés."},
+      {p:"Un préstamo de $1.000.000 al 2% mensual de interés simple por 6 meses. ¿Cuánto interés se paga?", ops:["$126.162","$20.000","$60.000","$120.000"], r:3, exp:"Interés simple I = C·i·n = 1.000.000·0,02·6 = 120.000. ($126.162 sería con interés compuesto.)"},
+      {p:"¿Qué es la TIR?", ops:["La tasa de interés del banco","La utilidad sobre ventas","La tasa de descuento que hace el VAN igual a cero","El plazo de recuperación"], r:2, exp:"La TIR es la tasa que iguala el valor presente de los flujos con la inversión. Si TIR > tasa exigida, se acepta (en proyectos convencionales)."},
+      {p:"Un proyecto tiene VAN negativo a la tasa del 12%. ¿Qué significa?", ops:["No alcanza a rentar el 12% exigido","Tiene pérdidas contables seguras","Su TIR es mayor que 12%","Debe ejecutarse igual"], r:0, exp:"VAN < 0 indica que el proyecto no cubre el costo de oportunidad del 12%; no necesariamente tiene pérdida contable."},
+      {p:"Inversión de $900 con flujos constantes de $300 al año. ¿Cuál es el payback simple?", ops:["2 años","2,5 años","3 años","4 años"], r:2, exp:"Payback = 900/300 = 3 años. Es simple de calcular, pero ignora el valor del dinero en el tiempo y los flujos posteriores."},
+      {p:"Proyecto A: VAN $200 con inversión $1.000. Proyecto B: VAN $300 con inversión $2.000. Con capital limitado, según el IVAN (VAN/Inversión), ¿cuál es más eficiente?", ops:["B, porque tiene mayor VAN","Son iguales","No se puede comparar","A, porque genera más VAN por peso invertido"], r:3, exp:"IVAN A = 200/1.000 = 0,20; IVAN B = 300/2.000 = 0,15. A rinde más por cada peso invertido."},
+      {p:"Una máquina cuesta $12.000.000, tiene valor residual de $2.000.000 y vida útil de 5 años. ¿Cuál es la depreciación lineal anual?", ops:["$2.400.000","$2.000.000","$2.800.000","$1.600.000"], r:1, exp:"D = (12.000.000 − 2.000.000)/5 = 2.000.000 por año."},
+      {p:"¿Cómo se trata la depreciación en un flujo de caja?", ops:["Como un egreso de caja más","No se considera nunca","Se suma al ingreso antes de impuestos","Se resta antes de impuestos y se vuelve a sumar después, porque no es salida de caja"], r:3, exp:"La depreciación baja la utilidad imponible (ahorro de impuestos), pero no es un desembolso, por eso se suma de vuelta."},
+      {p:"¿Qué representa la tasa de descuento de un proyecto?", ops:["El costo de oportunidad del capital o rentabilidad mínima exigida","La inflación del mes","El margen del contratista","El IVA"], r:0, exp:"Es lo que el inversionista deja de ganar en su mejor alternativa de riesgo similar; con ella se descuentan los flujos."},
+      {p:"¿En qué consiste un análisis de sensibilidad?", ops:["En repetir el cálculo con otra planilla","En variar una variable (precio, costo, plazo) y observar el efecto en el VAN","En calcular solo la TIR","En auditar la contabilidad"], r:1, exp:"Permite identificar las variables críticas: por ejemplo, cuánto puede subir el costo de construcción antes de que el VAN sea cero."},
+      {p:"¿Qué es la UF?", ops:["Una moneda física emitida por el Banco Central","Un impuesto a la construcción","Una unidad de cuenta que se reajusta según la variación del IPC","La tasa de interés oficial"], r:2, exp:"La UF mantiene el poder adquisitivo; por eso contratos de construcción, viviendas y créditos hipotecarios se expresan en UF."}
+    ],
+    vf:[
+      {enunciado:"En un proyecto convencional, a mayor tasa de descuento, menor es el VAN.", resp:true, justificacion:"VERDADERO. Los flujos futuros se dividen por factores mayores, por lo que su valor presente baja."},
+      {enunciado:"Si la TIR de un proyecto convencional es mayor que la tasa de descuento, su VAN es positivo.", resp:true, justificacion:"VERDADERO. Ambos criterios coinciden en aceptar o rechazar un proyecto individual convencional."},
+      {enunciado:"El payback simple considera los flujos que ocurren después de recuperar la inversión.", resp:false, justificacion:"FALSO. El payback ignora lo que pasa después de la recuperación, por eso no mide rentabilidad."},
+      {enunciado:"La depreciación es un egreso de caja.", resp:false, justificacion:"FALSO. Es un gasto contable que no implica salida de dinero; solo afecta los impuestos."},
+      {enunciado:"En el interés compuesto los intereses se capitalizan y generan nuevos intereses.", resp:true, justificacion:"VERDADERO. VF = C·(1+i)^n; el interés de cada período se suma al capital."},
+      {enunciado:"VAN y TIR siempre entregan el mismo ranking entre proyectos mutuamente excluyentes.", resp:false, justificacion:"FALSO. Por diferencias de escala o de distribución temporal de flujos pueden discrepar; en ese caso manda el VAN."},
+      {enunciado:"Un flujo de caja de proyecto incluye inversión, ingresos, costos e impuestos.", resp:true, justificacion:"VERDADERO. También puede incluir capital de trabajo y valor de desecho al final del horizonte."},
+      {enunciado:"Un peso hoy vale menos que un peso dentro de un año.", resp:false, justificacion:"FALSO. Por el valor del dinero en el tiempo, un peso hoy vale más: se puede invertir y ganar intereses."}
+    ],
+    conecta:[
+      {titulo:"Relaciona el concepto con su definición", pares:[
+        {a:"VAN", b:"Valor presente de flujos menos la inversión"},
+        {a:"TIR", b:"Tasa que hace el VAN igual a cero"},
+        {a:"Payback", b:"Tiempo necesario para recuperar la inversión"},
+        {a:"Tasa de descuento", b:"Rentabilidad mínima exigida o costo de oportunidad"},
+        {a:"Depreciación", b:"Pérdida de valor contable de un activo"},
+        {a:"UF", b:"Unidad de cuenta reajustada según el IPC"},
+        {a:"Interés compuesto", b:"Los intereses se suman al capital cada período"},
+        {a:"Análisis de sensibilidad", b:"Variar una variable y medir efecto en VAN"}
+      ]}
+    ],
+    crisis:[
+      {titulo:"🚨 Sube el costo del acero y el proyecto inmobiliario tambalea", contexto:"Tu empresa evalúa un edificio de departamentos con VAN positivo pero ajustado. Llega la noticia de un alza fuerte en el precio del acero y el gerente pregunta si se sigue adelante.", nodos:{
+        inicio:{texto:"¿Qué haces primero?", ops:[
+          {txt:"Recalcular el flujo con el nuevo costo y hacer análisis de sensibilidad",sig:"sensib",xp:100},
+          {txt:"Seguir igual, el VAN ya era positivo",sig:"ignorar",xp:0},
+          {txt:"Subir la tasa de descuento para que se vea más conservador",sig:"tasa",xp:20}
+        ]},
+        sensib:{texto:"Con el nuevo costo el VAN baja casi a cero. ¿Qué propones?", ops:[
+          {txt:"Evaluar escenarios: renegociar acero, ajustar precio de venta en UF o rediseñar",sig:"bien",xp:120},
+          {txt:"Presentar solo el escenario optimista",sig:"maquillar",xp:0},
+          {txt:"Abandonar el proyecto sin mirar alternativas",sig:"abandono",xp:40}
+        ]},
+        bien:{texto:"✅ Con escenarios claros, la gerencia cierra un contrato de acero a precio fijo y ajusta el producto. El VAN vuelve a ser positivo con riesgo identificado.",ops:[],fin:true,xp:200},
+        abandono:{texto:"⚠️ Decisión prudente, pero se descartó un proyecto que pudo ser rentable con ajustes. La sensibilidad sirve para buscar soluciones, no solo para decir no.",ops:[],fin:true,xp:60},
+        maquillar:{texto:"❌ Ocultar escenarios desfavorables lleva a decisiones mal informadas. La evaluación debe mostrar el riesgo real.",ops:[],fin:true,xp:0},
+        ignorar:{texto:"❌ Un VAN calculado con costos que ya no existen no sirve. Cada cambio relevante en costos obliga a reevaluar.",ops:[],fin:true,xp:0},
+        tasa:{texto:"⚠️ Cambiar la tasa no refleja el alza de costos: el problema está en los flujos. Se debe recalcular el flujo con el costo real.",ops:[],fin:true,xp:30}
+      }}
+    ]
+  },
+
+  "g-estadistica": {
+    meta:{nombre:"Estadística Descriptiva", codigo:"MAT4111", semestre:"6° Semestre"},
+    duelo:[
+      {p:"Cuatro probetas de hormigón dieron 25, 28, 30 y 27 MPa. ¿Cuál es la media?", ops:["27,5 MPa","27,0 MPa","28,0 MPa","110 MPa"], r:0, exp:"Media = (25 + 28 + 30 + 27)/4 = 110/4 = 27,5 MPa."},
+      {p:"Probetas con 20, 22, 24 y 26 MPa (muestra). ¿Cuál es la desviación estándar muestral?", ops:["2,24 MPa","2,58 MPa","6,67 MPa","5,00 MPa"], r:1, exp:"Media 23. Desvíos: −3, −1, 1, 3; suma de cuadrados = 20. s² = 20/(4−1) = 6,67 y s = 2,58 MPa. (Con n en vez de n−1 daría 2,24, la poblacional.)"},
+      {p:"¿Cuál es la mediana de los datos 3, 7, 8, 10, 12?", ops:["7","8","8,5","10"], r:1, exp:"Con 5 datos ordenados, la mediana es el valor central (tercer dato): 8."},
+      {p:"Un lote de hormigón tiene media 25 MPa y desviación estándar 2 MPa. ¿Cuál es su coeficiente de variación?", ops:["12,5%","2%","50%","8%"], r:3, exp:"CV = s/media·100 = 2/25·100 = 8%. Un CV bajo indica producción homogénea."},
+      {p:"¿Cuál es la moda de 4, 5, 5, 6, 7, 5, 8?", ops:["6","5","5,7","4"], r:1, exp:"La moda es el valor más repetido: 5 aparece tres veces."},
+      {p:"Si Q1 = 22 MPa y Q3 = 30 MPa, ¿cuál es el rango intercuartílico?", ops:["8 MPa","26 MPa","52 MPa","4 MPa"], r:0, exp:"RIC = Q3 − Q1 = 30 − 22 = 8 MPa. Contiene el 50% central de los datos."},
+      {p:"En un boxplot, ¿cuándo se considera atípico un dato?", ops:["Cuando es igual a la media","Cuando está entre Q1 y Q3","Cuando supera la mediana","Cuando está fuera de Q1 − 1,5·RIC o Q3 + 1,5·RIC"], r:3, exp:"Los bigotes llegan hasta 1,5 veces el RIC desde los cuartiles; lo que queda fuera se marca como atípico."},
+      {p:"Un coeficiente de correlación r = −0,9 entre relación agua/cemento y resistencia indica:", ops:["Relación lineal fuerte y negativa","Ausencia de relación","Relación débil y positiva","Que la a/c causa la resistencia con certeza"], r:0, exp:"|r| cercano a 1 indica relación lineal fuerte; el signo negativo dice que al subir a/c baja la resistencia. La correlación por sí sola no prueba causalidad."},
+      {p:"La recta de regresión es y = 2 + 3x. ¿Qué valor predice para x = 4?", ops:["9","12","20","14"], r:3, exp:"y = 2 + 3·4 = 2 + 12 = 14. La pendiente 3 indica que y aumenta 3 unidades por cada unidad de x."},
+      {p:"De 60 probetas ensayadas, 12 quedaron bajo 25 MPa. ¿Cuál es la frecuencia relativa de ese grupo?", ops:["0,12","0,50","0,20","12"], r:2, exp:"fr = 12/60 = 0,20, es decir, 20%. 12 es la frecuencia absoluta."},
+      {p:"¿Qué gráfico es más adecuado para mostrar la distribución de una variable continua como la resistencia?", ops:["Gráfico de torta","Histograma","Diagrama de Gantt","Gráfico de barras separadas por categoría"], r:1, exp:"El histograma agrupa la variable continua en intervalos de clase con barras contiguas y muestra la forma de la distribución."},
+      {p:"Si los datos están en MPa, ¿en qué unidades queda la varianza?", ops:["MPa","Sin unidades","%","MPa²"], r:3, exp:"La varianza promedia desvíos al cuadrado, por eso queda en MPa². La desviación estándar (raíz) vuelve a MPa."}
+    ],
+    vf:[
+      {enunciado:"La media es sensible a valores extremos, mientras que la mediana es más robusta.", resp:true, justificacion:"VERDADERO. Un dato muy alto o bajo arrastra la media, pero casi no mueve la mediana."},
+      {enunciado:"La desviación estándar puede ser negativa.", resp:false, justificacion:"FALSO. Es la raíz cuadrada positiva de la varianza: siempre es mayor o igual a cero."},
+      {enunciado:"Si r = 0, las variables no tienen ninguna relación de ningún tipo.", resp:false, justificacion:"FALSO. r = 0 solo indica ausencia de relación lineal; puede existir una relación curva."},
+      {enunciado:"En una distribución simétrica, la media y la mediana son aproximadamente iguales.", resp:true, justificacion:"VERDADERO. En distribuciones asimétricas la media se desplaza hacia la cola."},
+      {enunciado:"El coeficiente de variación permite comparar la dispersión de variables con unidades distintas.", resp:true, justificacion:"VERDADERO. Al ser s/media, es adimensional (se expresa en %)."},
+      {enunciado:"El segundo cuartil (Q2) coincide con la mediana.", resp:true, justificacion:"VERDADERO. Q2 deja el 50% de los datos bajo él, igual que la mediana."},
+      {enunciado:"La varianza se expresa en las mismas unidades que los datos originales.", resp:false, justificacion:"FALSO. Se expresa en unidades al cuadrado; la desviación estándar es la que mantiene las unidades."},
+      {enunciado:"Una correlación alta entre dos variables demuestra que una causa la otra.", resp:false, justificacion:"FALSO. Correlación no implica causalidad; puede haber una tercera variable o coincidencia."}
+    ],
+    conecta:[
+      {titulo:"Relaciona el concepto con su definición", pares:[
+        {a:"Media", b:"Suma de los datos dividida por su cantidad"},
+        {a:"Mediana", b:"Valor central de los datos ordenados"},
+        {a:"Moda", b:"Valor que más se repite"},
+        {a:"Varianza", b:"Promedio de desvíos al cuadrado respecto de la media"},
+        {a:"Desviación estándar", b:"Raíz cuadrada de la varianza"},
+        {a:"Coeficiente de variación", b:"Desviación estándar dividida por la media, en porcentaje"},
+        {a:"Cuartil", b:"Valor que divide los datos ordenados en cuartos"},
+        {a:"Correlación", b:"Mide fuerza y sentido de la relación lineal"}
+      ]}
+    ],
+    crisis:[
+      {titulo:"🚨 Probetas de una losa salen bajo lo especificado", contexto:"El laboratorio informa que las probetas a 28 días de una losa dieron resultados bajo la resistencia especificada en dos muestras. El jefe de obra quiere saber si hay un problema real o es mala suerte.", nodos:{
+        inicio:{texto:"¿Cómo partes el análisis?", ops:[
+          {txt:"Reunir todos los resultados del lote y calcular media, desviación estándar y CV",sig:"datos",xp:100},
+          {txt:"Descartar las dos probetas malas y quedarte con las buenas",sig:"descartar",xp:0},
+          {txt:"Ordenar demoler la losa",sig:"demoler",xp:10}
+        ]},
+        datos:{texto:"La media está algo sobre lo especificado, pero el CV es alto y hay dos valores atípicos en el boxplot. ¿Qué haces?", ops:[
+          {txt:"Revisar trazabilidad de esas muestras e informar al calculista; evaluar extraer testigos",sig:"bien",xp:120},
+          {txt:"Concluir que todo está bien porque la media cumple",sig:"media",xp:30},
+          {txt:"Esperar a que el hormigón gane resistencia sin informar a nadie",sig:"descartar",xp:0}
+        ]},
+        bien:{texto:"✅ Se descubre que esas probetas se curaron mal en obra. Los testigos confirman resistencia adecuada en la losa y se corrige el procedimiento de curado de probetas.",ops:[],fin:true,xp:200},
+        media:{texto:"⚠️ La media sola no basta: un CV alto y valores bajos indican falta de uniformidad. Hay que mirar la dispersión y los criterios de aceptación del proyecto.",ops:[],fin:true,xp:50},
+        descartar:{texto:"❌ Eliminar datos incómodos o callarlos es manipular la información. Los atípicos se investigan, no se borran.",ops:[],fin:true,xp:0},
+        demoler:{texto:"❌ Demoler sin análisis estadístico ni ensayos complementarios es una reacción desproporcionada y muy cara.",ops:[],fin:true,xp:10}
+      }}
+    ]
+  },
+
+  "g-ingles": {
+    meta:{nombre:"Inglés Intermedio I", codigo:"ING", semestre:"6° Semestre"},
+    duelo:[
+      {p:"I ___ in Santiago since 2019.", ops:["live","lived","have lived","am living"], r:2, exp:"Con since/for y una acción que empezó en el pasado y continúa, se usa present perfect: have lived."},
+      {p:"Yesterday the foreman ___ the site at 7 a.m.", ops:["inspected","has inspected","inspects","have inspected"], r:0, exp:"Yesterday marca un tiempo pasado terminado, así que va past simple: inspected."},
+      {p:"This steel beam is ___ than the timber one.", ops:["heavy","heaviest","more heavy","heavier"], r:3, exp:"Adjetivo de dos sílabas terminado en -y: se cambia por -ier. Heavy → heavier."},
+      {p:"Workers ___ wear a hard hat on site. It is the law.", ops:["might","must","could","would"], r:1, exp:"Must expresa obligación fuerte o norma. Might y could indican posibilidad."},
+      {p:"If you heat ice, it ___.", ops:["melts","will melt","melted","would melt"], r:0, exp:"Zero conditional (verdades generales): if + present simple, present simple."},
+      {p:"If it rains tomorrow, we ___ the concrete pour.", ops:["postpone","postponed","will postpone","would postpone"], r:2, exp:"First conditional (situación posible a futuro): if + present simple, will + verbo."},
+      {p:"What does scaffolding mean?", ops:["Grúa","Andamio","Moldaje","Excavadora"], r:1, exp:"Scaffolding es el andamio, estructura temporal para trabajar en altura."},
+      {p:"In a reinforced concrete slab, rebar refers to:", ops:["El cemento","El árido grueso","El moldaje","Las barras de acero de refuerzo"], r:3, exp:"Rebar (reinforcing bar) son las barras de refuerzo, la enfierradura."},
+      {p:"The architect sent the updated ___ so we can check the dimensions.", ops:["blueprints","hard hats","rebar","cranes"], r:0, exp:"Blueprints son los planos. Es el único término que contiene dimensiones para revisar."},
+      {p:"Have you ever ___ a tower crane?", ops:["operate","operated","operating","operates"], r:1, exp:"Present perfect con ever: have + participio pasado (operated)."},
+      {p:"This is ___ building in the city.", ops:["the taller","taller","the tallest","more tall"], r:2, exp:"Para comparar con todo un grupo se usa superlativo: the tallest."},
+      {p:"You ___ check the scaffolding before using it. It is a good idea.", ops:["mustn't","don't have to","can't","should"], r:3, exp:"Should da consejo o recomendación. Mustn't es prohibición; don't have to es ausencia de obligación."}
+    ],
+    vf:[
+      {enunciado:"I have seen him yesterday.", resp:false, justificacion:"FALSO. Con yesterday (tiempo pasado definido) se usa past simple: I saw him yesterday."},
+      {enunciado:"Beam means viga.", resp:true, justificacion:"VERDADERO. Beam es la viga, elemento estructural horizontal que trabaja a flexión."},
+      {enunciado:"Better is the comparative form of good.", resp:true, justificacion:"VERDADERO. Good es irregular: good, better, the best."},
+      {enunciado:"Mustn't expresses lack of obligation.", resp:false, justificacion:"FALSO. Mustn't expresa prohibición. La ausencia de obligación se dice con don't have to."},
+      {enunciado:"The first conditional uses if + present simple, will + verb.", resp:true, justificacion:"VERDADERO. Ejemplo: If the steel arrives, we will start the slab."},
+      {enunciado:"A hard hat is a safety helmet.", resp:true, justificacion:"VERDADERO. Hard hat es el casco de seguridad, EPP obligatorio en obra."},
+      {enunciado:"We use since with a period of time, like since three years.", resp:false, justificacion:"FALSO. Con un período se usa for (for three years); since va con un punto de inicio (since 2019)."},
+      {enunciado:"A foreman is the person who supervises a crew of workers on site.", resp:true, justificacion:"VERDADERO. Foreman equivale al capataz o jefe de cuadrilla."}
+    ],
+    conecta:[
+      {titulo:"Relaciona el término en inglés con su significado", pares:[
+        {a:"Site", b:"Obra o faena de construcción"},
+        {a:"Scaffolding", b:"Andamio para trabajar en altura"},
+        {a:"Beam", b:"Viga, elemento horizontal que resiste flexión"},
+        {a:"Rebar", b:"Barra de acero de refuerzo"},
+        {a:"Foreman", b:"Capataz o jefe de cuadrilla"},
+        {a:"Hard hat", b:"Casco de seguridad"},
+        {a:"Blueprint", b:"Plano del proyecto"},
+        {a:"Crane", b:"Grúa para levantar cargas"}
+      ]}
+    ],
+    crisis:[
+      {titulo:"🚨 Un inspector extranjero llega a obra y solo habla inglés", contexto:"Un inspector de la empresa mandante visita la obra sin aviso. Tu jefe no habla inglés y te pide que lo acompañes. El inspector pregunta por la seguridad en los andamios.", nodos:{
+        inicio:{texto:"He asks: Has the scaffolding been inspected today? ¿Qué respondes?", ops:[
+          {txt:"Yes, the foreman inspected it this morning at 7.",sig:"tour",xp:100},
+          {txt:"Yes, the foreman has inspected it this morning at 7 yesterday.",sig:"confuso",xp:30},
+          {txt:"No entiendo, mejor que hable con otra persona.",sig:"evitar",xp:0}
+        ]},
+        tour:{texto:"He says: Show me where workers must wear harnesses. ¿Qué dices?", ops:[
+          {txt:"Workers must wear harnesses when they work at height. Let me show you the blueprints and the site.",sig:"bien",xp:120},
+          {txt:"Workers don't have to wear nothing.",sig:"confuso",xp:10},
+          {txt:"Harness is not important here.",sig:"evitar",xp:0}
+        ]},
+        bien:{texto:"✅ Respuestas claras y gramaticalmente correctas: past simple con una hora precisa y must para obligación. El inspector se va conforme.",ops:[],fin:true,xp:200},
+        confuso:{texto:"⚠️ Te entendió a medias. Mezclar present perfect con yesterday o usar doble negación genera dudas en una visita de seguridad.",ops:[],fin:true,xp:50},
+        evitar:{texto:"❌ Evitar la conversación o minimizar la seguridad deja mala impresión al mandante. Con frases simples y bien construidas basta para comunicarse.",ops:[],fin:true,xp:0}
+      }}
+    ]
+  }
+};
+
+/* ══════════════════════════════════════════════════════
+   v1.9 · Parte C: pestaña Suelos + progreso + Evalúate por ramo
+   ══════════════════════════════════════════════════════ */
+var MS_TOPICS=["ms-1-1","ms-1-2","ms-1-3","ms-1-4","ms-2-1","ms-2-2","ms-2-3","ms-2-4","ms-3-1","ms-3-2","ms-3-3","ms-4-1","ms-4-2","ms-4-3"];
+var MS_UNITS=[{n:"Unidad 1",c:"#C98A55",p:"ms-1-"},{n:"Unidad 2",c:"#4EA8FF",p:"ms-2-"},{n:"Unidad 3",c:"#5FE0B0",p:"ms-3-"},{n:"Unidad 4",c:"#F2B84B",p:"ms-4-"}];
+function _msLeidos(){try{var o=JSON.parse(localStorage.getItem("ms_leidos")||"{}");return o&&typeof o==="object"?o:{}}catch(e){return {}}}
+function msLeido(id){
+  var L=_msLeidos(),antes=MS_TOPICS.filter(function(t){return L[t]}).length;
+  if(L[id])delete L[id];else L[id]=1;
+  try{localStorage.setItem("ms_leidos",JSON.stringify(L))}catch(e){}
+  msPintar(id,true);
+  var n=MS_TOPICS.filter(function(t){return L[t]}).length;
+  if(n===MS_TOPICS.length&&antes<n){toast("🎉 Materia completa · el Evalúate te espera");var g=document.getElementById("msEvalGate");if(g)setTimeout(function(){g.scrollIntoView({behavior:"smooth",block:"center"})},400)}
+  else toast(L[id]?"✓ Tema marcado · "+n+"/"+MS_TOPICS.length:"○ Tema desmarcado");
+}
+function msPintar(only,anim){
+  var L=_msLeidos();
+  (only?[only]:MS_TOPICS).forEach(function(t){
+    var c=document.getElementById("chk-"+t),top=document.getElementById(t),on=!!L[t];
+    if(c){c.classList.toggle("on",on);c.setAttribute("aria-checked",on?"true":"false");if(anim&&on){c.classList.remove("pop");void c.offsetWidth;c.classList.add("pop")}}
+    if(top)top.classList.toggle("leido",on);
+  });
+  var done=MS_TOPICS.filter(function(t){return L[t]}).length,tot=MS_TOPICS.length,pct=Math.round(done/tot*100);
+  var e;e=document.getElementById("msPlDone");if(e)e.textContent=done;e=document.getElementById("msPlTot");if(e)e.textContent=tot;
+  e=document.getElementById("msPlFill");if(e)e.style.width=pct+"%";
+  e=document.getElementById("msHeroBar");if(e)e.style.width=pct+"%";
+  e=document.getElementById("msPlUnits");
+  if(e)e.innerHTML=MS_UNITS.map(function(u){var ids=MS_TOPICS.filter(function(t){return t.indexOf(u.p)===0}),d=ids.filter(function(t){return L[t]}).length;
+    return '<div class="pl-u'+(d===ids.length?" full":"")+'"><div class="pl-u-top"><span class="pl-u-name">'+u.n+'</span><span class="pl-u-n">'+d+"/"+ids.length+'</span></div><div class="pl-u-bar"><div class="pl-u-fill" style="width:'+Math.round(d/ids.length*100)+"%;background:"+u.c+'"></div></div></div>'}).join("");
+  var listo=done===tot,g=document.getElementById("msEvalGate");if(g)g.classList.toggle("ready",true);
+  e=document.getElementById("msEgKicker");if(e)e.textContent=listo?"Materia completa":"Evalúate activo · "+done+" de "+tot+" temas leídos";
+  e=document.getElementById("msEgMini");if(e)e.textContent=listo?"✓ "+tot+" / "+tot+" temas leídos":"Recomendado: termina de leer para sacarle más provecho";
+}
+
+/* ── Buscador del ramo ── */
+function msSearch(q){
+  q=(q||"").trim();var p=document.getElementById("msSrPanel"),clr=document.getElementById("msSearchClr");if(clr)clr.classList.toggle("on",q.length>0);
+  if(!p)return;if(q.length<2){p.classList.remove("on");p.innerHTML="";return}
+  var ql=q.toLowerCase(),hits=[];
+  document.querySelectorAll("#view-ms .topic").forEach(function(t){var tit=(t.querySelector(".tn")||{}).textContent||"",tx=(t.querySelector(".topic-inner")||{}).textContent||"",i=tx.toLowerCase().indexOf(ql),ti=tit.toLowerCase().indexOf(ql);
+    if(i>=0||ti>=0){var s=Math.max(0,i-30);hits.push({k:"t",id:t.id,t:tit,d:i>=0?(s>0?"…":"")+tx.slice(s,i+ql.length+50)+"…":"",sc:ti>=0?0:1})}});
+  Object.keys(MS_FICHAS).forEach(function(k){var f=MS_FICHAS[k],tx=(f.cuerpo||"").replace(/\{([a-z0-9\-]+)\}/g,"$1").replace(/<[^>]+>/g,""),i=tx.toLowerCase().indexOf(ql),ti=f.t.toLowerCase().indexOf(ql);
+    if(i>=0||ti>=0)hits.push({k:"f",id:k,t:f.t,d:tx.slice(Math.max(0,i-30),Math.max(0,i)+80)+"…",sc:ti>=0?0:2})});
+  hits.sort(function(a,b){return a.sc-b.sc});
+  var rx=new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
+  if(!hits.length){p.innerHTML='<div class="sr-empty">Sin resultados para "'+esc(q)+'".</div>';p.classList.add("on");return}
+  p.innerHTML='<div class="sr-head">'+hits.length+" resultado"+(hits.length>1?"s":"")+" en Mecánica de Suelos</div>"+hits.slice(0,12).map(function(h){
+    return '<div class="sr-item" onclick="msGo(\''+h.k+"','"+h.id+'\')"><div class="sr-t">'+(h.k==="f"?"🕸️ ":"📄 ")+esc(h.t)+' <span class="sr-loc">'+(h.k==="f"?"Ficha":"Tema")+'</span></div><div class="sr-desc">'+esc(h.d).replace(rx,"<mark>$1</mark>")+"</div></div>"}).join("");
+  p.classList.add("on");
+}
+function msClearSearch(){var i=document.getElementById("msSearch");if(i)i.value="";msSearch("")}
+function msGo(k,id){msClearSearch();if(k==="f"){msFicha(id);return}var t=document.getElementById(id);if(!t)return;if(!t.classList.contains("open")){var b=t.querySelector(".topic-bar");if(b)tog(b)}setTimeout(function(){t.scrollIntoView({behavior:"smooth",block:"start"})},60)}
+
+/* ── Hoja resumen (cheat-sheet estilo blueprint) y herramientas ── */
+function msCheat(){
+  return '<div class="ms-cheat-grid">'+MS_FORM.map(function(g,gi){return '<div class="ms-cheat"><div class="ch-h"><span class="ch-n">'+(gi+1)+'</span>'+esc(g[0])+'<button onclick="msCopyF('+gi+')">copiar</button></div>'
+    +g[1].map(function(f){return '<div class="ch-r"><span>'+esc(f[0])+"</span><code>"+esc(f[1])+"</code></div>"}).join("")+"</div>"}).join("")+"</div>";
+}
+window._msTool=(function(){try{return localStorage.getItem("myc_ms_tool")||"resumen"}catch(e){return "resumen"}})();
+function msTab(t){if(t==="estudiar")t="resumen";if(t==="formulas")t="resumen";msTool(t)}
+function msTool(t){
+  window._msTool=t;try{localStorage.setItem("myc_ms_tool",t)}catch(e){}
+  document.querySelectorAll("#msToolTabs button").forEach(function(b){b.classList.toggle("on",b.dataset.t===t)});
+  var b=document.getElementById("msToolBody");if(!b)return;
+  b.innerHTML=t==="calcular"?_msCalc():t==="practicar"?_msPract():msCheat();
+}
+
+/* ── Construir la pestaña ── */
+function _msHeroSVG(){
+  return '<svg viewBox="0 0 80 80" class="hero-svg"><defs><filter id="msglow"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'
+   +'<g filter="url(#msglow)" opacity=".55" class="glow-pulse"><line x1="40" y1="40" x2="40" y2="8" stroke="#4EA8FF" stroke-width=".8" class="flow"/><line x1="40" y1="40" x2="8" y2="40" stroke="#5FE0B0" stroke-width=".8" class="flow"/><line x1="40" y1="40" x2="72" y2="40" stroke="#5FE0B0" stroke-width=".8" class="flow"/><line x1="40" y1="40" x2="40" y2="72" stroke="#4EA8FF" stroke-width=".8" class="flow"/>'
+   +'<line x1="40" y1="40" x2="16" y2="16" stroke="#4EA8FF" stroke-width=".6" opacity=".6"/><line x1="40" y1="40" x2="64" y2="16" stroke="#4EA8FF" stroke-width=".6" opacity=".6"/><line x1="40" y1="40" x2="16" y2="64" stroke="#4EA8FF" stroke-width=".6" opacity=".6"/><line x1="40" y1="40" x2="64" y2="64" stroke="#4EA8FF" stroke-width=".6" opacity=".6"/>'
+   +'<circle cx="40" cy="8" r="2" fill="#4EA8FF" class="breathe"/><circle cx="8" cy="40" r="2" fill="#5FE0B0" class="breathe"/><circle cx="72" cy="40" r="2" fill="#5FE0B0" class="breathe"/><circle cx="40" cy="72" r="2" fill="#4EA8FF" class="breathe"/></g>'
+   /* bloque isométrico de suelo con estratos */
+   +'<g filter="url(#msglow)" class="floaty"><polygon points="40,20 56,29 40,38 24,29" fill="rgba(95,224,176,.18)" stroke="#5FE0B0" stroke-width=".9"/>'
+   +'<polygon points="24,29 40,38 40,44 24,35" fill="#5b3d22" opacity=".85"/><polygon points="40,38 56,29 56,35 40,44" fill="#7a5230" opacity=".85"/>'
+   +'<polygon points="24,35 40,44 40,51 24,42" fill="#8B5E3C" opacity=".85"/><polygon points="40,44 56,35 56,42 40,51" fill="#A8744A" opacity=".85"/>'
+   +'<polygon points="24,42 40,51 40,58 24,49" fill="#C98A55" opacity=".8"/><polygon points="40,51 56,42 56,49 40,58" fill="#D9A06A" opacity=".8"/>'
+   +'<polyline points="24,29 24,49 40,58 56,49 56,29" fill="none" stroke="#C98A55" stroke-width="1"/><line x1="40" y1="38" x2="40" y2="58" stroke="#C98A55" stroke-width=".8"/>'
+   +'<line x1="24" y1="44.5" x2="40" y2="53.5" stroke="#4EA8FF" stroke-width=".7" stroke-dasharray="2 1.5"/><line x1="40" y1="53.5" x2="56" y2="44.5" stroke="#4EA8FF" stroke-width=".7" stroke-dasharray="2 1.5"/>'
+   +'<circle cx="40" cy="29" r="2.3" fill="#5FE0B0" class="pulse-ring"/><circle cx="40" cy="29" r="1.4" fill="#5FE0B0"/></g></svg>';
+}
+function msBuildPane(){
+  if(document.getElementById("pane-suelos"))return;
+  var nav=document.getElementById("master-tabs");if(!nav)return;
+  var d=document.createElement("div");d.id="pane-suelos";d.className="app-pane";
+  var U=[["ms-u1","① Formación","#C98A55"],["ms-u2","② Fases y SUCS","#4EA8FF"],["ms-u3","③ Esfuerzos","#5FE0B0"],["ms-u4","④ Empujes","#F2B84B"]];
+  d.innerHTML='<div id="view-ms" class="view">'
+   +'<div class="topbar"><div class="topbar-row"><button class="ms-back" onclick="mycGo(\'ramos\')" aria-label="Volver a Ramos">‹ Ramos</button><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="msSearch" type="text" placeholder="Buscar en el ramo… (ej: SPT, Casagrande, Ka)" oninput="msSearch(this.value)" autocomplete="off"><span class="clr" id="msSearchClr" onclick="msClearSearch()">✕</span></div></div></div>'
+   +'<div id="ms-searchResults"><div class="sr-panel" id="msSrPanel"></div></div>'
+   +'<div class="wrap">'
+   +'<div class="hero"><div class="hero-icon">'+_msHeroSVG()+'</div><div class="hero-text"><div class="code">OCK6141 · 6° SEMESTRE</div><h1>Mecánica de Suelos</h1><div class="meta">4 Unidades · Exploración · Fases y SUCS · Esfuerzos · Empujes</div><div class="ms-herobar"><i id="msHeroBar"></i></div></div></div>'
+   +'<div class="ms-unav">'+U.map(function(u){return '<button style="--c:'+u[2]+'" onclick="document.getElementById(\''+u[0]+'\').scrollIntoView({behavior:\'smooth\'})">'+u[1]+"</button>"}).join("")+"</div>"
+   +'<button class="ms-evalchip" onclick="msAbrirEvaluate()"><span>🎮</span><b>Evalúate de Suelos</b><small>6 etapas · Don Lucho te espera</small><span>→</span></button>'
+   +msUnidades()
+   +'<div class="unit-title" id="ms-u5"><div class="idx" style="background:linear-gradient(135deg,#4EA8FF,#5FE0B0)">∑</div><h2>Hoja resumen y herramientas</h2></div>'
+   +'<p class="unit-sub">Todas las ecuaciones en una hoja, calculadoras con los datos de las formativas y práctica con casos resueltos.</p>'
+   +'<div class="ms-tooltabs" id="msToolTabs">'+[["resumen","∑ Hoja resumen"],["calcular","🧮 Calcular"],["practicar","✍️ Practicar"]].map(function(x){return '<button data-t="'+x[0]+'" onclick="msTool(\''+x[0]+'\')">'+x[1]+"</button>"}).join("")+"</div>"
+   +'<div id="msToolBody"></div>'
+   +'<div class="prog-lectura"><div class="pl-top"><span class="pl-lbl">Progreso de lectura</span><span class="pl-num"><b id="msPlDone">0</b> / <span id="msPlTot">14</span> temas</span></div><div class="pl-track"><div class="pl-fill" id="msPlFill"></div></div><div class="pl-units" id="msPlUnits"></div></div>'
+   +'<div class="eval-gate ready" id="msEvalGate"><div class="eg-inner"><div class="eg-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 50h48"/><path d="M14 50V34l10-6 10 6v16"/><path d="M34 50V22l12-8 10 8v28"/><path d="M8 56h48" stroke-dasharray="3 3"/></svg></div>'
+   +'<div class="eg-txt"><div class="eg-kicker" id="msEgKicker">Evalúate activo</div><h3 class="eg-h">EVALUATE — Obra de Suelos</h3><p class="eg-p">Duelo rápido, supervisor en excavación, crucigrama de fases, crisis con napa, Don Lucho y la ITO revisando tu clasificación SUCS.</p></div></div>'
+   +'<button class="eg-btn ready" id="msEgBtn" onclick="msAbrirEvaluate()"><span class="eg-btn-label">Entrar al EVALUATE</span><span class="eg-btn-arrow">→</span></button><div class="eg-mini" id="msEgMini"></div></div>'
+   +'<p class="foot-note">Mecánica de Suelos · OCK6141 · Prof. Víctor Espinoza<br>Contenido basado en los PPT del ramo, NCh 1508 y bibliografía (Das, Budhu). Valida siempre contra la norma vigente.</p>'
+   +"</div>"
+   +'<div id="ms-panel-scrim" onclick="closeMsPanel()"></div><aside id="ms-panel" role="dialog" aria-label="Ficha teórica"><div class="panel-spine"></div><div class="panel-head"><div class="p-ic" id="msPIc">📘</div><div class="p-tt"><h3 id="msPTitle">Título</h3><div class="p-tag" id="msPTag">—</div></div><button class="panel-close" onclick="closeMsPanel()" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="panel-crumbs" id="msPCrumbs"></div><div class="panel-body" id="msPBody"></div></aside>'
+   +"</div>";
+  nav.parentNode.insertBefore(d,nav);
+  msTool(window._msTool==="resumen"||window._msTool==="calcular"||window._msTool==="practicar"?window._msTool:"resumen");
+  msPintar();
+}
+function msAbrirEvaluate(){mycEvaluate("mec-suelos")}
+
+/* ══════════ EVALÚATE PARA TODOS LOS RAMOS ══════════ */
+var EVA_HORM=null,EVA_CUR="horm";
+var EVA_ALIAS={"tec-hormigon":"horm","taller-hormigon":"horm","mec-suelos":"ms","taller-suelos":"ms","ing-int1":"g-ingles","ing-int2":"g-ingles"};
+function _E(n){return window.__eva?window.__eva.g(n):window[n]}
+function _Es(n,v){if(window.__eva)window.__eva.s(n,v);else window[n]=v}
+function _evaPackKey(rid){
+  if(EVA_ALIAS[rid])return EVA_ALIAS[rid];
+  if(typeof EVA_PACKS_X!=="undefined"&&EVA_PACKS_X[rid])return rid;
+  var fc=(DB.flashcards&&DB.flashcards[rid])||[];
+  return fc.length>=4?"fc:"+rid:null;
+}
+function evaDisponible(rid){return !!_evaPackKey(rid)}
+function _evaFcPack(rid){
+  var r=findRamo(rid)||{nom:rid},fc=(DB.flashcards[rid]||[]).filter(function(c){return c.frente&&c.dorso});
+  function sh(a){return a.slice().sort(function(){return Math.random()-.5})}
+  function cut(s,n){s=String(s);return s.length>n?s.slice(0,n-1)+"…":s}
+  var duelo=[];while(duelo.length<10){sh(fc).forEach(function(c){if(duelo.length>=10)return;var otros=sh(fc.filter(function(x){return x!==c})).slice(0,3).map(function(x){return x.dorso});
+    var ops=sh([c.dorso].concat(otros));duelo.push({p:c.frente,ops:ops,r:ops.indexOf(c.dorso),exp:"Respuesta de tu flashcard: "+c.dorso})})}
+  var vf=sh(fc).slice(0,8).map(function(c,i){var otro=fc[(fc.indexOf(c)+1)%fc.length];var v=i%2===0;
+    return {enunciado:c.frente+" → "+(v?c.dorso:otro.dorso),resp:v,justificacion:(v?"VERDADERO. ":"FALSO. La respuesta correcta es: ")+c.dorso}});
+  var conecta=fc.length>=5?[{titulo:"Une cada flashcard con su respuesta",pares:fc.slice(0,8).map(function(c){return {a:cut(c.frente,40),b:cut(c.dorso,60)}})}]:[];
+  return {meta:{nombre:r.nom,codigo:r.cod&&r.cod!=="—"?r.cod:"",semestre:""},duelo:duelo,vf:vf,conecta:conecta,fromCards:true};
+}
+function _evaBackup(){if(EVA_HORM)return;EVA_HORM={meta:_E("RAMO_META"),duelo:_E("DUELO"),supervisor:_E("SUPERVISOR_CASOS"),conecta:_E("CONECTA_SETS"),crisis:_E("CRISIS_CASOS"),vf:_E("VF"),ito:_E("ITO_CASOS"),ft:_E("FT"),etapas:_E("ETAPAS_CFG").slice()}}
+function _evaPack(k){
+  if(k==="horm")return EVA_HORM;if(k==="ms")return EVA_MS;
+  if(k.indexOf("fc:")===0)return _evaFcPack(k.slice(3));
+  return (typeof EVA_PACKS_X!=="undefined"&&EVA_PACKS_X[k])||null;
+}
+function _evaKey(){return "eva_"+_E("CUR_EMAIL")+(EVA_CUR==="horm"?"":"__"+EVA_CUR.replace(/[^a-z0-9_-]/gi,"_"))}
+function _evaSave(){try{var ce=_E("CUR_EMAIL"),S=_E("STATE"),F=_E("FIN");if(ce)localStorage.setItem(_evaKey(),JSON.stringify({xp:S.xp,etapas:S.etapas,logros:S.logros,
+  fin:{presupuesto:F.presupuesto,gastado:F.gastado,adelantos:F.adelantos,historial:(F.historial||[]).slice(-200),gameOver:!!F.gameOver}}))}catch(e){}}
+_Es("saveState",_evaSave);
+function _evaLoad(){
+  if(!_E("CUR_EMAIL"))return;
+  var d=null;try{d=JSON.parse(localStorage.getItem(_evaKey())||"null")}catch(e){}
+  _Es("FIN",{presupuesto:_E("PRESUPUESTO_INICIAL"),gastado:0,adelantos:0,historial:[],gameOver:false});
+  if(d){_Es("STATE",{xp:d.xp||0,etapas:d.etapas||{},logros:d.logros||{}});_E("restoreFin")(d.fin)}else _Es("STATE",{xp:0,etapas:{},logros:{}});
+}
+function _evaTextos(m){
+  var corto=(typeof TABN!=="undefined"&&TABN[window._evaRid])||m.nombre;
+  var s=document.getElementById("eva-entrada-sub");if(s)s.textContent=m.nombre+" · Evalúate";
+  s=document.getElementById("lobby-sub");if(s)s.textContent="Aprendiz · "+corto;
+  s=document.querySelector("#view-evaluate .guia-bub");if(s)s.innerHTML="Aquí construyes una <b>obra completa</b> con lo que sabes de <b>"+esc(m.nombre)+"</b>. Completa las etapas en orden para terminarla.";
+  s=document.querySelector("#view-evaluate .btn-volver-ramo");if(s)s.textContent="← "+corto;
+}
+function evaSetRamo(rid,silent){
+  _evaBackup();
+  var k=_evaPackKey(rid);if(!k)return false;
+  var pk=_evaPack(k);if(!pk)return false;
+  if(_E("CUR_EMAIL")&&k!==EVA_CUR)_evaSave();
+  var cambio=k!==EVA_CUR;EVA_CUR=k;window._evaRid=rid;
+  try{localStorage.setItem("eva_ramo",rid)}catch(e){}
+  _Es("RAMO_META",pk.meta);_Es("DUELO",pk.duelo||[]);_Es("SUPERVISOR_CASOS",pk.supervisor||[]);_Es("CONECTA_SETS",pk.conecta||[]);_Es("CRISIS_CASOS",pk.crisis||[]);_Es("VF",pk.vf||[]);_Es("ITO_CASOS",pk.ito||[]);_Es("FT",pk.ft||EVA_HORM.ft);
+  var ok={duelo:(pk.duelo||[]).length>=4,bim:(pk.supervisor||[]).length>0,micelio:(pk.conecta||[]).length>0&&pk.conecta[0].pares.length>=5,crisis:(pk.crisis||[]).length>0,vf:(pk.vf||[]).length>0,arq:(pk.ito||[]).length>0};
+  _Es("ETAPAS_CFG",EVA_HORM.etapas.filter(function(e){return ok[e.id]}));
+  if(cambio&&!silent)_evaLoad();
+  _evaTextos(pk.meta);
+  return true;
+}
+/* entrar(): carga la clave del ramo activo */
+(function(){var _en=_E("entrar");var w=function(){var r=_en.apply(this,arguments);if(EVA_CUR!=="horm"&&_E("CUR_EMAIL")){_evaLoad();try{renderLobby()}catch(e){}}return r};_Es("entrar",w)})();
+/* informe con el nombre del ramo */
+(function(){var _mi=_E("mostrarInforme");if(typeof _mi!=="function")return;_Es("mostrarInforme",function(){var r=_mi.apply(this,arguments);try{var n=_E("RAMO_META").nombre;document.querySelectorAll("#view-evaluate .inf-row b").forEach(function(b){if(b.textContent==="Edificio Tecnología del Hormigón")b.textContent="Obra · "+n})}catch(e){}return r})})();
+
+/* Abre el Evalúate del ramo, desde cualquier lugar */
+function mycEvaluate(rid){
+  rid=rid||DB.lastRamo;
+  if(!evaSetRamo(rid)){toast("Este ramo aún no tiene preguntas: crea 4 flashcards y se arma tu Evalúate");return}
+  var desde=document.getElementById("pane-suelos");
+  window._evaFrom=(desde&&desde.classList.contains("active"))?"suelos":(document.getElementById("pane-hormigon").classList.contains("active")?"hormigon":"panel");
+  try{closeRamoPanel()}catch(e){}
+  window._evaRidFrom=rid;
+  switchTab("evaluate");
+  setTimeout(function(){try{if(_E("_curScreen")==="s-lobby")renderLobby()}catch(e){}},60);
+}
+
+/* ══════════ Pestaña "ramo abierto" conectada a todos los ramos ══════════ */
+function mycRamoTab(){
+  var rid=DB.lastRamo||"mec-suelos",r=findRamo(rid);
+  if(r&&r.hasEvaluate){switchTab("hormigon");_tabActivo("tb-hormigon");return}
+  if(rid==="mec-suelos"){switchTab("suelos");return}
+  switchTab("malla");nav("ramos");setTimeout(function(){openRamoPanel(rid);_tabActivo("tb-hormigon")},60);
+}
+(function(){
+  var _o=window.openRamoPanel;
+  window.openRamoPanel=function(rid){
+    var out=_o.apply(this,arguments);
+    try{
+      var body=document.querySelector("#ramo-panel .rp-body");if(!body)return out;
+      var old=body.querySelector(".ms-cta");if(old)old.remove();
+      var hero=body.querySelector(".rp-hero"),r=findRamo(rid);
+      if(rid==="mec-suelos"&&hero)hero.insertAdjacentHTML("afterend",'<div class="ms-cta" onclick="closeRamoPanel();switchTab(\'suelos\')"><span class="i">🌍</span><span class="t"><b>Módulo de Mecánica de Suelos</b><span>14 temas, fichas micelio, diagramas y Evalúate</span></span><span>→</span></div>');
+      if(!(r&&r.hasEvaluate)&&hero){
+        var k=_evaPackKey(rid),n=(DB.flashcards[rid]||[]).length;
+        var html=k?'<div class="eva-cta" onclick="mycEvaluate(\''+rid+'\')"><span class="i">🎮</span><span class="t"><b>Evalúate · '+esc(_corto(rid))+'</b><span>'+(k.indexOf("fc:")===0?"Armado con tus "+n+" flashcards":"Duelo, crucigrama, Don Lucho y casos de obra")+'</span></span><span>→</span></div>'
+          :'<div class="eva-cta off" onclick="closeRamoPanel();nav(\'flashcards\')"><span class="i">🎮</span><span class="t"><b>Evalúate · se activa con 4 flashcards</b><span>Tienes '+n+'. Crea las que faltan y se arma solo.</span></span><span>＋</span></div>';
+        var tgt=body.querySelector(".ms-cta")||hero;tgt.insertAdjacentHTML("afterend",html);
+      }
+    }catch(e){}
+    return out;
+  };
+})();
+window.addEventListener("load",function(){
+  msBuildPane();
+  /* switchTab conoce "suelos" */
+  var _st=window.switchTab;
+  window.switchTab=function(t){
+    if(t==="suelos"){
+      msBuildPane();
+      document.querySelectorAll(".app-pane").forEach(function(p){p.classList.remove("active")});
+      document.getElementById("pane-suelos").classList.add("active");
+      DB.lastRamo="mec-suelos";try{save()}catch(e){}
+      _tabRamoPaint();_tabActivo("tb-hormigon");msPintar();
+      try{window.scrollTo(0,0)}catch(e){}
+      return;
+    }
+    if(t==="hormigon"){var lr=findRamo(DB.lastRamo);if(!(lr&&lr.hasEvaluate)){DB.lastRamo="tec-hormigon";try{save()}catch(e){}}}
+    return _st.apply(this,arguments);
+  };
+  /* el antiguo nav('suelos') ahora abre la pestaña */
+  var _n=window.nav;
+  window.nav=function(v){if(v==="suelos"){switchTab("suelos");return}return _n.apply(this,arguments)};
+  window.nav._myc=1;
+  /* el Evalúate de Hormigón fija su propio set de preguntas */
+  var _ae=window.abrirEvaluate;
+  window.abrirEvaluate=function(){var lr=DB.lastRamo,r=findRamo(lr);evaSetRamo(r&&r.hasEvaluate?lr:"tec-hormigon");window._evaFrom="hormigon";return _ae.apply(this,arguments)};
+  /* restaurar el ramo del Evalúate al recargar */
+  try{var er=localStorage.getItem("eva_ramo");if(er&&er!=="tec-hormigon"&&er!=="taller-hormigon"){_evaBackup();var k=_evaPackKey(er);if(k&&k!=="horm"){evaSetRamo(er,true);_evaLoad();try{renderLobby()}catch(e){}}}}catch(e){}
+  /* texto de entrada con id para poder cambiarlo */
+  try{var ents=document.querySelectorAll("#s-entrada div");for(var i=0;i<ents.length;i++){if(ents[i].children.length===0&&/Tecnología del Hormigón · ConstruyeTe/.test(ents[i].textContent)){ents[i].id="eva-entrada-sub";break}}_evaTextos(_E("RAMO_META"))}catch(e){}
+  /* volver: al módulo o al panel del ramo de origen */
+  setTimeout(function(){
+    var _v=window.volverAlRamo;
+    window.volverAlRamo=function(){
+      var de=window._evaFrom;
+      if(de==="suelos"){switchTab("suelos");setTimeout(function(){var g=document.getElementById("msEvalGate");if(g)g.scrollIntoView({behavior:"smooth",block:"center"})},80);return}
+      if(de==="panel"){var rid=window._evaRidFrom||DB.lastRamo;switchTab("malla");nav("ramos");setTimeout(function(){openRamoPanel(rid);_tabActivo("tb-hormigon")},80);return}
+      return _v.apply(this,arguments);
+    };
+  },500);
+  _tabRamoPaint();
+});
+
 </script>
 
 </body>
