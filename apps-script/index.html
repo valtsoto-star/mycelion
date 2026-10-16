@@ -10481,7 +10481,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v2.0
+   MYCELION OS v2.1
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -12458,9 +12458,85 @@ body.kb-open #ct-sheet{max-height:100dvh}
 .ia-pr{border-color:rgba(124,140,255,.38)!important;background:rgba(124,140,255,.08)!important}
 .bt-paper .bt-box,.bt-paper .bt-tabla,.bt-paper .ejemplo{overflow:visible}
 .bt-paper .cpy{top:-13px;right:10px;width:26px;height:26px;font-size:.74rem;box-shadow:0 1px 0 rgba(30,58,95,.15)}
+
+/* ══ v2.1 · Tema "Duoc" blanco, negro y amarillo + Bitácora que sigue el tema ══ */
+[data-theme="amarillo"]{--bg:#F6F5F1;--bg-2:#FFFFFF;--surface:#FFFFFF;--surface-2:#F3F2EC;--line:#DEDBD0;--line-soft:#ECEAE2;--text:#111111;--text-2:#3B3B3B;--text-3:#6F6F6F;--accent:#111111;--accent-2:#B98A00;--accent-ink:#FFC20E;--gold:#E0A800;--grid:rgba(17,17,17,.05);--danger:#D23B2E;--good:#1F8A4C;--warn:#C98A00;--sky-1:#111111;--sky-2:#1A1A1A;--sky-3:#000000;--sky-ink:#FFFFFF;--sky-ink2:#FFC20E;--yel:#FFC20E}
+body[data-theme="amarillo"]{background:var(--bg);color:var(--text)}
+/* barra inferior negra con activo amarillo */
+body[data-theme="amarillo"] #master-tabs{background:#111!important;border-top:3px solid #FFC20E!important}
+body[data-theme="amarillo"] #master-tabs .tab-btn{color:#BDBDBD!important}
+body[data-theme="amarillo"] #master-tabs .tab-btn.active{color:#111!important}
+body[data-theme="amarillo"] #master-tabs .tab-btn.active .tab-ic{background:#FFC20E!important;color:#111!important;border-radius:12px}
+body[data-theme="amarillo"] #master-tabs .tab-btn.active .tab-lbl{color:#FFC20E!important}
+/* acentos amarillos sobre negro */
+body[data-theme="amarillo"] .btn.primary,body[data-theme="amarillo"] .eg-btn{background:#111!important;color:#FFC20E!important}
+body[data-theme="amarillo"] .pl-fill,body[data-theme="amarillo"] .ms-herobar i,body[data-theme="amarillo"] .rp-prog-fill{background:#FFC20E!important}
+body[data-theme="amarillo"] .link{color:#111!important;text-decoration-color:#E0A800!important;background:linear-gradient(transparent 62%,rgba(255,194,14,.45) 0)}
+body[data-theme="amarillo"] .unit-title .idx{background:#111!important;color:#FFC20E!important}
+body[data-theme="amarillo"] .topic.open .topic-bar,body[data-theme="amarillo"] .topic-bar:hover{box-shadow:inset 4px 0 0 #FFC20E}
+body[data-theme="amarillo"] .tcheck.on{background:#FFC20E!important;border-color:#111!important;color:#111!important}
+body[data-theme="amarillo"] .norma-chip.active,body[data-theme="amarillo"] .ms-unav button:hover{background:#FFC20E!important;color:#111!important;border-color:#111!important}
+body[data-theme="amarillo"] .ms-evalchip,body[data-theme="amarillo"] .eva-cta{background:#111!important;color:#fff!important;border-color:#111!important}
+body[data-theme="amarillo"] .ms-evalchip b,body[data-theme="amarillo"] .eva-cta b{color:#FFC20E!important}
+body[data-theme="amarillo"] .ms-evalchip small,body[data-theme="amarillo"] .eva-cta .t span{color:#ddd!important}
+body[data-theme="amarillo"] .ms-cta{background:#FFC20E!important;color:#111!important;border-color:#111!important}
+body[data-theme="amarillo"] .ms-cta .t span{color:#333!important}
+body[data-theme="amarillo"] .eval-gate{border-color:#111!important}
+body[data-theme="amarillo"] .ia-pr{background:#fff!important;border-color:#111!important}
+body[data-theme="amarillo"] .ia-pr-h{background:#FFC20E;border-bottom-color:#111}
+body[data-theme="amarillo"] .ia-pr-h button{border-color:#111;color:#111;background:#fff}
+body[data-theme="amarillo"] .ia-pr pre{color:#222}
+body[data-theme="amarillo"] .cpy{background:#111;color:#FFC20E;border-color:#111}
+body[data-theme="amarillo"] mark{background:#FFC20E;color:#111}
+/* paneles de módulo (Suelos, IA) con fondo claro */
+body[data-theme="amarillo"] #pane-suelos,body[data-theme="amarillo"] #pane-ia{background:var(--bg)!important}
+body[data-theme="amarillo"] .diagram,body[data-theme="amarillo"] .bt-plano{border-color:#111!important}
+
+/* ══ Bitácora según el tema ══ */
+/* Blanco, Celeste: papel blanco */
+body[data-theme="light"] #bt-ov,body[data-theme="celeste"] #bt-ov{--paper:#FFFFFF;background:#E9EEF4}
+body[data-theme="light"] #bt-ov .bt-idx,body[data-theme="celeste"] #bt-ov .bt-idx{background:#F2F5F9}
+/* Duoc blanco-negro-amarillo */
+body[data-theme="amarillo"] #bt-ov{--paper:#FFFFFF;--ink:#111111;--ink2:#4A4A4A;--rule:#CFCBBE;--grid:rgba(17,17,17,.08);--grid2:rgba(17,17,17,.035);--blue:#111111;--sky:#FFE38A;--clay:#C98A00;--clay2:#FFF3C4;background:#E9E6DC}
+body[data-theme="amarillo"] #bt-ov .bt-top{background:#111;color:#fff;border-bottom:4px solid #FFC20E}
+body[data-theme="amarillo"] #bt-ov .bt-top small{color:#FFC20E;opacity:1}
+body[data-theme="amarillo"] #bt-ov .bt-top button{border-color:#FFC20E;color:#FFC20E}
+body[data-theme="amarillo"] #bt-ov .bt-idx{background:#FFC20E;border-bottom-color:#111}
+body[data-theme="amarillo"] #bt-ov .bt-idx button{background:#fff;border-color:#111;color:#111}
+body[data-theme="amarillo"] #bt-ov .bt-idx button.on{background:#111;color:#FFC20E}
+/* Oscuro (negro): papel negro, tinta blanca, resaltado amarillo, para leer de noche */
+body[data-theme="dark"] #bt-ov,body[data-theme="noche"] #bt-ov{--paper:#141414;--ink:#F1F1F1;--ink2:#B5B5B5;--rule:#3A3A3A;--grid:rgba(255,255,255,.06);--grid2:rgba(255,255,255,.025);--blue:#FFC20E;--sky:rgba(255,194,14,.16);--clay:#FFC20E;--clay2:rgba(255,194,14,.12);background:#000}
+body[data-theme="dark"] #bt-ov .bt-top,body[data-theme="noche"] #bt-ov .bt-top{background:#000;color:#fff;border-bottom:3px solid #FFC20E}
+body[data-theme="dark"] #bt-ov .bt-top button,body[data-theme="noche"] #bt-ov .bt-top button{border-color:#FFC20E;color:#FFC20E}
+body[data-theme="dark"] #bt-ov .bt-idx,body[data-theme="noche"] #bt-ov .bt-idx{background:#0A0A0A;border-bottom-color:#333}
+body[data-theme="dark"] #bt-ov .bt-idx button.on,body[data-theme="noche"] #bt-ov .bt-idx button.on{background:#FFC20E;color:#111;border-color:#FFC20E}
+body[data-theme="dark"] .bt-paper .cpy,body[data-theme="noche"] .bt-paper .cpy{background:#222;color:#FFC20E;border-color:#444}
+/* colores fijos de las láminas → tinta del tema */
+body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov svg [stroke="#1E3A5F"]{stroke:var(--ink)}
+body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov svg [fill="#1E3A5F"]{fill:var(--ink)}
+body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov svg [fill="#4F6A86"]{fill:var(--ink2)}
+body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov svg [stroke="#3E8DC4"]{stroke:var(--blue)}
+body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov svg [fill="#3E8DC4"]{fill:var(--blue)}
+body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov .bt-f,body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov .bt-big-si{color:var(--ink);border-color:var(--blue)}
+body:is([data-theme="amarillo"],[data-theme="dark"],[data-theme="noche"]) #bt-ov .bt-qa .a{color:var(--good,#1F8A4C)}
+body[data-theme="dark"] #bt-ov .bt-qa .a,body[data-theme="noche"] #bt-ov .bt-qa .a{color:#7CE0A8}
+body:is([data-theme="dark"],[data-theme="noche"]) .bt-lam{box-shadow:none}
+/* tarjeta Bitácora en el panel del ramo */
+body[data-theme="amarillo"] .bt-cta,body[data-theme="amarillo"] .bt-chipbtn{background:#fff;border:2px solid #111;color:#111;box-shadow:4px 4px 0 #FFC20E}
+body:is([data-theme="dark"],[data-theme="noche"]) .bt-cta,body:is([data-theme="dark"],[data-theme="noche"]) .bt-chipbtn{background:#141414;border-color:#FFC20E;color:#fff}
+.bt-plano .demo-hint{display:none!important}
+body:is([data-theme="dark"],[data-theme="noche"]) .bt-box,body:is([data-theme="dark"],[data-theme="noche"]) .bt-tabla,body:is([data-theme="dark"],[data-theme="noche"]) .bt-qa{background:rgba(255,255,255,.035)}
+body:is([data-theme="dark"],[data-theme="noche"]) .bt-res,body:is([data-theme="dark"],[data-theme="noche"]) .bt-step .s{background:#000;color:#fff}
+body:is([data-theme="dark"],[data-theme="noche"]) .bt-res{color:#FFC20E}
+body[data-theme="amarillo"] .bt-res{background:#FFC20E;border-color:#111;color:#111}
+/* Evalúate en blanco, negro y amarillo */
+body[data-theme="amarillo"] #view-evaluate{--accent:#111111;--blue:#111111}
+body[data-theme="amarillo"] #view-evaluate .btn-prim,body[data-theme="amarillo"] #view-evaluate .btn-sig.on{background:#111!important;color:#FFC20E!important;border:0!important;box-shadow:4px 4px 0 #FFC20E!important;background-image:none!important}
+body[data-theme="amarillo"] #view-evaluate .tema-blanco,body[data-theme="amarillo"] #view-evaluate .topbar{border-bottom:3px solid #FFC20E}
+body[data-theme="amarillo"] #view-evaluate .etapa.done,body[data-theme="amarillo"] #view-evaluate .etapa.activa{border-color:#111!important}
 </style>
 <script>
-/* MYCELION OS v2.0 */
+/* MYCELION OS v2.1 */
 /* ══════════════════════════════════════════════════════
    MYCELION OS v2.0 · Parte A
    · Barra inferior que no tapa: se esconde con teclado, hojas abiertas y al bajar
@@ -13619,6 +13695,38 @@ function iaBuildPane(){
     },700);
   });
   document.addEventListener("keydown",function(e){if(e.key==="Escape")closeIaPanel()});
+})();
+
+/* ══ v2.1 · Tema Duoc blanco, negro y amarillo ══ */
+(function(){
+  var _ap=window._applyThemeGlobal;
+  window._applyThemeGlobal=function(t){
+    var r=_ap?_ap.apply(this,arguments):(document.body.dataset.theme=t);
+    if(t==="amarillo"){
+      try{var mt=document.querySelector('meta[name="theme-color"]');if(mt)mt.content="#111111"}catch(e){}
+      try{var ev=document.getElementById("view-evaluate");if(ev){ev.classList.add("tema-blanco");try{localStorage.setItem("eva_tema","tema-blanco")}catch(e){}}}catch(e){}
+    }
+    return r;
+  };
+  function addOpt(){
+    var g=document.querySelector(".theme-grid");if(!g||g.querySelector('[data-t="amarillo"]'))return;
+    var sel=DB.settings&&DB.settings.theme==="amarillo";
+    g.insertAdjacentHTML("afterbegin",'<button class="theme-opt'+(sel?" sel":"")+'" data-t="amarillo" onclick="setTheme(\'amarillo\')"><span class="theme-swatch" style="background:linear-gradient(135deg,#ffffff 0 34%,#111111 34% 67%,#FFC20E 67%)"></span><span><span class="tn">Blanco, negro y amarillo</span><br><span class="td">Colores Duoc, alto contraste</span></span></button>');
+    if(sel)g.querySelectorAll(".theme-opt").forEach(function(b){if(b.dataset.t!=="amarillo")b.classList.remove("sel")});
+  }
+  window.addEventListener("load",function(){
+    var _n=window.nav;
+    window.nav=function(v){var r=_n.apply(this,arguments);if(v==="ajustes")setTimeout(addOpt,0);return r};
+    window.nav._myc=1;
+    /* se aplica una vez como tema de la app; se puede cambiar en Ajustes */
+    try{
+      if(!localStorage.getItem("myc_tema_v21")){
+        localStorage.setItem("myc_tema_v21","1");
+        DB.settings.theme="amarillo";try{save()}catch(e){}
+      }
+      if(DB.settings.theme==="amarillo")window._applyThemeGlobal("amarillo");
+    }catch(e){}
+  });
 })();
 
 </script>
