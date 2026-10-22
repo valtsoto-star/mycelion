@@ -110,3 +110,11 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
   3. clave maestra, guardada solo como `sha256("myc29|"+clave)` en `M29_HASH`.
 - **Candados**: `openRamoPanel`, `m24Abrir` y `m26Abrir` muestran la hoja de candado; la malla y los selectores marcan 🔒. Calculadoras, glosario, mapas, foco y flashcards propias quedan abiertos.
 - **Límite conocido**: quien lea el código puede saltarse el candado. Para un bloqueo real hacen falta cuentas con servidor.
+
+## 13. v3.0 · Contenido propio de 1° semestre
+- Siete módulos nuevos con el motor de m23 (`m23_nvm, fye, ipl, pgr, tgr, cbs, hdi`): Nivelación Matemática, Formas y Espacio, Interpretación de Planos, Partidas de Obra Gruesa, Taller de Obra Gruesa, Habilidades Básicas de Comunicación y Herramientas Digitales.
+- Cada uno trae temas, fichas enlazadas, normas citadas por título y un pack de Evalúate (duelo, verdadero o falso, conecta y crisis). Nivelación, Formas e Interpretación de Planos traen herramienta (conversor y regla de tres, figuras y cuerpos, escalas).
+- El contenido es original y general. No usa material de Duoc ni lo reemplaza; las normas se citan para que el alumno las revise en bcn.cl o el INN.
+- Se escriben como datos en `tools/c30_<pfx>.py` y `tools/gen30.py` genera el módulo validando referencias de fichas, respuestas del duelo y nodos de las crisis.
+- El motor ahora omite el salto a unidades que no existen (Taller de Obra Gruesa tiene 3).
+- Desbloqueo: leer el 70 % de los temas de un semestre basta para abrir el siguiente; repasar fichas suma por encima de eso.
