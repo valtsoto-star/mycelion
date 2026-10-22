@@ -23896,6 +23896,20 @@ window.addEventListener("load",function(){setTimeout(function(){
     return h}}
   if(window.openFCCreate){var _oc=window.openFCCreate;window.openFCCreate=function(rid){var r=_oc.apply(this,arguments);var s=document.getElementById("fc-ramo-in");if(s)s.innerHTML='<option value="">— Sin ramo —</option>'+_m28SemOpts(rid||"");return r}}
 },1100)});
+/* ══ v2.8 · respaldo completo: DB + todo lo guardado en este navegador ══ */
+function _m28Todo(){var ls={};try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k!==KEY&&k!=="eva_session")ls[k]=localStorage.getItem(k)}}catch(e){}return {_mycelion:2,fecha:new Date().toISOString(),DB:DB,ls:ls}}
+window.addEventListener("load",function(){setTimeout(function(){
+  window.exportData=function(){DB.backupLast=new Date().toISOString();save();
+    var blob=new Blob([JSON.stringify(_m28Todo())],{type:"application/json"}),a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download="mycelion_respaldo_"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();
+    toast("Respaldo completo exportado ✓")};
+  window.importData=function(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();
+    r.onload=function(e){try{var d=JSON.parse(e.target.result);
+      if(d&&d._mycelion){Object.keys(d.ls||{}).forEach(function(k){try{localStorage.setItem(k,d.ls[k])}catch(x){}});DB=Object.assign(_seed(),d.DB||{})}
+      else DB=Object.assign(_seed(),d);
+      save();toast("Respaldo importado ✓");setTimeout(function(){location.reload()},800)}catch(x){toast("Archivo inválido")}};
+    r.readAsText(f)};
+},1100)});
 
 </script>
 
