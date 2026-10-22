@@ -98,3 +98,15 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 **Calculadoras** (`m28calc.js`). 52 calculadoras en 10 temas con burbuja "para qué / cómo funciona / qué calcula / supuestos" y una pestaña Cubicar obra (elementos → lista de materiales). Activas desde el 22-10-2026 (`M28_CALC_ON=true`); la pestaña Fichas NCh conserva las 39 fórmulas anteriores.
 
 **Flashcards por semestre.** La lista se agrupa por semestre de la malla (el actual abierto) y los selectores de ramo usan grupos por semestre.
+
+## 12. v2.9 · Acceso por perfil (modo primer año)
+
+`m29.js`. Sin servidor: todo vive en el navegador de cada alumno.
+- **Modo completo**, el de siempre: todo abierto. Un dispositivo sin `m29_acceso` está en este modo.
+- **Modo primer año**: se activa abriendo `…/mycelion/#primero` en un dispositivo nuevo, o desde Estudio › Acceso › "Ver como alumno". Oculta los datos personales de la configuración (nombre, créditos, horario) y parte en el 1° semestre.
+- **Desbloqueo de un semestre**, con cualquiera de tres llaves:
+  1. avance ≥ 70% del semestre anterior (unidades marcadas, temas leídos y tarjetas repasadas; queda ganado);
+  2. fecha en `M29_FECHAS` (o fijada en el dispositivo con la clave);
+  3. clave maestra, guardada solo como `sha256("myc29|"+clave)` en `M29_HASH`.
+- **Candados**: `openRamoPanel`, `m24Abrir` y `m26Abrir` muestran la hoja de candado; la malla y los selectores marcan 🔒. Calculadoras, glosario, mapas, foco y flashcards propias quedan abiertos.
+- **Límite conocido**: quien lea el código puede saltarse el candado. Para un bloqueo real hacen falta cuentas con servidor.

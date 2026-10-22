@@ -10481,7 +10481,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v2.8
+   MYCELION OS v2.9
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -13776,9 +13776,45 @@ a.m28g-src:hover{border-color:var(--text)}
 .m28g-ley{margin:18px 0 0;font-size:.82rem;line-height:1.5;color:var(--text-2)}
 .m28g-ley a{color:var(--text);font-weight:700}
 @media (max-width:420px){.m28g-d,.m28g-x{padding-left:14px}}
+
+/* ══ v2.9 · acceso y desbloqueo ══ */
+.m29{display:flex;flex-direction:column;gap:12px}
+.m29-lk{display:flex;align-items:center;gap:14px;padding:16px;border-radius:18px;background:var(--surface);border:1px solid var(--line)}
+.m29-lk.ok{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.m29-lk>span{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;background:var(--bg);border:1px solid var(--line)}
+.m29-lk b{display:block;font:700 1.08rem var(--font-display,system-ui);color:var(--text)}
+.m29-lk small{font-size:.86rem;color:var(--text-2)}
+.m29-k{padding:14px 16px;border-radius:18px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.m29-k>b{font:800 .68rem var(--font-mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.m29-k p{margin:0;font-size:.94rem;line-height:1.5;color:var(--text)}
+.m29-k small{font-size:.82rem;color:var(--text-2)}
+.m29-bar{height:10px;border-radius:99px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.m29-bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.m29-in{display:flex;gap:8px}
+.m29-in input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);font:inherit;font-size:1rem;padding:11px 12px}
+body .m29-in button,body .m29-link button{flex:none;border:0;border-radius:12px;padding:0 18px;min-height:46px;background:var(--text);color:var(--bg);font-weight:800;text-align:center}
+.m29-msg{color:var(--danger,#C62828)!important;font-weight:700;min-height:1em}
+.m29-link{display:flex;gap:8px;align-items:stretch}
+.m29-link code{flex:1;min-width:0;padding:11px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font:600 .8rem var(--font-mono,monospace);color:var(--text);overflow-wrap:anywhere;user-select:all}
+body .m29-b{min-height:48px;border:0;border-radius:14px;background:var(--text);color:var(--bg);font-weight:800;font-size:.95rem;text-align:center;padding:0 16px}
+body .m29-b.sec{background:var(--bg);color:var(--text);border:1px solid var(--line)}
+.m29-acts{display:flex;flex-direction:column;gap:8px}
+.m29-sems{display:flex;flex-direction:column;gap:6px}
+.m29-s{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.m29-s:first-child{border-top:0}
+.m29-s>span{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);font:800 .9rem var(--font-display,system-ui);color:var(--text-2)}
+.m29-s.on>span{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.m29-s b{display:block;font-size:.92rem;color:var(--text)}
+.m29-fs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.m29-fs label{display:flex;align-items:center;gap:8px}
+.m29-fs span{font:800 .9rem var(--font-display,system-ui);width:28px}
+.m29-fs input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font:inherit;padding:8px}
+.m29-ley{margin:4px 0 0;font-size:.8rem;line-height:1.45;color:var(--text-2)}
+.m29-lock{position:relative;opacity:.55}
+.m29-lock::before{content:"🔒";position:absolute;top:6px;right:8px;font-size:.85rem;z-index:2;opacity:1}
 </style>
 <script>
-/* MYCELION OS v2.8 */
+/* MYCELION OS v2.9 */
 /* ══════════════════════════════════════════════════════
    MYCELION OS v2.0 · Parte A
    · Barra inferior que no tapa: se esconde con teclado, hojas abiertas y al bajar
@@ -23875,7 +23911,7 @@ window.addEventListener("load",function(){
 /* ══ v2.8 · flashcards separadas por semestre ══ */
 function _m28SemAct(){try{return +MYCELION_CONFIG.progreso.semestreActual||6}catch(e){return 6}}
 function _m28SemOpts(sel){var a=_m28SemAct();
-  return MALLA.map(function(s){return '<optgroup label="'+s.sem+'° Semestre'+(s.sem===a?' · actual':'')+' · '+_m28E(s.titulo)+'">'+s.ramos.map(function(r){return '<option value="'+r.id+'"'+(r.id===sel?' selected':'')+'>'+_m28E(r.nom)+'</option>'}).join("")+'</optgroup>'}).join("")}
+  return MALLA.map(function(s){return '<optgroup label="'+s.sem+'° Semestre'+(s.sem===a?' · actual':'')+' · '+_m28E(s.titulo)+'">'+s.ramos.map(function(r){return (window.m29RamoAbierto&&!m29RamoAbierto(r.id)?'<option value="" disabled>🔒 '+_m28E(r.nom)+'</option>':'<option value="'+r.id+'"'+(r.id===sel?' selected':'')+'>'+_m28E(r.nom)+'</option>')}).join("")+'</optgroup>'}).join("")}
 function _m28FCSem(){
   var a=_m28SemAct(),h="",abierto=false;
   MALLA.forEach(function(s){
@@ -23910,6 +23946,141 @@ window.addEventListener("load",function(){setTimeout(function(){
       save();toast("Respaldo importado ✓");setTimeout(function(){location.reload()},800)}catch(x){toast("Archivo inválido")}};
     r.readAsText(f)};
 },1100)});
+
+/* ══ v2.9 · acceso por perfil: alumno de primer año con desbloqueo por avance, fecha o clave maestra ══
+   Sin servidor: el candado motiva, pero alguien que lea el código puede saltarlo. */
+var M29_HASH="2f80c6995f499cc25b4ff8095b16d914d4eb4c10adb4f9c8e4049cf6aae68e41"; /* sha256("myc29|"+clave maestra) */
+var M29_FECHAS={};   /* fechas fijas de apertura por semestre, ej. {2:"2027-03-01"} */
+var M29_META=0.7;    /* avance del semestre anterior que abre el siguiente */
+var M29_LINK="https://valtsoto-star.github.io/mycelion/#primero";
+function _m29A(){try{return JSON.parse(localStorage.getItem("m29_acceso"))||null}catch(e){return null}}
+function _m29G(a){try{if(a)localStorage.setItem("m29_acceso",JSON.stringify(a));else localStorage.removeItem("m29_acceso")}catch(e){}}
+function m29Alumno(){var a=_m29A();return !!(a&&a.perfil==="alumno")}
+function _m29Sha(s){
+  s=unescape(encodeURIComponent(s));var K=[],H=[1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225],p=2,n=0;
+  function pr(x){for(var d=2;d*d<=x;d++)if(x%d===0)return false;return true}
+  while(n<64){if(pr(p)){K[n++]=(Math.pow(p,1/3)%1)*4294967296|0}p++}
+  var W=[],l=s.length*8,i,j;s+="\x80";while(s.length%64-56)s+="\x00";
+  for(i=0;i<s.length;i++)W[i>>2]|=s.charCodeAt(i)<<((3-i)%4)*8;W[W.length]=(l/4294967296)|0;W[W.length]=l|0;
+  function r(v,c){return (v>>>c)|(v<<(32-c))}
+  for(j=0;j<W.length;j+=16){var w=W.slice(j,j+16),h=H.slice(0);
+    for(i=0;i<64;i++){if(i>15){var a=w[i-15],b=w[i-2];w[i]=(w[i-16]+(r(a,7)^r(a,18)^(a>>>3))+w[i-7]+(r(b,17)^r(b,19)^(b>>>10)))|0}
+      var t1=h[7]+(r(h[4],6)^r(h[4],11)^r(h[4],25))+((h[4]&h[5])^(~h[4]&h[6]))+K[i]+w[i],t2=(r(h[0],2)^r(h[0],13)^r(h[0],22))+((h[0]&h[1])^(h[0]&h[2])^(h[1]&h[2]));
+      h=[(t1+t2)|0].concat(h);h[4]=(h[4]+t1)|0;h.pop()}
+    for(i=0;i<8;i++)H[i]=(H[i]+h[i])|0}
+  return H.map(function(v){return ("00000000"+(v>>>0).toString(16)).slice(-8)}).join("")}
+function m29ClaveOk(v){return _m29Sha("myc29|"+String(v||"").trim())===M29_HASH}
+
+/* ── avance y semestres ── */
+function _m29SemDe(rid){for(var i=0;i<MALLA.length;i++)if(MALLA[i].ramos.some(function(r){return r.id===rid}))return MALLA[i].sem;return 0}
+function _m29AvRamo(rid){var v=[];
+  try{var P=m24Prog(rid);if(P&&P.t)v.push(Math.min(1,P.d/P.t))}catch(e){}
+  try{var T=_m26Temas(rid);if(T.length)v.push(T.filter(function(t){return t.leido}).length/T.length)}catch(e){}
+  try{var C=_m26Fichas(rid),S=_m26Ls("m26_srs",{});if(C.length)v.push(C.filter(function(c){return S[c.id]}).length/C.length)}catch(e){}
+  return v.length?v.reduce(function(a,b){return a+b},0)/v.length:null}
+function m29AvSem(n){var s=MALLA.find(function(x){return x.sem===n});if(!s)return null;
+  var v=s.ramos.map(function(r){return _m29AvRamo(r.id)}).filter(function(x){return x!==null});
+  return v.length?v.reduce(function(a,b){return a+b},0)/v.length:null}
+function _m29Fecha(n){var a=_m29A()||{};return (a.fechas&&a.fechas[n])||M29_FECHAS[n]||""}
+function _m29FTxt(f){try{return new Date(f+"T12:00:00").toLocaleDateString("es-CL",{day:"numeric",month:"long",year:"numeric"})}catch(e){return f}}
+function m29SemAbierto(n){var a=_m29A();
+  if(!a||a.perfil!=="alumno"||a.maestro||n<=(a.base||1))return true;
+  if(a.ganados&&a.ganados[n])return true;
+  var f=_m29Fecha(n);if(f&&new Date(f+"T00:00:00")<=new Date())return true;
+  if(m29SemAbierto(n-1)){var av=m29AvSem(n-1);
+    if(av!==null&&av>=M29_META){a=_m29A();a.ganados=a.ganados||{};a.ganados[n]=new Date().toISOString().slice(0,10);_m29G(a);
+      setTimeout(function(){try{toast("🔓 Desbloqueaste el "+n+"° semestre");M27S.logro()}catch(e){}},400);return true}}
+  return false}
+function m29RamoAbierto(rid){var n=_m29SemDe(rid);return !n||m29SemAbierto(n)}
+function m29SemActual(){var n=1;for(var i=2;i<=8;i++){if(m29SemAbierto(i))n=i;else break}return n}
+
+/* ── perfil alumno: sin datos de Matías ── */
+function _m29Aplica(){if(!m29Alumno())return;var a=_m29A(),C=MYCELION_CONFIG,sem=m29SemActual();
+  C.user=Object.assign({},C.user,{nombre:a.nombre||(typeof DB!=="undefined"&&DB.userName)||"Estudiante",correo:"",nivel:sem});
+  C.progreso=Object.assign({},C.progreso,{semestreActual:sem,creditosAprobados:0,creditosEnCurso:0,asignaturasSuperadas:0,titulacionEstimada:new Date().getFullYear()+4});
+  if(!a.horarioPropio)C.horario=[]}
+(function(){
+  var a=_m29A();
+  if(!a&&/^#primero$/i.test(location.hash)){a={perfil:"alumno",base:1,nombre:"",creado:new Date().toISOString().slice(0,10),nuevo:1};_m29G(a)}
+  if(a&&/^#primero$/i.test(location.hash))try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}
+  try{_m29Aplica()}catch(e){}
+})();
+
+/* ── candado ── */
+function m29Candado(rid){var n=_m29SemDe(rid),av=m29AvSem(n-1),f=_m29Fecha(n),pct=av===null?null:Math.round(av*100);
+  try{M27S.mal()}catch(e){}
+  var h='<div class="m29"><div class="m29-lk"><span>🔒</span><div><b>'+n+'° semestre bloqueado</b><small>Se abre con cualquiera de estas tres llaves.</small></div></div>'
+   +'<div class="m29-k"><b>1 · Tu avance</b>'+(!m29SemAbierto(n-1)?'<p>Primero abre el '+(n-1)+'° semestre. Vas en el '+m29SemActual()+'°.</p>':pct===null
+      ?'<p>El '+(n-1)+'° semestre todavía no tiene temas ni tarjetas para medir avance. Usa la fecha o la clave.</p>'
+      :'<p>Marca como estudiadas las unidades, lee los temas y repasa las tarjetas del '+(n-1)+'° semestre hasta llegar a '+Math.round(M29_META*100)+'%.</p><div class="m29-bar"><i style="width:'+pct+'%"></i></div><small>'+pct+'% de '+Math.round(M29_META*100)+'%</small>')+'</div>'
+   +'<div class="m29-k"><b>2 · Fecha</b><p>'+(f?'Se abre solo el <b>'+_m29FTxt(f)+'</b>.':'Aún no hay fecha fijada para este semestre.')+'</p></div>'
+   +'<div class="m29-k"><b>3 · Clave maestra</b><p>Si te la entregaron, ábrelo todo de una vez.</p>'+_m29ClaveForm()+'</div></div>';
+  _m26T.tool="acceso";_m26Pinta("ACCESO",_m29Esc(_m26Nom(rid)),h)}
+function _m29Esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function _m29ClaveForm(){return '<form class="m29-in" onsubmit="event.preventDefault();m29Clave(this.k.value,this)"><input name="k" type="password" autocomplete="off" placeholder="Clave maestra" aria-label="Clave maestra"><button>Abrir</button></form><small class="m29-msg" aria-live="polite"></small>'}
+function m29Clave(v,form){var m=form&&form.parentNode.querySelector(".m29-msg");
+  if(!m29ClaveOk(v)){if(m)m.textContent="Esa clave no es correcta.";try{M27S.mal()}catch(e){}return}
+  var a=_m29A();if(a){a.maestro=true;_m29G(a)}else{_m29G(null)}
+  try{M27S.logro()}catch(e){}try{toast("🔓 Todo desbloqueado")}catch(e){}_m29Aplica();m29Panel()}
+
+/* ── panel Estudio › Acceso ── */
+function m29Panel(){var a=_m29A(),h='<div class="m29">';
+  if(!a||a.perfil!=="alumno"){
+    h+='<div class="m29-lk ok"><span>🧠</span><div><b>Modo completo</b><small>Todo abierto. Así usas tú la app.</small></div></div>'
+     +'<div class="m29-k"><b>Compartir con alumnos de primer año</b><p>Este enlace abre la app en modo primer año: parte en el 1° semestre y va abriendo los siguientes por avance, por fecha o con tu clave maestra.</p>'
+     +'<div class="m29-link"><code>'+M29_LINK+'</code><button onclick="m29Copia(this)">Copiar</button></div>'
+     +'<small>El avance de cada alumno queda en su propio teléfono. Tú no ves sus datos.</small></div>'
+     +'<div class="m29-k"><b>Probar como alumno</b><p>Cambia este dispositivo a modo primer año para ver lo que ven ellos. Para volver necesitas la clave maestra.</p><button class="m29-b" onclick="m29Probar()">Ver como alumno de primer año</button></div>';
+  }else{var sem=m29SemActual();
+    h+='<div class="m29-lk'+(a.maestro?' ok':'')+'"><span>'+(a.maestro?'🔓':'🌱')+'</span><div><b>Modo primer año'+(a.maestro?' · todo abierto':'')+'</b><small>'+_m29Esc(a.nombre||"Estudiante")+' · vas en el '+sem+'° semestre</small></div></div>'
+     +'<div class="m29-k"><b>Tu nombre</b><form class="m29-in" onsubmit="event.preventDefault();m29Nombre(this.n.value)"><input name="n" value="'+_m29Esc(a.nombre||"")+'" placeholder="¿Cómo te llamas?" aria-label="Tu nombre"><button>Guardar</button></form></div>'
+     +'<div class="m29-k"><b>Semestres</b><div class="m29-sems">'+MALLA.map(function(s){var ab=m29SemAbierto(s.sem),f=_m29Fecha(s.sem),av=s.sem>1?m29AvSem(s.sem-1):null,
+        est=ab?(s.sem<=(a.base||1)?"Abierto":a.ganados&&a.ganados[s.sem]?"Ganado por avance":a.maestro?"Abierto con clave":"Abierto por fecha"):(f?"Abre el "+_m29FTxt(f):av===null?"Por fecha o clave":"Avance "+Math.round(av*100)+"% de "+Math.round(M29_META*100)+"%");
+        return '<div class="m29-s'+(ab?' on':'')+'"><span>'+(ab?s.sem+'°':'🔒')+'</span><div><b>'+s.sem+'° · '+_m29Esc(s.titulo)+'</b><small>'+est+'</small></div></div>'}).join("")+'</div></div>';
+    if(!a.maestro)h+='<div class="m29-k"><b>Clave maestra</b><p>Abre todos los semestres en este dispositivo.</p>'+_m29ClaveForm()+'</div>';
+    else h+='<div class="m29-k"><b>Fechas de apertura</b><p>Solo en este dispositivo. Para fijarlas para todos los alumnos, pídeselas a Claude y quedan en la app.</p><div class="m29-fs">'
+      +MALLA.filter(function(s){return s.sem>1}).map(function(s){return '<label><span>'+s.sem+'°</span><input type="date" value="'+(_m29Fecha(s.sem)||"")+'" onchange="m29FijaFecha('+s.sem+',this.value)"></label>'}).join("")+'</div></div>'
+      +'<div class="m29-k"><b>Administrar</b><div class="m29-acts"><button class="m29-b" onclick="m29Cerrar()">Volver a cerrar los candados</button><button class="m29-b sec" onclick="m29Completo()">Volver a modo completo</button></div></div>';
+  }
+  h+='<p class="m29-ley">Sin cuentas ni servidor, el candado es para motivar: quien sepa leer el código puede saltarlo.</p></div>';
+  _m26T.tool="acceso";_m26Pinta("ESTUDIO","Acceso y desbloqueo",h)}
+function m29Copia(b){var t=M29_LINK;try{navigator.clipboard.writeText(t).then(function(){b.textContent="Copiado ✓"},function(){_m29Sel(b)})}catch(e){_m29Sel(b)}}
+function _m29Sel(b){var c=b.parentNode.querySelector("code"),r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selecciona y copia"}
+function m29Probar(){_m29G({perfil:"alumno",base:1,nombre:"",creado:new Date().toISOString().slice(0,10),prueba:1});_m29Recarga()}
+function m29Nombre(v){var a=_m29A();if(!a)return;a.nombre=String(v||"").trim().slice(0,40);_m29G(a);try{DB.userName=a.nombre;save()}catch(e){}try{toast("Nombre guardado")}catch(e){}_m29Aplica();m29Panel()}
+function m29FijaFecha(n,v){var a=_m29A();if(!a)return;a.fechas=a.fechas||{};if(v)a.fechas[n]=v;else delete a.fechas[n];_m29G(a)}
+function m29Cerrar(){var a=_m29A();if(!a)return;a.maestro=false;a.ganados={};_m29G(a);_m29Recarga()}
+function m29Completo(){var a=_m29A();if(!a||!a.maestro)return;_m29G(null);_m29Recarga()}
+function _m29Recarga(){try{location.reload()}catch(e){}}
+
+/* ── bienvenida del alumno nuevo ── */
+function m29Bienvenida(){var a=_m29A();
+  var h='<div class="m29"><div class="m29-lk"><span>🌱</span><div><b>Bienvenido a MYCELION</b><small>Modo primer año</small></div></div>'
+   +'<div class="m29-k"><p>Partes con el <b>1° semestre</b> abierto. Los siguientes se abren cuando avanzas: marcas las unidades estudiadas, lees los temas y repasas las tarjetas del semestre anterior. También pueden abrirse en una fecha o con una clave maestra.</p>'
+   +'<p>Las calculadoras, el glosario, los mapas mentales, el foco y tus flashcards están abiertos desde el primer día.</p></div>'
+   +'<div class="m29-k"><b>¿Cómo te llamas?</b><form class="m29-in" onsubmit="event.preventDefault();m29Nombre(this.n.value)"><input name="n" placeholder="Tu nombre" aria-label="Tu nombre"><button>Empezar</button></form></div></div>';
+  if(a){delete a.nuevo;_m29G(a)}
+  _m26T.tool="acceso";_m26Pinta("BIENVENIDA","Tu app de estudio",h)}
+
+/* ── conexiones ── */
+var _m29Obs=null;
+function _m29Marca(){if(!m29Alumno())return;
+  document.querySelectorAll('[onclick*="openRamoPanel(\'"],[onclick*="m24Abrir(\'"],.m26-ramos [onclick*="m26Abrir("]').forEach(function(b){
+    var m=b.getAttribute("onclick").match(/(?:openRamoPanel|m24Abrir)\('([^']+)'|m26Abrir\('[^']+','([^']+)'/);var rid=m&&(m[1]||m[2]);
+    if(rid&&rid.indexOf("DB.")<0)b.classList.toggle("m29-lock",!m29RamoAbierto(rid))})}
+window.addEventListener("load",function(){setTimeout(function(){
+  function w(n,f){var o=window[n];if(typeof o==="function")window[n]=f(o)}
+  w("openRamoPanel",function(o){return function(rid){if(rid&&!m29RamoAbierto(rid))return m29Candado(rid);return o.apply(this,arguments)}});
+  w("m24Abrir",function(o){return function(rid){if(rid&&!m29RamoAbierto(rid))return m29Candado(rid);return o.apply(this,arguments)}});
+  w("m26Abrir",function(o){return function(tool,rid){if(tool==="acceso")return m29Panel();if(rid&&rid!=="__todo"&&!m29RamoAbierto(rid))return m29Candado(rid);return o.apply(this,arguments)}});
+  w("_m24SemRamos",function(o){return function(){if(!m29Alumno())return o.apply(this,arguments);var s=MALLA.find(function(x){return x.sem===m29SemActual()});
+    return (s?s.ramos:[]).map(function(r){return {rid:r.id,c:"#9AA7B4",s:""}})}});
+  w("m24Mochila",function(o){return function(){var h=o.apply(this,arguments),a=_m29A(),al=a&&a.perfil==="alumno";
+    var row='<button class="m24-row" onclick="m29Panel()"><span class="ic">'+(al?(a.maestro?'🔓':'🌱'):'🔐')+'</span><span class="m"><b>Acceso y desbloqueo</b><small>'+(al?'Modo primer año · '+m29SemActual()+'° semestre':'Compartir con alumnos de primer año')+'</small></span><span class="a">›</span></button>';
+    var i=h.lastIndexOf('</div>');i=h.lastIndexOf('</div>',i-1);return h.slice(0,i)+row+h.slice(i)}});
+  if(m29Alumno()){_m29Marca();_m29Obs=new MutationObserver(function(){clearTimeout(_m29Obs.t);_m29Obs.t=setTimeout(_m29Marca,60)});_m29Obs.observe(document.body,{childList:true,subtree:true});
+    var a=_m29A();if(a&&a.nuevo)setTimeout(m29Bienvenida,600)}
+},1200)});
 
 </script>
 
