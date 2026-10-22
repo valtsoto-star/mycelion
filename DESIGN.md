@@ -1,4 +1,4 @@
-# MYCELION OS · Guía de diseño (v2.5)
+# MYCELION OS · Guía de diseño (v2.6)
 
 App de estudio offline para Ingeniería en Construcción (Duoc UC). Un solo HTML, datos en `localStorage`.
 Esta guía manda sobre cualquier estilo nuevo. Si algo nuevo no cabe aquí, primero se actualiza la guía.
@@ -62,8 +62,24 @@ Inspirado en interfaces de consola: limpio, oscuro o claro según el tema, con j
 - **Resultado:** rango por letra (S, A, B, C, D) según el % del XP máximo de la etapa, conteo animado de XP y logros.
 - **Notificaciones:** arriba, bajo el HUD, estilo “logro desbloqueado”; nunca sobre la barra de pestañas.
 
-## 6. Portada (Hoy) y bienvenida
-- Sin fotografía. Fondo en gradiente de la marca con red de hifas vectorial animada suavemente.
+## 6. Portada (Hoy) y fondo
+- Fondo de la app estilo iOS: degradados radiales suaves sobre el color base del tema, sin grilla ni foto.
+- Tarjeta principal con malla de color (`--m26-g1`, `--m26-g2`) y un edificio BIM isométrico dibujado en vector: ejes A–C y 1–3, losas, pilares y fachada vidriada. Texto siempre blanco sobre la malla oscura.
+- Bajo la clase siguiente, accesos rápidos de estudio: Repaso, Quiz, Plan y Más.
 
-## 7. Cómo se verifica
-Antes de publicar: capturas en `amarillo`, `light` y `dark` de Hoy, un ramo con figuras, el lobby de Evalúate, cada juego y el resultado; regresiones `t24`, `t20v24`, `t22`, `t23` sin errores.
+## 7. Estudio (pestaña nueva)
+- Reemplaza a “Mochila”. Arriba las herramientas; abajo tus materiales, consulta y ajustes.
+- **Repaso espaciado:** fichas de cada ramo con cajas Leitner (0, 1, 3, 7, 16 y 35 días). Guardado en `m26_srs`.
+- **Quiz rápido:** 10 preguntas del banco del ramo con explicación inmediata, sin vidas ni presupuesto. Los errores se guardan (`m26_err`) para repasarlos.
+- **Plan hacia la prueba:** reparte los temas no leídos entre hoy y la fecha de la prueba y deja el último día para repasar (`m26_plan`).
+- **Apuntes Feynman:** concepto, explicación simple y dónde te trabaste (`m26_notas`).
+- **Foco:** vive solo aquí; ya no aparece en los ramos ni en Hoy.
+
+## 8. Accesibilidad (contraste AA)
+- Meta: texto normal ≥ 4,5:1 y texto grande ≥ 3:1 en los 8 temas.
+- Los paneles de norma, pasos de ejercicio y tablas usan los tokens de superficie y texto del tema, nunca colores fijos.
+- La Bitácora en temas oscuros usa papel negro, tinta #F1F1F1 y acentos amarillos; los textos de las láminas llevan un halo del color del papel.
+- Una guardia (`m26Contraste`) revisa el texto al cambiar de tema o de vista y, si algo queda bajo el mínimo, lo acerca a blanco o negro. Compone fondos translúcidos y degradados, e ignora el fondo de un contenedor cuando el texto está posicionado fuera de él. Para excluir un elemento: clase `m26-skip`.
+
+## 9. Cómo se verifica
+Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas en `amarillo`, `celeste` y `dark` de Hoy, Estudio y sus herramientas, una norma y la Bitácora; regresiones `t24`, `t20v24`, `t22`, `t23` sin errores.
