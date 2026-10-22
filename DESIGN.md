@@ -95,4 +95,6 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 
 **Mapas mentales** (Estudio › 🕸️, `m28map.js`). Plantillas: en blanco, concepto, proceso, comparar y desde un ramo. Tres modos: Ideas (escribir, idea hija o hermana, tipo y color), Dibujar (trazo libre, borrador, deshacer) y Practicar (oculta todo menos la raíz; el estudiante recuerda y revela, recuperación activa). Exporta PNG. Guardado en `m28_mapas`.
 
-**Calculadoras** (`m28calc.js`). 52 calculadoras en 10 temas con burbuja "para qué / cómo funciona / qué calcula / supuestos" y una pestaña Cubicar obra (elementos → lista de materiales). Quedan detrás de `M28_CALC_ON` hasta aprobar el demo.
+**Calculadoras** (`m28calc.js`). 52 calculadoras en 10 temas con burbuja "para qué / cómo funciona / qué calcula / supuestos" y una pestaña Cubicar obra (elementos → lista de materiales). Activas desde el 22-10-2026 (`M28_CALC_ON=true`); la pestaña Fichas NCh conserva las 39 fórmulas anteriores.
+
+**Flashcards por semestre.** La lista se agrupa por semestre de la malla (el actual abierto) y los selectores de ramo usan grupos por semestre.

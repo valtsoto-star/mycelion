@@ -13633,6 +13633,24 @@ body .m27-rate{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8p
 .m28 .m28-tabs button{flex:1;border:0;border-radius:12px;padding:11px 8px;background:none;color:var(--text-2);font-weight:700;font-size:.9rem;text-align:center}
 .m28 .m28-tabs button[aria-selected="true"]{background:var(--text);color:var(--bg)}
 .m28 section[hidden]{display:none}
+/* flashcards por semestre */
+.m28fc{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.m28fc-sem{border:1px solid var(--line);border-radius:18px;background:var(--surface);overflow:hidden}
+.m28fc-sem summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
+.m28fc-sem summary::-webkit-details-marker{display:none}
+.m28fc-sem summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--text-2);border-bottom:2px solid var(--text-2);transform:rotate(45deg);margin-right:4px;transition:transform .2s}
+.m28fc-sem[open] summary::after{transform:rotate(225deg)}
+.m28fc-n{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font:800 1rem var(--font-display,system-ui)}
+.m28fc-t{flex:1;display:flex;flex-direction:column;min-width:0}
+.m28fc-t b{font:700 1rem var(--font-display,system-ui);color:var(--text)}
+.m28fc-t small{font-size:.8rem;color:var(--text-2)}
+.m28fc-r{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid var(--line)}
+.m28fc-r .ic{font-size:1.1rem}
+.m28fc-r .m{flex:1;min-width:0;display:flex;flex-direction:column}
+.m28fc-r .m b{font-weight:600;color:var(--text)}
+.m28fc-r .m small{font:.74rem var(--font-mono,monospace);color:var(--text-2)}
+body .m28fc-r .btn{flex:none;width:auto;margin:0;padding:8px 12px;font-size:.8rem}
+body .m28fc-add{width:34px;height:34px;border-radius:10px;background:var(--accent);color:var(--accent-ink);border:none;font-size:1.05rem;display:grid;place-items:center;cursor:pointer}
 
 /* ══ v2.8 · mapas mentales ══ */
 .m28m{display:flex;flex-direction:column;gap:12px}
@@ -23827,7 +23845,7 @@ function m28GBorrar(b,t){if(!b.classList.contains("conf")){b.classList.add("conf
   var k=_m28GK(t);DB.glossary=(DB.glossary||[]).filter(function(x){return _m28GK(x.t)!==k});try{save()}catch(e){}_m28G.cache=null;_m28G.abierto=null;m28GLista()}
 window.addEventListener("load",function(){setTimeout(function(){if(window.viewGlosario){window._m28GlosViejo=window.viewGlosario;window.viewGlosario=viewGlosarioM28}},1150)});
 
-var M28_CALC_ON=false;
+var M28_CALC_ON=true;
 /* ══ v2.8 · integración: calculadoras, mapas mentales y glosario ══ */
 (function(){
   if(window.M26_TOOLS&&!M26_TOOLS.some(function(t){return t[0]==="mapa"})){
@@ -23854,6 +23872,30 @@ window.addEventListener("load",function(){
     }
   },1100);
 });
+/* ══ v2.8 · flashcards separadas por semestre ══ */
+function _m28SemAct(){try{return +MYCELION_CONFIG.progreso.semestreActual||6}catch(e){return 6}}
+function _m28SemOpts(sel){var a=_m28SemAct();
+  return MALLA.map(function(s){return '<optgroup label="'+s.sem+'° Semestre'+(s.sem===a?' · actual':'')+' · '+_m28E(s.titulo)+'">'+s.ramos.map(function(r){return '<option value="'+r.id+'"'+(r.id===sel?' selected':'')+'>'+_m28E(r.nom)+'</option>'}).join("")+'</optgroup>'}).join("")}
+function _m28FCSem(){
+  var a=_m28SemAct(),h="",abierto=false;
+  MALLA.forEach(function(s){
+    var R=s.ramos.filter(function(r){return (DB.flashcards[r.id]||[]).length>0});if(!R.length)return;
+    var n=R.reduce(function(t,r){return t+DB.flashcards[r.id].length},0);
+    h+='<details class="m28fc-sem"'+(s.sem===a||!abierto?' open':'')+'><summary><span class="m28fc-n">'+s.sem+'°</span><span class="m28fc-t"><b>'+s.sem+'° Semestre'+(s.sem===a?' · actual':'')+'</b><small>'+_m28E(s.titulo)+' · '+n+' tarjeta'+(n>1?'s':'')+'</small></span></summary>'
+      +R.map(function(r){var c=DB.flashcards[r.id].length;return '<div class="m28fc-r"><span class="ic">'+(r.ic||"📚")+'</span><div class="m"><b>'+_m28E(r.nom)+'</b><small>'+c+' tarjetas</small></div><button class="btn ghost" onclick="startRepaso(\''+r.id+'\')">▶ Repasar</button><button class="m28fc-add" aria-label="Agregar tarjeta" onclick="openFCCreate(\''+r.id+'\')">+</button></div>'}).join("")+'</details>';
+    abierto=true;
+  });
+  return h;
+}
+window.addEventListener("load",function(){setTimeout(function(){
+  if(window.viewFlashcards){var _vf=window.viewFlashcards;window.viewFlashcards=function(){
+    var h=_vf.apply(this,arguments);
+    h=h.replace(/(<select id="fc-ramo-sel"[^>]*>\s*<option value="">[^<]*<\/option>)[\s\S]*?(<\/select>)/,function(m,a,b){return a+_m28SemOpts("")+b});
+    var i=h.indexOf('<div class="sec-title"><h3>Ramos con tarjetas'),j=h.indexOf('<div class="sec-title"><h3>Agregar a cualquier ramo');
+    if(i>0&&j>i){var g=_m28FCSem();if(g){var hd=h.slice(i,h.indexOf('</div></div></div>',i)+18);h=h.slice(0,i)+hd.replace("Ramos con tarjetas","Tarjetas por semestre")+'<div class="m28fc">'+g+'</div>'+h.slice(j)}}
+    return h}}
+  if(window.openFCCreate){var _oc=window.openFCCreate;window.openFCCreate=function(rid){var r=_oc.apply(this,arguments);var s=document.getElementById("fc-ramo-in");if(s)s.innerHTML='<option value="">— Sin ramo —</option>'+_m28SemOpts(rid||"");return r}}
+},1100)});
 
 </script>
 
