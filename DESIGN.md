@@ -88,3 +88,11 @@ Inspirado en interfaces de consola: limpio, oscuro o claro según el tema, con j
 
 ## 10. Cómo se verifica
 Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas en `amarillo`, `celeste` y `dark` de Hoy, Estudio y sus herramientas, una norma y la Bitácora; regresiones `t24`, `t20v24`, `t22`, `t23` sin errores.
+
+## 11. v2.8 · Glosario activo, mapas mentales y calculadoras
+
+**Glosario técnico** (`m28glos.js`, `glos28.js`). Une tres fuentes: 289 términos base (construcción, urbanismo OGUC/LGUC, NCh, hormigón, suelos, topografía, costos, prevención), los términos de las fichas de cada ramo y los términos propios del estudiante (`DB.glossary`, `mio:true`). Cada tarjeta se expande con fuente (enlace a bcn.cl para OGUC y LGUC), términos relacionados, "aparece en tus ramos" y "agregar a semejanzas". Pestaña Semejanzas: grupos guardados (`m28_glos`) que se comparan lado a lado y se convierten en mapa mental. Las citas de artículo que no se pudieron confirmar quedan a nivel de título a propósito.
+
+**Mapas mentales** (Estudio › 🕸️, `m28map.js`). Plantillas: en blanco, concepto, proceso, comparar y desde un ramo. Tres modos: Ideas (escribir, idea hija o hermana, tipo y color), Dibujar (trazo libre, borrador, deshacer) y Practicar (oculta todo menos la raíz; el estudiante recuerda y revela, recuperación activa). Exporta PNG. Guardado en `m28_mapas`.
+
+**Calculadoras** (`m28calc.js`). 52 calculadoras en 10 temas con burbuja "para qué / cómo funciona / qué calcula / supuestos" y una pestaña Cubicar obra (elementos → lista de materiales). Quedan detrás de `M28_CALC_ON` hasta aprobar el demo.
