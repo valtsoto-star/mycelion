@@ -1,4 +1,4 @@
-# MYCELION OS · Guía de diseño (v2.6)
+# MYCELION OS · Guía de diseño (v2.7)
 
 App de estudio offline para Ingeniería en Construcción (Duoc UC). Un solo HTML, datos en `localStorage`.
 Esta guía manda sobre cualquier estilo nuevo. Si algo nuevo no cabe aquí, primero se actualiza la guía.
@@ -69,17 +69,22 @@ Inspirado en interfaces de consola: limpio, oscuro o claro según el tema, con j
 
 ## 7. Estudio (pestaña nueva)
 - Reemplaza a “Mochila”. Arriba las herramientas; abajo tus materiales, consulta y ajustes.
-- **Repaso espaciado:** fichas de cada ramo con cajas Leitner (0, 1, 3, 7, 16 y 35 días). Guardado en `m26_srs`.
+- **Repaso espaciado (recuerdo activo):** cada tarjeta parte con una pregunta y un espacio para escribir lo que recuerdas antes de mirar. “Pistas” muestra la respuesta con los términos clave (normas, siglas, cifras con unidad) tapados para revelarlos de a uno. La respuesta se presenta por ideas numeradas, la primera como idea central, con los términos clave marcados, junto a lo que escribiste para comparar. Se califica con No lo sabía, Me costó, Lo sabía o Fácil (teclas 1 a 4; espacio voltea). Cajas Leitner de 0, 1, 3, 7, 16 y 35 días, guardadas en `m26_srs`.
 - **Quiz rápido:** 10 preguntas del banco del ramo con explicación inmediata, sin vidas ni presupuesto. Los errores se guardan (`m26_err`) para repasarlos.
 - **Plan hacia la prueba:** reparte los temas no leídos entre hoy y la fecha de la prueba y deja el último día para repasar (`m26_plan`).
 - **Apuntes Feynman:** concepto, explicación simple y dónde te trabaste (`m26_notas`).
 - **Foco:** vive solo aquí; ya no aparece en los ramos ni en Hoy.
 
-## 8. Accesibilidad (contraste AA)
+## 8. Sonido
+- Todo sintetizado con Web Audio, sin archivos: pings FM de cristal o sinapsis, un eco corto filtrado como “espacio neuronal” y un zumbido grave con batido lento al cerrar un bloque.
+- Suena en: navegación (toque muy suave), abrir herramienta, voltear tarjeta, revelar hueco, acierto y error, calificación, inicio y pausa del Foco, fin de bloque (acorde doble y vibración en el teléfono) y fin de pausa.
+- Se apaga en Estudio › App › Sonido o con el parlante de la hoja de Foco (`m27_snd`).
+
+## 9. Accesibilidad (contraste AA)
 - Meta: texto normal ≥ 4,5:1 y texto grande ≥ 3:1 en los 8 temas.
 - Los paneles de norma, pasos de ejercicio y tablas usan los tokens de superficie y texto del tema, nunca colores fijos.
 - La Bitácora en temas oscuros usa papel negro, tinta #F1F1F1 y acentos amarillos; los textos de las láminas llevan un halo del color del papel.
 - Una guardia (`m26Contraste`) revisa el texto al cambiar de tema o de vista y, si algo queda bajo el mínimo, lo acerca a blanco o negro. Compone fondos translúcidos y degradados, e ignora el fondo de un contenedor cuando el texto está posicionado fuera de él. Para excluir un elemento: clase `m26-skip`.
 
-## 9. Cómo se verifica
+## 10. Cómo se verifica
 Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas en `amarillo`, `celeste` y `dark` de Hoy, Estudio y sus herramientas, una norma y la Bitácora; regresiones `t24`, `t20v24`, `t22`, `t23` sin errores.

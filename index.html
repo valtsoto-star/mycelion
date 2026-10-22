@@ -3406,12 +3406,12 @@ body{background:var(--bg)!important;color:var(--text)!important}
   <div class="sbody">
     <!-- top -->
     <div style="display:flex;align-items:center;gap:10px">
-      <div id="lobby-av" class="ic-sobrio" style="width:38px;height:38px;font-size:1.1rem;flex:none">🪨</div>
+      <div id="lobby-av" class="ic-sobrio" style="width:38px;height:38px;font-size:1.1rem;flex:none">🧱</div>
       <div><div id="lobby-user" style="font-weight:700;font-size:.92rem"></div><div id="lobby-sub" style="font-size:.68rem;color:var(--text3);font-family:var(--mono)">Aprendiz · Hormigón</div></div>
     </div>
     <!-- HUD -->
     <div class="hud">
-      <div class="hud-ic" id="hud-ic">🪨<div class="hud-lv" id="hud-lv">1</div></div>
+      <div class="hud-ic" id="hud-ic">🧱<div class="hud-lv" id="hud-lv">1</div></div>
       <div class="hud-info">
         <div class="hud-nombre" id="hud-nombre">Aprendiz</div>
         <div class="hud-xp-row"><span id="hud-xp">0 XP</span><span id="hud-next">200 para subir</span></div>
@@ -3867,7 +3867,7 @@ const FICHAS = {
   },
   "yeso":{
     t:"Yeso",
-    ic:"🪨",
+    ic:"🧱",
     tag:"Regulador de fraguado",
     cuerpo:`El yeso (sulfato de calcio) es un pequeño porcentaje — alrededor de <b>3 a 5%</b> — que se muele junto con el {clinker} para fabricar el cemento. Parece un detalle menor, pero sin él el cemento sería inservible.
     <br><br>¿Qué hace? <b>Regula el fraguado.</b> El compuesto {c3s} y sobre todo el C₃A reaccionan con el agua tan rápido que, sin control, el cemento se endurecería en minutos (un "fraguado relámpago") y no daría tiempo de colocarlo. El yeso reacciona con el C₃A y forma una capa que <b>frena</b> esa reacción, dándote los <b>45 minutos a varias horas</b> de trabajabilidad que necesitas en obra.
@@ -3910,7 +3910,7 @@ const FICHAS = {
   },
   "aridos":{
     t:"Áridos",
-    ic:"🪨",
+    ic:"🧱",
     tag:"60-80% del hormigón",
     cuerpo:`Los áridos son las <b>partículas pétreas</b> — arena, gravilla y grava — que forman el <b>60 a 80% del volumen</b> del hormigón. Son el "esqueleto" que la pasta de cemento une mediante la {hidratacion}.
     <br><br>No son relleno barato: dan <b>resistencia, estabilidad de volumen y economía</b> (son más baratos que el cemento). Se clasifican por tamaño en finos (arena, 0,08-5 mm) y gruesos (&gt;5 mm). Su granulometría — la mezcla de tamaños — importa mucho: una buena combinación deja menos huecos y necesita menos pasta.
@@ -7247,14 +7247,14 @@ const MALLA=[
  ]},
  {sem:4,titulo:"Hormigón e Instalaciones",ramos:[
    {id:"planif-partidas",cod:"—",nom:"Planificación y Control de Partidas",ic:"📅",units:4},
-   {id:"taller-hormigon",cod:"SCK1104",nom:"Taller de Hormigón",ic:"🪨",units:5,hasEvaluate:true},
+   {id:"taller-hormigon",cod:"SCK1104",nom:"Taller de Hormigón",ic:"🧱",units:5,hasEvaluate:true},
    {id:"instal-domic",cod:"—",nom:"Taller de Instalaciones Domiciliarias",ic:"🔌",units:4},
  ]},
  {sem:5,titulo:"Gestión y Hormigón Avanzado",ramos:[
    {id:"prog-obras",cod:"—",nom:"Programación de Obras",ic:"📊",units:4},
    {id:"contab-constr",cod:"—",nom:"Contabilidad en la Construcción",ic:"🧾",units:4},
    {id:"obras-infra",cod:"—",nom:"Obras de Infraestructura",ic:"🛣️",units:5},
-   {id:"tec-hormigon",cod:"SCK1109",nom:"Tecnología del Hormigón",ic:"🪨",units:5,hasEvaluate:true},
+   {id:"tec-hormigon",cod:"SCK1109",nom:"Tecnología del Hormigón",ic:"🧱",units:5,hasEvaluate:true},
  ]},
  {sem:6,titulo:"Estructuras y BIM",ramos:[
    {id:"econ-eval",cod:"—",nom:"Economía y Evaluación de Proyectos",ic:"📈",units:4},
@@ -7648,7 +7648,7 @@ function viewMas(){
    FÓRMULAS NCh
    ════════════════════════════════════════════ */
 const FORMULAS_NCh=[
-  {id:"f1",cat:"🪨 Hormigón",nom:"Resistencia media requerida",
+  {id:"f1",cat:"🧱 Hormigón",nom:"Resistencia media requerida",
    formula:"fr = f'c + t · s",
    vars:[{s:"f'c",d:"Resistencia característica especificada (MPa)"},
          {s:"t",d:"Factor estadístico según fracción defectuosa (5%→1.645 / 10%→1.282)"},
@@ -7658,7 +7658,7 @@ const FORMULAS_NCh=[
    calc:true,
    inputs:[{id:"fc",label:"f'c (MPa)",def:25},{id:"t",label:"t (5%=1.645 / 10%=1.282)",def:1.282},{id:"s",label:"s — desv. estándar (MPa)",def:4}],
    expr:(v)=>`fr = ${v.fc} + ${v.t} × ${v.s} = ${(parseFloat(v.fc)+parseFloat(v.t)*parseFloat(v.s)).toFixed(2)} MPa`},
-  {id:"f2",cat:"🪨 Hormigón",nom:"Tamaño máximo árido",
+  {id:"f2",cat:"🧱 Hormigón",nom:"Tamaño máximo árido",
    formula:"TMA ≤ 3/4 × espacio libre entre barras",
    vars:[{s:"TMA",d:"Tamaño máximo árido (mm)"},
          {s:"e",d:"Espacio libre mínimo entre barras (mm)"}],
@@ -7666,7 +7666,7 @@ const FORMULAS_NCh=[
    calc:true,
    inputs:[{id:"e",label:"Espacio libre entre barras (mm)",def:35}],
    expr:(v)=>`TMA ≤ 3/4 × ${v.e} = ${(0.75*parseFloat(v.e)).toFixed(1)} mm`},
-  {id:"f3",cat:"🪨 Hormigón",nom:"Criterio aceptación individual",
+  {id:"f3",cat:"🧱 Hormigón",nom:"Criterio aceptación individual",
    formula:"f_ind ≥ 0,85 · f'c",
    vars:[{s:"f_ind",d:"Resistencia de probeta individual (MPa)"},
          {s:"f'c",d:"Grado especificado (MPa)"}],
@@ -8377,7 +8377,7 @@ const LOGROS_DEF=[
   {id:"month",ic:"🌕",nom:"Mes perfecto",desc:"30 días de racha",xp:500},
   {id:"cards50",ic:"🧠",nom:"Memorista",desc:"50 flashcards creadas",xp:150},
   {id:"sem1",ic:"1️⃣",nom:"Semestre 1",desc:"Todos los temas del 1° sem",xp:300},
-  {id:"tec_horm",ic:"🪨",nom:"Hormigonero",desc:"Taller de Hormigón completo",xp:400},
+  {id:"tec_horm",ic:"🧱",nom:"Hormigonero",desc:"Taller de Hormigón completo",xp:400},
   {id:"half",ic:"🏗️",nom:"A mitad de obra",desc:"50% de la malla completada",xp:500},
   {id:"backup",ic:"💾",nom:"Respaldo seguro",desc:"Exportaste un respaldo",xp:30},
   {id:"glosario10",ic:"📖",nom:"Glosario activo",desc:"10 términos en el glosario",xp:80},
@@ -9099,7 +9099,7 @@ function openRamoPanel(rid){
   // CTA especial para Hormigón
   if(r.hasEvaluate){
     bodyHTML+=`<div class="hormigon-cta" onclick="goToHormigon()">
-      <span class="hcta-icon">🪨</span>
+      <span class="hcta-icon">🧱</span>
       <div class="hcta-info">
         <div class="hcta-title">Ir al módulo de Hormigón</div>
         <div class="hcta-sub">3 Unidades completas con Evaluate · 6 minijuegos · NCh 170</div>
@@ -9938,7 +9938,7 @@ function openRamoPanel(rid){
     +(prox?'<div style="margin-top:10px;font-size:.8rem;color:var(--text-2)">Próxima: <b style="color:var(--text)">'+esc(prox.nom)+'</b> · <span style="color:'+_cColor(prox.fecha)+';font-weight:700">'+_cuenta(prox.fecha)+"</span></div>":"")
     +"</div>";
   if(r.hasEvaluate){
-    h+='<div class="hormigon-cta" onclick="goToHormigon()" style="margin:0 0 12px;padding:12px 14px"><span class="hcta-icon">🪨</span><div class="hcta-info"><div class="hcta-title">Módulo de Hormigón</div><div class="hcta-sub">3 unidades + Evalúate</div></div><span class="hcta-arr">→</span></div>';
+    h+='<div class="hormigon-cta" onclick="goToHormigon()" style="margin:0 0 12px;padding:12px 14px"><span class="hcta-icon">🧱</span><div class="hcta-info"><div class="hcta-title">Módulo de Hormigón</div><div class="hcta-sub">3 unidades + Evalúate</div></div><span class="hcta-arr">→</span></div>';
   }
   h+='<div class="rp-tools">'
     +'<button class="rp-tool" onclick="closeRamoPanel();nav(\'programacion\',\''+rid+'\')">🗓️ Programación</button>'
@@ -10206,8 +10206,8 @@ window.addEventListener("load",function(){
     {sem:1,titulo:"Planos y obra gruesa",ramos:[R("herr-dig","Herramientas Digitales","💻",4),R("interp-planos","Interpretación de Planos","📐",4),R("partidas-gruesa","Partidas de Obra Gruesa","🏗️",4),R("taller-gruesa","Taller de Obra Gruesa","⚒️",3),R("g-com-basica","Habilidades Básicas de Comunicación","💬",3,G),R("g-nivelacion","Nivelación Matemática","➕",3,G),R("g-formas","Formas y Espacio","📦",3,G)]},
     {sem:2,titulo:"Oficina técnica y terminaciones",ramos:[R("cubicacion","Cubicación","📏",4),R("dibujo-lectura","Dibujo y Lectura de Planos","📋",4),R("partidas-term","Partidas de Terminaciones","🪟",4),R("taller-term","Taller de Terminaciones","🔨",3),R("g-comunicacion","Habilidades de Comunicación Efectiva","💬",3,G),R("g-algebra","Álgebra","➗",4,G),R("ing-b1","Inglés Básico I","🌐",3,I)]},
     {sem:3,titulo:"Obras civiles y costos",ramos:[R("presup-costos","Presupuesto y Análisis de Costos","💰",5),R("obras-civiles","Obras Civiles","🏛️",4),R("estructuras","Estructuras","🔩",5),R("legisl-seg","Legislación y Seguridad","⚠️",4),R("topografia","Topografía","🗺️",4),R("g-emprend","Mentalidad Emprendedora","🚀",3,G),R("ing-b2","Inglés Básico II","🌐",3,I),R("g-antropo","Fundamentos de Antropología","🧠",3,G)]},
-    {sem:4,titulo:"Hormigón e instalaciones",ramos:[R("planif-partidas","Planificación y Control de Partidas","📅",4),R("taller-hormigon","Taller de Hormigón","🪨",5,{hasEvaluate:true}),R("instal-dom","Instalaciones Domiciliarias","🚿",4),R("instal-domic","Taller de Instalaciones Domiciliarias","🔌",4),R("ing-e1","Inglés Elemental I","🌐",3,I),R("g-etica-t","Ética para el Trabajo","⚖️",3,G),R("g-cristiana","Curso de Formación Cristiana","✝️",3,G)]},
-    {sem:5,titulo:"Programación y obras civiles",ramos:[R("prog-obras","Programación de Obras","📊",4),R("contab-constr","Contabilidad en la Construcción","🧾",4),R("obras-infra","Obras de Infraestructura","🛣️",5),R("tec-hormigon","Tecnología del Hormigón","🪨",5,{cod:"OCK5141",hasEvaluate:true}),R("g-calculo","Cálculo Diferencial","∫",4,G),R("ing-e2","Inglés Elemental II","🌐",3,I)]},
+    {sem:4,titulo:"Hormigón e instalaciones",ramos:[R("planif-partidas","Planificación y Control de Partidas","📅",4),R("taller-hormigon","Taller de Hormigón","🧱",5,{hasEvaluate:true}),R("instal-dom","Instalaciones Domiciliarias","🚿",4),R("instal-domic","Taller de Instalaciones Domiciliarias","🔌",4),R("ing-e1","Inglés Elemental I","🌐",3,I),R("g-etica-t","Ética para el Trabajo","⚖️",3,G),R("g-cristiana","Curso de Formación Cristiana","✝️",3,G)]},
+    {sem:5,titulo:"Programación y obras civiles",ramos:[R("prog-obras","Programación de Obras","📊",4),R("contab-constr","Contabilidad en la Construcción","🧾",4),R("obras-infra","Obras de Infraestructura","🛣️",5),R("tec-hormigon","Tecnología del Hormigón","🧱",5,{cod:"OCK5141",hasEvaluate:true}),R("g-calculo","Cálculo Diferencial","∫",4,G),R("ing-e2","Inglés Elemental II","🌐",3,I)]},
     {sem:6,titulo:"Dirección de obras y suelos",ramos:[R("econ-eval","Economía y Evaluación de Proyectos","📈",4),R("model-coord","Modelamiento y Coordinación de Proyectos","🏠",5),R("obras-viales","Obras Viales","🛤️",5),R("mec-suelos","Mecánica de Suelos","🌍",5),R("taller-suelos","Taller de Mecánica de Suelos","⚗️",3),R("analisis-estruct","Análisis Estructural","📐",5),R("g-estadistica","Estadística Descriptiva","📉",4,G),R("ing-int1","Inglés Intermedio I","🌐",3,I)]},
     {sem:7,titulo:"Propuestas, calidad y estructuras",ramos:[R("estudio-prop","Estudio de Propuestas","📋",5),R("gest-calidad","Gestión de Calidad","✅",4),R("gest-personas","Gestión de Personas","👥",4),R("constr-sust","Construcción Sustentable","🌱",4),R("admin-log","Administración y Logística de Obras","⚙️",5),R("taller-estruct","Taller de Estructuras","🔩",4),R("g-herr-emp","Herramientas para el Emprendimiento","🧰",3,G),R("ing-int2","Inglés Intermedio II","🌐",3,I),R("g-etica-p","Ética Profesional","⚖️",3,G)]},
     {sem:8,titulo:"Título",ramos:[R("portafolio","Portafolio de Título","🎓",3),R("practica","Práctica Profesional","🏆",3)]}
@@ -10455,7 +10455,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v2.6
+   MYCELION OS v2.7
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -11203,7 +11203,7 @@ var MS_FICHAS={
  "spt":{t:"SPT · Penetración estándar",ic:"🔨",tag:"NCh 3364 · ASTM D1586",cuerpo:"Se hinca una cuchara partida con un martillo de <b>63,5 kg</b> que cae <b>0,76 m</b>. Se cuentan los golpes en 3 tramos de 15 cm; el primero es de asentamiento y <b>N = tramo 2 + tramo 3</b>.<br><br>Hay rechazo con más de 50 golpes en un tramo, 100 en total o 10 golpes sin avance. N depende de la energía del martillo, por eso se corrige a {n60}. La muestra que sale es <b>alterada</b>: sirve para clasificar, no para resistencia.",rel:["n60","nch1508","granulares"],dato:"N = golpes de los dos últimos 15 cm."},
  "n60":{t:"N60 y (N60)1",ic:"⚙️",tag:"Correcciones del SPT",cuerpo:"<b>N60 = (Ef/60)·N</b> lleva el conteo a 60% de energía (martillo safety). Un Donut tiene ~45%, uno automático 95–100%.<br><br>Luego se normaliza por confinamiento: <b>(N60)1 = CN·N60</b> con CN = (σ'v/100 kPa)^−0,5 ≤ 1,7. El σ'v sale del {efectivo}. Con (N60)1 se estima el ángulo de fricción: φ' ≈ √(15,4·(N60)1) + 20° (Mayne).",rel:["spt","efectivo","rankine"],dato:"Más energía → menos golpes. Por eso se corrige."},
  "vs30":{t:"Vs30 · NCh 433",ic:"📡",tag:"Clasificación sísmica del sitio",cuerpo:"Es la velocidad de onda de corte promedio de los primeros 30 m: <b>Vs30 = Σhi / Σ(hi/Vsi)</b>. Se promedian <b>tiempos de viaje</b>, no velocidades.<br><br>Con Vs30 la NCh 433 asigna el tipo de suelo (A roca … E blando). Además G = ρ·Vs² es el módulo de corte a baja deformación.",rel:["nch1508","aluvial"],dato:"Un estrato blando delgado baja mucho el Vs30."},
- "rqd":{t:"RQD · calidad de roca",ic:"🪨",tag:"Testigos de sondaje",cuerpo:"En un sondaje rotatorio con recuperación de testigo se suman los trozos sanos mayores a 100 mm y se dividen por el largo de la corrida. <b>RQD &lt; 25% muy mala · 25–50 mala · 50–75 regular · 75–90 buena · &gt;90 excelente.</b>",rel:["nch1508"],dato:"RQD = Σ(trozos > 100 mm)/L × 100%."},
+ "rqd":{t:"RQD · calidad de roca",ic:"🧱",tag:"Testigos de sondaje",cuerpo:"En un sondaje rotatorio con recuperación de testigo se suman los trozos sanos mayores a 100 mm y se dividen por el largo de la corrida. <b>RQD &lt; 25% muy mala · 25–50 mala · 50–75 regular · 75–90 buena · &gt;90 excelente.</b>",rel:["nch1508"],dato:"RQD = Σ(trozos > 100 mm)/L × 100%."},
  "fases":{t:"Diagrama de fases",ic:"🧊",tag:"Sólido · agua · aire",cuerpo:"El suelo es un medio con tres fases. Se dibuja separando volúmenes (izquierda) y pesos (derecha): <b>Vt = Vs + Vw + Va</b> y <b>Wt = Ws + Ww</b> (el aire no pesa).<br><br>De ahí salen todas las relaciones: {vacios}, {saturacion}, humedad y pesos unitarios. Si no te dan volúmenes, asume <b>Vs = 1</b> y usa {gs}.",rel:["vacios","saturacion","gs"],dato:"Truco de prueba: Vs = 1 → Ws = Gs·γw."},
  "vacios":{t:"Relación de vacíos y porosidad",ic:"🕳️",tag:"e = Vv/Vs · n = Vv/Vt",cuerpo:"<b>e</b> compara los vacíos con los sólidos y puede ser mayor que 1; <b>n</b> los compara con el total y siempre está entre 0 y 1. Se pasan con <b>n = e/(1+e)</b>.<br><br>Con emáx y emín se calcula la <b>densidad relativa</b> Dr = (emáx − e)/(emáx − emín), clave en {granulares}.",rel:["fases","saturacion","granulares"],dato:"e > 1 → suelo muy deformable."},
  "saturacion":{t:"Grado de saturación",ic:"💧",tag:"Sr = Vw/Vv",cuerpo:"Dice qué parte de los vacíos tiene agua: 0% seco, 100% saturado. La relación que más se usa en prueba es <b>Sr·e = w·Gs</b>.<br><br>Bajo la napa el suelo está saturado y se usa γsat para el {efectivo}.",rel:["vacios","gs","efectivo"],dato:"Sr·e = w·Gs"},
@@ -11223,7 +11223,7 @@ var MS_FICHAS={
  "boussinesq":{t:"Boussinesq",ic:"🎯",tag:"Esfuerzos por cargas",cuerpo:"Calcula cuánto aumenta el esfuerzo vertical en profundidad por una carga en superficie. Puntual: Δσ = 3P/(2πz²)·[1+(r/z)²]^−5/2. Rectangular: <b>Δσ = q·I(m,n)</b> bajo la esquina, con m = B/z y n = L/z.<br><br>Para un punto interior se divide en rectángulos y se suma. Ese Δσ se suma al {efectivo} inicial.",rel:["efectivo","gancho-analisis"],dato:"Bajo 2B de profundidad el aumento ya es pequeño (bulbo de presiones)."},
  "rankine":{t:"Rankine",ic:"🧱",tag:"Empuje activo y pasivo",cuerpo:"Muro vertical liso y relleno horizontal. <b>Ka = tan²(45 − φ/2)</b>, <b>Kp = tan²(45 + φ/2)</b>. El empuje activo crece lineal: σ'a = Ka·σ'v − 2c√Ka y la resultante <b>Pa = ½·Ka·γ·H²</b> actúa a H/3.<br><br>Si hay agua detrás: γ' para el suelo y se suma el empuje del agua completo. Si hay roce muro-suelo usa {coulomb}.",rel:["coulomb","k0","drenaje","gancho-hormigon"],dato:"Ka < K0 < Kp"},
  "coulomb":{t:"Coulomb",ic:"📐",tag:"Cuña de falla con roce",cuerpo:"Supone una cuña plana que desliza detrás del muro y considera el roce muro-suelo δ, la inclinación del muro θ y la pendiente del relleno β. Con δ = θ = β = 0 coincide con {rankine}.<br><br>El roce baja Ka y el empuje queda inclinado δ respecto de la normal al muro.",rel:["rankine"],dato:"δ típico ≈ ⅔φ"},
- "gancho-hormigon":{t:"Tecnología del Hormigón",ic:"🪨",tag:"Otro ramo · 5° semestre",cuerpo:"El muro y la zapata que diseñas con empujes y esfuerzos se construyen en hormigón: grado, recubrimiento, curado. Toca abajo para abrir ese ramo.",rel:[],dato:"<span class=\"link\" onclick=\"closeMsPanel();mycRamoGo('tec-hormigon')\">Abrir Tecnología del Hormigón →</span>"},
+ "gancho-hormigon":{t:"Tecnología del Hormigón",ic:"🧱",tag:"Otro ramo · 5° semestre",cuerpo:"El muro y la zapata que diseñas con empujes y esfuerzos se construyen en hormigón: grado, recubrimiento, curado. Toca abajo para abrir ese ramo.",rel:[],dato:"<span class=\"link\" onclick=\"closeMsPanel();mycRamoGo('tec-hormigon')\">Abrir Tecnología del Hormigón →</span>"},
  "gancho-analisis":{t:"Análisis Estructural",ic:"📐",tag:"Otro ramo · este semestre",cuerpo:"Las cargas que bajan por la estructura son las q que reparte Boussinesq en el suelo.",rel:[],dato:"<span class=\"link\" onclick=\"closeMsPanel();mycRamoGo('analisis-estruct')\">Abrir Análisis Estructural →</span>"},
  "gancho-viales":{t:"Obras Viales",ic:"🛤️",tag:"Otro ramo",cuerpo:"La clasificación AASHTO y el índice de grupo deciden cómo se trata la subrasante de un camino.",rel:[],dato:"<span class=\"link\" onclick=\"closeMsPanel();mycRamoGo('obras-viales')\">Abrir Obras Viales →</span>"}
 };
@@ -13417,9 +13417,84 @@ body[data-theme="amarillo"] .m24-hero{background:radial-gradient(110% 80% at 0% 
 .bt-banner:not(.blue){background:#9A4A22!important;color:#FFFFFF!important}
 .demo-hint{opacity:1!important}
 body[data-theme=light] .m24-pass{background:color-mix(in srgb,var(--accent) 80%,#000)}
+
+/* ══ v2.7 · tarjetas de recuerdo activo, sonido, foco ══ */
+.m27-meta{display:flex;justify-content:space-between;align-items:center;margin:10px 0 12px;font:700 .72rem var(--font-mono);letter-spacing:.06em;color:var(--text-2);text-transform:uppercase}
+.m27-lv{display:flex;align-items:center;gap:8px}
+.m27-lv .nw{font:800 .62rem var(--font-mono);letter-spacing:.1em;padding:3px 8px;border-radius:99px;background:color-mix(in srgb,var(--accent) 18%,var(--surface));color:var(--text)}
+.m27-lv .d{display:flex;gap:4px}
+.m27-lv .d i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--text-2);display:block}
+.m27-lv .d i.on{background:var(--good,#1F9D55);border-color:var(--good,#1F9D55)}
+
+.m27-card{position:relative;display:flex;flex-direction:column;gap:16px;width:100%;max-width:640px;margin:0 auto;padding:22px 20px 20px;border-radius:26px;border:1px solid var(--line);background:var(--surface);color:var(--text);box-shadow:0 18px 40px -24px rgba(0,0,0,.35);overflow:hidden;animation:m27in .35s cubic-bezier(.2,.8,.2,1)}
+.m27-card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 40%,#7C5CFF),color-mix(in srgb,var(--accent) 30%,#22C3B5))}
+.m27-card *{min-width:0}
+.m27-top{display:flex;gap:14px;align-items:center}
+.m27-ic{flex:none;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.7rem;background:color-mix(in srgb,var(--accent) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line))}
+.m27-tt{display:flex;flex-direction:column;gap:4px;flex:1}
+.m27-tt small{font:800 .64rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.m27-tt b{font:700 1.35rem/1.2 var(--font-display,system-ui);color:var(--text);overflow-wrap:break-word}
+
+.m27-q{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;background:color-mix(in srgb,var(--accent) 9%,var(--surface));border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--line));font-size:1rem;line-height:1.45;color:var(--text)}
+.m27-q small{display:block;font:800 .62rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:3px}
+.m27-qi{font-size:1.3rem;line-height:1}
+.m27-in{width:100%;min-height:92px;resize:vertical;padding:14px;border-radius:16px;border:1.5px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:1rem;line-height:1.5}
+.m27-in:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+.m27-in::placeholder{color:var(--text-2)}
+
+.m27-cloze{padding:14px;border-radius:16px;background:var(--bg);border:1px solid var(--line);animation:m27in .3s ease}
+.m27-cloze small{display:block;font:800 .62rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:8px}
+.m27-cloze p{margin:0;font-size:1rem;line-height:2;color:var(--text);overflow-wrap:break-word}
+body .m27-gap{display:inline-flex;align-items:center;justify-content:center;min-width:var(--w);height:1.7em;padding:0 8px;margin:0 2px;vertical-align:baseline;border-radius:8px;border:1.5px dashed color-mix(in srgb,var(--accent) 70%,var(--text));background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--text-2);font:700 .78rem var(--font-mono);text-align:center;cursor:pointer;transition:transform .15s}
+body .m27-gap:hover{transform:translateY(-1px)}
+body .m27-gap.on{border-style:solid;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 24%,var(--surface));color:var(--text);font:700 .95rem inherit;animation:m27pop .35s ease}
+
+.m27-acts{display:flex;gap:10px}
+body .m27-hint,body .m27-show{min-height:52px;border-radius:16px;font:700 .95rem var(--font-display,system-ui);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;padding:0 16px}
+body .m27-hint{flex:0 0 auto;border:1.5px solid var(--line);background:var(--surface);color:var(--text)}
+body .m27-show{flex:1;border:0;background:var(--text);color:var(--bg)}
+.m27-show kbd,.m27-rate kbd{font:700 .62rem var(--font-mono);padding:2px 6px;border-radius:6px;border:1px solid currentColor;opacity:.75}
+@media (hover:none){.m27-show kbd,.m27-rate kbd{display:none}}
+
+.m27-tuya{padding:12px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
+.m27-tuya small,.m27-ans>small{display:block;font:800 .62rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px}
+.m27-tuya p{margin:0;font-size:.95rem;line-height:1.5;color:var(--text);white-space:pre-wrap;overflow-wrap:break-word}
+.m27-ans{animation:m27flip .45s cubic-bezier(.2,.8,.2,1);transform-origin:top}
+.m27-ans ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:p}
+.m27-ans li{counter-increment:p;position:relative;padding:2px 0 2px 38px;font-size:1rem;line-height:1.55;color:var(--text);overflow-wrap:break-word}
+.m27-ans li::before{content:counter(p);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:800 .74rem var(--font-mono);background:var(--bg);border:1.5px solid var(--line);color:var(--text)}
+.m27-ans li.c{padding:12px 14px 12px 50px;border-radius:16px;background:color-mix(in srgb,var(--accent) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));font-weight:600}
+.m27-ans li.c::before{left:12px;top:12px;background:var(--text);color:var(--bg);border-color:var(--text)}
+.m27-ans li.c em{display:block;font:800 .6rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;font-style:normal;color:var(--text-2);margin-bottom:3px}
+.m27-ans mark{background:color-mix(in srgb,var(--accent) 30%,transparent);color:inherit;padding:0 3px;border-radius:4px;font-weight:700}
+
+.m27-self{max-width:640px;margin:16px auto 8px;text-align:center;font-size:.92rem;color:var(--text-2)}
+.m27-rate{max-width:640px;margin:0 auto}
+body .m27-rate button{position:relative;min-height:66px;text-align:center}
+.m27-rate kbd{position:absolute;top:6px;right:6px}
+
+/* sonido */
+.m27-sw{width:44px;height:26px;border-radius:99px;background:var(--good,#1F9D55);position:relative;flex:none}
+.m27-sw::after{content:"";position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:right .2s}
+.m27-snd.off .m27-sw{background:color-mix(in srgb,var(--text) 25%,var(--surface))}
+.m27-snd.off .m27-sw::after{right:21px}
+.m27-snd .si{display:grid;place-items:center;color:var(--text)}
+body .m27-fsnd{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--text);display:grid;place-items:center;margin-left:auto;margin-right:8px}
+body .m27-fsnd.off{color:var(--text-2)}
+
+/* foco: botones redondos centrados */
+body .m24f-btns .sec{display:flex;align-items:center;justify-content:center;gap:4px;text-align:center;padding:0;color:var(--text)}
+
+@keyframes m27in{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes m27flip{from{opacity:0;transform:perspective(800px) rotateX(-14deg)}to{opacity:1;transform:none}}
+@keyframes m27pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.m27-card,.m27-ans,.m27-cloze,body .m27-gap.on{animation:none}}
+.m27-card{flex:none}
+body .m27-rate{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%}
+@media (max-width:560px){.m27-rate kbd,.m27-show kbd{display:none}}
 </style>
 <script>
-/* MYCELION OS v2.6 */
+/* MYCELION OS v2.7 */
 /* ══════════════════════════════════════════════════════
    MYCELION OS v2.0 · Parte A
    · Barra inferior que no tapa: se esconde con teclado, hojas abiertas y al bajar
@@ -15345,7 +15420,7 @@ MODS_DEF.push({
   "corte-basal":{t:"Corte basal (NCh 433)",ic:"🌎",tag:"Q0 = C·I·P",cuerpo:"Fuerza horizontal total que el sismo aplica en la base (método estático). <b>C</b> = coeficiente sísmico (depende de zona, suelo, período y factor R; acotado entre Cmín y Cmáx). <b>I</b> = importancia (1,0 en viviendas y oficinas; mayor en hospitales y escuelas). <b>P</b> = peso sísmico: cargas permanentes + al menos 25 % de la sobrecarga (50 % donde hay aglomeración).<br><br>Q0 se reparte en altura (más arriba = más fuerza) y lo resisten muros y {marco}s. Ver {deriva}.",rel:["deriva","sobrecarga","marco","software"],dato:"Método estático: edificios de hasta 5 pisos y 20 m."},
   "deriva":{t:"Deriva de entrepiso",ic:"↔️",tag:"≤ 0,002·h",cuerpo:"Desplazamiento horizontal relativo entre dos pisos consecutivos. La NCh 433 lo limita, medido en el centro de masas, a <b>0,002 veces la altura de entrepiso</b>: con h = 2,6 m, máximo 5,2 mm.<br><br>Controla el daño en tabiques, ventanas e instalaciones y es una de las primeras salidas que se revisan en el {software}. Ver {corte-basal}.",rel:["corte-basal","software"],dato:"h = 2,5 m → deriva máx 5 mm."},
   "software":{t:"Modelación en software",ic:"💻",tag:"Método de rigidez automatizado",cuerpo:"Programas como SAP2000, ETABS o Robot Structural Analysis arman la matriz de {rigidez} y resuelven miles de grados de libertad. El resultado vale lo que vale el modelo: apoyos, liberaciones (rótulas), materiales, secciones, cargas y combinaciones.<br><br><b>Chequeos mínimos</b>: suma de reacciones = suma de cargas; deformada coherente; un caso simple contra fórmula a mano (qL²/8, 5qL⁴/384EI); unidades; {deriva} dentro de norma.",rel:["rigidez","deriva","reacciones"],dato:"Si no lo puedes estimar a mano, no lo puedes revisar."},
-  "gancho-suelos":{t:"Mecánica de Suelos",ic:"🪨",tag:"Otro ramo",cuerpo:"Las reacciones que calculas en este ramo son las cargas que bajan por pilares y muros hasta las fundaciones. En Mecánica de Suelos se verifica que el suelo las resista (capacidad de soporte) y que no se asiente demasiado; además, los empujes de suelo sobre muros son cargas triangulares como las que resuelves aquí.",rel:[],dato:"Reacción de la estructura = carga sobre la fundación."},
+  "gancho-suelos":{t:"Mecánica de Suelos",ic:"🧱",tag:"Otro ramo",cuerpo:"Las reacciones que calculas en este ramo son las cargas que bajan por pilares y muros hasta las fundaciones. En Mecánica de Suelos se verifica que el suelo las resista (capacidad de soporte) y que no se asiente demasiado; además, los empujes de suelo sobre muros son cargas triangulares como las que resuelves aquí.",rel:[],dato:"Reacción de la estructura = carga sobre la fundación."},
   "gancho-hormigon":{t:"Tecnología del Hormigón",ic:"🧪",tag:"Otro ramo",cuerpo:"El diagrama de momento dice dónde va la tracción y, por lo tanto, la armadura; la resistencia f'c y el módulo E del hormigón entran en la rigidez EI y en las flechas. Descimbrar antes de tiempo deja una viga con poca resistencia y E bajo frente a cargas que ya calculaste: por eso el control del hormigón y el análisis estructural van juntos.",rel:[],dato:"Menos edad del hormigón = menos E = más flecha."}
  },
 
@@ -19803,7 +19878,7 @@ MODS_DEF.push({
   "comision":{t:"Preguntas de comisión",ic:"❓",tag:"La defensa",cuerpo:"Preguntas típicas: ¿qué hiciste tú exactamente?, ¿por qué elegiste esta evidencia?, ¿cómo verificaste el cálculo?, ¿qué harías distinto?, ¿qué competencia te falta?, ¿cómo lo aplicarías en obra?<br><br>Responde con un {star} breve, reconoce límites con honestidad y vuelve a la evidencia. Cuida la {autoria}: si algo no lo hiciste tú, dilo.",rel:["star","autoria","autoevaluacion","pitch"],dato:"“No lo sé, pero lo verificaría en…” es mejor que inventar."},
   "cv":{t:"CV de constructor",ic:"📄",tag:"Una página · logros con cifras",cuerpo:"Orden: contacto, perfil breve (2–3 líneas), formación, experiencia (práctica, trabajos en obra), competencias técnicas (software, ensayos, normas que manejas), proyectos destacados (tus evidencias), cursos y certificaciones.<br><br>Cada viñeta en formato {car}: verbo + qué + resultado. Sin datos sensibles innecesarios. Coherente con tu {linkedin} y bien escrito ({redaccion}).",rel:["car","linkedin","redaccion"],dato:"“Cubiqué losas de 3 pisos en Excel” dice más que “responsable y proactivo”."},
   "linkedin":{t:"LinkedIn del constructor",ic:"💼",tag:"Vitrina profesional",cuerpo:"Titular claro (“Estudiante de Ingeniería en Construcción · BIM · control de calidad”), extracto de 3–4 líneas con tu foco, experiencia con logros y proyectos con evidencia <b>autorizada</b> y anonimizada.<br><br>Nunca publiques planos, presupuestos o fotos con personas sin autorización ({datos-personales}). Debe coincidir con tu {cv}.",rel:["cv","datos-personales","car"],dato:"Lo que publicas lo ve tu próximo jefe… y también el actual."},
-  "gancho-suelos":{t:"Mecánica y Taller de Suelos",ic:"🪨",tag:"Otro ramo",cuerpo:"Los ensayos de laboratorio (granulometría, límites de Atterberg, densidad, clasificación SUCS) son evidencias de especialidad ideales: tienen datos medidos, cálculos verificables, fotos con escala y una conclusión técnica. Una planilla con su cierre de masas revisado y una foto de la calicata con jalón valen más que diez fotos sueltas del laboratorio.",rel:[],dato:"Ensayo + cálculo + conclusión = evidencia completa."},
+  "gancho-suelos":{t:"Mecánica y Taller de Suelos",ic:"🧱",tag:"Otro ramo",cuerpo:"Los ensayos de laboratorio (granulometría, límites de Atterberg, densidad, clasificación SUCS) son evidencias de especialidad ideales: tienen datos medidos, cálculos verificables, fotos con escala y una conclusión técnica. Una planilla con su cierre de masas revisado y una foto de la calicata con jalón valen más que diez fotos sueltas del laboratorio.",rel:[],dato:"Ensayo + cálculo + conclusión = evidencia completa."},
   "gancho-bim":{t:"Modelamiento y Coordinación BIM",ic:"🧊",tag:"Otro ramo",cuerpo:"Un modelo coordinado, un reporte de interferencias con sus soluciones o una tabla de cantidades extraída del modelo son evidencias fáciles de mostrar y de verificar en una defensa. Captura vistas con nivel y eje, declara qué parte modelaste tú y no publiques modelos de proyectos reales sin autorización.",rel:[],dato:"Vista con nivel, eje y fecha = evidencia BIM que se entiende sola."}
  },
 
@@ -21636,7 +21711,7 @@ function _m24Ls(k,d){try{var v=JSON.parse(localStorage.getItem(k)||"null");retur
 function _m24Sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function _m24Cnt(o){if(!o)return 0;if(Array.isArray(o))return o.length;return Object.keys(o).filter(function(k){return o[k]}).length}
 function _m24Nom(rid){var r=findRamo(rid);try{return CORTO[rid]||(r&&r.nom)||rid}catch(e){return (r&&r.nom)||rid}}
-function _m24Ic(rid){var M=typeof _modOf==="function"&&_modOf(rid);if(M&&M.ic)return M.ic;if(rid==="m26-OTK1101")return "🤖";if(rid==="mec-suelos")return "🌍";if(rid==="tec-hormigon"||rid==="taller-hormigon")return "🪨";var r=findRamo(rid);return (r&&r.ic)||"📚"}
+function _m24Ic(rid){var M=typeof _modOf==="function"&&_modOf(rid);if(M&&M.ic)return M.ic;if(rid==="m26-OTK1101")return "🤖";if(rid==="mec-suelos")return "🌍";if(rid==="tec-hormigon"||rid==="taller-hormigon")return "🧱";var r=findRamo(rid);return (r&&r.ic)||"📚"}
 
 /* ── Progreso de lectura por ramo ── */
 var _m24TotC={};
@@ -22338,6 +22413,181 @@ window.addEventListener("load",function(){
     m26ContrasteLuego(300);
   },950);
 });
+
+/* ══ v2.7 · tarjetas de recuerdo activo y sonido sintetizado ══ */
+
+/* — Sonido: Web Audio, todo sintetizado, sin archivos — */
+var M27S=(function(){
+  var ctx=null,out=null,esp=null;
+  function on(){try{return localStorage.getItem("m27_snd")!=="0"}catch(e){return true}}
+  function init(){
+    if(ctx)return ctx;
+    var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;
+    ctx=new AC();
+    var comp=ctx.createDynamicsCompressor();comp.threshold.value=-18;comp.ratio.value=4;comp.connect(ctx.destination);
+    out=ctx.createGain();out.gain.value=.55;out.connect(comp);
+    /* espacio: eco corto filtrado, da la cola "neuronal" */
+    esp=ctx.createGain();esp.gain.value=.32;
+    var d=ctx.createDelay(1);d.delayTime.value=.19;var fb=ctx.createGain();fb.gain.value=.38;var lp=ctx.createBiquadFilter();lp.type="lowpass";lp.frequency.value=2600;
+    esp.connect(d);d.connect(lp);lp.connect(fb);fb.connect(d);lp.connect(out);
+    return ctx;
+  }
+  function listo(){if(!on())return null;var c=init();if(!c)return null;if(c.state==="suspended")c.resume();return c}
+  /* ping FM: portadora sinusoidal con moduladora que decae, suena a cristal o sinapsis */
+  function ping(f,t,dur,vol,opt){
+    var c=ctx;opt=opt||{};
+    var o=c.createOscillator(),m=c.createOscillator(),mg=c.createGain(),g=c.createGain();
+    o.type=opt.tipo||"sine";o.frequency.setValueAtTime(f,t);if(opt.a)o.frequency.exponentialRampToValueAtTime(opt.a,t+dur*.8);
+    m.frequency.value=f*(opt.r||2.01);mg.gain.setValueAtTime(f*(opt.i==null?1.2:opt.i),t);mg.gain.exponentialRampToValueAtTime(1,t+dur*.6);
+    m.connect(mg);mg.connect(o.frequency);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+(opt.at||.008));g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g);g.connect(out);if(opt.esp!==false)g.connect(esp);
+    o.start(t);m.start(t);o.stop(t+dur+.05);m.stop(t+dur+.05);
+  }
+  /* zumbido grave con batido lento entre dos frecuencias */
+  function pulso(f,t,dur,vol){
+    var c=ctx,g=c.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.25);g.gain.exponentialRampToValueAtTime(.0001,t+dur);g.connect(out);
+    [f,f*1.027].forEach(function(x){var o=c.createOscillator();o.frequency.value=x;o.connect(g);o.start(t);o.stop(t+dur+.05)});
+  }
+  var S={
+    tap:function(){var c=listo();if(!c)return;ping(1480,c.currentTime,.07,.035,{i:.6,esp:false})},
+    abrir:function(){var c=listo();if(!c)return;var t=c.currentTime;ping(740,t,.16,.05,{a:1110,i:.8})},
+    voltear:function(){var c=listo();if(!c)return;var t=c.currentTime;ping(523,t,.22,.06,{a:1046,i:.5});ping(1568,t+.07,.18,.03,{i:.4})},
+    hueco:function(){var c=listo();if(!c)return;ping(1174,c.currentTime,.12,.045,{i:1.5})},
+    ok:function(){var c=listo();if(!c)return;var t=c.currentTime;ping(659,t,.28,.07);ping(988,t+.07,.34,.06)},
+    mal:function(){var c=listo();if(!c)return;var t=c.currentTime;ping(311,t,.32,.07,{a:233,i:2.2,r:1.41,esp:false})},
+    nota:function(q){var c=listo();if(!c)return;var t=c.currentTime;
+      if(q===0)return S.mal();
+      [[587],[659,880],[659,880,1175],[659,880,1175,1568]][q].forEach(function(f,k){ping(f,t+k*.065,.3,.055)})},
+    inicio:function(){var c=listo();if(!c)return;var t=c.currentTime;
+      ping(220,t,.55,.06,{a:880,i:.3,at:.05});[880,1175,1568].forEach(function(f,k){ping(f,t+.22+k*.09,.4,.05)})},
+    pausa:function(){var c=listo();if(!c)return;var t=c.currentTime;ping(784,t,.35,.055);ping(523,t+.12,.5,.05)},
+    finBloque:function(){var c=listo();if(!c)return;var t=c.currentTime;
+      pulso(110,t,1.8,.07);
+      [0,1].forEach(function(r){[523,659,784,1046].forEach(function(f,k){ping(f,t+r*.9+k*.085,.7,.075)})});
+      try{navigator.vibrate&&navigator.vibrate([180,90,180])}catch(e){}},
+    finPausa:function(){var c=listo();if(!c)return;var t=c.currentTime;
+      [0,1].forEach(function(r){ping(880,t+r*.5,.45,.06);ping(1320,t+r*.5+.1,.45,.05)});
+      try{navigator.vibrate&&navigator.vibrate(120)}catch(e){}},
+    logro:function(){var c=listo();if(!c)return;var t=c.currentTime;[523,659,784,1046,1318].forEach(function(f,k){ping(f,t+k*.075,.5,.055)})}
+  };
+  S.activo=on;
+  S.poner=function(v){try{localStorage.setItem("m27_snd",v?"1":"0")}catch(e){}if(v)S.ok()};
+  return S;
+})();
+function m27SonidoToggle(btn){M27S.poner(!M27S.activo());_m27SndBtns()}
+function _m27SndBtns(){document.querySelectorAll(".m27-snd").forEach(function(b){var a=M27S.activo();b.classList.toggle("off",!a);var s=b.querySelector("small");if(s)s.textContent=a?"Activado · sutil, sintetizado":"Silenciado";else b.setAttribute("aria-label",a?"Silenciar":"Activar sonido");var i=b.querySelector(".si");if(i)i.innerHTML=_m27Icono(a)})}
+function _m27Icono(a){return '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/>'+(a?'<path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>':'<path d="m22 9-6 6"/><path d="m16 9 6 6"/>')+'</svg>'}
+
+/* — Tarjetas: recuerdo activo — */
+function _m26Fichas(rid){
+  var o=null,p=window.MODS_RID&&MODS_RID[rid];
+  if(rid==="ing-int1"||rid==="ing-int2")p="en";
+  if(p&&MODS[p])o=MODS[p].fichas;
+  else if(rid==="mec-suelos"&&window.MS_FICHAS)o=MS_FICHAS;
+  else if((rid==="tec-hormigon"||rid==="taller-hormigon")&&window.FICHAS)o=FICHAS;
+  if(!o)return [];
+  return Object.keys(o).map(function(k){var f=o[k]||{};return {id:rid+":"+k,rid:rid,ic:f.ic||"",t:f.t||k,f:(f.ic?f.ic+" ":"")+(f.t||k),tag:f.tag||"",b:_m26Txt(f.cuerpo||f.d||"").replace(/([a-záéíóúñ)\]])\.(?=[A-ZÁÉÍÓÚ¿])/g,"$1. ").replace(/\{([\w-]+)\}/g,function(_,x){return o[x]&&o[x].t?o[x].t:x.toUpperCase()})}}).filter(function(c){return c.b});
+}
+/* términos clave: normas, siglas, cifras con unidad */
+var M27_KT=/(NCh\s?\d+(?:[.,]\d+)*(?:\s?Of\.?\s?\d+)?|ISO\s?\d+(?:-\d+)*|\b\d+(?:[.,]\d+)?\s?(?:%|mm|cm|m²|m³|kg\/m³|kg|kN|MPa|kPa|días|años|°C)(?![\w])|\b\d{2,}(?:[.,]\d+)?(?![\w])|\b[A-ZÁÉÍÓÚÑ]{2,}[A-ZÁÉÍÓÚÑ0-9\-]*\b)/g;
+function _m27Frases(t){
+  t=t.replace(/([a-záéíóúñ)])\.(?=[A-ZÁÉÍÓÚ¿])/g,"$1. ");
+  var P=t.split(/(?<=[.;!?])\s+(?=[A-ZÁÉÍÓÚÑ¿(“"0-9])/),R=[];
+  P.forEach(function(x){x=x.trim();if(!x)return;if(R.length&&x.length<28)R[R.length-1]+=" "+x;else R.push(x)});
+  return R;
+}
+function _m27Marca(t){
+  var h="",a=0;t.replace(M27_KT,function(m,_,i){h+=_m26Esc(t.slice(a,i))+'<mark>'+_m26Esc(m)+'</mark>';a=i+m.length;return m});
+  return h+_m26Esc(t.slice(a));
+}
+/* versión con huecos: hasta 6 términos clave, o palabras largas si faltan */
+function _m27Huecos(t){
+  var M=[],vistos={};t.replace(M27_KT,function(m,_,i){if(M.length<6&&!vistos[m]&&m.length>1){vistos[m]=1;M.push([i,m])}return m});
+  if(M.length<3){var re=/[A-Za-zÁÉÍÓÚáéíóúñÑ]{9,}/g,x,k=0;while((x=re.exec(t))&&M.length<5){if(k++%2===0&&!vistos[x[0]]){vistos[x[0]]=1;M.push([x.index,x[0]])}}M.sort(function(a,b){return a[0]-b[0]})}
+  var h="",a=0;
+  M.forEach(function(p,n){if(p[0]<a)return;h+=_m26Esc(t.slice(a,p[0]))+'<button class="m27-gap" style="--w:'+Math.max(3,Math.min(14,p[1].length))+'ch" onclick="m27Hueco(this)" data-t="'+_m26Esc(p[1])+'" aria-label="Revelar término '+(n+1)+'"><span>···</span></button>';a=p[0]+p[1].length});
+  return {html:h+_m26Esc(t.slice(a)),n:M.length};
+}
+function m27Hueco(b){if(b.classList.contains("on"))return;b.classList.add("on");b.textContent=b.getAttribute("data-t");M27S.hueco();var s=_m26S;if(s)s.gaps=(s.gaps||0)+1}
+var M27_PREG=["Explica con tus palabras qué es y para qué sirve.","¿Cómo se lo explicarías a un compañero de obra en dos frases?","Escribe tres ideas clave antes de mirar.","¿Dónde lo verías en una obra real? Descríbelo."];
+function _m27Hash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)}
+function m26SrsCarta(fase){
+  var s=_m26S,c=s.cola[s.i];if(!c)return m26SrsFin();
+  if(fase===true)fase="resp";
+  if(s.cid!==c.id){s.cid=c.id;s.txt="";s.gaps=0;s.fase="preg"}
+  if(fase)s.fase=fase;
+  var S=_m26Ls("m26_srs",{}),bx=S[c.id]?S[c.id].b:0;
+  var ic=c.ic,tt=c.t;if(!tt){var m=/^(\S+)\s(.+)$/.exec(c.f||"");ic=m&&!/[A-Za-z0-9]/.test(m[1])?m[1]:"";tt=m&&ic?m[2]:c.f}
+  var dots="";for(var k=1;k<=5;k++)dots+='<i class="'+(k<=bx?"on":"")+'"></i>';
+  var nuevo=!S[c.id];
+  var h='<div class="m26-prog"><i style="width:'+(s.i/s.tot*100)+'%"></i></div>'
+   +'<div class="m27-meta"><span>Tarjeta '+(s.i+1)+' de '+s.tot+'</span><span class="m27-lv" title="Nivel de memoria">'+(nuevo?'<b class="nw">Nueva</b>':'')+'<span class="d">'+dots+'</span></span></div>'
+   +'<article class="m27-card f-'+s.fase+'">'
+   +'<header class="m27-top"><span class="m27-ic">'+(ic||"💡")+'</span><span class="m27-tt"><small>'+_m26Esc(c.tag||"Concepto")+(s.rid==="__todo"?" · "+_m26Esc(_m26Nom(c.rid||c.id.split(":")[0])):"")+'</small><b>'+_m26Esc(tt)+'</b></span></header>';
+  if(s.fase!=="resp"){
+    h+='<div class="m27-q"><span class="m27-qi">🧠</span><span><small>Recuerdo activo</small>'+M27_PREG[_m27Hash(c.id)%M27_PREG.length]+'</span></div>'
+     +'<textarea class="m27-in" id="m27in" rows="3" placeholder="Escribe lo que recuerdes, aunque sea poco. Equivocarse aquí también fija la memoria." oninput="_m26S.txt=this.value">'+_m26Esc(s.txt||"")+'</textarea>';
+    if(s.fase==="pist"){var H=_m27Huecos(c.b);h+='<div class="m27-cloze"><small>Pistas · toca cada hueco cuando creas saberlo</small><p>'+H.html+'</p></div>'}
+    h+='<div class="m27-acts">'+(s.fase==="pist"?'':'<button class="m27-hint" onclick="M27S.abrir();m26SrsCarta(\'pist\')">💡 Pistas</button>')+'<button class="m27-show" onclick="M27S.voltear();m26SrsCarta(\'resp\')">Ver respuesta <kbd>espacio</kbd></button></div>';
+  }else{
+    var F=_m27Frases(c.b);
+    if(s.txt&&s.txt.trim())h+='<div class="m27-tuya"><small>Lo que escribiste</small><p>'+_m26Esc(s.txt.trim())+'</p></div>';
+    h+='<div class="m27-ans"><small>Respuesta</small><ol>'+F.map(function(f,k){return '<li'+(k===0?' class="c"':'')+'>'+(k===0&&F.length>1?'<em>Idea central</em>':'')+_m27Marca(f)+'</li>'}).join("")+'</ol></div>';
+  }
+  h+='</article>';
+  if(s.fase==="resp")h+='<p class="m27-self">Compara con lo que recordaste. ¿Qué tan bien te fue?</p><div class="m26-rate m27-rate">'
+    +'<button class="r0" onclick="m26SrsNota(0)"><b>No lo sabía</b><small>vuelve hoy</small><kbd>1</kbd></button>'
+    +'<button class="r1" onclick="m26SrsNota(1)"><b>Me costó</b><small>en '+M26_INT[Math.max(1,bx)]+' d</small><kbd>2</kbd></button>'
+    +'<button class="r2" onclick="m26SrsNota(2)"><b>Lo sabía</b><small>en '+M26_INT[Math.min(5,bx+1)]+' d</small><kbd>3</kbd></button>'
+    +'<button class="r3" onclick="m26SrsNota(3)"><b>Fácil</b><small>en '+M26_INT[Math.min(5,bx+2)]+' d</small><kbd>4</kbd></button></div>';
+  _m26Pinta("REPASO ESPACIADO",s.rid==="__todo"?"Todos los ramos":_m26Nom(s.rid),h);
+  if(s.fase==="preg"&&!fase&&window.matchMedia&&matchMedia("(hover:hover)").matches){var t=document.getElementById("m27in");if(t)try{t.focus({preventScroll:true})}catch(e){}}
+}
+/* atajos: espacio muestra la respuesta, 1 a 4 califican */
+document.addEventListener("keydown",function(e){
+  if(!document.body.classList.contains("m26-open")||!_m26S||_m26T.tool!=="tarjetas")return;
+  var tg=e.target&&e.target.tagName;if(tg==="TEXTAREA"||tg==="INPUT"){if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();M27S.voltear();m26SrsCarta("resp")}return}
+  if(!_m26S.cola[_m26S.i])return;
+  if((e.key===" "||e.key==="Enter")&&_m26S.fase!=="resp"){e.preventDefault();M27S.voltear();m26SrsCarta("resp")}
+  else if(_m26S.fase==="resp"&&/^[1-4]$/.test(e.key)){e.preventDefault();m26SrsNota(+e.key-1)}
+});
+
+window.addEventListener("load",function(){
+  setTimeout(function(){
+    /* sonido en las acciones de estudio */
+    var w=function(n,fn){var o=window[n];if(typeof o!=="function")return;window[n]=function(){var r=o.apply(this,arguments);try{fn.apply(this,[r].concat([].slice.call(arguments)))}catch(e){}return r}};
+    var _nota=window.m26SrsNota;
+    window.m26SrsNota=function(q){M27S.nota(q);return _nota.apply(this,arguments)};
+    w("m26SrsFin",function(){M27S.logro()});
+    w("m26QuizResp",function(){var x=document.querySelector("#m26exp .m26-exp");if(x)(x.classList.contains("ok")?M27S.ok:M27S.mal)()});
+    w("m26QuizFin",function(){M27S.logro()});
+    w("m26Abrir",function(){M27S.abrir()});
+    w("respD",function(r,i){var b=document.getElementById("do"+i);if(b)(b.classList.contains("ok")?M27S.ok:M27S.mal)()});
+    /* foco */
+    w("m24FocoToggle",function(){var s=_m24F();if(s.endAt)(s.mode==="foco"?M27S.inicio:M27S.tap)();else M27S.pausa()});
+    w("m24FocoPausaYa",function(){M27S.pausa()});
+    w("m24FocoReset",function(){M27S.tap()});
+    var _fin=window._m24Fin;
+    if(_fin)window._m24Fin=function(s){var era=s&&s.mode;var r=_fin.apply(this,arguments);(era==="foco"?M27S.finBloque:M27S.finPausa)();return r};
+    /* el reinicio del foco: ícono centrado y botón de sonido en la hoja */
+    w("m24FocoRender",_m27FocoUI);w("m24FocoOpen",_m27FocoUI);
+    /* Estudio: fila de sonido en la sección App */
+    var _mo=window.m24Mochila;
+    if(_mo)window.m24Mochila=function(){var h=_mo.apply(this,arguments);var a=M27S.activo();
+      var row='<button class="m24-row m27-snd'+(a?"":" off")+'" onclick="m27SonidoToggle(this)"><span class="ic si">'+_m27Icono(a)+'</span><span class="m"><b>Sonido</b><small>'+(a?"Activado · sutil, sintetizado":"Silenciado")+'</small></span><span class="a m27-sw"></span></button>';
+      var i=h.lastIndexOf('</div>');i=h.lastIndexOf('</div>',i-1);return h.slice(0,i)+row+h.slice(i)};
+    /* toques suaves al navegar */
+    document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".tab-btn,.m26-tile,.m26-quick button,.m24-row:not(.m27-snd)");if(b)M27S.tap()},true);
+  },1000);
+});
+function _m27FocoUI(){
+  var f=document.getElementById("m24-foco");if(!f)return;
+  var r=f.querySelector('.m24f-btns [onclick="m24FocoReset()"]');
+  if(r&&!r.querySelector("svg"))r.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>';
+  if(!f.querySelector(".m27-snd")){var x=f.querySelector('[onclick*="m24FocoClose"]');
+    if(x){var b=document.createElement("button");b.className="m27-snd m27-fsnd"+(M27S.activo()?"":" off");b.setAttribute("onclick","m27SonidoToggle(this)");b.innerHTML='<span class="si">'+_m27Icono(M27S.activo())+'</span>';b.setAttribute("aria-label",M27S.activo()?"Silenciar":"Activar sonido");x.parentNode.insertBefore(b,x)}}
+}
 
 </script>
 
