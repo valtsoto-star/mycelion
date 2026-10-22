@@ -10481,7 +10481,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v2.3
+   MYCELION OS v2.4
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -12844,9 +12844,203 @@ body[data-theme="amarillo"] .myc-modpane{background:var(--bg)!important}
 .md-herr table{width:100%;border-collapse:collapse;font-size:13px}
 .md-herr input,.md-herr select{font:inherit;font-size:16px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);max-width:100%}
 .md-herr button{font:inherit}
+
+/* ══ v2.4 · Expedición: cinco pestañas, Foco flotante, micelio desplegable ══ */
+body.m24 #ct-menuBtn,body.m24 #ct-drawer,body.m24 #ct-scrim{display:none!important}
+body.m24 #pane-malla .topbar .title{padding-left:6px}
+.m24{--r:18px;--m24-s:var(--surface);--m24-l:var(--line);display:flex;flex-direction:column;gap:12px;padding:4px 0 24px;max-width:640px;margin:0 auto}
+.m24 button{font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.m24 small{color:var(--text-3)}
+.m24-h{padding:6px 2px 2px}
+.m24-h .k{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;color:var(--text-3)}
+.m24-h h1{font-family:var(--font-display);font-size:1.9rem;line-height:1.05;letter-spacing:-.02em;margin:4px 0 0;text-wrap:balance}
+.m24-h p{font-size:.88rem;color:var(--text-2);margin:6px 0 0;max-width:46ch}
+.m24-sec{display:flex;align-items:baseline;justify-content:space-between;margin:10px 2px -2px}
+.m24-sec h2{font-family:var(--font-display);font-size:1.02rem;margin:0;letter-spacing:-.01em}
+.m24-sec button{border:0;background:none;color:var(--accent-2,var(--accent));font-size:.84rem;font-weight:600;padding:4px 0}
+.m24-sec .cnt{font-family:var(--font-mono);font-size:.74rem;color:var(--text-3)}
+/* tarjetas y listas */
+.m24-card,.m24-cta,.m24-row,.m24-ramo,.m24-empty{display:flex;align-items:center;gap:12px;width:100%;border:1px solid var(--m24-l);background:var(--m24-s);border-radius:var(--r);padding:14px;box-shadow:0 1px 0 rgba(0,0,0,.02);transition:transform .15s}
+.m24-card:active,.m24-cta:active,.m24-row:active,.m24-ramo:active{transform:scale(.985)}
+.m24-card .m,.m24-row .m,.m24-ramo .m,.m24-cta .m{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.m24-card .m b,.m24-row .m b,.m24-ramo .m b{font-size:.98rem;line-height:1.2}
+.m24-card .m span,.m24-card .m small{font-size:.8rem;color:var(--text-3)}
+.m24-card .ic,.m24-row .ic,.m24-ramo .ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);font-size:1.15rem}
+.m24-card .ic.big{width:46px;height:46px;font-size:1.4rem}
+.m24 .a{flex:none;color:var(--text-3);font-size:1.3rem;line-height:1}
+.m24-card.clase.now .ic{color:var(--good);animation:m24pul 1.6s ease-in-out infinite}
+.m24 .bar{display:block;height:5px;border-radius:5px;background:var(--surface-2);overflow:hidden;margin-top:7px}
+.m24 .bar i{display:block;height:100%;border-radius:5px;background:var(--cc,var(--accent));transition:width .6s}
+.m24-cta{background:var(--accent);color:var(--accent-ink,#fff);border-color:transparent;padding:16px}
+.m24-cta .i{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);font-size:1.3rem}
+.m24-cta .m b{font-size:1.05rem}.m24-cta .m small{color:inherit;opacity:.8}.m24-cta .a{color:inherit}
+.m24-list{display:flex;flex-direction:column;border:1px solid var(--m24-l);border-radius:var(--r);background:var(--m24-s);overflow:hidden}
+.m24-list>.m24-row,.m24-list>.m24-ramo{border:0;border-radius:0;box-shadow:none;background:none}
+.m24-list>*+*{border-top:1px solid var(--line-soft,var(--m24-l))!important}
+.m24-ramo .ic{background:color-mix(in srgb,var(--cc) 18%,var(--surface-2))}
+.m24-ramo .m small em{font-style:normal;color:var(--warn)}
+.m24-row.ev .d{flex:none;width:46px;height:46px;border-radius:12px;background:var(--surface-2);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-mono)}
+.m24-row.ev .d b{font-size:1.05rem;line-height:1}.m24-row.ev .d small{font-size:.56rem}
+.m24-row.ev .d.warm{background:color-mix(in srgb,var(--warn) 22%,var(--surface-2))}
+.m24-row.ev .d.hot{background:var(--danger);color:#fff}.m24-row.ev .d.hot small{color:#fff}
+.m24-empty{font-size:.86rem;color:var(--text-3);border-style:dashed;background:transparent;line-height:1.4}
+/* Hoy */
+.m24-hero{position:relative;border-radius:22px;overflow:hidden;min-height:200px;display:flex;align-items:flex-end;background:#05070b;color:#fff}
+.m24-hero .ph{position:absolute;inset:0;background:var(--myc-photo) 80% 0/auto 120% no-repeat;opacity:.9;animation:m24kb 24s ease-in-out infinite alternate}
+.m24-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,11,.05) 0%,rgba(5,7,11,.55) 52%,rgba(5,7,11,.92) 100%)}
+.m24-hero .tx{position:relative;z-index:1;padding:18px;width:100%}
+.m24-hero small{color:rgba(255,255,255,.72);font-size:.76rem}
+.m24-hero h1{font-family:var(--font-display);font-size:1.7rem;letter-spacing:-.02em;margin:2px 0 12px}
+.m24-hero .car{display:flex;align-items:center;gap:12px;font-size:.86rem}
+.m24-hero .car small{text-transform:none}
+.m24-hero .m24-ring .trk{stroke:rgba(255,255,255,.18)}.m24-hero .m24-ring .prg{stroke:var(--yel,#FFC20E)}
+.m24-ring .trk{stroke:var(--surface-2)}.m24-ring .prg{stroke:var(--accent);transition:stroke-dashoffset 1s}
+.m24-card.exp .dots{display:flex;gap:6px;margin-top:9px}
+.m24-card.exp .dots i{width:14px;height:14px;border-radius:50%;background:var(--cc);opacity:var(--p);box-shadow:0 0 0 3px color-mix(in srgb,var(--cc) 18%,transparent)}
+/* Ramos */
+.m24-det{border:1px solid var(--m24-l);border-radius:var(--r);background:var(--m24-s);margin-top:6px}
+.m24-det summary{list-style:none;padding:14px;font-weight:700;display:flex;flex-direction:column;cursor:pointer}
+.m24-det summary::-webkit-details-marker{display:none}
+.m24-det summary small{font-weight:400;font-size:.8rem}
+.m24-malla{padding:0 8px 8px}.m24-malla .view-head{display:none}
+/* Expedición */
+.m24-pass{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:var(--accent);color:var(--accent-ink,#fff)}
+.m24-pass .l{position:relative;width:64px;height:64px;flex:none}
+.m24-pass .l b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-mono);font-size:.9rem}
+.m24-pass .m24-ring .trk{stroke:rgba(255,255,255,.18)}.m24-pass .m24-ring .prg{stroke:currentColor}
+.m24-pass .m{display:flex;flex-direction:column;gap:2px}.m24-pass small{color:inherit;opacity:.7;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.m24-pass .m b{font-size:1.1rem}.m24-pass .m span{font-size:.8rem;opacity:.85}
+.m24-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.m24-stats div,.m24f-stat div{background:var(--m24-s);border:1px solid var(--m24-l);border-radius:14px;padding:10px 8px;text-align:center;display:flex;flex-direction:column}
+.m24-stats b,.m24f-stat b{font-family:var(--font-mono);font-size:1.15rem}.m24-stats span,.m24f-stat span{font-size:.68rem;color:var(--text-3)}
+.m24-trail{position:relative;display:flex;flex-direction:column;gap:10px;padding-left:22px}
+.m24-trail::before{content:"";position:absolute;left:9px;top:18px;bottom:18px;width:2px;background:repeating-linear-gradient(var(--line) 0 6px,transparent 6px 11px)}
+.camp{position:relative}
+.camp .camp-h{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:var(--r);border:1px solid var(--m24-l);background:var(--m24-s)}
+.camp .pin{position:absolute;left:-22px;top:13px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:.62rem;font-weight:800;background:var(--surface-2);border:2px solid var(--bg);color:var(--text-3)}
+.camp.done .pin{background:var(--good);color:#fff}
+.camp.cur .pin{background:var(--accent);color:var(--accent-ink,#fff);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent);animation:m24pul 2s ease-in-out infinite}
+.camp.lock{opacity:.62}
+.camp.cur .camp-h{border-color:var(--accent);border-width:1.5px}
+.camp .camp-h .m{flex:1;min-width:0;display:flex;flex-direction:column}
+.camp .camp-h small{font-size:.7rem}.camp .camp-h b{font-size:.96rem}
+.camp .camp-h .p{font-family:var(--font-mono);font-size:.78rem;color:var(--text-3)}
+.camp .chev{color:var(--text-3);transition:transform .3s}.camp.open .chev{transform:rotate(90deg)}
+.camp-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.22,1,.36,1)}
+.camp.open .camp-b{grid-template-rows:1fr}
+.camp-in{overflow:hidden;display:flex;flex-direction:column;gap:6px;padding-left:10px}
+.camp.open .camp-in{padding-top:8px}
+.m24-hifas{width:100%;height:auto;display:block;margin:2px 0 4px}
+.m24-hifas .hifa{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.camp.open .m24-hifas .hifa{animation:m24draw 1.2s cubic-bezier(.22,1,.36,1) var(--d) forwards}
+.m24-hifas .nodo{opacity:0;transform-box:fill-box;transform-origin:center;cursor:pointer}
+.camp.open .m24-hifas .nodo{animation:m24pop .5s cubic-bezier(.34,1.56,.64,1) var(--d) forwards}
+.m24-hifas .core{fill:var(--accent)}.m24-hifas text{fill:var(--accent-ink,#fff);font:700 9px var(--font-mono)}
+.hifa-r{position:relative;border-left:2px solid color-mix(in srgb,var(--cc) 60%,transparent);margin-left:2px;padding-left:10px}
+.hifa-r::before{content:"";position:absolute;left:-2px;top:22px;width:10px;height:2px;background:color-mix(in srgb,var(--cc) 60%,transparent)}
+.hr-h{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:8px 2px}
+.hr-h .ic{width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--cc) 18%,var(--surface-2))}
+.hr-h .m{flex:1;min-width:0}.hr-h .m b{font-size:.9rem;font-weight:600;display:block}
+.hr-h .bar{margin-top:5px}
+.hr-h .p{font-family:var(--font-mono);font-size:.74rem;color:var(--text-3);min-width:34px;text-align:right}
+.hr-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.22,1,.36,1)}
+.hifa-r.open .hr-b{grid-template-rows:1fr}
+.hr-in{overflow:hidden;padding-left:44px}
+.hifa-r.open .hr-in{padding-bottom:10px}
+.spores{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 6px}
+.spores i{width:9px;height:9px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line)}
+.spores i.on{background:var(--cc);border-color:var(--cc)}
+.hifa-r.open .spores i{animation:m24pop .4s cubic-bezier(.34,1.56,.64,1) both}
+.hr-in .note{display:block;font-size:.76rem;margin-bottom:8px}
+.hr-in .acts{display:flex;flex-wrap:wrap;gap:6px}
+.hr-in .acts button{border:1px solid var(--m24-l);background:var(--m24-s);border-radius:999px;padding:7px 12px;font-size:.8rem;font-weight:600}
+.hr-in .acts button:first-child{background:var(--accent);color:var(--accent-ink,#fff);border-color:transparent}
+.m24-sellos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.m24-sellos button{aspect-ratio:1;border-radius:50%;border:1.5px dashed var(--line);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px;text-align:center}
+.m24-sellos button span{font-size:1.3rem;line-height:1;filter:grayscale(1);opacity:.3}
+.m24-sellos button.on span{filter:none;opacity:1}
+.m24-sellos button small{font-size:.54rem;line-height:1.15}
+.m24-sellos button.on{border-style:solid;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface));transform:rotate(-6deg)}
+/* Semana */
+.m24.semx{margin-top:14px}
+.m24-salas{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.m24-salas div{border:1px solid var(--m24-l);border-left:4px solid var(--cc);background:var(--m24-s);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;min-width:0}
+.m24-salas b{font-family:var(--font-mono);font-size:.92rem}.m24-salas small{font-size:.72rem}
+/* barra de foco en cada ramo */
+.m24-fbar{display:flex;align-items:center;gap:10px;width:100%;margin:0 0 12px;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;font-weight:600;cursor:pointer;text-align:left}
+.m24-fbar .i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink,#fff);font-size:.9rem;flex:none}
+.m24-fbar .t{flex:1;font-family:var(--font-mono);font-size:.84rem}
+.m24-fbar .a{color:var(--text-3);font-size:1.2rem}
+.m24-fbar.run{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.m24-fbar.run .i{animation:m24pul 1.6s ease-in-out infinite}
+/* hoja de Foco */
+#m24-scrim{position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.42);opacity:0;pointer-events:none;transition:opacity .25s}
+#m24-scrim.on{opacity:1;pointer-events:auto}
+#m24-foco{position:fixed;left:0;right:0;bottom:0;z-index:9991;max-height:92dvh;overflow:auto;background:var(--bg);color:var(--text);border-radius:26px 26px 0 0;padding:8px max(16px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-right,0px));transform:translateY(105%);transition:transform .4s cubic-bezier(.22,1,.36,1);box-shadow:0 -20px 60px rgba(0,0,0,.3)}
+#m24-foco{visibility:hidden}#m24-foco.on{transform:none;visibility:visible}
+#m24-foco .grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 8px}
+#m24-foco .hd{display:flex;align-items:center;justify-content:space-between;max-width:520px;margin:0 auto}
+#m24-foco .hd b{font-family:var(--font-display);font-size:1.25rem}
+#m24-foco .hd button{width:34px;height:34px;border-radius:50%;border:0;background:var(--surface-2);color:var(--text);font-size:.9rem;cursor:pointer}
+#m24fBody{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+#m24fBody button{font:inherit;cursor:pointer;color:var(--text)}
+#m24fBody .m24f-btns .pri,#m24fBody .m24f-ramos button.on{color:var(--accent-ink,#fff)}
+body[data-theme="amarillo"] #m24fBody .m24f-btns .pri,body[data-theme="amarillo"] #m24fBody .m24f-ramos button.on{color:#FFC20E}
+.m24f-ramos{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}
+.m24f-ramos::-webkit-scrollbar{display:none}
+.m24f-ramos button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 12px;font-size:.8rem;white-space:nowrap}
+.m24f-ramos button.on{background:var(--accent);color:var(--accent-ink,#fff);border-color:transparent}
+.m24f-ring{position:relative;width:min(240px,64vw);aspect-ratio:1;margin:4px auto 0}
+.m24f-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.m24f-ring circle{fill:none;stroke-width:10}.m24f-ring .trk{stroke:var(--surface-2)}
+.m24f-ring .prg{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.m24f-ring.pausa .prg{stroke:var(--good)}
+.m24f-ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.m24f-ring .c small{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.m24f-ring .c b{font-family:var(--font-mono);font-size:3rem;letter-spacing:-.03em;font-weight:700}
+.m24f-ring .c span{font-size:.72rem;color:var(--text-3)}
+.m24f-btns{display:flex;gap:10px;justify-content:center;align-items:center}
+.m24f-btns .pri{flex:1;max-width:220px;height:54px;border-radius:999px;border:0;background:var(--accent);color:var(--accent-ink,#fff);font-weight:800;font-size:1.05rem}
+.m24f-btns .sec{width:54px;height:54px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:.9rem;font-weight:700}
+.m24f-sec{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-top:4px}
+.m24f-pre{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.m24f-pre button{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px;display:flex;flex-direction:column;align-items:center}
+.m24f-pre button b{font-family:var(--font-mono);font-size:1.2rem}.m24f-pre button small{font-size:.66rem;color:var(--text-3)}
+.m24f-pre button.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.m24f-aj{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.m24f-aj div{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:8px 10px}
+.m24f-aj span{font-size:.74rem;color:var(--text-3);flex:1}
+.m24f-aj b{font-family:var(--font-mono);font-size:.84rem;min-width:50px;text-align:center}
+.m24f-aj button{width:30px;height:30px;border-radius:50%;border:0;background:var(--surface-2);font-size:1rem;font-weight:700}
+.m24f-stat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+/* reloj flotante */
+#m24-pill{position:fixed;z-index:9980;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 94px);display:flex;align-items:center;gap:7px;padding:8px 14px 8px 10px;border-radius:999px;border:0;background:var(--accent);color:var(--accent-ink,#fff);font:inherit;box-shadow:0 10px 30px rgba(0,0,0,.28);transform:translateY(20px) scale(.9);opacity:0;pointer-events:none;transition:.3s cubic-bezier(.22,1,.36,1);cursor:pointer}
+#m24-pill.on{opacity:1;transform:none;pointer-events:auto}
+#m24-pill i{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.5}
+#m24-pill.run i{opacity:1;animation:m24pul 1.4s ease-in-out infinite}
+#m24-pill.pausa{background:var(--good);color:#fff}
+#m24-pill b{font-family:var(--font-mono);font-size:.95rem}#m24-pill small{font-size:.7rem;color:inherit;opacity:.8}
+body.bt-open #m24-pill,body.kb-open #m24-pill{display:none}
+/* barra inferior de cinco pestañas */
+#master-tabs.m24-tabs .tab-btn{flex:1;min-width:0}
+#master-tabs.m24-tabs .tab-lbl{font-size:.6rem;letter-spacing:0}
+/* tema amarillo: acento negro con tinta amarilla */
+body[data-theme="amarillo"] .m24-cta,body[data-theme="amarillo"] .m24-pass,body[data-theme="amarillo"] #m24-pill:not(.pausa){color:#FFC20E}
+body[data-theme="amarillo"] .m24-fbar .i,body[data-theme="amarillo"] .hr-in .acts button:first-child,body[data-theme="amarillo"] .m24f-btns .pri,body[data-theme="amarillo"] .m24f-ramos button.on{color:#FFC20E}
+body[data-theme="amarillo"] .m24-hifas text{fill:#FFC20E}
+body[data-theme="amarillo"] .camp.cur .pin{color:#FFC20E}
+@keyframes m24pul{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes m24draw{to{stroke-dashoffset:0}}
+@keyframes m24pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+@keyframes m24kb{from{transform:scale(1)}to{transform:scale(1.08) translateX(-2%)}}
+@media (prefers-reduced-motion:reduce){.m24 *,#m24-foco,#m24-pill{animation:none!important;transition:none!important}.m24-hifas .hifa{stroke-dashoffset:0}.m24-hifas .nodo{opacity:1}}
+
+body.m24 .hgrid-hero{display:none}
+.m24f-btns .pri{text-align:center}
+body:has(#m24-foco.on) #master-tabs{transform:translateY(115%)!important;opacity:0;pointer-events:none}
 </style>
 <script>
-/* MYCELION OS v2.3 */
+/* MYCELION OS v2.4 */
 /* ══════════════════════════════════════════════════════
    MYCELION OS v2.0 · Parte A
    · Barra inferior que no tapa: se esconde con teclado, hojas abiertas y al bajar
@@ -21051,6 +21245,295 @@ function _mdActivo(){var a=document.querySelector(".myc-modpane.active");return 
     },760);
   });
   document.addEventListener("keydown",function(e){if(e.key==="Escape")closeMdPanel()});
+})();
+
+/* ══════════════════════════════════════════════════════
+   v2.4 · Expedición
+   Cinco pestañas (Hoy, Ramos, Expedición, Semana, Mochila),
+   Foco flotante con pausas y el micelio desplegable de la carrera.
+   ══════════════════════════════════════════════════════ */
+var M24_EXTRA=["tec-hormigon","m26-OTK1101"];
+function _m24Ls(k,d){try{var v=JSON.parse(localStorage.getItem(k)||"null");return v==null?d:v}catch(e){return d}}
+function _m24Sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function _m24Cnt(o){if(!o)return 0;if(Array.isArray(o))return o.length;return Object.keys(o).filter(function(k){return o[k]}).length}
+function _m24Nom(rid){var r=findRamo(rid);try{return CORTO[rid]||(r&&r.nom)||rid}catch(e){return (r&&r.nom)||rid}}
+function _m24Ic(rid){var M=typeof _modOf==="function"&&_modOf(rid);if(M&&M.ic)return M.ic;if(rid==="m26-OTK1101")return "🤖";if(rid==="mec-suelos")return "🌍";if(rid==="tec-hormigon"||rid==="taller-hormigon")return "🪨";var r=findRamo(rid);return (r&&r.ic)||"📚"}
+
+/* ── Progreso de lectura por ramo ── */
+var _m24TotC={};
+function _m24Tot(p){
+  if(_m24TotC[p])return _m24TotC[p];
+  var M=MODS[p],n=0;if(!M)return 0;
+  var v=document.getElementById("view-"+p);
+  if(v)n=v.querySelectorAll(".topic").length;
+  else{_MODCUR=p;try{var h=M.unidades();n=(h.match(new RegExp('class="topic" id="'+p+'-','g'))||[]).length}catch(e){}_MODCUR="ia"}
+  return (_m24TotC[p]=n||14);
+}
+function m24Prog(rid){
+  var p=typeof MODS_RID!=="undefined"&&MODS_RID[rid];
+  if(p)return {d:_m24Cnt(_m24Ls(p+"_leidos",{})),t:_m24Tot(p)};
+  if(rid==="m26-OTK1101")return {d:_m24Cnt(_m24Ls("ia_leidos",{})),t:(typeof IA_TOPICS!=="undefined"&&IA_TOPICS.length)||15};
+  if(rid==="mec-suelos")return {d:_m24Cnt(_m24Ls("ms_leidos",{})),t:document.querySelectorAll("#view-ms .topic").length||14};
+  if(rid==="tec-hormigon"||rid==="taller-hormigon")return {d:_m24Cnt(_m24Ls("hormigon_leidos_v1",{})),t:document.querySelectorAll("#pane-hormigon .topic").length||12};
+  var r=findRamo(rid);return {d:countDone(rid),t:(r&&r.units)||4};
+}
+function _m24Pct(rid){var p=m24Prog(rid);return p.t?Math.min(100,Math.round(p.d/p.t*100)):0}
+function _m24SemRamos(){var out=[];try{out=_ramosSemestre().map(function(x){return {rid:x.rid,c:x.c.color,s:x.c.sigla}})}catch(e){}
+  M24_EXTRA.forEach(function(rid){if(findRamo(rid)&&!out.some(function(x){return x.rid===rid}))out.push({rid:rid,c:rid==="m26-OTK1101"?"#7C8CFF":"#9AA7B4",s:"",extra:1})});return out}
+
+/* ── Abrir un ramo: siempre el módulo de estudio ── */
+function m24Abrir(rid){DB.lastRamo=rid;try{save()}catch(e){}mycRamoTab()}
+
+/* ══════════ FOCO ══════════ */
+var M24_PRE=[[25,5],[50,10],[15,3]],_m24FS=null;
+function _m24F(){var s=_m24Ls("myc_foco2",null);if(!s)s={foco:25,pausa:5,mode:"foco",endAt:0,left:1500,ramo:"",ciclos:0};return s}
+function _m24FSv(s){_m24Sv("myc_foco2",s)}
+function _m24Dur(s){return (s.mode==="foco"?s.foco:s.pausa)*60}
+function _m24Rem(s){return s.endAt?Math.max(0,Math.round((s.endAt-Date.now())/1000)):s.left}
+function _m24Fmt(t){return String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0")}
+function _m24Hoy(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function _m24Log(m,ramo){var L=_m24Ls("myc_foco_log",{}),k=_m24Hoy();L[k]=L[k]||{min:0,ses:0,ramos:{}};L[k].min+=m;L[k].ses++;if(ramo)L[k].ramos[ramo]=(L[k].ramos[ramo]||0)+m;_m24Sv("myc_foco_log",L)}
+function m24FocoMinSemana(){var L=_m24Ls("myc_foco_log",{}),t=0;for(var i=0;i<7;i++){var k=_m24Hoy(new Date(Date.now()-i*864e5));if(L[k])t+=L[k].min}return t}
+function _m24Aviso(m){try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}try{toast(m,3200)}catch(e){}}
+function _m24Fin(s){
+  if(s.mode==="foco"){_m24Log(s.foco,s.ramo);try{markStreak()}catch(e){}s.ciclos=(s.ciclos||0)+1;_m24Aviso("✅ Bloque de foco listo. Pausa de "+s.pausa+" min.");s.mode="pausa";s.left=s.pausa*60;s.endAt=Date.now()+s.left*1000}
+  else{_m24Aviso("⏱️ Pausa terminada. Cuando quieras, sigue con el próximo bloque.");s.mode="foco";s.left=s.foco*60;s.endAt=0}
+  _m24FSv(s);
+}
+function _m24Activo(s){return !!s.endAt||s.left<_m24Dur(s)||s.mode==="pausa"}
+function m24FocoTick(){
+  var s=_m24F();
+  if(s.endAt&&Date.now()>=s.endAt){_m24Fin(s);s=_m24F()}
+  var r=_m24Rem(s),tot=_m24Dur(s),act=_m24Activo(s),t=_m24Fmt(r);
+  var pill=document.getElementById("m24-pill");
+  if(pill){pill.classList.toggle("on",act&&!document.getElementById("m24-foco").classList.contains("on"));pill.classList.toggle("pausa",s.mode==="pausa");pill.classList.toggle("run",!!s.endAt);
+    pill.querySelector("b").textContent=t;pill.querySelector("small").textContent=s.mode==="foco"?(s.endAt?"Foco":"En pausa"):"Pausa"}
+  var el=document.getElementById("m24fT");
+  if(el){el.textContent=t;
+    var C=2*Math.PI*104,pr=document.getElementById("m24fPrg");if(pr)pr.style.strokeDashoffset=String(C*(1-r/tot));
+    var md=document.getElementById("m24fMode");if(md)md.textContent=s.mode==="foco"?"Foco":"Pausa";
+    var ring=document.getElementById("m24fRing");if(ring)ring.classList.toggle("pausa",s.mode==="pausa");
+    var b=document.getElementById("m24fMain");if(b)b.textContent=s.endAt?"Pausar":(r<tot?"Seguir":(s.mode==="foco"?"Empezar":"Empezar pausa"));
+    var cy=document.getElementById("m24fCic");if(cy)cy.textContent=(s.ciclos||0)+" bloque"+((s.ciclos||0)===1?"":"s")+" hoy en esta sesión";}
+  document.querySelectorAll(".m24-fbar").forEach(function(fb){var mine=s.ramo===fb.dataset.rid&&act;fb.classList.toggle("run",mine);var tt=fb.querySelector(".t");if(tt)tt.textContent=mine?(s.mode==="foco"?"Foco ":"Pausa ")+t:"Iniciar foco · "+s.foco+" min"});
+  try{document.title=s.endAt?t+" · "+(s.mode==="foco"?"Foco":"Pausa"):"MYCELION OS"}catch(e){}
+}
+function m24FocoToggle(){var s=_m24F();if(s.endAt){s.left=_m24Rem(s);s.endAt=0}else{s.endAt=Date.now()+_m24Rem(s)*1000}_m24FSv(s);m24FocoTick()}
+function m24FocoReset(){var s=_m24F();s.endAt=0;s.mode="foco";s.left=s.foco*60;_m24FSv(s);m24FocoTick()}
+function m24FocoPausaYa(min){var s=_m24F();s.mode="pausa";s.pausaPrev=s.pausa;s.left=min*60;s.endAt=Date.now()+min*60000;_m24FSv(s);_m24Aviso("☕ Pausa de "+min+" min. Al volver sigues con un bloque nuevo.");m24FocoRender()}
+function m24FocoPreset(i){var s=_m24F();if(s.endAt&&s.mode==="foco"&&!window._m24Conf){window._m24Conf=1;toast("Toca otra vez para cambiar: se reinicia el bloque");setTimeout(function(){window._m24Conf=0},3000);return}
+  window._m24Conf=0;s.foco=M24_PRE[i][0];s.pausa=M24_PRE[i][1];s.mode="foco";s.endAt=0;s.left=s.foco*60;_m24FSv(s);m24FocoRender()}
+function m24FocoAj(k,d){var s=_m24F();var lim=k==="foco"?[5,120]:[1,30];s[k]=Math.max(lim[0],Math.min(lim[1],(s[k]||0)+d));if(!s.endAt&&((k==="foco"&&s.mode==="foco")||(k==="pausa"&&s.mode==="pausa")))s.left=s[k]*60;_m24FSv(s);m24FocoRender()}
+function m24FocoRamo(v){var s=_m24F();s.ramo=v;_m24FSv(s)}
+function m24FocoOpen(rid,auto){
+  var s=_m24F();if(rid){s.ramo=rid;_m24FSv(s)}
+  if(auto&&!s.endAt&&s.mode==="foco"){s.endAt=Date.now()+_m24Rem(s)*1000;_m24FSv(s)}
+  m24FocoRender();document.getElementById("m24-foco").classList.add("on");document.getElementById("m24-scrim").classList.add("on");m24FocoTick();
+}
+function m24FocoClose(){document.getElementById("m24-foco").classList.remove("on");document.getElementById("m24-scrim").classList.remove("on");m24FocoTick()}
+function m24FocoRender(){
+  var box=document.getElementById("m24fBody");if(!box)return;
+  var s=_m24F(),r=_m24Rem(s),tot=_m24Dur(s),C=2*Math.PI*104;
+  var pi=-1;M24_PRE.forEach(function(p,i){if(p[0]===s.foco&&p[1]===s.pausa)pi=i});
+  var R=_m24SemRamos();
+  var L=_m24Ls("myc_foco_log",{}),hoyD=L[_m24Hoy()]||{min:0,ses:0};
+  box.innerHTML='<div class="m24f-ramos"><button class="'+(!s.ramo?"on":"")+'" onclick="m24FocoRamo(\'\');m24FocoRender()">Libre</button>'+R.map(function(x){return '<button class="'+(s.ramo===x.rid?"on":"")+'" style="--cc:'+x.c+'" onclick="m24FocoRamo(\''+x.rid+'\');m24FocoRender()">'+_m24Ic(x.rid)+" "+esc(_m24Nom(x.rid))+"</button>"}).join("")+"</div>"
+   +'<div class="m24f-ring'+(s.mode==="pausa"?" pausa":"")+'" id="m24fRing"><svg viewBox="0 0 240 240"><circle class="trk" cx="120" cy="120" r="104"/><circle class="prg" id="m24fPrg" cx="120" cy="120" r="104" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+(C*(1-r/tot)).toFixed(1)+'"/></svg>'
+   +'<div class="c"><small id="m24fMode">'+(s.mode==="foco"?"Foco":"Pausa")+'</small><b id="m24fT">'+_m24Fmt(r)+'</b><span id="m24fCic"></span></div></div>'
+   +'<div class="m24f-btns"><button class="sec" onclick="m24FocoReset()" aria-label="Reiniciar">↺</button><button class="pri" id="m24fMain" onclick="m24FocoToggle()">Empezar</button><button class="sec" onclick="m24FocoPausaYa(5)" aria-label="Pausa de 5 minutos">☕ 5</button></div>'
+   +'<div class="m24f-sec">Duración</div>'
+   +'<div class="m24f-pre">'+M24_PRE.map(function(p,i){return '<button class="'+(pi===i?"on":"")+'" onclick="m24FocoPreset('+i+')"><b>'+p[0]+'</b><small>+'+p[1]+' pausa</small></button>'}).join("")+'</div>'
+   +'<div class="m24f-aj"><div><span>Foco</span><button onclick="m24FocoAj(\'foco\',-5)">−</button><b>'+s.foco+' min</b><button onclick="m24FocoAj(\'foco\',5)">+</button></div>'
+   +'<div><span>Pausa</span><button onclick="m24FocoAj(\'pausa\',-1)">−</button><b>'+s.pausa+' min</b><button onclick="m24FocoAj(\'pausa\',1)">+</button></div></div>'
+   +'<div class="m24f-stat"><div><b>'+hoyD.min+'</b><span>min hoy</span></div><div><b>'+hoyD.ses+'</b><span>bloques hoy</span></div><div><b>'+(Math.round(m24FocoMinSemana()/6)/10).toString().replace(".",",")+'</b><span>horas semana</span></div></div>';
+  m24FocoTick();
+  var on=box.querySelector('.m24f-ramos .on');if(on){var sc=on.parentNode;sc.scrollLeft=on.offsetLeft-sc.offsetWidth/2+on.offsetWidth/2}
+}
+function m24FocoBar(rid){return '<button class="m24-fbar" data-rid="'+rid+'" onclick="m24FocoOpen(\''+rid+'\',true)"><span class="i">⏱</span><span class="t">Iniciar foco · '+_m24F().foco+' min</span><span class="a">›</span></button>'}
+
+/* ══════════ VISTAS ══════════ */
+function _m24Head(k,t,sub){return '<div class="m24-h"><div class="k">'+k+'</div><h1>'+t+'</h1>'+(sub?'<p>'+sub+'</p>':'')+'</div>'}
+function _m24Ring(p,sz,sw){var r=(sz-sw)/2,c=2*Math.PI*r;return '<svg class="m24-ring" width="'+sz+'" height="'+sz+'" viewBox="0 0 '+sz+' '+sz+'"><circle cx="'+sz/2+'" cy="'+sz/2+'" r="'+r+'" fill="none" stroke-width="'+sw+'" class="trk"/><circle cx="'+sz/2+'" cy="'+sz/2+'" r="'+r+'" fill="none" stroke-width="'+sw+'" stroke-linecap="round" class="prg" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-p/100)).toFixed(1)+'" transform="rotate(-90 '+sz/2+' '+sz/2+')"/></svg>'}
+function _m24Evs(n){var R={};_m24SemRamos().forEach(function(x){R[x.rid]=x});var e=[];try{e=_evsDe(null,true).filter(function(t){return _dias(t.fecha)<=21})}catch(x){}return e.slice(0,n)}
+function _m24EvRow(t){var d=_dias(t.fecha);return '<div class="m24-row ev"><span class="d'+(d<=2?" hot":d<=7?" warm":"")+'"><b>'+(d===0?"HOY":d)+'</b>'+(d===0?"":'<small>'+(d===1?"día":"días")+'</small>')+'</span><span class="m"><b>'+esc(t.nom||"Evaluación")+'</b><small>'+esc(_m24Nom(t.ramo))+'</small></span></div>'}
+
+function m24Hoy(){
+  var cfg=MYCELION_CONFIG,pr=cfg.progreso,pct=pr.creditosAprobados/pr.creditosTotales*100;
+  var nom=_spNombre(),px=_spProxima(),ahora=null;try{ahora=claseAhora()}catch(e){}
+  var last=DB.lastRamo&&findRamo(DB.lastRamo),R=_m24SemRamos();
+  var semPct=Math.round(R.reduce(function(a,x){return a+_m24Pct(x.rid)},0)/(R.length||1));
+  var evs=_m24Evs(3),fs=_m24F(),act=_m24Activo(fs);
+  var h='<div class="m24">'
+   +'<div class="m24-hero"><div class="ph"></div><div class="tx"><small>'+_spSaludo()+' · '+new Date().toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"})+'</small><h1>Hola, '+esc(nom||"explorador")+'</h1>'
+   +'<div class="car">'+_m24Ring(pct,44,5)+'<span><b>'+String(Math.round(pct*10)/10).replace(".",",")+'%</b> de la carrera<br><small>'+pr.creditosAprobados+' de '+pr.creditosTotales+' créditos · '+pr.semestreActual+'° semestre</small></span></div></div></div>'
+   +'<div class="m24-card clase'+(ahora?" now":"")+'"><div class="ic">'+(ahora?"●":"🕒")+'</div><div class="m"><small>'+(ahora?"En clase ahora":"Próxima clase")+'</small><b>'+esc(ahora?ahora.nombre:px.t)+'</b><span>'+esc(ahora?("Sala "+ahora.sala+" · hasta "+ahora.fin):px.s)+'</span></div></div>'
+   +'<button class="m24-cta" onclick="m24FocoOpen(DB.lastRamo||\'\','+(act?"false":"true")+')"><span class="i">⏱</span><span class="m"><b>'+(act?"Volver a tu bloque de foco":"Empezar foco")+'</b><small>'+(act?_m24Fmt(_m24Rem(fs))+" · "+(fs.mode==="foco"?"foco":"pausa"):fs.foco+" min de estudio + "+fs.pausa+" de pausa")+'</small></span><span class="a">›</span></button>'
+   +(last?'<button class="m24-card go" onclick="m24Abrir(\''+DB.lastRamo+'\')"><div class="ic big">'+_m24Ic(DB.lastRamo)+'</div><div class="m"><small>Seguir con</small><b>'+esc(last.nom)+'</b><div class="bar"><i style="width:'+_m24Pct(DB.lastRamo)+'%"></i></div></div><span class="a">›</span></button>':"")
+   +'<div class="m24-sec"><h2>Próximas pruebas</h2><button onclick="mycGo(\'programacion\')">Agregar</button></div>'
+   +(evs.length?'<div class="m24-list">'+evs.map(_m24EvRow).join("")+'</div>':'<button class="m24-empty" onclick="mycGo(\'programacion\')">Sin pruebas en las próximas 3 semanas. Anota tus fechas y aquí verás la cuenta regresiva.</button>')
+   +'<button class="m24-card exp" onclick="mycGo(\'expedicion\')"><div class="m"><small>Tu expedición · 6° semestre</small><b>'+semPct+'% del semestre estudiado</b><div class="dots">'+R.map(function(x){var p=_m24Pct(x.rid);return '<i style="--cc:'+x.c+';--p:'+(0.25+p/100*0.75)+'" title="'+esc(_m24Nom(x.rid))+'"></i>'}).join("")+'</div></div><span class="a">›</span></button>'
+   +'</div>';
+  return h;
+}
+
+function m24Ramos(){
+  var R=_m24SemRamos(),A=R.filter(function(x){return !x.extra}),E=R.filter(function(x){return x.extra});
+  function row(x){var p=m24Prog(x.rid),pc=p.t?Math.round(p.d/p.t*100):0,ev=null;try{ev=_evsDe(x.rid,true)[0]}catch(e){}
+    return '<button class="m24-ramo" style="--cc:'+x.c+'" onclick="m24Abrir(\''+x.rid+'\')"><span class="ic">'+_m24Ic(x.rid)+'</span><span class="m"><b>'+esc(findRamo(x.rid).nom)+'</b><small>'+(x.s&&x.s!=="ING"?x.s+" · ":"")+p.d+"/"+p.t+" temas"+(ev?' · <em>'+esc(ev.nom||"prueba")+" "+_cuenta(ev.fecha)+"</em>":"")+'</small><span class="bar"><i style="width:'+pc+'%"></i></span></span><span class="a">›</span></button>'}
+  var h='<div class="m24">'+_m24Head("DESTINOS","Ramos","Tus ramos de este semestre. Cada uno abre su módulo: temas, Bitácora, Evalúate y Foco.")
+   +'<div class="m24-list ramos">'+A.map(row).join("")+'</div>'
+   +(E.length?'<div class="m24-sec"><h2>También en tu ruta</h2></div><div class="m24-list ramos">'+E.map(row).join("")+'</div>':"")
+   +'<details class="m24-det"><summary>Malla completa<small>8 semestres · apuntes por ramo</small></summary><div class="m24-malla">'+(window._m24ViewRamos?_m24ViewRamos():"")+'</div></details>'
+   +'</div>';
+  return h;
+}
+
+/* Expedición: el micelio desplegable de la carrera */
+window._m24Open=window._m24Open||{};
+function _m24Hifas(R,sem){
+  /* micelio del campamento: un nodo central y una hifa por ramo, del grosor de lo estudiado */
+  var W=320,H=150,cx=160,cy=78,n=R.length||1,out="",nodes="";
+  R.forEach(function(x,i){
+    var a=-Math.PI/2+(i+0.5)*(2*Math.PI/n),rr=58,px=cx+Math.cos(a)*rr*1.85,py=cy+Math.sin(a)*rr*0.95;
+    var p=sem.done?100:_m24Pct(x.rid),mx=(cx+px)/2+Math.sin(a)*14,my=(cy+py)/2-Math.cos(a)*10;
+    out+='<path class="hifa" pathLength="1" style="--d:'+(i*0.08)+'s" d="M'+cx+' '+cy+' Q'+mx.toFixed(1)+' '+my.toFixed(1)+' '+px.toFixed(1)+' '+py.toFixed(1)+'" stroke="'+x.c+'" stroke-width="'+(1.6+p/100*3).toFixed(1)+'" opacity="'+(0.55+p/100*0.45).toFixed(2)+'"/>';
+    nodes+='<g class="nodo" style="--d:'+(0.4+i*0.08)+'s" onclick="m24ExpRamo(\''+x.rid+'\')"><circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="'+(6+p/100*5).toFixed(1)+'" fill="'+x.c+'"/><circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="16" fill="transparent"/></g>';
+  });
+  return '<svg class="m24-hifas" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Micelio del semestre">'+out+nodes+'<circle class="core" cx="'+cx+'" cy="'+cy+'" r="9"/><text x="'+cx+'" y="'+(cy+3.5)+'" text-anchor="middle">'+sem.sem+'</text></svg>';
+}
+function m24ExpRamo(rid){var k="r:"+rid;_m24Open[k]=!_m24Open[k];var el=document.getElementById("m24r-"+rid);if(el){el.classList.toggle("open",!!_m24Open[k]);if(_m24Open[k])setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"nearest"})},60)}}
+function m24ExpSem(n){var k="s:"+n;_m24Open[k]=!_m24Open[k];var el=document.getElementById("m24s-"+n);if(el)el.classList.toggle("open",!!_m24Open[k])}
+function m24Sello(i){var L=LOGROS_DEF[i];if(!L)return;toast((DB.badges[L.id]?"✓ ":"🔒 ")+L.nom+" · "+L.desc+" (+"+L.xp+" XP)",3200)}
+function m24Expedicion(){
+  var pr=MYCELION_CONFIG.progreso,cur=pr.semestreActual,pct=pr.creditosAprobados/pr.creditosTotales*100;
+  var SR=_m24SemRamos(),xp=0,LD=[];try{LD=LOGROS_DEF;xp=LD.filter(function(l){return DB.badges[l.id]}).reduce(function(a,l){return a+l.xp},0)}catch(e){}
+  var NIV=[[0,"Practicante","🪖"],[200,"Ayudante de Obra","🔧"],[500,"Maestro de Obras","⚒️"],[1000,"Capataz","📋"],[2000,"Jefe de Obra","🏗️"],[4000,"Ingeniero Constructor","🎓"]];
+  var nv=NIV.filter(function(n){return xp>=n[0]}).pop(),nx=NIV[NIV.indexOf(nv)+1];
+  if(_m24Open["s:"+cur]===undefined)_m24Open["s:"+cur]=true;
+  var leidos=SR.reduce(function(a,x){return a+m24Prog(x.rid).d},0);
+  var h='<div class="m24 exp">'+_m24Head("EXPEDICIÓN","Tu ruta","Cada semestre es un campamento. Toca uno para desplegar su micelio.")
+   +'<div class="m24-pass"><div class="l">'+_m24Ring(pct,64,6)+'<b>'+Math.round(pct)+'%</b></div><div class="m"><small>Nivel</small><b>'+nv[2]+' '+nv[1]+'</b><span>'+xp+' XP'+(nx?' · faltan '+(nx[0]-xp)+' para '+nx[1]:'')+'</span></div></div>'
+   +'<div class="m24-stats"><div><b>'+(DB.streak&&DB.streak.count||0)+'</b><span>racha</span></div><div><b>'+m24FocoMinSemana()+'</b><span>min foco semana</span></div><div><b>'+leidos+'</b><span>temas leídos</span></div></div>'
+   +'<div class="m24-trail">';
+  MALLA.forEach(function(S){
+    var done=S.sem<cur,isCur=S.sem===cur,R;
+    if(isCur)R=SR;else R=S.ramos.map(function(r,i){return {rid:r.id,c:["#4EA8FF","#5FE0B0","#F2B84B","#7C8CFF","#FF8A3D","#FF6FA3","#8CE99A","#A78BFA","#4ECDC4"][i%9]}});
+    var semP=isCur?Math.round(R.reduce(function(a,x){return a+_m24Pct(x.rid)},0)/(R.length||1)):(done?100:0);
+    var op=!!_m24Open["s:"+S.sem];
+    h+='<section class="camp'+(done?" done":"")+(isCur?" cur":"")+(!done&&!isCur?" lock":"")+(op?" open":"")+'" id="m24s-'+S.sem+'">'
+      +'<button class="camp-h" onclick="m24ExpSem('+S.sem+')"><span class="pin">'+(done?"✓":isCur?S.sem:"🔒")+'</span><span class="m"><small>Campamento '+S.sem+(isCur?" · estás aquí":done?" · superado":"")+'</small><b>'+esc(S.titulo||S.sem+"° semestre")+'</b></span><span class="p">'+(isCur?semP+"%":done?"":R.length+" ramos")+'</span><span class="chev">›</span></button>'
+      +'<div class="camp-b"><div class="camp-in">'
+      +(isCur?_m24Hifas(R,S):"")
+      +R.map(function(x){var r=findRamo(x.rid)||{nom:x.rid},p=m24Prog(x.rid),pc=done?100:(p.t?Math.round(p.d/p.t*100):0),o=!!_m24Open["r:"+x.rid],tot=Math.min(p.t,24);
+        var dots="";for(var i=0;i<tot;i++)dots+='<i class="'+(done||i<p.d?"on":"")+'"></i>';
+        return '<div class="hifa-r'+(o?" open":"")+'" id="m24r-'+x.rid+'" style="--cc:'+x.c+'"><button class="hr-h" onclick="m24ExpRamo(\''+x.rid+'\')"><span class="ic">'+_m24Ic(x.rid)+'</span><span class="m"><b>'+esc(r.nom)+'</b><span class="bar"><i style="width:'+pc+'%"></i></span></span><span class="p">'+(done?"✓":pc+"%")+'</span></button>'
+          +'<div class="hr-b"><div class="hr-in"><div class="spores">'+dots+'</div><small class="note">'+(done?"Ramo superado. Sus apuntes siguen en tu malla.":(p.d+" de "+p.t+" temas leídos"+(isCur?"":" · se abre cuando llegues a este campamento")))+'</small>'
+          +(isCur||done||x.rid==="tec-hormigon"?'<div class="acts"><button onclick="m24Abrir(\''+x.rid+'\')">Abrir</button>'+(isCur?'<button onclick="m24FocoOpen(\''+x.rid+'\',true)">⏱ Foco</button>':"")+(typeof bitacora==="function"?'<button onclick="bitacora(\''+x.rid+'\')">📖 Bitácora</button>':"")+(isCur&&typeof evaDisponible==="function"&&evaDisponible(x.rid)?'<button onclick="mycEvaluate(\''+x.rid+'\')">🎮 Evalúate</button>':"")+'</div>':"")
+          +'</div></div></div>'}).join("")
+      +'</div></div></section>';
+  });
+  h+='</div><div class="m24-sec"><h2>Sellos del pasaporte</h2><span class="cnt">'+LD.filter(function(l){return DB.badges[l.id]}).length+' / '+LD.length+'</span></div>'
+   +'<div class="m24-sellos">'+LD.map(function(l,i){var on=!!DB.badges[l.id];return '<button class="'+(on?"on":"")+'" onclick="m24Sello('+i+')"><span>'+l.ic+'</span><small>'+esc(l.nom)+'</small></button>'}).join("")+'</div></div>';
+  return h;
+}
+
+/* Semana: horario + pruebas + salas */
+function _m24SemanaExtra(){
+  var evs=[];try{evs=_evsDe(null,true).slice(0,6)}catch(e){}
+  var H=MYCELION_CONFIG.horario||[],salas={};H.forEach(function(c){if(!c.sala)return;var k=c.sala;salas[k]=salas[k]||{s:k,c:c.color,n:[]};salas[k].n.push((c.sigla==="ING"?"Inglés":c.sigla)+" "+c.dia)});
+  return '<div class="m24 semx"><div class="m24-sec"><h2>Pruebas y entregas</h2><button onclick="mycGo(\'programacion\')">Gestionar</button></div>'
+   +(evs.length?'<div class="m24-list">'+evs.map(_m24EvRow).join("")+'</div>':'<button class="m24-empty" onclick="mycGo(\'programacion\')">Aún no anotas fechas. Agrégalas para ver la cuenta regresiva aquí y en Hoy.</button>')
+   +'<div class="m24-sec"><h2>Tus salas</h2><button onclick="mycGo(\'campus\')">Ver campus</button></div>'
+   +'<div class="m24-salas">'+Object.keys(salas).map(function(k){var x=salas[k];return '<div style="--cc:'+x.c+'"><b>'+esc(x.s)+'</b><small>'+esc(x.n.join(" · "))+'</small></div>'}).join("")+'</div></div>';
+}
+
+/* Mochila: documentos de expedición */
+function m24Mochila(){
+  var cards=0;try{cards=Object.values(DB.flashcards||{}).reduce(function(a,c){return a+(c||[]).length},0)}catch(e){}
+  var G=[["Practicar",[["flashcards","🃏","Flashcards",cards+" tarjetas · repasa volteando"],["tests","📝","Autoevaluaciones","Preguntas propias por ramo"],["repaso","⚡","Repaso exprés","Lo clave de un ramo antes de la prueba"]]],
+    ["Consultar",[["formulas","🧮","Fórmulas y calculadoras","Dosificación, cargas, volúmenes"],["glosario","📖","Glosario técnico","Diccionario buscable y editable"]]],
+    ["Organizar",[["programacion","🗓️","Evaluaciones y notas","Fechas, ponderaciones y promedio"],["foco","⏱️","Foco","Bloques de estudio con pausas"]]],
+    ["App",[["ajustes","🎨","Tema y apariencia","Colores, tamaño de letra, respaldo"],["config","👤","Mis datos","Nombre, horario y avance de carrera"]]]];
+  return '<div class="m24">'+_m24Head("MOCHILA","Equipo","Tus documentos de expedición, ordenados por para qué sirven.")
+   +G.map(function(g){return '<div class="m24-sec"><h2>'+g[0]+'</h2></div><div class="m24-list">'+g[1].map(function(it){return '<button class="m24-row" onclick="'+(it[0]==="foco"?"m24FocoOpen()":"mycGo('"+it[0]+"')")+'"><span class="ic">'+it[1]+'</span><span class="m"><b>'+it[2]+'</b><small>'+it[3]+'</small></span><span class="a">›</span></button>'}).join("")+'</div>'}).join("")
+   +'</div>';
+}
+
+/* ══════════ NAVEGACIÓN ══════════ */
+var M24_TABS=[["tb-malla","dashboard","Hoy",'<path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'],
+ ["tb-ramos","ramos","Ramos",'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'],
+ ["tb-exp","expedicion","Expedición",'<circle cx="12" cy="12" r="2.4"/><path d="M12 9.6V3M12 14.4V21M9.9 10.8 4.5 7.5M14.1 13.2l5.4 3.3M9.9 13.2l-5.4 3.3M14.1 10.8l5.4-3.3"/><circle cx="12" cy="3" r="1.2"/><circle cx="4.5" cy="7.5" r="1.2"/><circle cx="19.5" cy="16.5" r="1.2"/>'],
+ ["tb-horario","horario","Semana",'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'],
+ ["tb-mochila","mas","Mochila",'<path d="M8 7V5a4 4 0 0 1 8 0v2"/><rect x="4" y="7" width="16" height="14" rx="4"/><path d="M9 13h6"/>']];
+var M24_GRUPO={dashboard:"tb-malla",ramos:"tb-ramos",ramo:"tb-ramos",expedicion:"tb-exp",ruta:"tb-exp",micelio:"tb-exp",logros:"tb-exp",horario:"tb-horario",programacion:"tb-horario",campus:"tb-horario",cronograma:"tb-horario"};
+function m24Activa(id){document.querySelectorAll("#master-tabs .tab-btn").forEach(function(b){b.classList.toggle("active",b.id===id)})}
+function _m24Tabs(){
+  var nav=document.getElementById("master-tabs");if(!nav)return;
+  nav.innerHTML=M24_TABS.map(function(t){return '<button class="tab-btn" id="'+t[0]+'" onclick="mycGo(\''+t[1]+'\')" aria-label="'+t[2]+'"><span class="tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+t[3]+'</svg></span><span class="tab-lbl">'+t[2]+'</span></button>'}).join("");
+  nav.classList.add("m24-tabs");
+}
+function _m24PaneRid(){
+  var a=document.querySelector(".app-pane.active");if(!a||a.id==="pane-malla")return null;
+  if(a.id==="pane-hormigon")return /taller-hormigon|tec-hormigon/.test(DB.lastRamo||"")?DB.lastRamo:"tec-hormigon";
+  if(a.id==="pane-suelos")return "mec-suelos";if(a.id==="pane-ia")return "m26-OTK1101";
+  var p=a.id.replace("pane-","");if(typeof MODS!=="undefined"&&MODS[p])return _mdRid(MODS[p]);return null;
+}
+function _m24InyectarFoco(){
+  var a=document.querySelector(".app-pane.active");if(!a||a.id==="pane-malla")return;
+  var rid=_m24PaneRid();if(!rid)return;
+  var ws=[].filter.call(a.querySelectorAll(".wrap"),function(w){return w.offsetParent!==null});var w=ws[0];if(!w)return;
+  var fb=w.querySelector(".m24-fbar");if(fb&&fb.dataset.rid===rid)return;if(fb)fb.remove();
+  w.insertAdjacentHTML("afterbegin",m24FocoBar(rid));m24FocoTick();
+}
+
+(function(){
+  /* hoja de Foco y reloj flotante */
+  function montar(){
+    if(document.getElementById("m24-foco"))return;
+    document.body.insertAdjacentHTML("beforeend",'<div id="m24-scrim" onclick="m24FocoClose()"></div><section id="m24-foco" role="dialog" aria-label="Foco"><div class="grab"></div><div class="hd"><b>Foco</b><button onclick="m24FocoClose()" aria-label="Cerrar">✕</button></div><div id="m24fBody"></div></section>'
+      +'<button id="m24-pill" onclick="m24FocoOpen()" aria-label="Abrir Foco"><i></i><b>25:00</b><small>Foco</small></button>');
+  }
+  window.addEventListener("load",function(){
+    montar();
+    window._m24ViewRamos=window.viewRamos;
+    setTimeout(function(){
+      _m24Tabs();
+      /* router: vistas nuevas */
+      var _n=window.nav;
+      var EB={dashboard:["MYCELION",""],ramos:["MYCELION",""],expedicion:["MYCELION",""],horario:["SEMANA","Horario y salas"],mas:["MYCELION",""]};
+      window.nav=function(v){
+        if(v==="foco"){m24FocoOpen();return}
+        var r,m;
+        if(v==="expedicion"||v==="ruta"||v==="micelio"||v==="logros"){r=_n.call(this,"mas");m=document.getElementById("main");if(m)m.innerHTML=m24Expedicion();v="expedicion"}
+        else if(v==="dashboard"){r=_n.call(this,"mas");m=document.getElementById("main");if(m)m.innerHTML=m24Hoy()}
+        else if(v==="ramos"){r=_n.call(this,"mas");m=document.getElementById("main");if(m)m.innerHTML=m24Ramos()}
+        else if(v==="mas"){r=_n.call(this,"mas");m=document.getElementById("main");if(m)m.innerHTML=m24Mochila()}
+        else{r=_n.apply(this,arguments);if(v==="horario"){m=document.getElementById("main");if(m)m.insertAdjacentHTML("beforeend",_m24SemanaExtra())}}
+        if(EB[v]){var ey=document.getElementById("tbEyebrow"),ti=document.getElementById("tbTitle");if(ey)ey.textContent=EB[v][0];if(ti)ti.textContent=EB[v][1]}
+        window._mycLastView=v;CURRENT_VIEW=v;document.body.classList.remove("en-evaluate");
+        var pm=document.getElementById("pane-malla");if(pm&&pm.classList.contains("active"))m24Activa(M24_GRUPO[v]||"tb-mochila");
+        try{window.scrollTo(0,0)}catch(e){}
+        return r;
+      };
+      window.nav._myc=1;
+      window._mycSyncTabs=function(v){var pm=document.getElementById("pane-malla");if(pm&&pm.classList.contains("active"))m24Activa(M24_GRUPO[v]||"tb-mochila")};
+      window._tabActivo=_tabActivo=function(){m24Activa("tb-ramos")};
+      window._tabRamoPaint=_tabRamoPaint=function(){};
+      var _st=window.switchTab;
+      window.switchTab=function(t){var r=_st.apply(this,arguments);if(t!=="evaluate")document.body.classList.remove("en-evaluate");
+        if(t==="malla"){window._mycSyncTabs(window._mycLastView||"dashboard")}else{m24Activa("tb-ramos");setTimeout(_m24InyectarFoco,80)}
+        return r};
+      var _ma=window.mdAbrir;if(typeof _ma==="function")window.mdAbrir=mdAbrir=function(p){var r=_ma.apply(this,arguments);document.body.classList.remove("en-evaluate");m24Activa("tb-ramos");setTimeout(_m24InyectarFoco,80);return r};
+      window.mycEstudiar=mycEstudiar=function(sigla){var rid=null;try{rid=sigla?_ridDe(sigla):null}catch(e){}m24FocoOpen(rid||DB.lastRamo||"",true)};
+      /* el panel de cada ramo también ofrece foco */
+      var _o=window.openRamoPanel;
+      window.openRamoPanel=function(rid){var out=_o.apply(this,arguments);try{var b=document.querySelector("#ramo-panel .rp-body"),hero=b&&b.querySelector(".rp-hero");if(hero&&!b.querySelector(".m24-fbar"))hero.insertAdjacentHTML("afterend",m24FocoBar(rid))}catch(e){}return out};
+      document.body.classList.add("m24");
+      if(document.getElementById("pane-malla").classList.contains("active"))nav(window._mycLastView&&window._mycLastView!=="mas"?window._mycLastView:"dashboard");
+      setInterval(m24FocoTick,1000);document.addEventListener("visibilitychange",m24FocoTick);m24FocoTick();
+    },820);
+  });
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")m24FocoClose()});
 })();
 
 </script>
