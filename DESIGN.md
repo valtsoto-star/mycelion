@@ -118,3 +118,12 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 - Se escriben como datos en `tools/c30_<pfx>.py` y `tools/gen30.py` genera el módulo validando referencias de fichas, respuestas del duelo y nodos de las crisis.
 - El motor ahora omite el salto a unidades que no existen (Taller de Obra Gruesa tiene 3).
 - Desbloqueo: leer el 70 % de los temas de un semestre basta para abrir el siguiente; repasar fichas suma por encima de eso.
+
+## 14. v3.1 · Presupuesto de obra
+- La pestaña "Cubicar obra" de Calculadoras pasa a ser "Presupuesto de obra" (`m31data.js`, `m31.js`, `m31.css`); también se abre desde Estudio. El cubicador de v2.8 queda en el código pero ya no se muestra; sus datos (`m28_obra`) no se borran.
+- Seis vistas: Proceso (9 etapas del terreno a la entrega de llaves, con checklist, entregables, normativa y error típico), Obra (ficha y parámetros), Partidas, Insumos, Resumen y Flujo.
+- Itemizado tipo de 82 partidas en 12 capítulos. Cada partida se cubica con filas de medición (ubicación, veces, largo, ancho, alto; veces negativas descuentan) o con una fórmula que cita otras partidas (`[2.1]`), evaluada con un parser propio sin `eval`. El acero se cubica por barras × largo × Ø²/162. Ayudas: excavación con talud (prismoide) y superficie inclinada.
+- APU por partida contra una base de insumos con precios de ejemplo; cambiar un precio lo cambia en toda la obra. Leyes sociales y herramientas menores sobre la mano de obra.
+- Resumen: CD por capítulo, GG detallados (por mes según plazo, global o % del CD), imprevistos sobre CD, utilidad sobre CD + GG, IVA, $/m², UF/m² y vista del mandante (presupuesto oficial DOM, derechos 1,5 %, ITO, terreno, proyectos).
+- Flujo: capítulos repartidos en el plazo, curva S y estados de pago con anticipo y retención. Es la base de la programación, que viene después.
+- Se guarda en `m31_obra` (localStorage) y entra en el respaldo completo. Copia a Excel como texto separado por tabulaciones.

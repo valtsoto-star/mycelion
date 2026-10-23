@@ -10481,7 +10481,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v3.0
+   MYCELION OS v3.1
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -13812,9 +13812,205 @@ body .m29-b.sec{background:var(--bg);color:var(--text);border:1px solid var(--li
 .m29-ley{margin:4px 0 0;font-size:.8rem;line-height:1.45;color:var(--text-2)}
 .m29-lock{position:relative;opacity:.55}
 .m29-lock::before{content:"🔒";position:absolute;top:6px;right:8px;font-size:.85rem;z-index:2;opacity:1}
+
+/* ══ v3.1 · Presupuesto de obra ══ */
+.m31{--m31-s:color-mix(in srgb,var(--accent) 14%,var(--surface));--m31-l:color-mix(in srgb,var(--accent) 40%,var(--line));display:flex;flex-direction:column;gap:12px;font-size:.92rem;color:var(--text)}
+.m31 button{font:inherit;color:inherit;cursor:pointer}
+.m31 input,.m31 select{font:inherit;font-size:.95rem;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0;width:100%;box-sizing:border-box}
+.m31 input:focus,.m31 select:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.m31-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:14px 16px;border-radius:18px;background:var(--m31-s);border:1px solid var(--m31-l)}
+.m31-head small{display:block;font:800 .66rem var(--font-mono,monospace);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+.m31-head>div:first-child b{font:700 1.05rem var(--font-display,system-ui);display:block;margin-top:2px}
+.m31-tot{text-align:right;flex:none}
+.m31-tot b{display:block;font:800 1.1rem var(--font-mono,monospace)}
+.m31-tot em{font-style:normal;font-size:.75rem;color:var(--text-2)}
+.m31-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;position:sticky;top:0;z-index:2;background:var(--bg);padding-top:4px}
+.m31-tabs::-webkit-scrollbar{display:none}
+.m31-tabs button{flex:none;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:.85rem}
+.m31-tabs button[aria-selected="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.m31-body{display:flex;flex-direction:column;gap:12px}
+.m31-lead{margin:0;color:var(--text-2);line-height:1.5}
+.m31-nota{margin:6px 0 0;font-size:.78rem;color:var(--text-2);line-height:1.45}
+.m31-nota code{font:600 .8rem var(--font-mono,monospace);background:var(--surface);padding:1px 5px;border-radius:5px}
+.m31-card{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.m31-card h4{margin:0;font:700 .98rem var(--font-display,system-ui);display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.m31-card h4 small,.m31-card h4 span{font:600 .75rem var(--font-mono,monospace);color:var(--text-2)}
+.m31 h5{margin:12px 0 4px;font:800 .68rem var(--font-mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.m31 h5 small{text-transform:none;letter-spacing:0;font-weight:600}
+.m31-in{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.m31-in label{display:flex;flex-direction:column;gap:4px;min-width:0}
+.m31-in label.w{grid-column:1/-1}
+.m31-in label>span:first-child{font-size:.74rem;color:var(--text-2)}
+.m31-in label>small{font-size:.7rem;color:var(--text-2);line-height:1.35}
+.m31 .u{display:flex;align-items:center;gap:6px}
+.m31 .u em{font-style:normal;font-size:.75rem;color:var(--text-2);flex:none}
+.m31-acts{display:flex;flex-wrap:wrap;gap:8px}
+.m31-acts button{padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:.85rem}
+.m31-acts:not(.s) button:first-child{background:var(--accent);color:var(--accent-ink,var(--bg));border-color:var(--accent)}
+.m31-acts.s button{padding:7px 12px;font-size:.8rem;background:var(--bg)}
+.m31-acts button.conf,.m31-acts button.del.conf{background:#c0392b;color:#fff;border-color:#c0392b}
+.m31-acts button.del{color:#c0392b}
+/* proceso */
+.m31-prec{border:1px solid var(--line);border-radius:16px;padding:12px 14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.m31-prec h4{margin:0 0 2px;font:700 .9rem var(--font-display,system-ui)}
+.m31-pr{display:grid;grid-template-columns:minmax(0,9.5em) 1fr 3.4em;gap:10px;align-items:center}
+.m31-pr span{font-weight:600;font-size:.85rem}
+.m31-pr span small{display:block;font-weight:400;font-size:.72rem;color:var(--text-2)}
+.m31-pr i{height:10px;border-radius:99px;background:var(--line);position:relative;overflow:hidden}
+.m31-pr i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--accent);border-radius:99px}
+.m31-pr b{font:700 .8rem var(--font-mono,monospace);text-align:right}
+.m31-bar{display:grid;grid-template-columns:1fr auto;gap:6px;font-size:.85rem}
+.m31-bar b{font:700 .8rem var(--font-mono,monospace)}
+.m31-bar i{grid-column:1/-1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.m31-bar em{display:block;height:100%;background:var(--accent);border-radius:99px}
+.m31-et{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;position:relative}
+.m31-et::before{content:"";position:absolute;left:22px;top:20px;bottom:20px;width:2px;background:var(--m31-l)}
+.m31-et li{position:relative;border:1px solid var(--line);background:var(--surface);border-radius:16px}
+.m31-et li.on{border-color:var(--m31-l)}
+.m31-eh{width:100%;display:flex;align-items:center;gap:10px;padding:12px;border:0;background:none;text-align:left}
+.m31-eh .n{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:800 .72rem var(--font-mono,monospace);background:var(--bg);border:2px solid var(--m31-l);position:relative;z-index:1}
+.m31-et li.ok .m31-eh .n{background:var(--accent);color:var(--accent-ink,var(--bg));border-color:var(--accent)}
+.m31-eh .ic{font-size:1.2rem;flex:none}
+.m31-eh .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.m31-eh .tx b{font:700 .95rem var(--font-display,system-ui)}
+.m31-eh .tx small{font-size:.76rem;color:var(--text-2)}
+.m31-eh .c{flex:none;font:700 .74rem var(--font-mono,monospace);padding:3px 8px;border-radius:99px;border:1px solid var(--line)}
+.m31-eb{padding:0 14px 14px 46px;display:flex;flex-direction:column;gap:6px}
+.m31-q{margin:0;font-size:.82rem;color:var(--text-2)}
+.m31-ck{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:2px}
+.m31-ck label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;line-height:1.4;font-size:.88rem;cursor:pointer}
+.m31-ck input{width:18px;height:18px;flex:none;margin-top:1px;accent-color:var(--accent);padding:0}
+.m31-ck input:checked+span{color:var(--text-2);text-decoration:line-through;text-decoration-color:var(--m31-l)}
+.m31-chips{display:flex;flex-wrap:wrap;gap:6px}
+.m31-chip{font-size:.76rem;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--bg)}
+.m31-chip.a{align-self:flex-start;background:var(--m31-s);border-color:var(--m31-l);font-weight:600}
+.m31-chip.n{font-family:var(--font-mono,monospace);font-size:.72rem}
+.m31-chip.b{border-color:var(--m31-l)}
+.m31-err{font-size:.82rem;line-height:1.45;padding:10px 12px;border-radius:12px;border-left:3px solid #d98b2b;background:color-mix(in srgb,#d98b2b 10%,var(--surface))}
+.m31-err b{display:block;font:800 .66rem var(--font-mono,monospace);letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+/* partidas */
+.m31-tool{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.m31-sw{display:flex;gap:8px;align-items:center;font-size:.82rem}
+.m31-sw input{width:18px;height:18px;padding:0;accent-color:var(--accent)}
+.m31-cd{font-size:.82rem;color:var(--text-2)}
+.m31-cd b{color:var(--text);font-family:var(--font-mono,monospace)}
+.m31-capc{border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.m31-capc.on{border-color:var(--m31-l)}
+.m31-caph{width:100%;display:flex;align-items:center;gap:10px;padding:12px;border:0;background:none;text-align:left}
+.m31-caph .ic{font-size:1.15rem;flex:none}
+.m31-caph .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.m31-caph .tx b{font-weight:700;font-size:.9rem}
+.m31-caph .tx small{font-size:.74rem;color:var(--text-2)}
+.m31-caph .v{font:700 .82rem var(--font-mono,monospace);flex:none}
+.m31-pl{border-top:1px solid var(--line);display:flex;flex-direction:column}
+.m31-p{border-bottom:1px solid var(--line)}
+.m31-p:last-of-type{border-bottom:0}
+.m31-ph{width:100%;display:grid;grid-template-columns:3em 1fr auto;gap:8px;align-items:start;padding:10px 12px;border:0;background:none;text-align:left}
+.m31-p.on .m31-ph{background:var(--m31-s)}
+.m31-ph .cd{font:700 .74rem var(--font-mono,monospace);color:var(--text-2);padding-top:2px}
+.m31-ph .nm{font-size:.86rem;line-height:1.35;min-width:0}
+.m31-ph .nm small{display:block;font:600 .74rem var(--font-mono,monospace);color:var(--text-2);margin-top:2px}
+.m31-ph>b{font:700 .8rem var(--font-mono,monospace);white-space:nowrap}
+.m31-add{margin:10px 12px;padding:9px;border-radius:12px;border:1px dashed var(--m31-l);background:none;font-size:.82rem;font-weight:600}
+.m31-ed{padding:12px;display:flex;flex-direction:column;gap:8px;background:color-mix(in srgb,var(--m31-s) 40%,var(--surface))}
+.m31-hint{margin:0;font-size:.8rem;line-height:1.45;padding:8px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+.m31-expr{display:flex;flex-direction:column;gap:4px;font-size:.74rem;color:var(--text-2)}
+.m31-expr input{font-family:var(--font-mono,monospace)}
+.m31-med{display:flex;flex-direction:column;gap:6px;overflow-x:auto}
+.m31-mh,.m31-mr{display:grid;grid-template-columns:minmax(4.2em,1.5fr) repeat(4,minmax(2.5em,.6fr)) minmax(3.4em,.8fr) 24px;gap:4px;align-items:center}
+.m31-med.kg .m31-mh,.m31-med.kg .m31-mr{grid-template-columns:minmax(4.2em,1.5fr) repeat(3,minmax(2.8em,.7fr)) minmax(3.4em,.8fr) 24px}
+.m31-mh span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m31-mh span{font:700 .64rem var(--font-mono,monospace);letter-spacing:.06em;text-transform:uppercase;color:var(--text-2)}
+.m31-mr input,.m31-mr select{padding:6px 5px;font-size:.82rem;border-radius:8px}
+.m31-mr .x{width:24px;height:24px}
+.m31-mr b{font:700 .8rem var(--font-mono,monospace);text-align:right}
+.m31-mr.neg input,.m31-mr.neg b{color:#c0392b}
+.m31 .x{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:var(--bg);font-size:.75rem;padding:0;display:grid;place-items:center}
+.m31-ay{border:1px dashed var(--m31-l);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.m31-ay>b{font-size:.85rem}
+.m31-qt{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--m31-l)}
+.m31-qt span{font-size:.82rem;color:var(--text-2)}
+.m31-qt b{font:800 1rem var(--font-mono,monospace)}
+.m31-apu{display:flex;flex-direction:column;gap:6px}
+.m31-ar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 26px;grid-template-areas:"ds ds ds x" "a b c c" "v v v v";gap:6px 8px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
+.m31-ar .ds{grid-area:ds;font-size:.84rem;line-height:1.35;min-width:0}
+.m31-ar .ds .tp{margin-right:4px;vertical-align:1px}
+.m31-ar .ds small{display:block;font-size:.72rem;color:var(--text-2)}
+.m31-ar .x{grid-area:x}
+.m31-ar label{display:flex;flex-direction:column;gap:2px;min-width:0}
+.m31-ar label:nth-of-type(1){grid-area:a}.m31-ar label:nth-of-type(2){grid-area:b}.m31-ar label:nth-of-type(3){grid-area:c}
+.m31-ar label span{font-size:.66rem;color:var(--text-2)}
+.m31-ar label input{padding:6px 7px;font-size:.84rem;border-radius:8px}
+.m31-ar>b{grid-area:v;text-align:right;font:700 .82rem var(--font-mono,monospace)}
+@media (min-width:560px){.m31-ar{grid-template-columns:minmax(0,1fr) 5em 5em 6.5em 6.5em 26px;grid-template-areas:"ds a b c v x"}}
+.tp{font:800 .62rem var(--font-mono,monospace);padding:3px 6px;border-radius:6px;border:1px solid var(--line);letter-spacing:.04em}
+.tp.t-M{background:color-mix(in srgb,#4ea8ff 16%,transparent)}.tp.t-MO{background:color-mix(in srgb,#f2b84b 22%,transparent)}.tp.t-EQ{background:color-mix(in srgb,#7bd389 20%,transparent)}.tp.t-SC{background:color-mix(in srgb,#c58cff 20%,transparent)}
+.m31-apadd select{font-size:.85rem}
+.m31-pus{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:10px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
+.m31-pus span{display:flex;justify-content:space-between;gap:6px;font-size:.78rem;color:var(--text-2)}
+.m31-pus span b{font:700 .78rem var(--font-mono,monospace);color:var(--text)}
+.m31-pus span.t{grid-column:1/-1;font-size:.86rem;color:var(--text);font-weight:600;border-top:1px solid var(--line);padding-top:6px}
+.m31-pus span.t b{font-size:.92rem}
+.m31-pus span.t+span.t{border-top:0;padding-top:0}
+/* insumos y resumen */
+.m31-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.m31-kpi span{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg);display:flex;flex-direction:column;gap:2px}
+.m31-kpi small{font-size:.7rem;color:var(--text-2)}
+.m31-kpi b{font:800 .95rem var(--font-mono,monospace)}
+.m31-it{display:flex;flex-direction:column}
+.m31-ir{display:grid;grid-template-columns:1fr 6.5em 7.5em;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.m31-ir:first-child{border-top:0}
+.m31-ir .ds{font-size:.84rem;line-height:1.3;min-width:0}
+.m31-ir .ds small{display:block;font:600 .72rem var(--font-mono,monospace);color:var(--text-2)}
+.m31-ir label{display:flex;flex-direction:column;gap:2px}
+.m31-ir label span{font-size:.64rem;color:var(--text-2)}
+.m31-ir input{padding:6px 7px;font-size:.82rem;border-radius:8px}
+.m31-ir b{text-align:right;font:700 .8rem var(--font-mono,monospace)}
+.m31-rs{display:flex;flex-direction:column;gap:4px}
+.m31-rr{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;font-size:.84rem;padding:4px 0}
+.m31-rr b{font:700 .84rem var(--font-mono,monospace);text-align:right}
+.m31-rr i{grid-column:1/-1;grid-row:2;height:5px;border-radius:99px;background:var(--line);position:relative;overflow:hidden}
+.m31-rr i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--accent)}
+.m31-rr.t{border-top:1px solid var(--line);padding-top:8px;margin-top:4px;font-weight:700}
+.m31-rr.g{font-size:.95rem}
+.m31-rr.g b{font-size:1rem;color:var(--accent)}
+.m31-gg{display:flex;flex-direction:column;gap:6px}
+.m31-gr{display:grid;grid-template-columns:1fr 4.8em 4.6em;grid-template-areas:"d u q" "p p v";gap:6px;align-items:center;padding:8px;border-radius:12px;background:var(--bg);border:1px solid var(--line);position:relative}
+.m31-gr>input:nth-of-type(1){grid-area:d}.m31-gr>select{grid-area:u}.m31-gr>input:nth-of-type(2){grid-area:q}.m31-gr>input:nth-of-type(3),.m31-gr .pc{grid-area:p}
+.m31-gr .pc{font-size:.78rem;color:var(--text-2)}
+.m31-gr b{grid-area:v;text-align:right;font:700 .8rem var(--font-mono,monospace);padding-right:34px}
+.m31-gr .x{position:absolute;right:8px;bottom:8px}
+.m31-gr input,.m31-gr select{padding:6px 7px;font-size:.82rem;border-radius:8px}
+.m31-dl{margin:0;display:grid;gap:4px}
+.m31-dl dt{font-weight:700;font-size:.86rem;margin-top:4px}
+.m31-dl dd{margin:0;font-size:.82rem;color:var(--text-2);line-height:1.45}
+/* flujo */
+.m31-s{width:100%;height:auto;max-width:100%}
+.m31-s .g{stroke:var(--line);stroke-width:1}
+.m31-s .l{font:600 8px var(--font-mono,monospace);fill:var(--text-2)}
+.m31-s .b{fill:color-mix(in srgb,var(--accent) 35%,transparent)}
+.m31-s .c{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round}
+.m31-s .d{fill:var(--bg);stroke:var(--accent);stroke-width:1.6}
+.m31-fl{display:flex;flex-direction:column;gap:8px}
+.m31-fr{display:grid;grid-template-columns:1fr 4.4em 4.4em;gap:6px 8px;align-items:end;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.m31-fr>span{font-size:.82rem;align-self:center}
+.m31-fr label{display:flex;flex-direction:column;gap:2px}
+.m31-fr label span{font-size:.64rem;color:var(--text-2)}
+.m31-fr input{padding:6px;font-size:.82rem;border-radius:8px;text-align:center}
+.m31-fr .gt{grid-column:1/-1;display:flex;gap:3px}
+.m31-fr .gt em{flex:1;height:8px;border-radius:3px;background:var(--line)}
+.m31-fr .gt em.on{background:var(--accent)}
+.m31-tw{overflow-x:auto;margin:0 -4px}
+.m31-tb{border-collapse:collapse;width:100%;min-width:560px;font-size:.78rem}
+.m31-tb th{font:700 .64rem var(--font-mono,monospace);text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);text-align:right;padding:6px 6px;border-bottom:1px solid var(--line)}
+.m31-tb td{font-size:.78rem;text-align:right;padding:6px;border-bottom:1px solid var(--line);font-family:var(--font-mono,monospace);white-space:nowrap}
+.m31-tb th:first-child,.m31-tb td:first-child{text-align:left}
+.m31-tb tr.a td{color:var(--text-2);font-family:inherit;white-space:normal;text-align:left}
+.m31-tb tr.a td:first-child{font-family:var(--font-mono,monospace)}
+.m31-tb tr.a td:last-child{font-family:var(--font-mono,monospace);color:var(--text);text-align:right;white-space:nowrap}
 </style>
 <script>
-/* MYCELION OS v3.0 */
+/* MYCELION OS v3.1 */
 /* ══════════════════════════════════════════════════════
    MYCELION OS v2.0 · Parte A
    · Barra inferior que no tapa: se esconde con teclado, hojas abiertas y al bajar
@@ -24908,7 +25104,7 @@ window.addEventListener("load",function(){
       window.viewFormulas=function(){
         setTimeout(function(){m28CalcTab(_m28Tab)},0);
         return '<div class="view active m28"><div class="view-head"><div class="eyebrow">CÁLCULO</div><h2>Calculadoras de la carrera</h2><p class="desc">'+M28_C.length+' calculadoras en micelio por tema. Toca la <b>i</b> para saber para qué sirve cada una y de dónde sale. Valida siempre con la norma y tus apuntes.</p></div>'
-          +'<div class="m28-tabs" role="tablist"><button role="tab" aria-selected="true" onclick="m28CalcTab(0)">Calculadoras</button><button role="tab" aria-selected="false" onclick="m28CalcTab(1)">Cubicar obra</button><button role="tab" aria-selected="false" onclick="m28CalcTab(2)">Fichas NCh</button></div>'
+          +'<div class="m28-tabs" role="tablist"><button role="tab" aria-selected="true" onclick="m28CalcTab(0)">Calculadoras</button><button role="tab" aria-selected="false" onclick="m28CalcTab(1)">Presupuesto de obra</button><button role="tab" aria-selected="false" onclick="m28CalcTab(2)">Fichas NCh</button></div>'
           +'<section id="m28p0"><div class="m28-search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input placeholder="Buscar: empuje, VAN, pendiente, acero…" value="'+_m28E(_m28S.q)+'" oninput="m28Busca(this.value)" aria-label="Buscar calculadora"></div><div class="m28-root"><span class="m28-dot"></span>Cálculos de la carrera</div><div id="m28-tree"></div></section>'
           +'<section id="m28p1" hidden><div id="m28-cub"></div></section><section id="m28p2" hidden></section></div>'};
     }
@@ -25089,6 +25285,676 @@ window.addEventListener("load",function(){setTimeout(function(){
   if(m29Alumno()){_m29Marca();_m29Obs=new MutationObserver(function(){clearTimeout(_m29Obs.t);_m29Obs.t=setTimeout(_m29Marca,60)});_m29Obs.observe(document.body,{childList:true,subtree:true});
     var a=_m29A();if(a&&a.nuevo)setTimeout(m29Bienvenida,600)}
 },1200)});
+
+/* ══ v3.1 · Presupuesto de obra: datos (proceso, itemizado, insumos, APU) ══ */
+/* Etapas de una edificación, del terreno a la entrega de llaves */
+var M31_ETAPAS=[
+ {id:"e1",ic:"🧭",t:"Terreno y factibilidad",sub:"¿Se puede construir lo que se quiere, cuánto y a qué costo?",prec:"Presupuesto paramétrico (UF/m²) · ±25–30 %",
+  quien:"Mandante, arquitecto, abogado, topógrafo, mecánico de suelos",
+  act:["Estudio de títulos y dominio vigente del terreno (Conservador de Bienes Raíces)",
+   "Certificado de Informaciones Previas (CIP) en la Dirección de Obras Municipales",
+   "Leer en el CIP: uso de suelo, constructibilidad, ocupación de suelo, altura, rasantes, distanciamientos, antejardín, línea oficial y afectaciones",
+   "Levantamiento topográfico del terreno con cotas y deslindes",
+   "Estudio de mecánica de suelos: estratos, napa, capacidad de soporte y sello de fundación",
+   "Certificados de factibilidad de agua potable y alcantarillado (empresa sanitaria)",
+   "Factibilidad eléctrica (distribuidora) y de gas",
+   "Cabida: cuántos m² permite la norma en el terreno",
+   "Presupuesto paramétrico: m² × UF/m² de obras parecidas",
+   "Decisión de seguir, ajustar el programa o desistir"],
+  doc:["CIP","Plano topográfico","Informe de mecánica de suelos","Factibilidades","Cabida y presupuesto paramétrico"],
+  norma:["LGUC (DFL 458 de 1975)","OGUC (DS 47 de 1992)","Plan Regulador Comunal"],
+  error:"Diseñar o comprar sin CIP, o descubrir la napa y la afectación de utilidad pública cuando ya hay planos.",
+  caps:["1","2"]},
+ {id:"e2",ic:"✏️",t:"Anteproyecto",sub:"El partido general: plantas, volumen y superficies",prec:"Estimación por recintos o partidas globales · ±15–20 %",
+  quien:"Arquitecto y mandante",
+  act:["Programa de recintos acordado con el mandante",
+   "Plantas, cortes y elevaciones a nivel de anteproyecto",
+   "Cuadro de superficies (útil, común, construida) y cumplimiento de normas urbanísticas",
+   "Primera coordinación con calculista: sistema estructural y luces",
+   "Opcional: aprobación del anteproyecto en la DOM, que fija las normas urbanísticas por un plazo",
+   "Estimación de costo por partidas globales y comparación con el paramétrico"],
+  doc:["Planos de anteproyecto","Cuadro de superficies","Estimación de costo"],
+  norma:["OGUC: anteproyecto y su vigencia","Plan Regulador Comunal"],
+  error:"Cerrar el anteproyecto sin consultar al calculista: luces imposibles o estructuras caras.",
+  caps:[]},
+ {id:"e3",ic:"📐",t:"Proyecto y especialidades",sub:"Todo lo necesario para construir y cubicar con precisión",prec:"Cubicación detallada por partidas · ±5–10 %",
+  quien:"Arquitecto, calculista, proyectistas de instalaciones, revisor si corresponde",
+  act:["Proyecto de arquitectura definitivo con detalles constructivos",
+   "Cálculo estructural: memoria, planos y planillas de enfierradura (diseño sísmico NCh 433, hormigón armado NCh 430)",
+   "Revisor de proyecto de cálculo en los casos que exige la OGUC",
+   "Proyecto de agua potable y alcantarillado (reglamento RIDAA)",
+   "Proyecto eléctrico y de corrientes débiles (pliegos técnicos de la SEC)",
+   "Proyecto de gas, clima y ventilación, y aguas lluvias",
+   "Cumplimiento térmico (reglamentación térmica de la OGUC) y accesibilidad universal",
+   "Coordinación de especialidades y revisión de interferencias (BIM si se usa)",
+   "Especificaciones técnicas (EETT) ordenadas igual que el itemizado",
+   "Itemizado y cubicación detallada de cada partida desde planos y EETT"],
+  doc:["Planos de todas las especialidades","Memoria de cálculo","EETT","Itemizado y cubicación","Presupuesto detallado"],
+  norma:["NCh 433 (diseño sísmico de edificios)","NCh 430 (hormigón armado)","NCh 1156 (especificaciones técnicas: itemizado)","NCh 353 (cubicación de obras de edificación)","RIDAA y pliegos técnicos SEC"],
+  error:"EETT y planos que no coinciden: la partida se cubica con uno y se construye con el otro.",
+  caps:["3","4","5","6","7","8","9","10"]},
+ {id:"e4",ic:"🏛️",t:"Permiso de edificación",sub:"Aprobación de la Dirección de Obras Municipales",prec:"Derechos municipales sobre el presupuesto oficial",
+  quien:"Propietario, arquitecto patrocinante, DOM, revisor independiente si se contrata",
+  act:["Solicitud firmada por propietario y arquitecto con CIP vigente",
+   "Planos de arquitectura, cuadro de superficies, EETT y proyecto de cálculo",
+   "Informe del revisor independiente (si se contrató; acorta la revisión)",
+   "Estudio de impacto sobre el sistema de movilidad (IMIV) si el proyecto lo requiere",
+   "Aportes al espacio público según la Ley 20.958, si corresponde",
+   "La DOM calcula el presupuesto oficial con la tabla de costos unitarios del MINVU",
+   "Pago de derechos municipales (1,5 % del presupuesto oficial en obra nueva)",
+   "Responder el acta de observaciones dentro de plazo",
+   "Retiro del permiso; el permiso caduca si las obras no se inician en el plazo legal (3 años)",
+   "Permiso de demolición aparte, si hay construcciones existentes"],
+  doc:["Permiso de edificación","Comprobante de derechos","Acta de observaciones resuelta"],
+  norma:["LGUC art. 116 (permiso) y art. 130 (derechos)","OGUC título 5","Ley 20.958 (aportes y mitigaciones)"],
+  error:"Confundir el presupuesto oficial de la DOM con el presupuesto real de la obra: son cálculos distintos.",
+  caps:["1"]},
+ {id:"e5",ic:"📋",t:"Estudio de propuesta",sub:"La constructora arma su precio y su oferta",prec:"Presupuesto de oferta con APU · ±5 %",
+  quien:"Constructora (estudio de propuestas), mandante, proveedores y subcontratistas",
+  act:["Leer bases administrativas y técnicas, plazos, multas y forma de pago",
+   "Visita a terreno: accesos, vecinos, instalaciones existentes, botaderos cercanos",
+   "Ronda de consultas y aclaraciones por escrito",
+   "Cubicación propia: no confiar a ciegas en la cubicación del mandante",
+   "Cotizaciones: al menos tres por insumo o subcontrato relevante",
+   "Análisis de precios unitarios (APU) de cada partida",
+   "Gastos generales detallados según plazo y organigrama de obra",
+   "Imprevistos y utilidad según riesgo y mercado",
+   "Programa preliminar y flujo de caja de la oferta",
+   "Garantías: seriedad de la oferta, fiel cumplimiento y anticipo",
+   "Modalidad de contrato: suma alzada, serie de precios unitarios o administración delegada"],
+  doc:["Itemizado valorizado","APU","Detalle de gastos generales","Programa y flujo","Boleta de seriedad de la oferta"],
+  norma:["Bases del mandante","Ley 19.886 y su reglamento si el mandante es público"],
+  error:"Copiar precios de una obra anterior sin ajustar rendimientos, plazo ni ubicación.",
+  caps:[]},
+ {id:"e6",ic:"🗂️",t:"Planificación",sub:"Ordenar la obra antes de mover tierra",prec:"Presupuesto de control (línea base)",
+  quien:"Administrador de obra, oficina técnica, prevencionista, calidad",
+  act:["Estructura de desglose del trabajo (EDT) a partir del itemizado",
+   "Programa de obra: actividades, duraciones, precedencias y ruta crítica (siguiente paso)",
+   "Curva S y flujo de caja mensual",
+   "Plan de compras y abastecimiento según plazos de entrega (ventanas, acero, ascensores)",
+   "Plan de subcontratos: alcances, contratos y fechas",
+   "Layout de instalación de faenas: bodega, pañol, comedor, SS.HH., accesos, acopios, grúa",
+   "Plan de prevención de riesgos: matriz de riesgos y procedimientos de trabajo seguro",
+   "Plan de calidad: protocolos de recepción por partida y ensayos",
+   "Plan de manejo de residuos, ruido y polvo",
+   "Libro de obras abierto y registro de inicio de obras en la DOM",
+   "Presupuesto de control: el presupuesto ofertado convertido en línea base para medir costos"],
+  doc:["EDT","Programa y curva S","Plan de compras","Layout de faenas","Planes de seguridad y calidad","Libro de obras"],
+  norma:["DS 44 (gestión preventiva de riesgos laborales, reemplazó al DS 40 y DS 54)","DS 594 (condiciones sanitarias y ambientales)","Ley 16.744","DS 76 (empresas contratistas)"],
+  error:"Empezar sin plan de compras: la obra se detiene esperando un material con plazo de entrega largo.",
+  caps:["1"]},
+ {id:"e7",ic:"🏗️",t:"Ejecución",sub:"De la instalación de faenas a las terminaciones",prec:"Control de costo real contra presupuesto",
+  quien:"Administrador, jefe de terreno, capataces, subcontratos, ITO",
+  act:["Instalación de faenas, cierros, empalmes provisorios y letrero",
+   "Trazado y niveles con topografía; replanteo de ejes",
+   "Escarpe y excavaciones; entibar o dar talud según el informe de suelo",
+   "Recepción del sello de fundación por el mecánico de suelos antes de hormigonar",
+   "Rellenos en capas de 20–30 cm con control de densidad (Proctor)",
+   "Recepción de enfierradura y moldajes antes de cada hormigonado",
+   "Toma de probetas de hormigón y registro de cada camión",
+   "Obra gruesa: fundaciones, estructura, albañilería y losas",
+   "Instalaciones embutidas antes de cerrar muros y losas",
+   "Techumbre y cubierta para cerrar la obra al agua",
+   "Pruebas de presión de agua, estanqueidad de alcantarillado y aislación eléctrica",
+   "Terminaciones de adentro hacia afuera y de arriba hacia abajo",
+   "Obras exteriores y aseo"],
+  doc:["Protocolos firmados","Certificados de ensayos","Libro de obras al día","Registro fotográfico"],
+  norma:["EETT y planos del proyecto","NCh de ensayos (hormigón, suelos)","DS 44 y DS 594"],
+  error:"Hormigonar sin recibir la enfierradura o sin probetas: después no hay forma de demostrar calidad.",
+  caps:["1","2","3","4","5","6","7","8","9","10","11","12"]},
+ {id:"e8",ic:"📊",t:"Control y estados de pago",sub:"Medir lo hecho, cobrarlo y corregir a tiempo",prec:"Desviación por partida (real vs presupuesto)",
+  quien:"Oficina técnica, administrador, ITO, mandante",
+  act:["Cubicar lo ejecutado cada mes (avance físico por partida)",
+   "Estado de pago: cantidad ejecutada × precio unitario",
+   "Descontar retención (típico 5–10 %) y devolución del anticipo",
+   "Reajuste por UF o polinomio, según contrato",
+   "Aumentos y disminuciones de obra; obras extraordinarias con APU nuevo aprobado",
+   "Costo real contra presupuesto de control, partida por partida",
+   "Avance real contra programa: atrasos y medidas de recuperación",
+   "Informe mensual al mandante y reuniones de coordinación"],
+  doc:["Estados de pago","Informe mensual","Control de costos","Órdenes de cambio"],
+  norma:["Contrato y bases","Libro de obras"],
+  error:"Ejecutar obras extraordinarias sin orden escrita ni precio acordado: después no se pagan.",
+  caps:[]},
+ {id:"e9",ic:"🔑",t:"Recepción y entrega de llaves",sub:"Certificados, recepción municipal y entrega al cliente",prec:"Liquidación del contrato",
+  quien:"Constructora, arquitecto, ITO, DOM, SEC, empresa sanitaria, cliente",
+  act:["Declaración de la instalación eléctrica ante la SEC (TE1)",
+   "Declaración de la instalación de gas ante la SEC (TC6)",
+   "Certificados de agua potable y alcantarillado de la empresa sanitaria",
+   "Certificados de ascensores, pavimentación y otras especialidades si existen",
+   "Informe del arquitecto y del ITO sobre la obra terminada",
+   "Solicitud de recepción definitiva a la DOM (art. 144 LGUC)",
+   "Certificado de recepción definitiva: recién ahí se puede habitar",
+   "Copropiedad: plano y reglamento según la Ley 21.442",
+   "Pre-entrega con el cliente y lista de observaciones",
+   "Acta de entrega, llaves, manual de uso y mantención, planos as built y garantías de equipos",
+   "Postventa y responsabilidad legal: 10 años estructura, 5 años instalaciones y elementos constructivos, 3 años terminaciones",
+   "Liquidación del contrato: devolución de retenciones y boletas de garantía"],
+  doc:["Certificado de recepción definitiva","TE1 y TC6","Acta de entrega","Manual de uso y mantención","Planos as built"],
+  norma:["LGUC art. 144 (recepción) y art. 18 (responsabilidades, Ley 20.016)","Ley 21.442 (copropiedad)"],
+  error:"Entregar sin manual de uso ni planos as built: los reclamos de postventa se vuelven imposibles de defender.",
+  caps:["12"]}
+];
+
+/* Capítulos del itemizado */
+var M31_CAP=[["1","Obras preliminares y provisionales","🚧"],["2","Movimiento de tierras","⛏️"],["3","Fundaciones","🧱"],["4","Estructura de hormigón armado","🏢"],["5","Albañilería y tabiques","🧱"],["6","Techumbre y cubierta","🏠"],["7","Radieres y pavimentos","▦"],["8","Revestimientos y terminaciones","🎨"],["9","Puertas, ventanas y equipamiento","🚪"],["10","Instalaciones","🔌"],["11","Obras exteriores","🌳"],["12","Aseo y entrega","🔑"]];
+
+/* Base de insumos: id → [tipo, descripción, unidad, precio de ejemplo CLP neto]
+   M material · MO mano de obra (sin leyes sociales) · EQ equipo · SC subcontrato */
+var M31_INS={
+ mo_ma:["MO","Maestro de primera","HH",5600],mo_ay:["MO","Ayudante o jornal","HH",3900],mo_ca:["MO","Carpintero","HH",5600],mo_en:["MO","Enfierrador","HH",5600],
+ mo_al:["MO","Albañil","HH",5600],mo_ce:["MO","Ceramista","HH",6000],mo_pi:["MO","Pintor","HH",5200],mo_tb:["MO","Tabiquero","HH",5600],
+ h_g05:["M","Hormigón pobre G05","m³",82000],h_g20:["M","Hormigón premezclado G20","m³",98000],h_g25:["M","Hormigón premezclado G25","m³",105000],h_g30:["M","Hormigón premezclado G30","m³",112000],
+ acero:["M","Barras de acero A630-420H","kg",1100],alambre:["M","Alambre negro N° 18","kg",2200],malla:["M","Malla electrosoldada","m²",3000],
+ terciado:["M","Placa de moldaje 18 mm (amortizada en 5 usos)","m²",2600],madera:["M","Pino dimensionado 2×3 (amortizado)","ml",600],clavos:["M","Clavos","kg",2000],desmold:["M","Desmoldante","L",3000],alzap:["M","Alzaprimas y vigas de moldaje (arriendo)","m²",3500],
+ lad:["M","Ladrillo hecho a máquina 29×14×7,1","un",420],bloque:["M","Bloque de hormigón 14×19×39","un",650],escal:["M","Escalerilla de acero","ml",900],
+ cemento:["M","Cemento (saco 25 kg)","saco",4900],arena:["M","Arena gruesa","m³",26000],base:["M","Base estabilizada","m³",23000],emprest:["M","Material de empréstito seleccionado","m³",15000],agua:["M","Agua","m³",1500],
+ poli:["M","Polietileno 0,2 mm","m²",450],imper:["M","Emulsión asfáltica","L",3500],
+ montante:["M","Perfil galvanizado montante","ml",1500],solera:["M","Perfil galvanizado canal","ml",1400],yc:["M","Plancha de yeso-cartón 15 mm","m²",3300],torn:["M","Tornillos y fijaciones","un",15],cinta:["M","Cinta y pasta de juntura","m²",600],
+ lana50:["M","Lana mineral 50 mm","m²",2600],lana100:["M","Lana mineral 100 mm","m²",4800],
+ zinc:["M","Plancha acero zincalum 5V 0,35 mm","m²",6500],fieltro:["M","Fieltro asfáltico 15 lb","m²",600],fijac:["M","Tornillo autoperforante con golilla","un",60],forro:["M","Forro o cumbrera prepintada","ml",5500],canal:["M","Canal o bajada de aguas lluvias","ml",7000],
+ adhes:["M","Adhesivo cerámico (saco 25 kg)","saco",6500],frague:["M","Fragüe","kg",1500],ceram:["M","Cerámica de piso","m²",8500],ceramm:["M","Cerámica de muro","m²",8000],porce:["M","Porcelanato 60×60","m²",16000],flot:["M","Piso flotante 8 mm con espuma","m²",9500],guarda:["M","Guardapolvo","ml",1800],
+ latex:["M","Látex vinílico","L",4800],esmalte:["M","Esmalte al agua","L",6200],pasta:["M","Pasta muro","kg",1200],lija:["M","Lija y cinta de enmascarar","m²",150],yeso:["M","Yeso","kg",300],
+ eq_retro:["EQ","Retroexcavadora con operador","h",38000],eq_tolva:["EQ","Camión tolva 10 m³","viaje",55000],eq_botad:["EQ","Derecho de botadero autorizado","m³",5000],eq_placa:["EQ","Placa compactadora o vibropisón","h",3000],eq_vibra:["EQ","Vibrador de inmersión","h",2500],eq_bomba:["EQ","Bomba de hormigón","m³",9000]
+};
+
+/* APU tipo por unidad de partida: [insumo, cantidad por unidad, pérdida %] */
+var M31_APU={
+ horm:[["h_g25",1,5],["eq_vibra",.5,0],["mo_ma",1,0],["mo_ay",3,0]],
+ hormlosa:[["h_g25",1,3],["eq_bomba",1,0],["eq_vibra",.4,0],["mo_ma",.6,0],["mo_ay",2,0]],
+ hormfund:[["h_g20",1,5],["eq_vibra",.4,0],["mo_ma",.8,0],["mo_ay",2.5,0]],
+ emplant:[["h_g05",1,5],["mo_ay",1.5,0]],
+ molde:[["terciado",1,10],["madera",3.5,5],["clavos",.2,0],["desmold",.1,0],["mo_ca",1.1,0],["mo_ay",.5,0]],
+ moldelosa:[["terciado",1,10],["alzap",1,0],["clavos",.1,0],["desmold",.1,0],["mo_ca",.8,0],["mo_ay",.4,0]],
+ acero:[["acero",1,7],["alambre",.015,0],["mo_en",.035,0],["mo_ay",.02,0]],
+ malla:[["malla",1,10],["alambre",.01,0],["mo_en",.05,0],["mo_ay",.05,0]],
+ excmec:[["eq_retro",.05,0],["mo_ay",.1,0]],
+ excman:[["mo_ay",3,0]],
+ relleno:[["eq_placa",.6,0],["agua",.1,0],["mo_ay",1.2,0]],
+ rellenoemp:[["emprest",1.3,0],["eq_placa",.6,0],["agua",.1,0],["mo_ay",1.2,0]],
+ base:[["base",1.3,0],["eq_placa",.5,0],["agua",.1,0],["mo_ay",.8,0]],
+ retiro:[["eq_tolva",.1,0],["eq_botad",1,0],["eq_retro",.03,0]],
+ imper:[["imper",1,5],["mo_ay",.15,0]],
+ alba:[["lad",41.2,5],["cemento",.38,10],["arena",.023,10],["mo_al",.9,0],["mo_ay",.9,0]],
+ bloque:[["bloque",12.5,5],["cemento",.2,10],["arena",.012,10],["mo_al",.6,0],["mo_ay",.6,0]],
+ escal:[["escal",1,5],["mo_al",.02,0]],
+ tabique:[["montante",2,5],["solera",.8,5],["yc",2,8],["torn",30,0],["cinta",2,0],["mo_tb",.7,0],["mo_ay",.35,0]],
+ lana:[["lana50",1,5],["mo_ay",.1,0]],
+ lanatecho:[["lana100",1,5],["mo_ay",.12,0]],
+ cubierta:[["zinc",1,10],["fijac",6,5],["mo_ma",.3,0],["mo_ay",.2,0]],
+ fieltro:[["fieltro",1,15],["clavos",.02,0],["mo_ay",.05,0]],
+ forro:[["forro",1,10],["fijac",4,5],["mo_ma",.25,0]],
+ canal:[["canal",1,5],["mo_ma",.3,0]],
+ radier:[["h_g20",.1,5],["poli",1.1,0],["eq_vibra",.05,0],["mo_ma",.25,0],["mo_ay",.5,0]],
+ afinado:[["cemento",.54,10],["arena",.033,10],["mo_al",.3,0],["mo_ay",.2,0]],
+ ceram:[["ceram",1,10],["adhes",.2,5],["frague",.3,0],["mo_ce",.6,0],["mo_ay",.3,0]],
+ porce:[["porce",1,8],["adhes",.24,5],["frague",.2,0],["mo_ce",.8,0],["mo_ay",.3,0]],
+ flotante:[["flot",1,8],["mo_ma",.25,0]],
+ guarda:[["guarda",1,10],["mo_ma",.1,0]],
+ estuco:[["cemento",.36,10],["arena",.022,10],["mo_al",.5,0],["mo_ay",.4,0]],
+ yeso:[["yeso",8,10],["mo_ma",.35,0],["mo_ay",.15,0]],
+ cerammuro:[["ceramm",1,10],["adhes",.2,5],["frague",.3,0],["mo_ce",.7,0],["mo_ay",.3,0]],
+ cielo:[["montante",2.5,5],["yc",1,8],["torn",15,0],["cinta",1,0],["mo_tb",.6,0],["mo_ay",.3,0]],
+ pintura:[["latex",.2,5],["pasta",.15,0],["lija",1,0],["mo_pi",.25,0]],
+ esmalte:[["esmalte",.2,5],["pasta",.15,0],["lija",1,0],["mo_pi",.3,0]],
+ despeje:[["eq_retro",.005,0],["mo_ay",.08,0]],
+ trazado:[["madera",.3,10],["clavos",.01,0],["mo_ma",.05,0],["mo_ay",.05,0]],
+ cierro:[["zinc",2,5],["madera",3,10],["clavos",.1,0],["mo_ma",.6,0],["mo_ay",.6,0]],
+ aseo:[["mo_ay",.15,0]]
+};
+
+/* Itemizado tipo de edificación: [código, partida, unidad, APU tipo o precio de subcontrato de ejemplo, cómo se cubica] */
+var M31_CAT=[
+ ["1.1","Instalación de faenas (oficina, bodega, comedor, SS.HH., vestidores)","gl",4500000,"Según el layout de faenas. Servicios higiénicos, comedor y vestidores proporcionales a la dotación (DS 594)."],
+ ["1.2","Cierro provisorio de obra","ml","cierro","Perímetro del terreno menos los accesos."],
+ ["1.3","Empalmes provisorios de agua y electricidad","gl",1200000,"Uno por servicio, según factibilidades."],
+ ["1.4","Letrero de obra","un",350000,"Con los datos del permiso de edificación y los profesionales."],
+ ["1.5","Limpieza y despeje del terreno","m²","despeje","Superficie del terreno a intervenir."],
+ ["1.6","Demoliciones","m³",25000,"Volumen de lo que se demuele. Requiere permiso de demolición."],
+ ["1.7","Trazado y niveles","m²","trazado","Planta del primer piso más el sobreancho de excavación."],
+ ["2.1","Escarpe (retiro de capa vegetal)","m³","excmec","Superficie a intervenir × espesor de escarpe que indique el informe de suelo (típico 20–30 cm)."],
+ ["2.2","Excavación masiva mecánica","m³","excmec","Volumen en banco. Con talud, usa la ayuda de talud (prismoide)."],
+ ["2.3","Excavación de zanjas y pozos para fundaciones","m³","excman","Largo × (ancho de la fundación + sobreancho de trabajo) × profundidad hasta el sello."],
+ ["2.4","Entibaciones","m²",18000,"Superficie de pared de excavación a contener."],
+ ["2.5","Agotamiento de napa","día",90000,"Días de bombeo según el programa y el informe de suelo."],
+ ["2.6","Relleno compactado con material de la excavación","m³","relleno","Volumen compactado medido en planos. Control de densidad según el informe de suelo."],
+ ["2.7","Relleno con material de empréstito","m³","rellenoemp","Volumen compactado. El APU ya considera material suelto extra por compactación."],
+ ["2.8","Base estabilizada compactada bajo radier","m³","base","Superficie bajo radier × espesor (típico 10–15 cm)."],
+ ["2.9","Retiro de excedentes a botadero autorizado","m³","retiro","(Excavación − relleno con material propio) × esponjamiento. Usa el modo fórmula."],
+ ["3.1","Emplantillado de hormigón G05","m³","emplant","Superficie del sello × espesor (típico 5 cm)."],
+ ["3.2","Hormigón de cimientos corridos","m³","hormfund","Largo por eje × ancho × alto. En los cruces no cuentes dos veces."],
+ ["3.3","Hormigón de zapatas aisladas","m³","hormfund","Cantidad × largo × ancho × alto."],
+ ["3.4","Hormigón de vigas de fundación","m³","hormfund","Largo entre zapatas × ancho × alto."],
+ ["3.5","Hormigón de sobrecimientos","m³","hormfund","Largo × ancho × alto sobre el cimiento."],
+ ["3.6","Moldaje de fundaciones y sobrecimientos","m²","molde","Caras en contacto con el hormigón que no van contra terreno."],
+ ["3.7","Acero de refuerzo en fundaciones","kg","acero","Planilla de enfierradura: barras × largo × peso por metro (d²/162)."],
+ ["3.8","Impermeabilización de fundaciones y sobrecimientos","m²","imper","Caras enterradas o en contacto con el suelo."],
+ ["4.1","Hormigón de pilares","m³","horm","Cantidad × sección × alto libre entre losas."],
+ ["4.2","Hormigón de vigas","m³","horm","Solo la parte bajo la losa, para no contarla dos veces."],
+ ["4.3","Hormigón de muros","m³","horm","Largo × alto × espesor, descontando vanos."],
+ ["4.4","Hormigón de losas","m³","hormlosa","Área × espesor, descontando shafts y vanos grandes."],
+ ["4.5","Hormigón de escaleras","m³","horm","Losa inclinada × espesor más el volumen de los peldaños."],
+ ["4.6","Moldaje de pilares","m²","molde","Perímetro moldeado × alto."],
+ ["4.7","Moldaje de vigas","m²","molde","Largo × (fondo + dos costados bajo la losa)."],
+ ["4.8","Moldaje de muros","m²","molde","Dos caras × largo × alto, descontando vanos."],
+ ["4.9","Moldaje de losas con alzaprimado","m²","moldelosa","Área de losa más los cantos de borde."],
+ ["4.10","Acero de refuerzo A630-420H en estructura","kg","acero","Planilla de enfierradura por elemento: barras × largo × d²/162."],
+ ["4.11","Malla electrosoldada","m²","malla","Superficie a reforzar; el APU suma los traslapos."],
+ ["5.1","Albañilería de ladrillo hecho a máquina","m²","alba","Largo × alto, descontando vanos. Pilares y cadenas van aparte."],
+ ["5.2","Albañilería de bloque de hormigón","m²","bloque","Largo × alto, descontando vanos."],
+ ["5.3","Escalerillas de refuerzo horizontal","ml","escal","Largo de muro × hiladas con refuerzo."],
+ ["5.4","Hormigón de pilares y cadenas de confinamiento","m³","horm","Pilares: cantidad × sección × alto. Cadenas: largo × sección."],
+ ["5.5","Tabique de perfiles galvanizados con yeso-cartón 2 caras","m²","tabique","Largo × alto, descontando vanos."],
+ ["5.6","Aislación térmica y acústica de tabiques","m²","lana","Igual a la superficie del tabique."],
+ ["6.1","Estructura de techumbre","m²",22000,"Superficie en planta; la pendiente se aplica en la cubierta."],
+ ["6.2","Cubierta de acero (plancha ondulada o 5V)","m²","cubierta","Planta × factor de pendiente + aleros. Usa la ayuda de pendiente."],
+ ["6.3","Barrera de humedad bajo cubierta","m²","fieltro","Igual a la superficie real de cubierta."],
+ ["6.4","Aislación térmica de techumbre","m²","lanatecho","Superficie del cielo del último piso. Espesor según zona térmica."],
+ ["6.5","Cumbreras, limatesas y forros","ml","forro","Largo de cumbreras, limatesas y encuentros con muros."],
+ ["6.6","Canales y bajadas de aguas lluvias","ml","canal","Largo de canales + bajadas × altura."],
+ ["7.1","Radier de hormigón e = 10 cm","m²","radier","Superficie interior del primer piso."],
+ ["7.2","Sobrelosa o afinado de piso","m²","afinado","Superficie de recintos que lo llevan."],
+ ["7.3","Pavimento cerámico","m²","ceram","Superficie de recintos según cuadro de terminaciones."],
+ ["7.4","Pavimento porcelanato","m²","porce","Superficie de recintos según cuadro de terminaciones."],
+ ["7.5","Piso flotante","m²","flotante","Superficie de recintos según cuadro de terminaciones."],
+ ["7.6","Guardapolvos","ml","guarda","Perímetro de recintos menos vanos de puertas."],
+ ["8.1","Estuco de muros e = 2 cm","m²","estuco","Caras a estucar, descontando vanos mayores a 2 m²."],
+ ["8.2","Enlucido de yeso","m²","yeso","Caras interiores de albañilería u hormigón."],
+ ["8.3","Revestimiento cerámico de muros","m²","cerammuro","Altura según EETT × perímetro de baños y cocina."],
+ ["8.4","Cielo de yeso-cartón","m²","cielo","Superficie de recintos con cielo falso."],
+ ["8.5","Pintura látex en muros y cielos (2 manos)","m²","pintura","Muros y cielos de recintos secos, descontando vanos."],
+ ["8.6","Esmalte al agua en zonas húmedas","m²","esmalte","Muros y cielos de baños y cocina sin cerámica."],
+ ["8.7","Sellos, cornisas y junquillos","ml",3000,"Largo de encuentros a sellar."],
+ ["9.1","Puertas interiores completas","un",180000,"Marco, hoja, bisagras y quincallería, según cuadro de puertas."],
+ ["9.2","Puerta de acceso","un",450000,"Según cuadro de puertas."],
+ ["9.3","Ventanas de aluminio con termopanel","m²",140000,"Ancho × alto de cada ventana del cuadro de ventanas."],
+ ["9.4","Muebles de cocina","ml",280000,"Largo de mueble base y mural."],
+ ["9.5","Closets","un",350000,"Según plano de arquitectura."],
+ ["10.1","Red de agua potable fría y caliente","pto",85000,"Un punto por cada salida de agua (llave o artefacto)."],
+ ["10.2","Red de alcantarillado","pto",75000,"Un punto por cada descarga de artefacto."],
+ ["10.3","Artefactos sanitarios y griferías","un",140000,"Según cuadro de artefactos."],
+ ["10.4","Instalación eléctrica (centros, enchufes y tablero)","pto",45000,"Cuenta centros de luz y enchufes en los planos eléctricos."],
+ ["10.5","Corrientes débiles","pto",40000,"Datos, TV, citófono y alarmas."],
+ ["10.6","Instalación de gas","gl",1200000,"Según proyecto de gas."],
+ ["10.7","Agua caliente sanitaria","un",450000,"Calefont, termo o bomba de calor."],
+ ["10.8","Calefacción y ventilación","gl",2500000,"Según proyecto de clima."],
+ ["10.9","Red húmeda y red seca contra incendio","gl",3000000,"Cuando la OGUC lo exige según altura y carga."],
+ ["10.10","Ascensores","un",45000000,"Cantidad según proyecto."],
+ ["11.1","Pavimentos exteriores","m²",22000,"Superficie de accesos, patios y estacionamientos."],
+ ["11.2","Áreas verdes y riego","m²",12000,"Superficie de jardines."],
+ ["11.3","Cierro definitivo","ml",45000,"Largo de deslindes con cierro nuevo."],
+ ["11.4","Empalmes definitivos y aportes a servicios","gl",2500000,"Según factibilidades: empalme eléctrico, arranque de agua y unión domiciliaria."],
+ ["12.1","Aseo final de obra","m²","aseo","Superficie construida."],
+ ["12.2","Retiro de escombros durante la obra","m³","retiro","Estimado según la obra; pide bitácora de botadero."],
+ ["12.3","Planos as built y manual de uso y mantención","gl",600000,"Uno por obra."]
+];
+
+/* Obra de ejemplo: mediciones por partida. Fila: [ubicación, veces, largo, ancho, alto] o [ubicación, barras, largo, Ø] en kg */
+var M31_EJ={
+ ficha:{nom:"Casa de 2 pisos · 120 m² · ejemplo",comuna:"Concepción",destino:"Vivienda unifamiliar",sup:120,pisos:2,plazo:6,uf:40000,contrato:"Suma alzada",mandante:"Particular"},
+ med:{
+  "1.1":[["Instalación completa",1]],"1.2":[["Perímetro del terreno menos acceso",1,56]],"1.5":[["Terreno 10 × 20",1,10,20]],"1.7":[["Planta + sobreancho",1,9,9]],
+  "2.1":[["Planta + 1 m de trabajo",1,10,7.5,.2]],"2.3":[["Cimientos ejes perimetrales",1,31,.6,.9],["Cimientos ejes interiores",1,14,.6,.9]],
+  "2.6":[["Bajo radier y respaldo",1,6]],"2.8":[["Bajo radier",1,55,1,.1]],
+  "3.1":[["Sello de cimientos",1,45,.6,.05]],"3.2":[["Ejes perimetrales",1,31,.4,.6],["Ejes interiores",1,14,.4,.6]],"3.5":[["Todos los ejes",1,45,.2,.3]],
+  "3.6":[["Sobrecimiento, 2 caras",2,45,.3]],"3.7":[["Longitudinales Ø10",4,45,10],["Estribos Ø8 a 20 cm",225,1,8]],"3.8":[["Sobrecimiento, 2 caras",2,45,.3]],
+  "4.4":[["Losa 1er piso",1,8,7.5,.13]],"4.5":[["Escalera",1,.8]],"4.9":[["Losa",1,8,7.5],["Cantos de borde",1,31,.13]],
+  "4.10":[["Losa Ø8 a 15 dir. x",50,8,8],["Losa Ø8 a 15 dir. y",53,7.5,8],["Pilares y cadenas Ø10",4,147.6,10],["Estribos Ø6 a 15",984,.7,6]],
+  "5.1":[["Muros perimetrales (2 pisos)",2,31,2.3],["Muros interiores 1er piso",1,14,2.3],["Vanos de puertas y ventanas",-1,24]],
+  "5.4":[["Pilares 20×20 (2 pisos)",24,.2,.2,2.4],["Cadenas 20×20",2,45,.2,.2]],"5.5":[["Tabiques 2º piso",1,15,2.3]],"5.6":[["Tabiques 2º piso",1,15,2.3]],
+  "4.6":[["Pilares de confinamiento, 2 caras",24,.4,2.4]],
+  "6.1":[["Planta de techumbre",1,9,8.5]],"6.2":[["Planta × factor de pendiente 30 %",1,9,8.5,1.044]],"6.3":[["Igual a cubierta",1,9,8.5,1.044]],"6.4":[["Cielo 2º piso",1,60]],
+  "6.5":[["Cumbrera y forros",1,20]],"6.6":[["Canales",1,18],["Bajadas",2,5.5]],
+  "7.1":[["Primer piso",1,55]],"7.3":[["Baños y cocina",1,25]],"7.5":[["Dormitorios y estar",1,80]],"7.6":[["Perímetro de recintos",1,110]],
+  "8.1":[["Fachadas",2,31,2.4],["Vanos",-1,24]],"8.2":[["Caras interiores",1,220]],"8.3":[["Baños y cocina",1,40]],"8.4":[["Cielos",1,115]],
+  "8.5":[["Muros interiores",1,220],["Cielos",1,115],["Fachadas",1,125]],"8.6":[["Zonas húmedas",1,30]],
+  "9.1":[["Según cuadro de puertas",9]],"9.2":[["Acceso",1]],"9.3":[["Según cuadro de ventanas",1,16]],"9.4":[["Cocina",1,4]],"9.5":[["Dormitorios",3]],
+  "10.1":[["Puntos de agua",14]],"10.2":[["Descargas",10]],"10.3":[["Artefactos",9]],"10.4":[["Centros y enchufes",45]],"10.5":[["Datos, TV y citófono",8]],"10.6":[["Proyecto de gas",1]],"10.7":[["Calefont",1]],
+  "11.1":[["Acceso y patio",1,30]],"11.2":[["Jardín",1,60]],"11.3":[["Frente del terreno",1,10],["Deslindes",1,20]],"11.4":[["Empalmes",1]],
+  "12.1":[["Superficie construida",1,120]],"12.3":[["Uno por obra",1]]
+ },
+ expr:{"2.9":"([2.1]+[2.3]-[2.6])*1.25"}
+};
+var M31_GG=[["Jefe de obra","mes","plazo",1300000],["Administrador de obra (visitas)","mes","plazo",350000],["Cuidador y bodega","mes","plazo",400000],["Prevencionista de riesgos (visitas)","mes","plazo",200000],["Consumos básicos (agua, luz, internet)","mes","plazo",120000],["Ensayos de laboratorio (probetas y densidades)","gl",1,500000],["Garantías y seguros","% CD",1.5,0],["Gastos de oficina central","% CD",3,0]];
+/* Distribución típica de capítulos en el plazo: [mes de inicio, meses] para 8 meses; se escala al plazo de la obra */
+var M31_FLU={"1":[1,1],"2":[1,1],"3":[2,1],"4":[2,3],"5":[3,2],"6":[4,1],"7":[5,2],"8":[5,3],"9":[6,2],"10":[3,5],"11":[7,2],"12":[8,1]};
+
+/* ══ v3.1 · Presupuesto de obra: del anteproyecto a la entrega de llaves ══ */
+var _m31={tab:0,open:null,hide0:false,cap:{},et:null,ayuda:null,add:null,nuevo:false};
+var _m31O=null,_m31K=null;
+function _m31cl(o){return JSON.parse(JSON.stringify(o))}
+function _m31E(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function _m31n(v){if(typeof v==="number")return v;v=String(v||"").trim();if(!v)return null;if(v.indexOf(",")>=0)v=v.replace(/\./g,"").replace(",",".");var n=parseFloat(v);return isNaN(n)?null:n}
+function _m31F(x,d){if(x==null||isNaN(x))return "–";if(d==null)d=Math.abs(x)>=100?0:Math.abs(x)>=10?1:2;return (+x).toLocaleString("es-CL",{minimumFractionDigits:0,maximumFractionDigits:d})}
+function _m31P(x){return "$ "+Math.round(x||0).toLocaleString("es-CL")}
+function _m31V(x){return x==null?"":String(x).replace(".",",")}
+
+/* ── obra ── */
+function _m31Nueva(ej){
+  var O={v:1,ficha:ej?_m31cl(M31_EJ.ficha):{nom:"Mi obra",comuna:"",destino:"",sup:0,pisos:1,plazo:6,uf:40000,contrato:"Suma alzada",mandante:""},
+    chk:{},ins:{},insX:{},ls:45,hm:5,util:10,imp:3,iva:19,ret:5,ant:10,gg:_m31cl(M31_GG),flu:{},mand:{terreno:0,proy:0,tabla:ej?330000:0,ito:0,otros:0},parts:[]};
+  M31_CAT.forEach(function(c){
+    var p={c:c[0],n:c[1],u:c[2],h:c[4],modo:"med",med:[],expr:"",apu:[]};
+    if(typeof c[3]==="string")p.apu=_m31cl(M31_APU[c[3]]);else{var id="sc_"+c[0];O.insX[id]=["SC",c[1],c[2],c[3]];p.apu=[[id,1,0]]}
+    if(ej){var m=M31_EJ.med[c[0]];if(m)p.med=m.map(function(r){return r.slice()});var e=M31_EJ.expr[c[0]];if(e){p.modo="expr";p.expr=e}}
+    O.parts.push(p)});
+  return O}
+function _m31Ob(){if(_m31O)return _m31O;try{_m31O=JSON.parse(localStorage.getItem("m31_obra")||"null")}catch(e){}
+  if(!_m31O||!_m31O.parts)_m31O=_m31Nueva(true);return _m31O}
+var _m31SvT=null;
+function _m31Sv(){_m31K=null;clearTimeout(_m31SvT);_m31SvT=setTimeout(function(){try{localStorage.setItem("m31_obra",JSON.stringify(_m31O))}catch(e){}},250)}
+function _m31Ins(id){var O=_m31Ob();return O.insX[id]||M31_INS[id]||null}
+function _m31Pr(id){var O=_m31Ob(),I=_m31Ins(id);if(!I)return 0;if(O.insX[id])return +I[3]||0;return O.ins[id]!=null?O.ins[id]:I[3]}
+function _m31Cap(c){return String(c).split(".")[0]}
+function _m31Part(c){var P=_m31Ob().parts;for(var i=0;i<P.length;i++)if(P[i].c===c)return P[i];return null}
+
+/* ── cálculo ── */
+/* evaluador de fórmulas: números, + − × ÷ y paréntesis */
+function _m31Ev(s){var i=0;s=String(s).replace(/\s+/g,"");
+  function num(){var m=/^\d*\.?\d+(e[+-]?\d+)?/i.exec(s.slice(i));if(!m)throw 0;i+=m[0].length;return parseFloat(m[0])}
+  function fac(){var c=s[i];if(c==="-"){i++;return -fac()}if(c==="+"){i++;return fac()}if(c==="("){i++;var v=sum();if(s[i]!==")")throw 0;i++;return v}return num()}
+  function prod(){var v=fac();while(s[i]==="*"||s[i]==="/"){var o=s[i++],w=fac();v=o==="*"?v*w:v/w}return v}
+  function sum(){var v=prod();while(s[i]==="+"||s[i]==="-"){var o=s[i++],w=prod();v=o==="+"?v+w:v-w}return v}
+  try{if(!s)return 0;var v=sum();return i===s.length&&isFinite(v)?v:0}catch(e){return 0}}
+function _m31Fila(u,r){var n=r[1]==null?1:r[1];
+  if(u==="kg"){var d=r[3]||0;return n*(r[2]==null?0:r[2])*d*d/162}
+  var v=n;for(var k=2;k<5;k++)if(r[k]!=null)v*=r[k];return v}
+function _m31Q(p,K,prof){
+  if(K&&K.Q[p.c]!=null)return K.Q[p.c];
+  var q=0;
+  if(p.modo==="expr"){
+    if((prof||0)>8)return 0;
+    var s=String(p.expr||"").replace(/\[([\w.]+)\]/g,function(m,c){var o=_m31Part(c);return o&&o!==p?"("+_m31Q(o,K,(prof||0)+1)+")":"0"}).replace(/,/g,".");
+    q=_m31Ev(s);
+  }else p.med.forEach(function(r){q+=_m31Fila(p.u,r)});
+  q=Math.max(0,q);if(K)K.Q[p.c]=q;return q}
+function _m31PU(p){var O=_m31Ob(),r={M:0,MO:0,EQ:0,SC:0};
+  p.apu.forEach(function(a){var I=_m31Ins(a[0]);if(!I)return;r[I[0]]+=(a[1]||0)*(1+(a[2]||0)/100)*_m31Pr(a[0])});
+  var mo=r.MO*(1+O.ls/100),hm=mo*O.hm/100;
+  return {M:r.M,MO:mo,MOb:r.MO,EQ:r.EQ,HM:hm,SC:r.SC,PU:r.M+mo+r.EQ+hm+r.SC}}
+function _m31Calc(){if(_m31K)return _m31K;
+  var O=_m31Ob(),K={Q:{},PU:{},T:{},cap:{},CD:0};
+  O.parts.forEach(function(p){var q=_m31Q(p,K),u=_m31PU(p);K.PU[p.c]=u;K.T[p.c]=q*u.PU;var c=_m31Cap(p.c);K.cap[c]=(K.cap[c]||0)+K.T[p.c];K.CD+=K.T[p.c]});
+  var pl=+O.ficha.plazo||0;K.gg=O.gg.map(function(g){var q=g[2]==="plazo"?pl:+g[2]||0;return g[1]==="% CD"?K.CD*q/100:q*(+g[3]||0)});
+  K.GG=K.gg.reduce(function(a,b){return a+b},0);K.IMP=K.CD*O.imp/100;K.UT=(K.CD+K.GG)*O.util/100;
+  K.NET=K.CD+K.GG+K.IMP+K.UT;K.IVA=K.NET*O.iva/100;K.TOT=K.NET+K.IVA;
+  var M=O.mand,s=+O.ficha.sup||0;K.POF=s*(+M.tabla||0);K.DER=K.POF*.015;K.ITO=(+M.ito||0)*pl;
+  K.MAND=K.TOT+(+M.terreno||0)+(+M.proy||0)+K.DER+K.ITO+(+M.otros||0);
+  _m31K=K;return K}
+
+/* ── refresco en vivo sin perder el foco ── */
+function _m31Live(){_m31K=null;var K=_m31Calc(),O=_m31Ob(),uf=+O.ficha.uf||0,s=+O.ficha.sup||0;
+  document.querySelectorAll("#m28-cub [data-c]").forEach(function(e){var a=e.getAttribute("data-c").split("|"),v="",p;
+    switch(a[0]){
+      case "q":p=_m31Part(a[1]);v=p?_m31F(K.Q[p.c])+" "+p.u:"";break;
+      case "t":v=_m31P(K.T[a[1]]);break;
+      case "pu":v=_m31P(K.PU[a[1]]&&K.PU[a[1]].PU);break;
+      case "pux":v=_m31P(K.PU[a[1]]&&K.PU[a[1]][a[2]]);break;
+      case "row":p=_m31Part(a[1]);v=p&&p.med[+a[2]]?_m31F(_m31Fila(p.u,p.med[+a[2]])):"";break;
+      case "apu":p=_m31Part(a[1]);if(p&&p.apu[+a[2]]){var r=p.apu[+a[2]],I=_m31Ins(r[0]),x=(r[1]||0)*(1+(r[2]||0)/100)*_m31Pr(r[0]);if(I&&I[0]==="MO")x*=1+O.ls/100;v=_m31P(x)}break;
+      case "cap":v=_m31P(K.cap[a[1]]||0);break;
+      case "k":v=_m31P(K[a[1]]);break;
+      case "gg":v=_m31P(K.gg[+a[1]]);break;
+      case "m2":v=s?_m31P(K.NET/s)+"/m²":"–";break;
+      case "uf":v=uf?_m31F(K[a[1]]/uf,0)+" UF":"–";break;
+      case "ufm2":v=uf&&s?_m31F(K.NET/uf/s,1)+" UF/m²":"–";break;
+      case "pct":v=K.CD?_m31F((K.cap[a[1]]||0)/K.CD*100,1)+" %":"";break;
+    }
+    e.textContent=v});
+  _m31Sv()}
+
+/* ── pantalla ── */
+var M31_TABS=["Proceso","Obra","Partidas","Insumos","Resumen","Flujo"];
+function m31Pinta(){
+  var root=document.getElementById("m28-cub");if(!root)return;_m31Ob();_m31K=null;
+  var K=_m31Calc(),O=_m31O;
+  var h='<div class="m31"><div class="m31-head"><div><small>Presupuesto de obra</small><b>'+_m31E(O.ficha.nom)+'</b></div><div class="m31-tot"><small>Total con IVA</small><b data-c="k|TOT">'+_m31P(K.TOT)+'</b><em data-c="uf|TOT"></em></div></div>'
+   +'<nav class="m31-tabs" role="tablist">'+M31_TABS.map(function(t,i){return '<button role="tab" aria-selected="'+(i===_m31.tab)+'" onclick="m31Tab('+i+')">'+t+'</button>'}).join("")+'</nav><div class="m31-body">';
+  h+=[_m31Proceso,_m31Ficha,_m31Partidas,_m31Insumos,_m31Resumen,_m31Flujo][_m31.tab]();
+  root.innerHTML=h+'</div></div>';_m31Live()}
+function m31Tab(i){_m31.tab=i;m31Pinta();var r=document.getElementById("m28-cub");if(r&&r.getBoundingClientRect().top<0)r.scrollIntoView({block:"start"})}
+function m31Abrir(tab){if(tab!=null)_m31.tab=tab;try{mycGo("formulas")}catch(e){}setTimeout(function(){try{m28CalcTab(1)}catch(e){}},80)}
+
+/* 1 · proceso */
+function _m31Proceso(){var O=_m31Ob(),tot=0,ok=0;
+  M31_ETAPAS.forEach(function(e){e.act.forEach(function(a,i){tot++;if(O.chk[e.id+"_"+i])ok++})});
+  var h='<p class="m31-lead">Todo el camino de una edificación, de la compra del terreno a la entrega de llaves. Marca lo que ya está hecho en tu obra; el presupuesto se va afinando en cada etapa.</p>'
+   +'<div class="m31-prec"><h4>Precisión del presupuesto según la etapa</h4>'
+   +[["Paramétrico","±30 %",30,"Terreno y factibilidad"],["Anteproyecto","±20 %",20,"Partidas globales"],["Proyecto","±10 %",10,"Cubicación detallada"],["Propuesta","±5 %",5,"APU y cotizaciones"]].map(function(r){return '<div class="m31-pr"><span>'+r[0]+'<small>'+r[3]+'</small></span><i style="--w:'+r[2]*3+'%"></i><b>'+r[1]+'</b></div>'}).join("")+'</div>'
+   +'<div class="m31-bar"><span>Avance del proceso</span><b>'+ok+' de '+tot+'</b><i><em style="width:'+(tot?ok/tot*100:0)+'%"></em></i></div>';
+  h+='<ol class="m31-et">'+M31_ETAPAS.map(function(e,k){var n=e.act.length,d=e.act.filter(function(a,i){return O.chk[e.id+"_"+i]}).length,on=_m31.et===e.id;
+    return '<li class="'+(on?"on":"")+(d===n?" ok":"")+'"><button class="m31-eh" onclick="m31Et(\''+e.id+'\')" aria-expanded="'+on+'"><span class="n">'+(k+1)+'</span><span class="ic">'+e.ic+'</span><span class="tx"><b>'+e.t+'</b><small>'+e.sub+'</small></span><span class="c">'+d+'/'+n+'</span></button>'
+      +(on?'<div class="m31-eb"><div class="m31-chip a">'+e.prec+'</div><p class="m31-q"><b>Participan:</b> '+e.quien+'</p>'
+        +'<ul class="m31-ck">'+e.act.map(function(a,i){var c=!!O.chk[e.id+"_"+i];return '<li><label><input type="checkbox"'+(c?" checked":"")+' onchange="m31Chk(\''+e.id+'_'+i+'\',this.checked)"><span>'+a+'</span></label></li>'}).join("")+'</ul>'
+        +'<h5>Entregables</h5><div class="m31-chips">'+e.doc.map(function(x){return '<span class="m31-chip">'+x+'</span>'}).join("")+'</div>'
+        +'<h5>Normativa</h5><div class="m31-chips">'+e.norma.map(function(x){return '<span class="m31-chip n">'+x+'</span>'}).join("")+'</div>'
+        +'<div class="m31-err"><b>Error típico</b>'+e.error+'</div>'
+        +(e.caps.length?'<h5>En el presupuesto</h5><div class="m31-chips">'+e.caps.map(function(c){var C=M31_CAP.filter(function(x){return x[0]===c})[0];return '<button class="m31-chip b" onclick="m31VeCap(\''+c+'\')">'+C[2]+' '+c+'. '+C[1]+'</button>'}).join("")+'</div>':'')
+        +'</div>':'')+'</li>'}).join("")+'</ol>'
+   +'<p class="m31-nota">Normas citadas por su nombre; revísalas vigentes en bcn.cl y en el INN. El siguiente paso es la programación de la obra.</p>';
+  return h}
+function m31Et(id){_m31.et=_m31.et===id?null:id;m31Pinta()}
+function m31Chk(k,v){var O=_m31Ob();if(v)O.chk[k]=1;else delete O.chk[k];_m31Sv();var b=document.querySelector(".m31-et li.on .c");if(b){var e=M31_ETAPAS.filter(function(x){return x.id===_m31.et})[0];if(e)b.textContent=e.act.filter(function(a,i){return O.chk[e.id+"_"+i]}).length+"/"+e.act.length}}
+function m31VeCap(c){_m31.cap={};_m31.cap[c]=1;_m31.open=null;m31Tab(2)}
+
+/* 2 · ficha de obra */
+function _m31Ficha(){var O=_m31Ob(),F=O.ficha;
+  var f=function(k,t,num,un){return '<label><span>'+t+'</span><span class="u"><input '+(num?'inputmode="decimal" ':'')+'value="'+_m31E(num?_m31V(F[k]):F[k])+'" oninput="m31Fi(\''+k+'\',this.value,'+(num?1:0)+')">'+(un?'<em>'+un+'</em>':'')+'</span></label>'};
+  var g=function(k,t,un,nota){return '<label><span>'+t+'</span><span class="u"><input inputmode="decimal" value="'+_m31V(O[k])+'" oninput="m31Pa(\''+k+'\',this.value)"><em>'+un+'</em></span>'+(nota?'<small>'+nota+'</small>':'')+'</label>'};
+  return '<div class="m31-card"><h4>Ficha de la obra</h4><div class="m31-in">'+f("nom","Nombre")+f("mandante","Mandante")+f("comuna","Comuna")+f("destino","Destino")
+     +f("sup","Superficie construida",1,"m²")+f("pisos","Pisos",1,"")+f("plazo","Plazo",1,"meses")+f("uf","Valor UF",1,"$")
+     +'<label><span>Modalidad de contrato</span><select onchange="m31Fi(\'contrato\',this.value)">'+["Suma alzada","Serie de precios unitarios","Administración delegada","Llave en mano"].map(function(x){return '<option'+(F.contrato===x?" selected":"")+'>'+x+'</option>'}).join("")+'</select></label></div>'
+     +'<p class="m31-nota">Actualiza el valor de la UF del día (SII o Banco Central). El plazo mueve los gastos generales y el flujo.</p></div>'
+   +'<div class="m31-card"><h4>Parámetros del presupuesto</h4><div class="m31-in">'
+     +g("ls","Leyes sociales sobre la mano de obra","%","Cotizaciones de cargo del empleador, seguro de accidentes (Ley 16.744), cesantía, vacaciones e indemnizaciones.")
+     +g("hm","Herramientas menores","% MO","Desgaste de herramientas de mano, sobre la mano de obra.")
+     +g("imp","Imprevistos","% CD","Sobre el costo directo, según el riesgo del proyecto.")
+     +g("util","Utilidad","%","Sobre costo directo más gastos generales.")
+     +g("iva","IVA","%")+'</div></div>'
+   +'<div class="m31-card"><h4>Modalidades de contrato</h4><dl class="m31-dl">'
+     +'<dt>Suma alzada</dt><dd>Precio total fijo por la obra completa. El riesgo de cubicación es de la constructora.</dd>'
+     +'<dt>Serie de precios unitarios</dt><dd>Se paga cantidad ejecutada × precio unitario. El riesgo de cubicación es del mandante.</dd>'
+     +'<dt>Administración delegada</dt><dd>El mandante paga el costo real más un honorario a la constructora.</dd>'
+     +'<dt>Llave en mano</dt><dd>La constructora diseña y construye; entrega la obra lista para usar.</dd></dl></div>'
+   +'<div class="m31-card"><h4>Obra</h4><div class="m31-acts"><button onclick="m31Copia(this)">Copiar presupuesto para Excel</button><button onclick="m31Reset(this,1)">Volver al ejemplo</button><button onclick="m31Reset(this,0)">Nueva obra en blanco</button></div>'
+     +'<p class="m31-nota">Una obra nueva trae el itemizado completo en cero, para que ninguna partida se te olvide. Todo queda guardado en este navegador y entra en el respaldo de la app.</p></div>'}
+function m31Fi(k,v,num){var O=_m31Ob();O.ficha[k]=num?_m31n(v):v;if(k==="nom"){var b=document.querySelector(".m31-head b");if(b)b.textContent=v}_m31Live()}
+function m31Pa(k,v){var O=_m31Ob(),n=_m31n(v);O[k]=n==null?0:n;_m31Live()}
+function m31Reset(b,ej){if(!b.classList.contains("conf")){b.classList.add("conf");b.dataset.t=b.textContent;b.textContent="Toca otra vez para confirmar";setTimeout(function(){b.classList.remove("conf");b.textContent=b.dataset.t},3000);return}
+  _m31O=_m31Nueva(!!ej);_m31.open=null;_m31Sv();m31Pinta()}
+
+/* 3 · partidas */
+function _m31Partidas(){var O=_m31Ob(),K=_m31Calc();
+  var h='<div class="m31-tool"><label class="m31-sw"><input type="checkbox"'+(_m31.hide0?" checked":"")+' onchange="_m31.hide0=this.checked;m31Pinta()"><span>Ocultar partidas en cero</span></label><span class="m31-cd">Costo directo <b data-c="k|CD"></b></span></div>';
+  M31_CAP.forEach(function(C){var P=O.parts.filter(function(p){return _m31Cap(p.c)===C[0]});
+    var vis=P.filter(function(p){return !_m31.hide0||K.T[p.c]>0||_m31.open===p.c});
+    var op=!!_m31.cap[C[0]];
+    h+='<section class="m31-capc'+(op?" on":"")+'"><button class="m31-caph" onclick="m31Cap(\''+C[0]+'\')" aria-expanded="'+op+'"><span class="ic">'+C[2]+'</span><span class="tx"><b>'+C[0]+'. '+C[1]+'</b><small>'+P.length+' partidas · <span data-c="pct|'+C[0]+'"></span></small></span><b class="v" data-c="cap|'+C[0]+'"></b></button>';
+    if(op){h+='<div class="m31-pl">'+vis.map(function(p){return _m31Fila1(p)}).join("")
+      +(_m31.add===C[0]?_m31AddF(C[0]):'<button class="m31-add" onclick="m31Add(\''+C[0]+'\')">+ Agregar partida a '+C[1].toLowerCase()+'</button>')+'</div>'}
+    h+='</section>'});
+  return h+'<p class="m31-nota">Cubica como en una planilla profesional: cada fila es una medición con su ubicación (eje, recinto o elemento). Las filas con veces negativas descuentan vanos. Precios de ejemplo: reemplázalos por tus cotizaciones.</p>'}
+function _m31Fila1(p){var on=_m31.open===p.c;
+  return '<div class="m31-p'+(on?" on":"")+'"><button class="m31-ph" onclick="m31Ab(\''+p.c+'\')" aria-expanded="'+on+'"><span class="cd">'+p.c+'</span><span class="nm">'+_m31E(p.n)+'<small data-c="q|'+p.c+'"></small></span><b data-c="t|'+p.c+'"></b></button>'+(on?_m31Ed(p):'')+'</div>'}
+function m31Cap(c){if(_m31.cap[c])delete _m31.cap[c];else _m31.cap[c]=1;_m31.add=null;m31Pinta()}
+function m31Ab(c){_m31.open=_m31.open===c?null:c;_m31.ayuda=null;m31Pinta();var e=document.querySelector(".m31-p.on");if(e)e.scrollIntoView({block:"nearest"})}
+var M31_UN=["m³","m²","ml","kg","un","gl","pto","día","mes"],M31_DIAM=[6,8,10,12,16,18,22,25,28,32,36];
+function _m31Ed(p){var c=p.c,O=_m31Ob(),kg=p.u==="kg";
+  var H={"m³":["Largo","Ancho","Alto"],"m²":["Largo","Ancho o alto","Factor"],"ml":["Largo","Factor","Factor"]}[p.u]||["Factor","Factor","Factor"];
+  var h='<div class="m31-ed"><div class="m31-in"><label class="w"><span>Partida</span><input value="'+_m31E(p.n)+'" oninput="m31PN(\''+c+'\',this.value)"></label>'
+   +'<label><span>Unidad</span><select onchange="m31PUn(\''+c+'\',this.value)">'+M31_UN.map(function(u){return '<option'+(p.u===u?" selected":"")+'>'+u+'</option>'}).join("")+'</select></label>'
+   +'<label><span>Cantidad por</span><select onchange="m31PMo(\''+c+'\',this.value)"><option value="med"'+(p.modo!=="expr"?" selected":"")+'>Mediciones</option><option value="expr"'+(p.modo==="expr"?" selected":"")+'>Fórmula con otras partidas</option></select></label></div>'
+   +(p.h?'<p class="m31-hint"><b>Cómo se cubica.</b> '+_m31E(p.h)+'</p>':'');
+  if(p.modo==="expr"){
+    h+='<label class="m31-expr"><span>Fórmula</span><input value="'+_m31E(p.expr)+'" oninput="m31PEx(\''+c+'\',this.value)" spellcheck="false"></label><p class="m31-nota">Escribe el código de otra partida entre corchetes. Ejemplo: ([2.1]+[2.3]−[2.6])×1,25 se escribe <code>([2.1]+[2.3]-[2.6])*1.25</code> (excavación menos relleno, por esponjamiento).</p>';
+  }else{
+    h+='<div class="m31-med'+(kg?" kg":"")+'"><div class="m31-mh"><span>Ubicación</span><span>'+(kg?'Barras':'Veces')+'</span><span>'+(kg?'Largo m':H[0])+'</span><span>'+(kg?'Ø mm':H[1])+'</span>'+(kg?'':'<span>'+H[2]+'</span>')+'<span>Parcial</span><span></span></div>'
+     +p.med.map(function(r,i){var neg=(r[1]||0)<0;
+       return '<div class="m31-mr'+(neg?" neg":"")+'"><input value="'+_m31E(r[0])+'" placeholder="Eje o recinto" oninput="m31Me(\''+c+'\','+i+',0,this.value)">'
+        +[1,2].map(function(k){return '<input inputmode="decimal" value="'+_m31V(r[k])+'" oninput="m31Me(\''+c+'\','+i+','+k+',this.value)">'}).join("")
+        +(kg?'<select onchange="m31Me(\''+c+'\','+i+',3,this.value)">'+M31_DIAM.map(function(d){return '<option'+(r[3]===d?" selected":"")+'>'+d+'</option>'}).join("")+'</select>'
+           :[3,4].map(function(k){return '<input inputmode="decimal" value="'+_m31V(r[k])+'" oninput="m31Me(\''+c+'\','+i+','+k+',this.value)">'}).join(""))
+        +'<b data-c="row|'+c+'|'+i+'"></b><button class="x" onclick="m31MeX(\''+c+'\','+i+')" aria-label="Quitar fila">✕</button></div>'}).join("")
+     +'</div><div class="m31-acts s"><button onclick="m31MeAdd(\''+c+'\',1)">+ Fila</button><button onclick="m31MeAdd(\''+c+'\',-1)">− Descuento</button>'
+     +(p.u==="m³"?'<button onclick="m31Ay(\'talud\')">Ayuda talud</button>':'')+(p.u==="m²"?'<button onclick="m31Ay(\'pend\')">Ayuda pendiente</button>':'')+'</div>'
+     +(kg?'<p class="m31-nota">Peso por metro = Ø²/162 (kg/m, Ø en mm). Incluye ganchos y traslapos en el largo; la pérdida por despuntes va en el APU.</p>':'<p class="m31-nota">Celdas vacías valen 1. Parcial = veces × las medidas escritas.</p>')
+     +_m31AyF(c);
+  }
+  h+='<div class="m31-qt"><span>Cantidad de la partida</span><b data-c="q|'+c+'"></b></div>';
+  /* APU */
+  var U=_m31PU(p);
+  h+='<h5>Análisis de precio unitario <small>por '+p.u+'</small></h5><div class="m31-apu">'
+   +p.apu.map(function(a,i){var I=_m31Ins(a[0])||["M","(insumo borrado)","",0];
+     return '<div class="m31-ar"><span class="ds"><span class="tp t-'+I[0]+'">'+I[0]+'</span> '+_m31E(I[1])+'<small>'+_m31E(I[2])+' por '+p.u+'</small></span>'
+      +'<label><span>Cant.</span><input inputmode="decimal" value="'+_m31V(a[1])+'" oninput="m31Ap(\''+c+'\','+i+',1,this.value)"></label>'
+      +'<label><span>Pérd. %</span><input inputmode="decimal" value="'+_m31V(a[2])+'" oninput="m31Ap(\''+c+'\','+i+',2,this.value)"></label>'
+      +'<label><span>Precio '+_m31E(I[2])+'</span><input inputmode="decimal" value="'+_m31V(_m31Pr(a[0]))+'" oninput="m31InP(\''+a[0]+'\',this.value)"></label>'
+      +'<b data-c="apu|'+c+'|'+i+'"></b><button class="x" onclick="m31ApX(\''+c+'\','+i+')" aria-label="Quitar insumo">✕</button></div>'}).join("")
+   +'</div>'+_m31ApAdd(c)
+   +'<div class="m31-pus"><span>Materiales<b data-c="pux|'+c+'|M"></b></span><span>Mano de obra + leyes<b data-c="pux|'+c+'|MO"></b></span><span>Equipos<b data-c="pux|'+c+'|EQ"></b></span><span>Herr. menores<b data-c="pux|'+c+'|HM"></b></span><span>Subcontratos<b data-c="pux|'+c+'|SC"></b></span><span class="t">Precio unitario<b data-c="pu|'+c+'"></b></span><span class="t">Total partida<b data-c="t|'+c+'"></b></span></div>'
+   +'<p class="m31-nota">Cambiar un precio aquí lo cambia en toda la obra. La mano de obra se carga con '+_m31F(O.ls)+' % de leyes sociales.</p>'
+   +'<div class="m31-acts s"><button class="del" onclick="m31PDel(this,\''+c+'\')">Quitar partida</button></div></div>';
+  return h}
+function _m31AyF(c){if(!_m31.ayuda)return "";
+  if(_m31.ayuda==="talud")return '<div class="m31-ay"><b>Excavación con talud (prismoide)</b><div class="m31-in"><label><span>Largo del fondo</span><input id="m31a1" inputmode="decimal" value="10"></label><label><span>Ancho del fondo</span><input id="m31a2" inputmode="decimal" value="8"></label><label><span>Profundidad</span><input id="m31a3" inputmode="decimal" value="2"></label><label><span>Talud (horizontal por 1 vertical)</span><input id="m31a4" inputmode="decimal" value="0,5"></label></div><p class="m31-nota">V = H/3 × (A₁ + A₂ + √(A₁·A₂)), con A₁ el fondo y A₂ la boca abierta por el talud. El talud lo fija el informe de suelo.</p><div class="m31-acts s"><button onclick="m31AyOk(\''+c+'\')">Agregar fila</button><button onclick="m31Ay(null)">Cerrar</button></div></div>';
+  return '<div class="m31-ay"><b>Superficie inclinada</b><div class="m31-in"><label><span>Largo en planta</span><input id="m31a1" inputmode="decimal" value="9"></label><label><span>Ancho en planta</span><input id="m31a2" inputmode="decimal" value="8,5"></label><label><span>Pendiente</span><input id="m31a3" inputmode="decimal" value="30"></label></div><p class="m31-nota">Factor = √(1 + p²), con p en decimal. Una pendiente de 30 % da un factor de 1,044.</p><div class="m31-acts s"><button onclick="m31AyOk(\''+c+'\')">Agregar fila</button><button onclick="m31Ay(null)">Cerrar</button></div></div>'}
+function m31Ay(t){_m31.ayuda=t;m31Pinta()}
+function m31AyOk(c){var p=_m31Part(c),v=function(i){return _m31n(document.getElementById("m31a"+i).value)||0};
+  if(_m31.ayuda==="talud"){var L=v(1),B=v(2),H=v(3),k=v(4),A1=L*B,A2=(L+2*k*H)*(B+2*k*H),V=H/3*(A1+A2+Math.sqrt(A1*A2));p.med.push(["Excavación con talud "+_m31F(k)+":1 · "+_m31F(L)+"×"+_m31F(B)+"×"+_m31F(H),1,Math.round(V*1000)/1000,null,null])}
+  else{var f=Math.sqrt(1+Math.pow(v(3)/100,2));p.med.push(["Planta × factor de pendiente "+_m31F(v(3))+" %",1,v(1),v(2),Math.round(f*1000)/1000])}
+  _m31.ayuda=null;_m31Sv();m31Pinta()}
+function _m31ApAdd(c){var O=_m31Ob(),G={M:"Materiales",MO:"Mano de obra",EQ:"Equipos",SC:"Subcontratos"},all=Object.assign({},M31_INS,O.insX);
+  return '<div class="m31-apadd"><select onchange="m31ApAdd(\''+c+'\',this.value)"><option value="">+ Agregar insumo…</option>'
+   +Object.keys(G).map(function(t){return '<optgroup label="'+G[t]+'">'+Object.keys(all).filter(function(k){return all[k][0]===t}).map(function(k){return '<option value="'+k+'">'+_m31E(all[k][1])+' ('+_m31E(all[k][2])+')</option>'}).join("")+'</optgroup>'}).join("")
+   +'<option value="__nuevo">Nuevo insumo o cotización…</option></select>'
+   +(_m31.nuevo===c?'<div class="m31-ay"><b>Nuevo insumo</b><div class="m31-in"><label class="w"><span>Descripción</span><input id="m31n1" placeholder="Ej.: Hormigón G25 Proveedor X"></label><label><span>Tipo</span><select id="m31n2"><option value="M">Material</option><option value="MO">Mano de obra</option><option value="EQ">Equipo</option><option value="SC">Subcontrato</option></select></label><label><span>Unidad</span><input id="m31n3" value="un"></label><label><span>Precio neto</span><input id="m31n4" inputmode="decimal" value="0"></label></div><div class="m31-acts s"><button onclick="m31NuevoOk(\''+c+'\')">Agregar</button><button onclick="_m31.nuevo=false;m31Pinta()">Cancelar</button></div></div>':'')+'</div>'}
+function m31ApAdd(c,id){if(!id)return;if(id==="__nuevo"){_m31.nuevo=c;return m31Pinta()}_m31Part(c).apu.push([id,1,0]);_m31Sv();m31Pinta()}
+function m31NuevoOk(c){var d=document.getElementById("m31n1").value.trim();if(!d)return;var O=_m31Ob(),id="x"+Date.now().toString(36);
+  O.insX[id]=[document.getElementById("m31n2").value,d,document.getElementById("m31n3").value.trim()||"un",_m31n(document.getElementById("m31n4").value)||0];
+  _m31Part(c).apu.push([id,1,0]);_m31.nuevo=false;_m31Sv();m31Pinta()}
+function m31PN(c,v){_m31Part(c).n=v;var e=document.querySelector(".m31-p.on .nm");if(e&&e.firstChild)e.firstChild.nodeValue=v;_m31Sv()}
+function m31PUn(c,v){var p=_m31Part(c);p.u=v;if(v==="kg")p.med.forEach(function(r){if(M31_DIAM.indexOf(r[3])<0)r[3]=10});_m31Sv();m31Pinta()}
+function m31PMo(c,v){_m31Part(c).modo=v;_m31Sv();m31Pinta()}
+function m31PEx(c,v){_m31Part(c).expr=v;_m31Live()}
+function m31Me(c,i,k,v){var r=_m31Part(c).med[i];r[k]=k===0?v:k===3&&_m31Part(c).u==="kg"?+v:_m31n(v);var row=document.querySelectorAll(".m31-mr")[i];if(row&&k===1)row.classList.toggle("neg",(r[1]||0)<0);_m31Live()}
+function m31MeAdd(c,s){var p=_m31Part(c);p.med.push(p.u==="kg"?["",s,null,10]:["",s,null,null,null]);_m31Sv();m31Pinta();var L=document.querySelectorAll(".m31-mr input");if(L.length)L[L.length-(p.u==="kg"?3:5)].focus()}
+function m31MeX(c,i){_m31Part(c).med.splice(i,1);_m31Sv();m31Pinta()}
+function m31Ap(c,i,k,v){_m31Part(c).apu[i][k]=_m31n(v)||0;_m31Live()}
+function m31ApX(c,i){_m31Part(c).apu.splice(i,1);_m31Sv();m31Pinta()}
+function m31InP(id,v){var O=_m31Ob(),n=_m31n(v)||0;if(O.insX[id])O.insX[id][3]=n;else O.ins[id]=n;_m31Live()}
+function m31PDel(b,c){if(!b.classList.contains("conf")){b.classList.add("conf");b.textContent="Toca otra vez para quitarla";setTimeout(function(){b.classList.remove("conf");b.textContent="Quitar partida"},3000);return}
+  var O=_m31Ob();O.parts=O.parts.filter(function(p){return p.c!==c});_m31.open=null;_m31Sv();m31Pinta()}
+function m31Add(cap){_m31.add=cap;m31Pinta()}
+function _m31AddF(cap){var O=_m31Ob(),usa={};O.parts.forEach(function(p){usa[p.c]=1});
+  var L=M31_CAT.filter(function(c){return _m31Cap(c[0])===cap&&!usa[c[0]]});
+  return '<div class="m31-ay"><b>Agregar partida</b><div class="m31-in">'+(L.length?'<label class="w"><span>Del itemizado tipo</span><select id="m31pc"><option value="">Elige…</option>'+L.map(function(c){return '<option value="'+c[0]+'">'+c[0]+' '+_m31E(c[1])+'</option>'}).join("")+'</select></label>':'')
+   +'<label class="w"><span>O una partida propia</span><input id="m31pn" placeholder="Ej.: Pérgola de madera"></label><label><span>Unidad</span><select id="m31pu">'+M31_UN.map(function(u){return '<option>'+u+'</option>'}).join("")+'</select></label></div>'
+   +'<div class="m31-acts s"><button onclick="m31AddOk(\''+cap+'\')">Agregar</button><button onclick="_m31.add=null;m31Pinta()">Cancelar</button></div></div>'}
+function m31AddOk(cap){var O=_m31Ob(),s=document.getElementById("m31pc"),p;
+  if(s&&s.value){var c=M31_CAT.filter(function(x){return x[0]===s.value})[0];p={c:c[0],n:c[1],u:c[2],h:c[4],modo:"med",med:[],expr:"",apu:[]};
+    if(typeof c[3]==="string")p.apu=_m31cl(M31_APU[c[3]]);else{var id="sc_"+c[0];O.insX[id]=O.insX[id]||["SC",c[1],c[2],c[3]];p.apu=[[id,1,0]]}}
+  else{var n=document.getElementById("m31pn").value.trim();if(!n)return;var mx=0;O.parts.forEach(function(q){if(_m31Cap(q.c)===cap)mx=Math.max(mx,+String(q.c).split(".")[1]||0)});
+    var cod=cap+"."+(mx+1),un=document.getElementById("m31pu").value,id2="sc_"+cod+"_"+Date.now().toString(36);O.insX[id2]=["SC",n,un,0];p={c:cod,n:n,u:un,h:"",modo:"med",med:[],expr:"",apu:[[id2,1,0]]}}
+  var i=0;while(i<O.parts.length&&_m31Ord(O.parts[i].c)<_m31Ord(p.c))i++;O.parts.splice(i,0,p);
+  _m31.add=null;_m31.open=p.c;_m31Sv();m31Pinta()}
+function _m31Ord(c){var a=String(c).split(".");return (+a[0]||0)*1000+(+a[1]||0)}
+
+/* 4 · insumos: base de precios y explosión */
+function _m31Exp(){var O=_m31Ob(),K=_m31Calc(),E={};
+  O.parts.forEach(function(p){var q=K.Q[p.c];if(!q)return;p.apu.forEach(function(a){var I=_m31Ins(a[0]);if(!I)return;var c=q*(a[1]||0)*(1+(a[2]||0)/100);if(!E[a[0]])E[a[0]]={q:0,v:0};E[a[0]].q+=c;E[a[0]].v+=c*_m31Pr(a[0])*(I[0]==="MO"?1+O.ls/100:1)})});
+  return E}
+function _m31Insumos(){var O=_m31Ob(),E=_m31Exp(),G={M:"🧱 Materiales",MO:"👷 Mano de obra",EQ:"🚜 Equipos",SC:"🤝 Subcontratos"},hh=0;
+  Object.keys(E).forEach(function(k){var I=_m31Ins(k);if(I&&I[0]==="MO")hh+=E[k].q});
+  var h='<p class="m31-lead">La explosión de insumos suma lo que piden todas las partidas: cantidades para comprar, horas hombre y subcontratos. Los precios de esta lista alimentan todos los APU.</p>'
+   +'<div class="m31-kpi"><span><small>Horas hombre</small><b>'+_m31F(hh,0)+' HH</b></span><span><small>Días hombre (8,4 h)</small><b>'+_m31F(hh/8.4,0)+'</b></span><span><small>Dotación propia media</small><b>'+((+O.ficha.plazo)?_m31F(hh/8.4/((+O.ficha.plazo)*21),1):"–")+' personas</b></span></div>'
+   +'<p class="m31-nota">Jornada de 42 horas semanales desde abril de 2026 (Ley 21.561), en 5 días. La dotación supone 21 días hábiles por mes y no cuenta a los subcontratos.</p>';
+  Object.keys(G).forEach(function(t){var ks=Object.keys(E).filter(function(k){var I=_m31Ins(k);return I&&I[0]===t}).sort(function(a,b){return E[b].v-E[a].v});if(!ks.length)return;
+    var tot=ks.reduce(function(s,k){return s+E[k].v},0);
+    h+='<div class="m31-card"><h4>'+G[t]+'<span>'+_m31P(tot)+'</span></h4><div class="m31-it">'+ks.map(function(k){var I=_m31Ins(k);
+      return '<div class="m31-ir"><span class="ds">'+_m31E(I[1])+'<small>'+_m31F(E[k].q)+' '+_m31E(I[2])+'</small></span><label><span>Precio '+_m31E(I[2])+'</span><input inputmode="decimal" value="'+_m31V(_m31Pr(k))+'" onchange="m31InP(\''+k+'\',this.value);m31Pinta()"></label><b>'+_m31P(E[k].v)+'</b></div>'}).join("")+'</div></div>'});
+  return h+'<div class="m31-acts"><button onclick="m31CopiaIns(this)">Copiar lista de compras</button></div><p class="m31-nota">Valores de mano de obra con leyes sociales incluidas. Precios de ejemplo en pesos netos: reemplázalos por cotizaciones vigentes.</p>'}
+
+/* 5 · resumen */
+function _m31Resumen(){var O=_m31Ob(),K=_m31Calc(),M=O.mand;
+  var h='<div class="m31-card"><h4>Costo directo por capítulo</h4><div class="m31-rs">'+M31_CAP.map(function(C){var v=K.cap[C[0]]||0;return '<div class="m31-rr"><span>'+C[2]+' '+C[0]+'. '+C[1]+'</span><i style="--w:'+(K.CD?v/K.CD*100:0)+'%"></i><b data-c="cap|'+C[0]+'"></b></div>'}).join("")
+   +'<div class="m31-rr t"><span>Costo directo (CD)</span><b data-c="k|CD"></b></div></div></div>';
+  h+='<div class="m31-card"><h4>Gastos generales</h4><p class="m31-nota">Todo lo que la obra necesita y no es una partida: personal de terreno, consumos, ensayos, garantías y oficina central. “plazo” usa los meses de la ficha.</p><div class="m31-gg">'
+   +O.gg.map(function(g,i){return '<div class="m31-gr"><input value="'+_m31E(g[0])+'" oninput="m31GG('+i+',0,this.value)"><select onchange="m31GG('+i+',1,this.value)">'+["mes","gl","% CD","un"].map(function(u){return '<option'+(g[1]===u?" selected":"")+'>'+u+'</option>'}).join("")+'</select>'
+     +'<input inputmode="decimal" value="'+_m31E(g[2]==="plazo"?"plazo":_m31V(g[2]))+'" oninput="m31GG('+i+',2,this.value)" aria-label="Cantidad">'
+     +(g[1]==="% CD"?'<span class="pc">del CD</span>':'<input inputmode="decimal" value="'+_m31V(g[3])+'" oninput="m31GG('+i+',3,this.value)" aria-label="Precio">')
+     +'<b data-c="gg|'+i+'"></b><button class="x" onclick="m31GGX('+i+')" aria-label="Quitar">✕</button></div>'}).join("")
+   +'</div><div class="m31-acts s"><button onclick="m31GGAdd()">+ Gasto general</button></div><div class="m31-rr t"><span>Gastos generales (GG)</span><b data-c="k|GG"></b></div></div>';
+  h+='<div class="m31-card m31-sum"><h4>Presupuesto de la constructora</h4>'
+   +'<div class="m31-rr"><span>Costo directo</span><b data-c="k|CD"></b></div><div class="m31-rr"><span>Gastos generales</span><b data-c="k|GG"></b></div>'
+   +'<div class="m31-rr"><span>Imprevistos ('+_m31F(O.imp)+' % del CD)</span><b data-c="k|IMP"></b></div><div class="m31-rr"><span>Utilidad ('+_m31F(O.util)+' % de CD + GG)</span><b data-c="k|UT"></b></div>'
+   +'<div class="m31-rr t"><span>Total neto</span><b data-c="k|NET"></b></div><div class="m31-rr"><span>IVA ('+_m31F(O.iva)+' %)</span><b data-c="k|IVA"></b></div><div class="m31-rr t g"><span>Total con IVA</span><b data-c="k|TOT"></b></div>'
+   +'<div class="m31-kpi"><span><small>Neto por m²</small><b data-c="m2"></b></span><span><small>Neto en UF/m²</small><b data-c="ufm2"></b></span><span><small>Total en UF</small><b data-c="uf|TOT"></b></span></div>'
+   +'<p class="m31-nota">En viviendas, revisa si aplica el crédito especial para empresas constructoras (CEEC) sobre el IVA: sus topes cambian por ley.</p></div>';
+  var mi=function(k,t,un,nota){return '<label><span>'+t+'</span><span class="u"><input inputmode="decimal" value="'+_m31V(M[k])+'" oninput="m31Ma(\''+k+'\',this.value)"><em>'+un+'</em></span>'+(nota?'<small>'+nota+'</small>':'')+'</label>'};
+  h+='<div class="m31-card"><h4>Vista del mandante: inversión total</h4><p class="m31-nota">El dueño paga más que el contrato de construcción. Estos costos no van en el presupuesto de la constructora.</p><div class="m31-in">'
+   +mi("terreno","Terreno","$")+mi("proy","Proyectos de arquitectura y especialidades","$")
+   +mi("tabla","Valor tabla MINVU para el presupuesto oficial","$/m²","Tabla de costos unitarios del MINVU según clase y categoría de la obra; se publica cada trimestre.")
+   +mi("ito","Inspección técnica (ITO)","$/mes")+mi("otros","Aportes, empalmes, notaría, CBR, seguros","$")+'</div>'
+   +'<div class="m31-rr"><span>Presupuesto oficial DOM (m² × tabla)</span><b data-c="k|POF"></b></div><div class="m31-rr"><span>Derechos municipales (1,5 %)</span><b data-c="k|DER"></b></div><div class="m31-rr"><span>ITO por el plazo</span><b data-c="k|ITO"></b></div>'
+   +'<div class="m31-rr t g"><span>Inversión total del mandante</span><b data-c="k|MAND"></b></div><div class="m31-rr"><span>En UF</span><b data-c="uf|MAND"></b></div></div>'
+   +'<div class="m31-acts"><button onclick="m31Copia(this)">Copiar presupuesto para Excel</button></div>';
+  return h}
+function m31GG(i,k,v){var g=_m31Ob().gg[i];if(k===0)g[0]=v;else if(k===1){g[1]=v;_m31Sv();return m31Pinta()}else if(k===2)g[2]=String(v).trim().toLowerCase()==="plazo"?"plazo":(_m31n(v)||0);else g[3]=_m31n(v)||0;_m31Live()}
+function m31GGX(i){_m31Ob().gg.splice(i,1);_m31Sv();m31Pinta()}
+function m31GGAdd(){_m31Ob().gg.push(["Nuevo gasto","mes","plazo",0]);_m31Sv();m31Pinta()}
+function m31Ma(k,v){_m31Ob().mand[k]=_m31n(v)||0;_m31Live()}
+
+/* 6 · flujo y curva S */
+function _m31Flu(){var O=_m31Ob(),K=_m31Calc(),N=Math.max(1,Math.round(+O.ficha.plazo||1)),f=N/8,m=[],i;
+  for(i=0;i<N;i++)m.push(0);
+  M31_CAP.forEach(function(C){var d=O.flu[C[0]]||[Math.max(1,Math.round((M31_FLU[C[0]][0]-1)*f)+1),Math.max(1,Math.round(M31_FLU[C[0]][1]*f))];
+    var a=Math.min(N,Math.max(1,d[0])),b=Math.min(N,a+Math.max(1,d[1])-1),v=(K.cap[C[0]]||0)/(b-a+1);for(var k=a;k<=b;k++)m[k-1]+=v});
+  var fac=K.CD?(K.NET-K.GG)/K.CD:0;return m.map(function(v){return v*fac+K.GG/N})}
+function _m31FluCap(c){var O=_m31Ob(),N=Math.max(1,Math.round(+O.ficha.plazo||1)),f=N/8;return O.flu[c]||[Math.max(1,Math.round((M31_FLU[c][0]-1)*f)+1),Math.max(1,Math.round(M31_FLU[c][1]*f))]}
+function _m31Flujo(){var O=_m31Ob(),K=_m31Calc(),m=_m31Flu(),N=m.length,acc=0,tot=K.NET||1,ant=O.ant/100,ret=O.ret/100;
+  var pts=[[0,0]];m.forEach(function(v,i){acc+=v;pts.push([i+1,acc/tot])});
+  var W=320,H=150,x=function(i){return 30+i*(W-40)/N},y=function(p){return H-20-p*(H-35)};
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" class="m31-s" role="img" aria-label="Curva S del avance financiero acumulado">'
+   +[0,.25,.5,.75,1].map(function(p){return '<line x1="30" x2="'+(W-10)+'" y1="'+y(p)+'" y2="'+y(p)+'" class="g"/><text x="26" y="'+(y(p)+3)+'" class="l" text-anchor="end">'+p*100+'%</text>'}).join("")
+   +m.map(function(v,i){var bh=v/tot*(H-35);return '<rect x="'+(x(i)+3)+'" y="'+(H-20-bh)+'" width="'+Math.max(2,(W-40)/N-6)+'" height="'+bh+'" class="b"/><text x="'+(x(i)+(W-40)/N/2)+'" y="'+(H-6)+'" class="l" text-anchor="middle">'+(i+1)+'</text>'}).join("")
+   +'<polyline points="'+pts.map(function(p){return x(p[0])+","+y(p[1])}).join(" ")+'" class="c"/>'
+   +pts.map(function(p){return '<circle cx="'+x(p[0])+'" cy="'+y(p[1])+'" r="2.6" class="d"/>'}).join("")+'</svg>';
+  var h='<p class="m31-lead">Reparte cada capítulo en los meses del plazo para ver cuánto se gasta y se cobra cada mes. Es la base de la programación, que viene después.</p>'
+   +'<div class="m31-card"><h4>Curva S <small>barras: mes · línea: acumulado</small></h4>'+svg+'</div>'
+   +'<div class="m31-card"><h4>Capítulos en el plazo</h4><div class="m31-fl">'+M31_CAP.map(function(C){var d=_m31FluCap(C[0]);
+     return '<div class="m31-fr"><span>'+C[2]+' '+C[1]+'</span><label><span>Mes inicio</span><input inputmode="numeric" value="'+d[0]+'" onchange="m31Fl(\''+C[0]+'\',0,this.value)"></label><label><span>Meses</span><input inputmode="numeric" value="'+d[1]+'" onchange="m31Fl(\''+C[0]+'\',1,this.value)"></label>'
+      +'<i class="gt">'+Array.apply(null,{length:N}).map(function(z,k){return '<em class="'+(k+1>=d[0]&&k+1<d[0]+d[1]?"on":"")+'"></em>'}).join("")+'</i></div>'}).join("")+'</div></div>';
+  acc=0;var accR=0;
+  h+='<div class="m31-card"><h4>Estados de pago proyectados</h4><div class="m31-in"><label><span>Anticipo</span><span class="u"><input inputmode="decimal" value="'+_m31V(O.ant)+'" onchange="m31Pa(\'ant\',this.value);m31Pinta()"><em>%</em></span></label><label><span>Retención</span><span class="u"><input inputmode="decimal" value="'+_m31V(O.ret)+'" onchange="m31Pa(\'ret\',this.value);m31Pinta()"><em>%</em></span></label></div>'
+   +'<div class="m31-tw"><table class="m31-tb"><thead><tr><th>Mes</th><th>Avance</th><th>Acum.</th><th>EP neto</th><th>Retención</th><th>Dev. anticipo</th><th>Líquido</th></tr></thead><tbody>'
+   +(ant?'<tr class="a"><td>0</td><td colspan="5">Anticipo contra boleta de garantía</td><td>'+_m31P(K.NET*ant)+'</td></tr>':'')
+   +m.map(function(v,i){acc+=v;var r=v*ret,da=v*ant;accR+=r;return '<tr><td>'+(i+1)+'</td><td>'+_m31F(v/tot*100,1)+' %</td><td>'+_m31F(acc/tot*100,1)+' %</td><td>'+_m31P(v)+'</td><td>−'+_m31P(r)+'</td><td>−'+_m31P(da)+'</td><td>'+_m31P(v-r-da)+'</td></tr>'}).join("")
+   +'<tr class="a"><td>Fin</td><td colspan="5">Devolución de retenciones con la recepción</td><td>'+_m31P(accR)+'</td></tr></tbody></table></div>'
+   +'<p class="m31-nota">Montos netos; el IVA se factura en cada estado de pago. Gastos generales repartidos parejo en el plazo.</p></div>';
+  return h}
+function m31Fl(c,k,v){var O=_m31Ob(),d=_m31FluCap(c).slice();d[k]=Math.max(1,parseInt(v,10)||1);O.flu[c]=d;_m31Sv();m31Pinta()}
+
+/* ── copiar ── */
+function _m31Cp(b,txt,lbl){var ok=function(){var t0=b.textContent;b.textContent="Copiado ✓";setTimeout(function(){b.textContent=t0},1800)};
+  try{navigator.clipboard.writeText(txt).then(ok,function(){_m31Sel(txt);ok()})}catch(e){_m31Sel(txt);ok()}}
+function _m31Sel(t){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove()}
+function _m31N(x,d){return (Math.round((x||0)*Math.pow(10,d||0))/Math.pow(10,d||0)).toString().replace(".",",")}
+function m31Copia(b){var O=_m31Ob(),K=_m31Calc(),L=[O.ficha.nom,"Ítem\tPartida\tUnidad\tCantidad\tP. unitario\tTotal"];
+  M31_CAP.forEach(function(C){L.push(C[0]+"\t"+C[1].toUpperCase()+"\t\t\t\t"+_m31N(K.cap[C[0]]));
+    O.parts.filter(function(p){return _m31Cap(p.c)===C[0]&&K.Q[p.c]>0}).forEach(function(p){L.push(p.c+"\t"+p.n+"\t"+p.u+"\t"+_m31N(K.Q[p.c],2)+"\t"+_m31N(K.PU[p.c].PU)+"\t"+_m31N(K.T[p.c]))})});
+  L.push("","\tCosto directo\t\t\t\t"+_m31N(K.CD),"\tGastos generales\t\t\t\t"+_m31N(K.GG),"\tImprevistos\t\t\t\t"+_m31N(K.IMP),"\tUtilidad\t\t\t\t"+_m31N(K.UT),"\tTotal neto\t\t\t\t"+_m31N(K.NET),"\tIVA\t\t\t\t"+_m31N(K.IVA),"\tTotal\t\t\t\t"+_m31N(K.TOT));
+  _m31Cp(b,L.join("\n"))}
+function m31CopiaIns(b){var E=_m31Exp(),L=["Insumo\tTipo\tUnidad\tCantidad\tTotal"];
+  Object.keys(E).forEach(function(k){var I=_m31Ins(k);L.push(I[1]+"\t"+I[0]+"\t"+I[2]+"\t"+_m31N(E[k].q,2)+"\t"+_m31N(E[k].v))});_m31Cp(b,L.join("\n"))}
+
+/* ── integración ── */
+if(typeof m28Cub==="function")m28Cub=m31Pinta;
+window.addEventListener("load",function(){setTimeout(function(){
+  var _mo=window.m24Mochila;
+  if(_mo)window.m24Mochila=function(){var h=_mo.apply(this,arguments);
+    var row='<button class="m24-row" onclick="m31Abrir(0)"><span class="ic">📐</span><span class="m"><b>Presupuesto de obra</b><small>Del terreno a la entrega de llaves: cubicación, APU, GG y flujo</small></span><span class="a">›</span></button>';
+    var i=h.indexOf('<button class="m24-row" onclick="mycGo(\'formulas\')"');return i>=0?h.slice(0,i)+row+h.slice(i):h};
+},1300)});
 
 </script>
 
