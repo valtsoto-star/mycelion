@@ -10455,7 +10455,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v3.2
+   MYCELION OS v3.3
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -14119,9 +14119,231 @@ body .m29-b.sec{background:var(--bg);color:var(--text);border:1px solid var(--li
 .m32-ln .pz{font:700 8px var(--font-mono,monospace);fill:var(--text-2)}
 .m32-ln .pb{fill:url(#m32g)}
 .m32-rm .tx b em{display:inline-block;white-space:nowrap;margin-top:2px}
+
+/* ══ v3.3 · Menú lateral, normativa, catálogo y modelo 3D ══ */
+.m33{--rw:198px;--t3:var(--text-3,var(--text-2))}
+.m33.mini{--rw:58px}
+.m33 .m31-tabs{display:none}
+.m33-shell{display:grid;grid-template-columns:var(--rw) minmax(0,1fr);gap:16px;align-items:start;transition:grid-template-columns .28s ease}
+.m33-main{min-width:0}
+.m33-rw{position:relative;min-width:0;align-self:stretch}
+.m33-bar,.m33-scrim,.m33-x{display:none}
+/* riel: nodos sobre una hifa vertical */
+.m33-rail{position:sticky;top:8px;display:flex;flex-direction:column;gap:2px;padding:10px 8px;border:1px solid var(--line);background:var(--surface);border-radius:20px;max-height:calc(100vh - 20px);overflow:auto;scrollbar-width:thin;min-width:0}
+.m33-rh{display:flex;align-items:center;gap:6px;padding:2px 6px 4px}
+.m33-rh b{flex:1;font:800 .66rem var(--font-mono,monospace);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
+.m33-fold,.m33-x{flex:none;width:30px;height:30px;border-radius:10px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;padding:0}
+.m33-x{display:none}
+.m33-fold i{width:9px;height:9px;border-left:2px solid var(--text-2);border-bottom:2px solid var(--text-2);transform:rotate(45deg);margin-left:3px;transition:transform .25s}
+.m33.mini .m33-fold i{transform:rotate(-135deg);margin-left:-3px}
+.m33-g{position:relative;display:flex;flex-direction:column;gap:1px;padding-bottom:4px}
+.m33-g::before{content:"";position:absolute;left:15px;top:30px;bottom:14px;width:2px;border-radius:2px;background:linear-gradient(var(--hifa-s),color-mix(in srgb,var(--hifa-s) 20%,transparent))}
+.m33-g>small{font:800 .6rem var(--font-mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--t3);padding:8px 10px 4px;white-space:nowrap}
+.m33-ri{position:relative;z-index:1;display:flex;align-items:center;gap:9px;border:0;background:none;text-align:left;padding:8px 8px;border-radius:13px;color:var(--text);min-width:0;width:100%}
+.m33-ri .nd{flex:none;width:11px;height:11px;border-radius:50%;border:2px solid var(--hifa-s);background:var(--surface);transition:all .2s}
+.m33-ri .ic{flex:none;font-size:1.08rem;width:22px;text-align:center}
+.m33-ri .tx{min-width:0;display:flex;flex-direction:column}
+.m33-ri .tx b{font-size:.88rem;font-weight:700;white-space:nowrap}
+.m33-ri .tx small{font-size:.68rem;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m33-ri:hover{background:var(--m31-s)}
+.m33-ri.on{background:var(--m31-s);box-shadow:inset 0 0 0 1px var(--m31-l)}
+.m33-ri.on .nd{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+.m33-ri:focus-visible,.m33-fold:focus-visible,.m33-next button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.m33.mini .m33-rh b,.m33.mini .m33-ri .tx,.m33.mini .m33-g>small{display:none}
+.m33.mini .m33-rh{justify-content:center;padding:2px 0 6px}
+.m33.mini .m33-ri{justify-content:center;padding:8px 2px;gap:4px}
+.m33.mini .m33-ri .nd{position:absolute;left:5px;top:50%;margin-top:-5px;width:9px;height:9px}
+.m33.mini .m33-g::before{left:9px;top:12px}
+.m33.mini .m33-g+.m33-g{margin-top:4px}
+/* siguiente paso */
+.m33-next{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:12px;border-top:1px dashed var(--hifa-s)}
+.m33-next button{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 14px;font-weight:600;color:var(--text-2)}
+.m33-next .nx{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;background:var(--text);color:var(--bg);border-color:var(--text)}
+.m33-next .nx small{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.m33-next .nx b{font-size:.95rem}
+.m33-h{margin:2px 0 0;font:700 1.12rem var(--font-display,system-ui);text-wrap:balance}
+/* móvil: el menú sale desde el lado */
+@media (max-width:759px){
+ .m33-shell{grid-template-columns:minmax(0,1fr)}
+ .m33.mini{--rw:0px}
+ .m33-bar{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:16px;background:var(--surface);position:sticky;top:6px;z-index:5}
+ .m33-bar button{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:8px 12px;font-weight:700;display:flex;align-items:center;gap:8px}
+ .m33-bar button i{width:14px;height:2px;background:var(--text);box-shadow:0 5px 0 var(--text),0 -5px 0 var(--text);display:block}
+ .m33-bar span{flex:1;min-width:0;display:flex;flex-direction:column}
+ .m33-bar span small{font:800 .6rem var(--font-mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+ .m33-bar span b{font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .m33-bar .nx{background:var(--text);color:var(--bg);border-color:var(--text)}
+ .m33-rail{position:fixed;left:0;top:0;bottom:0;width:min(310px,86vw);max-height:none;border-radius:0 22px 22px 0;z-index:90;transform:translateX(-108%);transition:transform .3s ease;box-shadow:0 0 40px rgba(0,0,0,.35);padding:14px 10px calc(14px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
+ .m33-rail.open{transform:none}
+ .m33-scrim.on{display:block;position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:80}
+ .m33-fold{display:none}.m33-x{display:grid}
+ .m33.mini .m33-rh b,.m33.mini .m33-ri .tx,.m33.mini .m33-g>small{display:flex}
+ .m33.mini .m33-rh b{display:block}.m33.mini .m33-g>small{display:block}
+ .m33.mini .m33-ri{justify-content:flex-start;padding:10px 8px;gap:9px}
+ .m33.mini .m33-ri .nd{position:static;margin:0;width:11px;height:11px}
+ .m33.mini .m33-g::before{left:15px;top:30px}
+}
+/* entradas, tarjetas, veredictos */
+.m33-in{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.m33-in label,.m33-pa label{display:flex;flex-direction:column;gap:4px;min-width:0}
+.m33-in label>span:first-child,.m33-pa label>span:first-child{font-size:.74rem;color:var(--text-2)}
+.m33-in .u,.m33-pa .u{display:flex;align-items:center;gap:6px}
+.m33-in .u em,.m33-pa .u em{font-style:normal;font-size:.74rem;color:var(--text-2);min-width:1.6em}
+.m33-kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.m33-kp span{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 12px}
+.m33-kp small{display:block;font-size:.7rem;color:var(--text-2)}
+.m33-kp b{font:800 1.02rem var(--font-mono,monospace)}
+.m33-vd{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.m33-vd li{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:14px;border:1px solid var(--line);background:var(--surface);line-height:1.4;font-size:.88rem}
+.m33-vd li i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:.8rem}
+.m33-vd li.ok i{background:color-mix(in srgb,#2e9e5b 22%,transparent);color:#2e9e5b}
+.m33-vd li.no{border-color:color-mix(in srgb,#c0392b 45%,var(--line))}
+.m33-vd li.no i{background:color-mix(in srgb,#c0392b 22%,transparent);color:#c0392b}
+.m33-ok{margin:4px 0 0;padding:9px 12px;border-radius:14px;background:color-mix(in srgb,#2e9e5b 14%,var(--surface));border:1px solid color-mix(in srgb,#2e9e5b 40%,var(--line));font-size:.86rem}
+.m33-lk{border:0;background:none;color:var(--accent);font-weight:700;padding:2px 4px;text-decoration:underline;text-underline-offset:3px}
+.m33 .m31-acts.s button.go,.m33-cta .go{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.m33 .m31-acts.s button.go.conf{background:var(--text);color:var(--bg)}
+/* figuras: estilo OGUC ilustrada, línea fina y cotas */
+#m33-figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px}
+.og-fig{margin:0;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:10px 10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.og-fig figcaption{font-size:.82rem;line-height:1.35;color:var(--text)}
+.og-fig figcaption b{font:800 .66rem var(--font-mono,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);margin-right:6px}
+.og{width:100%;height:auto;display:block;background:var(--bg);border-radius:12px;border:1px solid var(--line)}
+.og-leg{margin:2px 0 0;padding-left:0;list-style:none;counter-reset:og;display:flex;flex-direction:column;gap:3px}
+.og-leg li{counter-increment:og;display:flex;gap:8px;font-size:.78rem;color:var(--text-2);line-height:1.35}
+.og-leg li::before{content:counter(og);flex:none;width:17px;height:17px;border-radius:50%;background:var(--text);color:var(--bg);font:700 .66rem system-ui;display:grid;place-items:center;margin-top:1px}
+.og .og-l,.og .og-eje,.og .og-d path,.og .og-arc,.og .og-hm,.og .og-ras,.og .og-fn{fill:none;stroke:var(--text);stroke-width:1;stroke-linecap:round}
+.og .og-d path{stroke-width:.8}
+.og .og-eje{stroke-dasharray:7 3 1.5 3;stroke-width:.7;stroke:var(--text-2)}
+.og .og-pred{fill:color-mix(in srgb,var(--surface) 60%,var(--bg));stroke:none}
+.og .og-pl{fill:none;stroke:var(--text);stroke-width:1.7}
+.og .og-ant,.og .og-ret{stroke:var(--text-2);stroke-width:.6}
+.og .og-hl{stroke:var(--text-2);stroke-width:.7;opacity:.7}
+.og .og-dt{fill:var(--text-2)}
+.og .og-edif{fill:color-mix(in srgb,var(--accent) 10%,transparent);stroke:var(--text);stroke-width:1;stroke-dasharray:4 3}
+.og .og-huella{fill:color-mix(in srgb,var(--accent) 34%,transparent);stroke:var(--text);stroke-width:1.3}
+.og .og-calle{fill:color-mix(in srgb,var(--text) 14%,var(--bg));stroke:var(--text);stroke-width:.8}
+.og .og-proh{fill:color-mix(in srgb,#c0392b 9%,transparent);stroke:none}
+.og .og-suelo{stroke:var(--text);stroke-width:.6}
+.og .og-vec{fill:color-mix(in srgb,var(--text) 7%,transparent);stroke:var(--text-2);stroke-width:.6}
+.og .og-edi{fill:color-mix(in srgb,var(--accent) 22%,var(--bg));stroke:var(--text);stroke-width:1.3}
+.og .og-ras{stroke:var(--accent);stroke-width:1.8;stroke-dasharray:7 3}
+.og .og-ras.no{stroke:#c0392b}
+.og .og-hm{stroke:var(--text-2);stroke-dasharray:2 3}
+.og .og-f1{fill:color-mix(in srgb,var(--accent) 22%,var(--bg));stroke:var(--text);stroke-width:1}
+.og .og-f2{fill:color-mix(in srgb,var(--accent) 42%,var(--bg));stroke:var(--text);stroke-width:1}
+.og .og-f3{fill:color-mix(in srgb,var(--accent) 62%,var(--bg));stroke:var(--text);stroke-width:1}
+.og .og-agb{fill:none;stroke:var(--line);stroke-width:1}
+.og .og-ag.on .og-agb{stroke:var(--accent);stroke-width:2}
+.og .og-t{font:500 9.5px system-ui,sans-serif;fill:var(--text)}
+.og .og-t.og-s{fill:var(--text-2);font-size:9px}
+.og .og-t.og-b{font-weight:700}
+.og .og-t.og-warn{fill:#c0392b;font-weight:700}
+.og .og-n circle{fill:var(--text)}
+.og .og-n text{fill:var(--bg);font:700 9px system-ui,sans-serif}
+.m33-def{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:4px 14px}
+.m33-def summary{cursor:pointer;padding:10px 0;font-weight:700}
+.m33-def dl{margin:0;display:grid;gap:8px}
+.m33-def dt{font-weight:700;font-size:.86rem}
+.m33-def dd{margin:0;color:var(--text-2);font-size:.84rem;line-height:1.45}
+/* catálogo */
+.m33-q{margin:2px 0 4px}
+.m33 .m32-n.g{align-items:flex-start}
+.m33 .m32-n.g .tx small{display:block}
+.m33-nms{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.m33-nm{font:700 .62rem var(--font-mono,monospace);letter-spacing:.02em;padding:2px 7px;border-radius:99px;background:var(--m31-s);border:1px solid var(--m31-l);color:var(--text);white-space:nowrap}
+.m33 .m32-n .v.ok{color:#2e9e5b;font-size:.72rem}
+.m33-nl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.m33-nl li{font-size:.8rem;line-height:1.4;color:var(--text-2);padding-left:10px;border-left:2px solid var(--hifa-s)}
+.m33-nl li b{color:var(--text)}
+/* modelo 3D */
+.m33-3d{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:12px;align-items:start}
+.m33-vp{position:relative;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);min-width:0}
+.m33 canvas#m33-cv{display:block;width:100%;height:clamp(340px,64vh,600px);background:var(--surface);touch-action:none;cursor:grab;outline:none}
+.m33 canvas#m33-cv:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.m33 canvas#m33-cv:active{cursor:grabbing}
+.m33-vb{position:absolute;left:10px;top:10px;right:10px;display:flex;flex-wrap:wrap;gap:4px;z-index:2;pointer-events:none}
+.m33-vb button{pointer-events:auto;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(6px);border-radius:99px;padding:5px 11px;font-size:.76rem;font-weight:700;color:var(--text-2)}
+.m33-vb button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.m33-vb .fit{margin-left:auto}
+.m33-hn{position:absolute;left:10px;bottom:8px;max-width:calc(100% - 90px);margin:0;padding:3px 9px;border-radius:99px;font-size:.66rem;line-height:1.3;color:var(--text-2);background:color-mix(in srgb,var(--surface) 82%,transparent);backdrop-filter:blur(4px);pointer-events:none}
+.m33-tip{position:absolute;z-index:3;pointer-events:none;background:var(--text);color:var(--bg);font-size:.74rem;font-weight:600;padding:5px 9px;border-radius:9px;max-width:230px;line-height:1.3}
+.m33-dock{border:1px solid var(--line);background:var(--surface);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.m33-dt{display:flex;border-bottom:1px solid var(--line);background:var(--bg)}
+.m33-dt button{flex:1;border:0;background:none;padding:11px 4px;font-size:.76rem;font-weight:700;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-1px}
+.m33-dt button[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent);background:var(--surface)}
+.m33-dk{padding:12px;overflow:auto;max-height:clamp(300px,calc(64vh - 40px),560px);display:flex;flex-direction:column;gap:14px}
+.m33-g1{display:flex;flex-direction:column;gap:8px}
+.m33-g1>b{font:800 .64rem var(--font-mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.m33-ch{display:flex;flex-wrap:wrap;gap:5px}
+.m33-ch button{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:6px 11px;font-size:.78rem;font-weight:600}
+.m33-ch button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.m33-rg{display:grid;grid-template-columns:1fr 38px;gap:2px 8px;align-items:center}
+.m33-rg>span{grid-column:1/-1;font-size:.76rem;color:var(--text-2)}
+.m33-rg input[type=range]{padding:0;border:0;background:none;accent-color:var(--accent);height:26px}
+.m33-rg em{font-style:normal;font:700 .72rem var(--font-mono,monospace);text-align:right}
+.m33-tree,.m33-tree ul{list-style:none;margin:0;padding:0}
+.m33-tree>li{border-top:1px solid var(--line)}
+.m33-tree .r{display:flex;align-items:center;gap:2px}
+.m33-tree .eye{flex:none;width:34px;height:36px;border:0;background:none;display:grid;place-items:center}
+.m33-tree .eye i{width:15px;height:9px;border:2px solid var(--text);border-radius:60% 60% 60% 60%/100% 100% 100% 100%;position:relative;display:block}
+.m33-tree .eye i::after{content:"";position:absolute;left:3px;top:0;width:5px;height:5px;border-radius:50%;background:var(--text)}
+.m33-tree .eye.off i{opacity:.3}.m33-tree .eye.off i::before{content:"";position:absolute;left:-3px;top:2px;width:19px;height:2px;background:var(--text);transform:rotate(-30deg)}
+.m33-tree .nm{flex:1;display:flex;align-items:center;gap:7px;border:0;background:none;text-align:left;padding:8px 4px;min-width:0}
+.m33-tree .nm b{flex:1;font-size:.84rem}
+.m33-tree .nm em{font-style:normal;font-size:.7rem;color:var(--text-2);background:var(--bg);border-radius:99px;padding:1px 7px}
+.m33-tree .nm .ch{font-style:normal;color:var(--text-2);transition:transform .2s}.m33-tree .nm .ch.o{transform:rotate(90deg)}
+.m33-tree ul{margin:0 0 6px 34px;border-left:2px solid var(--hifa-s)}
+.m33-tree .it{width:100%;text-align:left;border:0;background:none;padding:6px 8px;font-size:.78rem;color:var(--text-2);border-radius:8px;line-height:1.3}
+.m33-tree .it:hover{background:var(--m31-s)}.m33-tree .it.on{background:var(--m31-s);color:var(--text);font-weight:700;box-shadow:inset 3px 0 0 var(--accent)}
+.m33-empty{padding:18px 8px;text-align:center;color:var(--text-2);font-size:.86rem;line-height:1.45}
+.m33-empty b{display:block;color:var(--text);font-size:.95rem;margin-bottom:4px}
+.m33-pr .hd{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.m33-pr .hd>span{font-size:1.5rem}
+.m33-pr .hd small{display:block;font:800 .62rem var(--font-mono,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2)}
+.m33-pr .hd b{font-size:.92rem;line-height:1.3}
+.m33-dl{margin:0 0 10px;display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.m33-dl div{display:flex;justify-content:space-between;gap:10px;padding:6px 10px;border-top:1px solid var(--line);font-size:.8rem}
+.m33-dl div:first-child{border-top:0}.m33-dl dt{color:var(--text-2)}.m33-dl dd{margin:0;font:700 .78rem var(--font-mono,monospace)}
+.m33-qt{border:1px solid var(--m31-l);background:var(--m31-s);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:1px;margin-bottom:8px}
+.m33-qt small{font-size:.7rem;color:var(--text-2)}.m33-qt b{font:800 1.12rem var(--font-mono,monospace)}.m33-qt span{font-size:.76rem;color:var(--text-2)}
+.m33-qt.c{background:var(--surface);border-color:var(--line)}
+.m33-pa{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.m33-pa label.chk{flex-direction:row;align-items:center;gap:8px;grid-column:1/-1}
+.m33-pa label.chk input{width:auto}
+.m33-sc{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.m33-sc table{width:100%;border-collapse:collapse;font-size:.76rem}
+.m33-sc th,.m33-sc td{padding:6px 8px;text-align:left;border-top:1px solid var(--line);vertical-align:top}
+.m33-sc th{border-top:0;font:800 .62rem var(--font-mono,monospace);letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);background:var(--bg)}
+.m33-sc td.n,.m33-sc th.n{text-align:right;white-space:nowrap;font-family:var(--font-mono,monospace)}
+.m33-sc tfoot td{font-weight:800;background:var(--bg)}
+.m33-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--m31-l);background:var(--m31-s);border-radius:16px;flex-wrap:wrap}
+.m33-cta b{display:block}.m33-cta small{color:var(--text-2);font-size:.78rem}
+.m33-cta button{border:1px solid var(--accent);border-radius:12px;padding:9px 14px}
+@media (max-width:1060px){.m33-3d{grid-template-columns:minmax(0,1fr)}.m33-dk{max-height:none}.m33 canvas#m33-cv{height:clamp(300px,56vh,520px)}}
+@media (prefers-reduced-motion:reduce){.m33-shell,.m33-rail,.m33-fold i,.m33-tree .nm .ch{transition:none}}
+
+/* contenedor angosto (la vista de calculadoras mide ~600 px): riel de íconos y menú que se despliega al lado */
+.m33.nar{--rw:58px}
+.m33.nar .m33-rail{padding:10px 6px}
+.m33.nar .m33-rail.open{position:absolute;left:0;top:0;width:252px;z-index:30;box-shadow:0 12px 40px rgba(0,0,0,.28);max-height:none}
+.m33.nar .m33-rail.open .m33-rh b,.m33.nar .m33-rail.open .m33-g>small{display:block}
+.m33.nar .m33-rail.open .m33-ri .tx{display:flex}
+.m33.nar .m33-rail.open .m33-ri{justify-content:flex-start;padding:8px 8px;gap:9px}
+.m33.nar .m33-rail.open .m33-ri .nd{position:static;margin:0;width:11px;height:11px}
+.m33.nar .m33-rail.open .m33-g::before{left:15px;top:30px}
+.m33.nar .m33-rail.open .m33-rh{justify-content:flex-start;padding:2px 6px 4px}
+.m33.nar .m33-scrim.on{display:block;position:absolute;inset:0;background:transparent;z-index:20}
+.m33.nar .m33-fold i{transform:rotate(-135deg);margin-left:-3px}
+.m33.nar .m33-rail.open .m33-fold i{transform:rotate(45deg);margin-left:3px}
+.m33.nar .m33-3d{grid-template-columns:minmax(0,1fr)}
+.m33.nar .m33-dk{max-height:none}
+.m33.nar #m33-cv{height:clamp(300px,56vh,520px)}
+@media (max-width:759px){.m33.nar .m33-scrim.on{position:fixed}.m33.nar{--rw:0px}.m33.nar .m33-rail.open{position:fixed;left:0;top:0;width:min(310px,86vw)}}
+.m33.nar .m32-col,.m33.nar .m32-col.wide{width:min(calc(100% - 46px),460px)}
 </style>
 <script>
-/* MYCELION OS v3.2 */
+/* MYCELION OS v3.3 */
 /* ══════════════════════════════════════════════════════
    MYCELION OS v2.0 · Parte A
    · Barra inferior que no tapa: se esconde con teclado, hojas abiertas y al bajar
@@ -26362,6 +26584,737 @@ function _m32Resumen(){
   return '<div class="m32-gd"><p class="m31-lead">Así se arma el precio final: el costo directo de todas las partidas se carga con gastos generales, imprevistos y utilidad; sobre el neto se suma el IVA.</p></div>'
    +'<div class="m32-chain">'+[["Costo directo","k|CD"],["+ Gastos generales","k|GG"],["+ Imprevistos","k|IMP"],["+ Utilidad","k|UT"],["= Neto","k|NET"],["+ IVA","k|IVA"],["= Total","k|TOT"]].map(function(x){return '<span'+(x[0].charAt(0)==="="?' class="t"':'')+'><small>'+x[0]+'</small><b data-c="'+x[1]+'"></b></span>'}).join("")+'</div>'
    +_m31Resumen()}
+
+/* ══ v3.3 · Catálogo normado, normativa y modelo 3D: datos ══ */
+
+/* Normas citadas (nombre corto → [chip, qué es]). Resumen de estudio: verifica el texto vigente. */
+var M33_NORMAS={
+ oguc:["OGUC","Ordenanza General de Urbanismo y Construcciones (DS 47 MINVU)."],
+ lguc:["LGUC","Ley General de Urbanismo y Construcciones (DFL 458)."],
+ ds594:["DS 594","Condiciones sanitarias y ambientales básicas en los lugares de trabajo."],
+ l16744:["Ley 16.744","Seguro social contra accidentes del trabajo y enfermedades profesionales."],
+ nch170:["NCh 170","Hormigón: requisitos generales."],
+ nch430:["NCh 430","Hormigón armado: requisitos de diseño y cálculo."],
+ ds60:["DS 60","Reglamento MINVU de diseño y cálculo para hormigón armado."],
+ ds61:["DS 61","Reglamento MINVU de diseño sísmico de edificios."],
+ nch433:["NCh 433","Diseño sísmico de edificios."],
+ nch204:["NCh 204","Acero: barras laminadas en caliente para hormigón armado."],
+ nch211:["NCh 211","Barras con resaltes en obras de hormigón armado."],
+ nch163:["NCh 163","Áridos para morteros y hormigones: requisitos generales."],
+ nch148:["NCh 148","Cemento: terminología, clasificación y especificaciones."],
+ nch1508:["NCh 1508","Geotecnia: estudio de mecánica de suelos."],
+ nch349:["NCh 349","Disposiciones de seguridad en excavaciones."],
+ nch3562:["NCh 3562","Residuos de construcción y demolición: plan de gestión."],
+ nch2123:["NCh 2123","Albañilería confinada: diseño y cálculo."],
+ nch1928:["NCh 1928","Albañilería armada: diseño y cálculo."],
+ nch169:["NCh 169","Ladrillos cerámicos: clasificación y requisitos."],
+ nch853:["NCh 853","Envolvente térmica: cálculo de resistencias y transmitancias."],
+ nch1079:["NCh 1079","Zonificación climático habitacional de Chile."],
+ nch1198:["NCh 1198","Madera: construcciones en madera, cálculo."],
+ nch432:["NCh 432","Diseño estructural: cargas de viento."],
+ nch1537:["NCh 1537","Cargas permanentes y sobrecargas de uso."],
+ nch352:["NCh 352","Aislación acústica en construcciones habitacionales."],
+ nch935:["NCh 935","Prevención de incendio: ensayo de resistencia al fuego."],
+ nch427:["NCh 427","Estructuras de acero: requisitos de diseño y cálculo."],
+ nch1411:["NCh 1411","Prevención de riesgos: señalización de seguridad."],
+ nchelec:["NCh Elec. 4/2003","Instalaciones eléctricas de consumo en baja tensión (SEC)."],
+ ridaa:["RIDAA","Reglamento de instalaciones domiciliarias de agua potable y alcantarillado (DS 50 MOP)."],
+ nch2485:["NCh 2485","Instalaciones domiciliarias de agua potable: diseño, cálculo y requisitos."],
+ ds66:["DS 66","Reglamento de instalaciones interiores y medidores de gas."],
+ itc:["Itemizado MINVU","Itemizado Técnico de Construcción del MINVU: formato de especificaciones técnicas."],
+ cnee:["Pavimentación MINVU","Código de Normas y Especificaciones Técnicas de Obras de Pavimentación."],
+ fuego:["OGUC Tít. 4 · fuego","OGUC, Título 4, capítulo de condiciones de seguridad contra incendio."],
+ arq:["OGUC Tít. 4","OGUC, Título 4: de la arquitectura (habitabilidad, accesibilidad, seguridad)."],
+ oficio:["EETT del proyecto","Especificaciones técnicas del proyecto y fichas del fabricante."]
+};
+
+/* Partidas nuevas del catálogo (no se cargan solas en la obra: se agregan desde «Catálogo») */
+var M33_CAT=[
+ ["1.8","Estudio de mecánica de suelos","gl",900000,"Un estudio por terreno. Pide al laboratorio el nivel de fundación, la capacidad de soporte y la napa."],
+ ["1.9","Levantamiento topográfico","gl",450000,"Plano con cotas del terreno y deslindes. Sirve para medir excavaciones y rellenos."],
+ ["1.10","Protecciones y señalética de seguridad","gl",380000,"Mallas, barandas de borde y letreros de la faena según el plan de prevención."],
+ ["1.11","Andamios (instalación y arriendo)","m²",6000,"Superficie de fachada que se cubre con andamio, por el plazo de la obra."],
+ ["1.12","Grúa torre o alzahombre","mes",2500000,"Meses de arriendo según el programa de obra."],
+ ["1.13","Derechos municipales y permiso de edificación","gl",1500000,"Pago a la DOM según el presupuesto de la obra y la tabla de derechos."],
+ ["1.14","Plan de gestión de residuos de obra","gl",300000,"Contenedores, retiro y bitácora de disposición final."],
+ ["2.10","Excavación de pozos para fundaciones aisladas","m³","excman","Cantidad × largo × ancho × profundidad hasta el sello, más el sobreancho de trabajo."],
+ ["2.11","Refine y compactación del sello de fundación","m²",2800,"Superficie de zanjas y pozos; se mide el fondo."],
+ ["2.12","Relleno de zanjas con material de la excavación","m³","relleno","Volumen de zanja menos el volumen de fundación que la ocupa."],
+ ["2.13","Escarificado y compactación de subrasante","m²",1800,"Superficie bajo radier o pavimento."],
+ ["2.14","Drenaje perimetral (tubo ranurado y grava)","ml",14000,"Largo del perímetro drenado."],
+ ["3.9","Hormigón de losa de fundación","m³","hormlosa","Superficie de la losa × espesor, más las vigas de rigidización."],
+ ["3.10","Hormigón de pilotes","m³",140000,"Número de pilotes × sección × largo."],
+ ["3.11","Hormigón de dados y pilares de fundación","m³","hormfund","Cantidad × sección × alto."],
+ ["3.12","Polietileno bajo radier","m²","poli","Superficie del radier más traslapos de 20 cm."],
+ ["3.13","Pernos y anclajes en fundaciones","un",6500,"Cuenta cada perno o placa de anclaje del plano."],
+ ["4.12","Hormigón de cadenas y dinteles","m³","horm","Largo × sección. Los dinteles van sólo sobre vanos."],
+ ["4.13","Hormigón de muros de contención","m³","horm","Largo × alto × espesor, más la zarpa."],
+ ["4.14","Moldaje de escaleras","m²","molde","Fondo de la losa inclinada más los costados y las huellas."],
+ ["4.15","Moldaje de cadenas y dinteles","m²","molde","Fondo más dos costados."],
+ ["4.16","Juntas de dilatación y sellos","ml",4500,"Largo de cada junta del plano."],
+ ["4.17","Curado y protección del hormigón","m²",600,"Superficie de hormigón expuesto a curar."],
+ ["4.18","Estructura de acero (perfiles y planchas)","kg",2600,"Peso de la planilla de perfiles, con pérdidas incluidas en el precio."],
+ ["4.19","Placas base y pernos de anclaje","un",18000,"Una por pilar metálico."],
+ ["4.20","Losa colaborante (steel deck + hormigón)","m²",38000,"Superficie de losa, descontando shafts."],
+ ["5.7","Tabique de yeso-cartón RH en zonas húmedas","m²",22000,"Largo × alto de tabiques de baños y cocinas."],
+ ["5.8","Tabique de madera (entramado)","m²",21000,"Largo × alto, descontando vanos."],
+ ["5.9","Dinteles de albañilería","ml",9500,"Largo del vano más apoyos de 20 cm por lado."],
+ ["5.10","Antepechos y remates de albañilería","ml",8000,"Largo de antepechos, coronaciones y pretiles."],
+ ["5.11","Panel SIP o steel framing","m²",48000,"Superficie de muro exterior, descontando vanos."],
+ ["5.12","Aislación exterior (EIFS)","m²",24000,"Superficie de fachada, descontando vanos."],
+ ["6.7","Cerchas de acero liviano","m²",28000,"Superficie en planta cubierta por las cerchas."],
+ ["6.8","Cubierta de teja asfáltica","m²",18000,"Planta × factor de pendiente, más aleros."],
+ ["6.9","Cubierta de teja de arcilla","m²",32000,"Planta × factor de pendiente, más aleros."],
+ ["6.10","Membrana asfáltica en techo plano","m²",15000,"Superficie de cubierta más subida a muros de 20 cm."],
+ ["6.11","Pendientes y protección de techo plano","m²",9000,"Superficie de la cubierta."],
+ ["6.12","Ventilaciones de entretecho","un",12000,"Una por cada 30 m² de cubierta como referencia."],
+ ["6.13","Tapacanes y cielo de alero","ml",14000,"Largo de aleros."],
+ ["6.14","Claraboyas y ventanas de techo","un",220000,"Según el cuadro de ventanas."],
+ ["6.15","Forros de ventilaciones y chimeneas","un",15000,"Cantidad de pasadas de techo."],
+ ["7.7","Impermeabilización de pisos húmedos","m²",8500,"Superficie de baños, cocina y logia, más 20 cm de subida en muros."],
+ ["7.8","Pavimento de hormigón pulido","m²",14000,"Superficie de recintos según cuadro de terminaciones."],
+ ["7.9","Piso de madera maciza o parquet","m²",28000,"Superficie de recintos según cuadro de terminaciones."],
+ ["7.10","Pavimento vinílico","m²",16000,"Superficie de recintos según cuadro de terminaciones."],
+ ["7.11","Alfombra","m²",14000,"Superficie de recintos según cuadro de terminaciones."],
+ ["7.12","Revestimiento de gradas de escalera","ml",9000,"Largo de cada peldaño × cantidad de peldaños."],
+ ["7.13","Zócalos cerámicos","ml",4500,"Perímetro de recintos húmedos menos vanos."],
+ ["8.9","Empaste de muros y cielos","m²",3200,"Superficie a empastar antes de pintar."],
+ ["8.10","Papel mural","m²",6500,"Superficie de muros revestidos."],
+ ["8.11","Revestimiento de fachada en fibrocemento","m²",21000,"Superficie de fachada, descontando vanos."],
+ ["8.12","Revestimiento exterior tipo siding","m²",18000,"Superficie de fachada, descontando vanos."],
+ ["8.13","Cielo de fibrocemento","m²",14000,"Superficie de cielos exteriores o húmedos."],
+ ["8.14","Pintura exterior de fachadas","m²","pintura","Superficie de fachada, descontando vanos."],
+ ["8.15","Barniz o lasur en maderas","m²",4200,"Superficie de piezas a proteger."],
+ ["8.16","Pintura anticorrosiva en estructura metálica","m²",6500,"Superficie de perfiles; usa el perímetro del perfil × el largo."],
+ ["8.17","Demarcación y pintura de pavimentos","m²",5500,"Superficie pintada."],
+ ["9.6","Puerta cortafuego","un",520000,"Según cuadro de puertas y la resistencia al fuego que pida el proyecto."],
+ ["9.7","Quincallería y cerraduras adicionales","un",22000,"Cantidad según cuadro de puertas."],
+ ["9.8","Ventanas de PVC con termopanel","m²",160000,"Ancho × alto de cada ventana del cuadro de ventanas."],
+ ["9.9","Muro cortina de aluminio y vidrio","m²",220000,"Superficie total de fachada vidriada."],
+ ["9.10","Protecciones metálicas de ventanas","m²",38000,"Superficie protegida."],
+ ["9.11","Mamparas y cierres de terraza en vidrio","m²",120000,"Superficie de vidrio."],
+ ["9.12","Barandas metálicas","ml",62000,"Largo de baranda en escaleras, terrazas y balcones."],
+ ["9.13","Pasamanos","ml",24000,"Largo de pasamano continuo."],
+ ["9.14","Muebles de baño (vanitorio y botiquín)","un",160000,"Uno por baño según plano."],
+ ["9.15","Encimeras de cocina y baño","ml",95000,"Largo de encimera."],
+ ["9.16","Cortinas y persianas","m²",35000,"Superficie de ventana a cubrir."],
+ ["9.17","Espejos","un",45000,"Cantidad según plano."],
+ ["10.11","Arranque de agua potable y medidor","un",450000,"Uno por vivienda o por edificio según la empresa sanitaria."],
+ ["10.12","Cámaras de inspección de alcantarillado","un",180000,"Una por cambio de dirección o de pendiente."],
+ ["10.13","Fosa séptica y drenes de infiltración","gl",2500000,"Sólo donde no hay red pública. Dimensiona según el proyecto sanitario."],
+ ["10.14","Red de aguas lluvias","ml",12000,"Largo de colectores y bajadas."],
+ ["10.15","Tablero eléctrico general","un",320000,"Uno por tablero del proyecto."],
+ ["10.16","Empalme y medidor eléctrico","gl",600000,"Según la factibilidad de la empresa distribuidora."],
+ ["10.17","Puesta a tierra","un",180000,"Una por empalme."],
+ ["10.18","Iluminación de emergencia","un",45000,"Según plano y ruta de evacuación."],
+ ["10.19","Alumbrado exterior","pto",55000,"Cuenta cada luminaria exterior."],
+ ["10.20","Sistema solar térmico o fotovoltaico","un",650000,"Un conjunto completo según el proyecto."],
+ ["10.21","Citófono y control de acceso","un",380000,"Un equipo por unidad de acceso."],
+ ["10.22","Detectores de humo y alarma de incendio","un",28000,"Cantidad según proyecto de seguridad."],
+ ["10.23","Extintores","un",32000,"Cantidad según carga de combustible y superficie."],
+ ["10.24","Estanque y central de gas","gl",2800000,"Según proyecto de gas y la capacidad requerida."],
+ ["10.25","Ventilación mecánica de baños y cocina","un",85000,"Un extractor por recinto."],
+ ["10.26","Bombas de agua e hidropack","un",1400000,"Según el cálculo de caudal y presión."],
+ ["11.5","Radier exterior y veredas","m²","radier","Superficie de veredas y accesos."],
+ ["11.6","Soleras y solerillas","ml",9500,"Largo de soleras en estacionamientos y calzadas."],
+ ["11.7","Adocreto o adoquín","m²",24000,"Superficie pavimentada."],
+ ["11.8","Estacionamientos con demarcación","un",600000,"Un puesto por estacionamiento."],
+ ["11.9","Muros de contención exteriores","m³","horm","Largo × alto × espesor."],
+ ["11.10","Portón y puerta de acceso exterior","un",480000,"Según plano de cierros."],
+ ["11.11","Equipamiento y mobiliario exterior","gl",1200000,"Bancas, juegos y basureros del proyecto."],
+ ["11.12","Árboles y arbustos","un",55000,"Cantidad según proyecto de paisajismo."],
+ ["11.13","Sumideros y cámaras de aguas lluvias","un",120000,"Cantidad según plano de aguas lluvias."],
+ ["11.14","Bodega de residuos domiciliarios","gl",900000,"Una por proyecto cuando la norma la exige."],
+ ["12.4","Certificaciones y ensayes finales (eléctrico, gas, sanitario)","gl",650000,"Los certificados de los servicios que se exigen para la recepción."],
+ ["12.5","Derechos de recepción final municipal","gl",1100000,"Según la tabla de derechos de la DOM."],
+ ["12.6","Reparaciones y observaciones de recepción","gl",450000,"Reserva para las observaciones del ITO y de la DOM."]
+];
+var M33_APU={poli:[["poli",1.1,0],["mo_ay",.03,0]]};
+
+/* Catálogo ordenado por norma: [id, capítulo, grupo, [códigos], [normas], cómo se mide en obra] */
+var M33_GR=[
+ ["1a","1","Instalaciones y cierros provisorios",["1.1","1.2","1.3","1.4","1.10","1.11","1.12"],["ds594","l16744","nch1411"],"Se mide por global o por unidad de arriendo. Dotación de faena según el reglamento de seguridad."],
+ ["1b","1","Trabajos previos, estudios y trazado",["1.5","1.6","1.7","1.8","1.9"],["nch1508","oguc"],"Superficie intervenida. Las demoliciones piden permiso y plan de retiro."],
+ ["1c","1","Permisos y gestión de residuos",["1.13","1.14"],["lguc","oguc","nch3562"],"Global. Los derechos municipales se calculan sobre el presupuesto."],
+ ["2a","2","Escarpe y excavaciones",["2.1","2.2","2.3","2.10"],["nch349","nch1508"],"Volumen en banco, antes de esponjar. Con talud usa el prismoide."],
+ ["2b","2","Entibación y agotamiento de napa",["2.4","2.5"],["nch349","ds594"],"Entibación por superficie de pared. Agotamiento por días de bombeo."],
+ ["2c","2","Rellenos, bases y compactación",["2.6","2.7","2.8","2.11","2.12","2.13"],["nch1508","oficio"],"Volumen compactado en planos. Pide ensayos de Proctor y de densidad in situ."],
+ ["2d","2","Retiro de excedentes y drenajes",["2.9","2.14"],["nch3562","nch1508"],"Excavación menos relleno propio, por el esponjamiento."],
+ ["3a","3","Emplantillados y hormigones de fundación",["3.1","3.2","3.3","3.4","3.5","3.9","3.10","3.11"],["nch170","nch430","ds60","nch163","nch148"],"Volumen de hormigón por elemento: largo × ancho × alto. No cuentes dos veces los cruces."],
+ ["3b","3","Moldajes de fundación",["3.6"],["nch170"],"Sólo las caras que no van contra el terreno."],
+ ["3c","3","Enfierradura y anclajes",["3.7","3.13"],["nch204","nch211","nch430"],"Kilos de la planilla de enfierradura. Ø²/162 kg/m."],
+ ["3d","3","Aislaciones e impermeabilización",["3.8","3.12"],["oficio"],"Superficie en contacto con el suelo, más traslapos."],
+ ["4a","4","Hormigones estructurales",["4.1","4.2","4.3","4.4","4.5","4.12","4.13","4.20"],["nch170","nch430","ds60","ds61","nch433","nch1537"],"Volumen por elemento, descontando vanos y shafts. Las losas colaborantes por superficie."],
+ ["4b","4","Moldajes",["4.6","4.7","4.8","4.9","4.14","4.15"],["nch170","nch430"],"Superficie de contacto con el hormigón. Las losas incluyen alzaprimado."],
+ ["4c","4","Enfierradura y mallas",["4.10","4.11"],["nch204","nch211","nch430","ds60"],"Kilos por planilla, o cuantía × volumen en el anteproyecto (referencia: 80–120 kg/m³ en estructuras de H.A.)."],
+ ["4d","4","Estructura de acero",["4.18","4.19"],["nch427","nch432","nch433"],"Kilos de perfiles y planchas. Pernos y placas por unidad."],
+ ["4e","4","Juntas y curado",["4.16","4.17"],["nch170","oficio"],"Juntas por ml; curado por superficie expuesta."],
+ ["5a","5","Albañilerías",["5.1","5.2","5.3","5.4","5.9","5.10"],["nch2123","nch1928","nch169","nch433"],"Superficie de muro menos vanos. Pilares, cadenas y dinteles se miden aparte."],
+ ["5b","5","Tabiques y paneles",["5.5","5.6","5.7","5.8","5.11"],["fuego","nch352","nch1198","nch853"],"Superficie de tabique por cara menos vanos. La aislación va con la misma superficie."],
+ ["5c","5","Aislación exterior",["5.12"],["nch853","nch1079","oguc"],"Superficie de fachada. El espesor depende de la zona térmica."],
+ ["6a","6","Estructura de techumbre",["6.1","6.7"],["nch1198","nch432","nch427"],"Superficie en planta; la pendiente se aplica en la cubierta."],
+ ["6b","6","Cubiertas",["6.2","6.3","6.8","6.9","6.10","6.11"],["oficio","nch432"],"Planta × √(1 + p²) más aleros. Techo plano: superficie más subidas."],
+ ["6c","6","Hojalatería y ventilación",["6.5","6.6","6.12","6.13","6.14","6.15"],["oficio"],"Largo de cumbreras, canales y aleros; pasadas de techo por unidad."],
+ ["6d","6","Aislación térmica de techumbre",["6.4"],["nch853","nch1079","oguc"],"Superficie del cielo del último piso. Espesor según zona térmica."],
+ ["7a","7","Radieres y bases de piso",["7.1","7.2","7.8"],["nch170","oficio"],"Superficie interior por espesor del proyecto."],
+ ["7b","7","Pavimentos terminados",["7.3","7.4","7.5","7.9","7.10","7.11"],["oficio"],"Superficie de recintos según cuadro de terminaciones."],
+ ["7c","7","Impermeabilización y remates de piso",["7.6","7.7","7.12","7.13"],["oficio"],"Guardapolvos y zócalos por ml. Impermeabilización por superficie."],
+ ["8a","8","Estucos y enlucidos",["8.1","8.2","8.9"],["nch148","nch163"],"Caras a estucar, descontando vanos mayores a 2 m²."],
+ ["8b","8","Revestimientos",["8.3","8.10","8.11","8.12"],["oficio","nch853"],"Superficie revestida menos vanos."],
+ ["8c","8","Cielos",["8.4","8.13"],["fuego","nch352"],"Superficie de cielo por recinto."],
+ ["8d","8","Pinturas y protecciones",["8.5","8.6","8.7","8.14","8.15","8.16","8.17"],["oficio"],"Superficie pintada por mano; muros y cielos por separado."],
+ ["9a","9","Puertas y quincallería",["9.1","9.2","9.6","9.7"],["fuego","arq"],"Por unidad según cuadro de puertas. La cortafuego sale del proyecto de seguridad."],
+ ["9b","9","Ventanas y fachadas vidriadas",["9.3","9.8","9.9","9.10","9.11"],["nch853","arq"],"Ancho × alto de cada ventana del cuadro. La envolvente térmica las exige con termopanel."],
+ ["9c","9","Barandas y pasamanos",["9.12","9.13"],["arq"],"Largo continuo de baranda y pasamano."],
+ ["9d","9","Muebles y equipamiento",["9.4","9.5","9.14","9.15","9.16","9.17"],["oficio"],"Por unidad o por ml de mueble o encimera."],
+ ["10a","10","Agua potable, alcantarillado y aguas lluvias",["10.1","10.2","10.3","10.11","10.12","10.13","10.14","10.26"],["ridaa","nch2485","oficio"],"Por punto o por artefacto, según el cuadro del proyecto sanitario."],
+ ["10b","10","Electricidad y corrientes débiles",["10.4","10.5","10.15","10.16","10.17","10.18","10.19","10.21"],["nchelec","oficio"],"Por punto (centros y enchufes). Tableros y empalmes por unidad."],
+ ["10c","10","Gas y agua caliente",["10.6","10.7","10.20","10.24"],["ds66","oficio"],"Global según proyecto de gas; calefón o termo por unidad."],
+ ["10d","10","Clima y ventilación",["10.8","10.25"],["oficio"],"Global o por equipo."],
+ ["10e","10","Seguridad contra incendio",["10.9","10.22","10.23"],["fuego","nch935"],"Cuando el proyecto lo exige por altura, carga de combustible y destino."],
+ ["10f","10","Transporte vertical",["10.10"],["arq"],"Por unidad según proyecto del fabricante."],
+ ["11a","11","Pavimentos y urbanización",["11.1","11.5","11.6","11.7","11.8","11.13"],["cnee","oficio"],"Superficie pavimentada; soleras por ml; estacionamientos por puesto."],
+ ["11b","11","Cierros, portones y contención",["11.3","11.9","11.10"],["nch430","oficio"],"Cierros por ml; muros por volumen; portones por unidad."],
+ ["11c","11","Áreas verdes y equipamiento",["11.2","11.11","11.12","11.14"],["oficio"],"Jardín por superficie; árboles y mobiliario por unidad."],
+ ["11d","11","Empalmes y servicios",["11.4"],["oficio"],"Global según factibilidades."],
+ ["12a","12","Limpieza y retiro final",["12.1","12.2"],["nch3562"],"Aseo por superficie construida; escombros por volumen."],
+ ["12b","12","Certificaciones y recepción",["12.4","12.5","12.6"],["lguc","oguc"],"Global; los certificados de servicios son requisito de la recepción final."],
+ ["12c","12","Documentos de entrega",["12.3"],["oguc","oficio"],"Planos as built y manual de uso y mantención."]
+];
+
+/* Figuras de normativa: textos de ayuda (resumen propio; la fuente es el plan regulador y el certificado de informaciones previas) */
+var M33_DEF=[
+ ["Línea oficial","Límite entre el predio y el espacio público (la calle). Desde ahí se miden el antejardín y los retiros."],
+ ["Antejardín","Distancia entre la línea oficial y la línea de edificación. La fija el plan regulador comunal."],
+ ["Línea de edificación","Límite desde el cual puede levantarse la construcción hacia el interior del predio."],
+ ["Coeficiente de ocupación de suelo (CoS)","Número que, multiplicado por la superficie del predio, da la superficie máxima que puede ocupar el primer piso."],
+ ["Coeficiente de constructibilidad (CC)","Número que, multiplicado por la superficie del predio, da la superficie total máxima que se puede construir sobre el suelo."],
+ ["Rasante","Plano imaginario que sube en ángulo desde el deslinde. La edificación aislada no puede sobrepasarlo."],
+ ["Distanciamiento","Distancia mínima entre la edificación y los deslindes laterales o posteriores."],
+ ["Agrupamiento","Cómo se ubica la edificación respecto de los vecinos: aislada, pareada o continua."]
+];
+
+/* ══ v3.3 · Menú lateral, normativa ilustrada y catálogo normado ══
+   Reemplaza m31Pinta (la última declaración gana) y suma tres secciones: Normativa (6), Modelo 3D (7) y Catálogo (8). */
+var _m33={mini:false,drawer:false};
+try{_m33.mini=localStorage.getItem("m33_mini")==="1"}catch(e){}
+var M33_ALL=M31_CAT.concat(M33_CAT);
+Object.keys(M33_APU).forEach(function(k){M31_APU[k]=M33_APU[k]});
+var M33_NAV=[
+ ["Anteproyecto",[[0,"Proceso","🧭","Etapas, permisos y plazos"],[6,"Normativa","📐","Cabida del predio"],[7,"Modelo 3D","🧊","Ver y cubicar el edificio"]]],
+ ["Cubicar",[[1,"Obra","🏗️","Datos de la obra"],[8,"Catálogo","📚","Partidas por norma"],[2,"Partidas","🧮","Mediciones y precios"]]],
+ ["Valorizar",[[3,"Insumos","🧱","Materiales y mano de obra"],[4,"Resumen","💲","Del costo directo al total"]]],
+ ["Programar",[[5,"Flujo","📅","Flujo de caja"]]]];
+var M33_ORD=[0,6,7,1,8,2,3,4,5];
+function _m33Nav(t){var r=null;M33_NAV.forEach(function(g){g[1].forEach(function(i){if(i[0]===t)r=i})});return r}
+function _m33Ent(c){for(var i=0;i<M33_ALL.length;i++)if(M33_ALL[i][0]===c)return M33_ALL[i];return null}
+function _m33GrOf(c){for(var i=0;i<M33_GR.length;i++)if(M33_GR[i][3].indexOf(c)>=0)return M33_GR[i];return null}
+function _m33MkPart(c){var O=_m31Ob(),e=_m33Ent(c);if(!e)return null;
+  var p={c:e[0],n:e[1],u:e[2],h:e[4],modo:"med",med:[],expr:"",apu:[]};
+  if(typeof e[3]==="string")p.apu=_m31cl(M31_APU[e[3]]);else{var id="sc_"+e[0];O.insX[id]=O.insX[id]||["SC",e[1],e[2],e[3]];p.apu=[[id,1,0]]}
+  var i=0;while(i<O.parts.length&&_m31Ord(O.parts[i].c)<_m31Ord(p.c))i++;O.parts.splice(i,0,p);return p}
+/* agregar partida: ahora con todo el catálogo, ordenado por norma */
+function _m31AddF(cap){var O=_m31Ob(),usa={};O.parts.forEach(function(p){usa[p.c]=1});
+  var G=M33_GR.filter(function(g){return g[1]===cap}),opts=G.map(function(g){var L=g[3].filter(function(c){return !usa[c]}).map(_m33Ent).filter(Boolean);
+    return L.length?'<optgroup label="'+_m31E(g[2])+'">'+L.map(function(c){return '<option value="'+c[0]+'">'+c[0]+' '+_m31E(c[1])+'</option>'}).join("")+'</optgroup>':""}).join("");
+  return '<div class="m31-ay"><b>Agregar partida</b><div class="m31-in">'+(opts?'<label class="w"><span>Del catálogo normado</span><select id="m31pc"><option value="">Elige…</option>'+opts+'</select></label>':'')
+   +'<label class="w"><span>O una partida propia</span><input id="m31pn" placeholder="Ej.: Pérgola de madera"></label><label><span>Unidad</span><select id="m31pu">'+M31_UN.map(function(u){return '<option>'+u+'</option>'}).join("")+'</select></label></div>'
+   +'<div class="m31-acts s"><button onclick="m31AddOk(\''+cap+'\')">Agregar</button><button onclick="_m31.add=null;m31Pinta()">Cancelar</button></div></div>'}
+function m31AddOk(cap){var O=_m31Ob(),s=document.getElementById("m31pc"),p;
+  if(s&&s.value)p=_m33MkPart(s.value);
+  else{var n=document.getElementById("m31pn").value.trim();if(!n)return;var mx=0;O.parts.forEach(function(q){if(_m31Cap(q.c)===cap)mx=Math.max(mx,+String(q.c).split(".")[1]||0)});
+    M33_ALL.forEach(function(q){if(_m31Cap(q[0])===cap)mx=Math.max(mx,+String(q[0]).split(".")[1]||0)});
+    var cod=cap+"."+(mx+1),un=document.getElementById("m31pu").value,id2="sc_"+cod+"_"+Date.now().toString(36);O.insX[id2]=["SC",n,un,0];p={c:cod,n:n,u:un,h:"",modo:"med",med:[],expr:"",apu:[[id2,1,0]]};
+    var i=0;while(i<O.parts.length&&_m31Ord(O.parts[i].c)<_m31Ord(p.c))i++;O.parts.splice(i,0,p)}
+  _m31.add=null;_m32.cap=cap;_m32.open=p.c;_m32.sub=null;_m31Sv();m31Pinta()}
+
+/* ── menú lateral ── */
+function _m33Rail(){var t=_m31.tab;
+  return '<aside class="m33-rail'+(_m33.drawer?" open":"")+'" aria-label="Secciones del presupuesto"><div class="m33-rh"><b>Presupuesto</b>'
+   +'<button class="m33-fold" onclick="m33Fold()" aria-label="Contraer o expandir el menú" title="Contraer o expandir"><i></i></button><button class="m33-x" onclick="m33Drawer(0)" aria-label="Cerrar menú">✕</button></div><div class="m33-rl">'
+   +M33_NAV.map(function(g){return '<div class="m33-g"><small>'+g[0]+'</small>'+g[1].map(function(it){
+     return '<button class="m33-ri'+(t===it[0]?" on":"")+'" onclick="m31Tab('+it[0]+')"'+(t===it[0]?' aria-current="page"':"")+' title="'+it[1]+'"><span class="nd"></span><span class="ic">'+it[2]+'</span><span class="tx"><b>'+it[1]+'</b><small>'+it[3]+'</small></span></button>'}).join("")+'</div>'}).join("")+'</div></aside>'}
+function m33Fold(){if(_m33.nar)return m33Drawer(!_m33.drawer);_m33.mini=!_m33.mini;try{localStorage.setItem("m33_mini",_m33.mini?"1":"0")}catch(e){}var r=document.querySelector("#m28-cub .m33");if(r)r.classList.toggle("mini",_m33.mini||_m31.tab===7);_m32Wires();try{_m33Resize()}catch(e){}}
+function m33Drawer(v){_m33.drawer=!!v;var r=document.querySelector("#m28-cub .m33-rail"),s=document.querySelector("#m28-cub .m33-scrim");if(r)r.classList.toggle("open",_m33.drawer);if(s)s.classList.toggle("on",_m33.drawer)}
+function m33Go(t){_m33.drawer=false;m31Tab(t)}
+function m31Tab(i){_m33.drawer=false;_m31.tab=i;m31Pinta();var r=document.getElementById("m28-cub");if(r&&r.getBoundingClientRect().top<0)r.scrollIntoView({block:"start"})}
+function _m33Next(t){var i=M33_ORD.indexOf(t),a=i>0?_m33Nav(M33_ORD[i-1]):null,b=i<M33_ORD.length-1?_m33Nav(M33_ORD[i+1]):null;
+  return '<div class="m33-next">'+(a?'<button class="pv" onclick="m31Tab('+a[0]+')">‹ '+a[1]+'</button>':'<span></span>')+(b?'<button class="nx" onclick="m31Tab('+b[0]+')"><small>Siguiente paso</small><b>'+b[1]+' ›</b></button>':'')+'</div>'}
+function m31Pinta(){
+  var root=document.getElementById("m28-cub");if(!root)return;_m31Ob();_m31K=null;
+  var old=root.querySelector(".m32-map"),sl=old?old.scrollLeft:0,oc=old?old.querySelectorAll(".m32-col").length:0;
+  var K=_m31Calc(),O=_m31O,t=_m31.tab,N=_m33Nav(t)||_m33Nav(0),nar=root.getBoundingClientRect().width<900,mini=nar||_m33.mini||t===7;_m33.nar=nar;
+  var body=[_m32Proceso,_m31Ficha,_m32Partidas,_m31Insumos,_m32Resumen,_m31Flujo,_m33Norma,_m33Modelo,_m33Cat][t]();
+  var h='<div class="m31 m33'+(nar?" nar":"")+(mini?" mini":"")+(t===7?" t3d":"")+'" data-guia="'+(_m32.guia?1:0)+'"><div class="m31-head"><div><small>Presupuesto de obra</small><b>'+_m31E(O.ficha.nom)+'</b></div><div class="m31-tot"><small>Total con IVA</small><b data-c="k|TOT">'+_m31P(K.TOT)+'</b><em data-c="uf|TOT"></em></div></div>'
+   +'<div class="m33-bar"><button onclick="m33Drawer(1)" aria-label="Abrir el menú de secciones"><i></i> Menú</button><span><small>'+N[1]+'</small><b>'+N[3]+'</b></span><button class="nx" onclick="m31Tab('+(M33_ORD[Math.min(M33_ORD.length-1,M33_ORD.indexOf(t)+1)])+')">Siguiente ›</button></div>'
+   +'<div class="m33-shell"><div class="m33-rw">'+_m33Rail()+'</div><div class="m33-scrim'+(_m33.drawer?" on":"")+'" onclick="m33Drawer(0)"></div><div class="m33-main"><div class="m31-body">'+body+_m33Next(t)+'</div></div></div></div>';
+  root.innerHTML=h;_m31Live();_m32After(sl,oc);
+  if(t===7&&window._m33ModeloInit)_m33ModeloInit()}
+
+/* ══ Normativa ilustrada ══ */
+function _m33Nm(){var O=_m31Ob();if(!O.norm)O.norm={fr:12,fo:30,an:3,cos:.5,cc:.6,alt:10,ras:70,dl:2.5,dp:3,agr:"aislado"};return O.norm}
+function m33N(k,v){var N=_m33Nm();if(k==="agr")N[k]=v;else{var n=_m31n(v);N[k]=n==null?0:n}_m31Sv();_m33NormPost()}
+function _m33Cab(){var N=_m33Nm(),O=_m31Ob(),md=window._m33Md?_m33Md():{hp:2.6,W:6},S=N.fr*N.fo,nl={aislado:2,pareado:1,continuo:0}[N.agr]||0,
+    fe=Math.max(0,N.fr-nl*N.dl),pe=Math.max(0,N.fo-N.an-N.dp),Af=fe*pe,hMax=N.cos*S,huella=Math.min(hMax,Af),tot=N.cc*S,
+    sup=+O.ficha.sup||0,pis=Math.max(1,Math.round(+O.ficha.pisos||1)),hp=md.hp||2.6,H=pis*hp,tg=Math.tan(Math.max(1,Math.min(89,N.ras))*Math.PI/180),
+    hProy=sup/pis,pisMin=huella>0?Math.ceil(tot/huella-1e-9):0;
+  return {N:N,S:S,fe:fe,pe:pe,Af:Af,hMax:hMax,huella:huella,tot:tot,sup:sup,pis:pis,hp:hp,H:H,tg:tg,hProy:hProy,pisMin:pisMin,dRas:H/tg,hRas:N.dl*tg,bw:md.W||6,nl:nl}}
+function m33NUsar(){var C=_m33Cab(),O=_m31Ob();O.ficha.sup=Math.round(C.tot*10)/10;O.ficha.pisos=Math.max(1,C.pisMin);_m31Sv();m31Pinta()}
+function _m33NormPost(){var a=document.getElementById("m33-res"),b=document.getElementById("m33-figs");if(a)a.innerHTML=_m33Res();if(b)b.innerHTML=_m33Figs()}
+function _m33In(l,k,u){var N=_m33Nm();return '<label><span>'+l+'</span><span class="u"><input inputmode="decimal" value="'+_m31V(N[k])+'" oninput="m33N(\''+k+'\',this.value)"><em>'+u+'</em></span></label>'}
+function _m33Norma(){var N=_m33Nm();
+  return '<h3 class="m33-h">Normativa del predio</h3>'
+   +'<p class="m31-lead">Antes de dibujar, mira cuánto te deja construir la norma. Pide el <b>Certificado de Informaciones Previas</b> a la Dirección de Obras de tu municipalidad: ahí vienen el CoS, el CC, la altura, el antejardín, las rasantes y los distanciamientos que fija el plan regulador comunal. Los números de abajo son un ejemplo: cámbialos por los de tu predio.</p>'
+   +'<div class="m33-in">'+_m33In("Frente del predio","fr","m")+_m33In("Fondo del predio","fo","m")+_m33In("Antejardín","an","m")+_m33In("Distanciamiento lateral","dl","m")+_m33In("Distanciamiento posterior","dp","m")
+   +'<label><span>Agrupamiento</span><select onchange="m33N(\'agr\',this.value)">'+[["aislado","Aislado"],["pareado","Pareado"],["continuo","Continuo"]].map(function(a){return '<option value="'+a[0]+'"'+(N.agr===a[0]?" selected":"")+'>'+a[1]+'</option>'}).join("")+'</select></label>'
+   +_m33In("Ocupación de suelo (CoS)","cos","×")+_m33In("Constructibilidad (CC)","cc","×")+_m33In("Altura máxima","alt","m")+_m33In("Ángulo de rasante","ras","°")+'</div>'
+   +'<div id="m33-res">'+_m33Res()+'</div><div id="m33-figs">'+_m33Figs()+'</div>'
+   +'<details class="m33-def"><summary>¿Qué significa cada término?</summary><dl>'+M33_DEF.map(function(d){return '<dt>'+d[0]+'</dt><dd>'+d[1]+'</dd>'}).join("")+'</dl><p class="m31-nota">Resumen para estudiar basado en la OGUC (artículo 1.1.2, definiciones, y 2.6.3, rasantes y distanciamientos). Revisa siempre el texto vigente y el plan regulador de tu comuna.</p></details>'}
+function _m33Res(){var C=_m33Cab(),N=C.N,ok=function(b,t){return '<li class="'+(b?"ok":"no")+'"><i>'+(b?"✔":"!")+'</i><span>'+t+'</span></li>'};
+  var f=_m31F;
+  return '<div class="m33-kp"><span><small>Superficie del predio</small><b>'+f(C.S)+' m²</b></span><span><small>Área edificable</small><b>'+f(C.Af)+' m²</b></span><span><small>Huella máxima (CoS)</small><b>'+f(C.huella)+' m²</b></span><span><small>Construible (CC)</small><b>'+f(C.tot)+' m²</b></span></div>'
+   +'<ul class="m33-vd">'
+   +ok(C.hProy<=C.huella+.01,'Ocupación de suelo: tu primer piso ocupa <b>'+f(C.hProy)+' m²</b> y la norma deja hasta <b>'+f(C.huella)+' m²</b>'+(C.huella<C.hMax-.01?' (el área edificable limita antes que el CoS)':'')+'.')
+   +ok(C.sup<=C.tot+.01,'Constructibilidad: tu obra suma <b>'+f(C.sup)+' m²</b> y el máximo es <b>'+f(C.tot)+' m²</b>.')
+   +ok(C.H<=N.alt+.01,'Altura: '+C.pis+' '+(C.pis===1?"piso":"pisos")+' de '+f(C.hp)+' m dan <b>'+f(C.H)+' m</b>; el máximo es <b>'+f(N.alt)+' m</b>.')
+   +ok(C.H<=C.hRas+.01,'Rasante de '+f(N.ras,0)+'°: a '+f(N.dl)+' m del deslinde se puede subir hasta <b>'+f(C.hRas)+' m</b>. Tu edificio de '+f(C.H)+' m necesita retirarse al menos <b>'+f(C.dRas)+' m</b>.')
+   +'</ul><div class="m31-acts s"><button onclick="m33NUsar()">Usar la superficie máxima en la ficha de la obra</button><button onclick="m31Tab(7)">Ver el edificio en 3D ›</button></div>'
+   +'<p class="m31-nota">Con la huella máxima y la constructibilidad se necesitan al menos <b>'+C.pisMin+'</b> '+(C.pisMin===1?"piso":"pisos")+' para construir todo lo permitido.</p>'}
+
+/* helpers de dibujo estilo OGUC ilustrada: línea fina, cotas con trazos y círculos numerados */
+function _og(x){return (+x).toFixed(1)}
+function _ogR(x,y,w,h,c){return '<rect class="'+c+'" x="'+_og(x)+'" y="'+_og(y)+'" width="'+_og(Math.max(0,w))+'" height="'+_og(Math.max(0,h))+'"/>'}
+function _ogL(x1,y1,x2,y2,c){return '<path class="'+(c||"og-l")+'" d="M'+_og(x1)+' '+_og(y1)+'L'+_og(x2)+' '+_og(y2)+'"/>'}
+function _ogT(x,y,t,a,c){return '<text class="og-t'+(c?" "+c:"")+'" x="'+_og(x)+'" y="'+_og(y)+'" text-anchor="'+(a||"middle")+'">'+_m31E(t)+'</text>'}
+function _ogN(x,y,n){return '<g class="og-n"><circle cx="'+_og(x)+'" cy="'+_og(y)+'" r="7.5"/><text x="'+_og(x)+'" y="'+_og(y+3.4)+'" text-anchor="middle">'+n+'</text></g>'}
+function _ogD(x1,y1,x2,y2,t,off){var dx=x2-x1,dy=y2-y1,l=Math.hypot(dx,dy)||1,nx=-dy/l,ny=dx/l,k=3.5,
+    tx=(x1+x2)/2+nx*off,ty=(y1+y2)/2+ny*off,an=Math.abs(nx)>.5?(nx*off<0?"end":"start"):"middle";
+  return '<g class="og-d">'+_ogL(x1,y1,x2,y2,"")+_ogL(x1-nx*k+ny*k*.0,y1-ny*k,x1+nx*k,y1+ny*k,"")+_ogL(x2-nx*k,y2-ny*k,x2+nx*k,y2+ny*k,"")+_ogT(tx,ty+(an==="middle"?(ny*off>0?9:-3):3.5),t,an)+'</g>'}
+var _ogK=0;
+function _ogDefs(){var k=++_ogK;return {k:k,d:'<defs><pattern id="ogh'+k+'" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V6" class="og-hl"/></pattern><pattern id="ogp'+k+'" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r=".7" class="og-dt"/></pattern></defs>'}}
+function _m33Fig(n,ttl,svg,leg){return '<figure class="og-fig"><figcaption><b>Fig. '+n+'</b> '+ttl+'</figcaption>'+svg+(leg?'<ol class="og-leg">'+leg.map(function(l){return '<li>'+l+'</li>'}).join("")+'</ol>':'')+'</figure>'}
+function _m33Figs(){var C=_m33Cab();return _m33Fig(1,"Planta del predio: antejardín, distanciamientos y huella",_ogPlanta(C),
+    ["Línea oficial: límite con la calle.","Antejardín: franja libre entre la línea oficial y la línea de edificación.","Área edificable: lo que queda dentro de los distanciamientos.","Huella máxima: el CoS por la superficie del predio."])
+  +_m33Fig(2,"Corte: altura máxima y rasante",_ogCorte(C),["Deslinde con el vecino.","Plano de rasante: la edificación queda debajo de la línea.","Altura máxima del plan regulador."])
+  +_m33Fig(3,"Volumen: constructibilidad (CC)",_ogIso(C),["Superficie del predio.","Superficie construible total = CC × predio, repartida en pisos de la huella máxima."])
+  +_m33Fig(4,"Agrupamiento: aislado, pareado y continuo",_ogAgr(C),["Aislado: separado de ambos vecinos.","Pareado: unido a un vecino por un muro común.","Continuo: unido a ambos vecinos."])}
+
+function _ogPlanta(C){var N=C.N,s=Math.min(250/N.fr,170/N.fo),w=N.fr*s,h=N.fo*s,X=(420-w)/2+6,Y=24,df=_ogDefs(),L=N.agr==="aislado"?1:0,R=N.agr==="continuo"?0:1,dl=N.dl*s,dp=Math.min(N.dp*s,h*.4),an=Math.min(N.an*s,h*.4);
+  var ax=X+(L?dl:0),aw=w-(L?dl:0)-(R?dl:0),ay=Y+dp,ah=h-dp-an,ds=C.fe>0?Math.min(ah,C.huella/C.fe*s):0;
+  var v='<svg viewBox="0 0 420 '+_og(Y+h+44)+'" class="og" role="img" aria-label="Planta del predio con antejardín y distanciamientos">'+df.d
+   +_ogR(X,Y,w,h,"og-pred")+_ogR(X,Y+h-an,w,an,"og-ant").replace('class="og-ant"','class="og-ant" fill="url(#ogh'+df.k+')"')
+   +_ogR(X,Y,w,dp,"og-ret").replace('class="og-ret"','class="og-ret" fill="url(#ogp'+df.k+')"')
+   +(L?_ogR(X,ay,dl,ah,"og-ret").replace('class="og-ret"','class="og-ret" fill="url(#ogp'+df.k+')"'):"")+(R?_ogR(X+w-dl,ay,dl,ah,"og-ret").replace('class="og-ret"','class="og-ret" fill="url(#ogp'+df.k+')"'):"")
+   +_ogR(ax,ay,aw,ah,"og-edif")+_ogR(ax,ay+ah-ds,aw,ds,"og-huella")
+   +_ogR(X,Y,w,h,"og-pl")+_ogR(X-30,Y+h,w+60,14,"og-calle")+_ogL(X-24,Y+h+7,X+w+24,Y+h+7,"og-eje")+_ogT(X+w/2,Y+h+27,"CALLE","middle","og-s")
+   +_ogD(X,Y-9,X+w,Y-9,_m31F(N.fr)+" m",-5)+_ogD(X-12,Y,X-12,Y+h,_m31F(N.fo)+" m",-6)
+   +_ogD(X+w+10,Y+h-an,X+w+10,Y+h,_m31F(N.an)+" m",6)+_ogD(X+w+10,Y,X+w+10,Y+dp,_m31F(N.dp)+" m",6)
+   +(R?_ogD(X+w-dl,Y+h/2,X+w,Y+h/2,_m31F(N.dl)+" m",-7):"")
+   +_ogT(ax+aw/2,ay+ah-ds/2+3.5,_m31F(C.huella)+" m²","middle","og-b")
+   +_ogN(X+w+24,Y+h+7,1)+_ogN(X+w/2,Y+h-an/2,2)+_ogN(ax+aw/2,ay+Math.max(14,(ah-ds)/2),3)+_ogN(ax+aw/2,ay+ah-ds+12,4)
+   +_ogT(X+w/2,Y+h+40,"Escala gráfica referencial","middle","og-s")+'</svg>';
+  return v}
+
+function _ogCorte(C){var N=C.N,df=_ogDefs(),gy=204,x0=42,top=26,Hb=Math.max(C.H,.5),Hm=Math.max(N.alt,Hb,.5),bw=C.bw,
+    s=Math.min(330/(N.dl+bw+1.5),(gy-top-12)/Math.max(Hm,Hb)),tg=C.tg,bx=x0+N.dl*s,bwp=bw*s,ht=gy-Hb*s,hmY=gy-N.alt*s,dyl=(gy-top),xr=x0+dyl/tg,
+    under=C.H<=C.hRas+.01;
+  var v='<svg viewBox="0 0 420 238" class="og" role="img" aria-label="Corte con rasante y altura máxima">'+df.d
+   +'<path class="og-proh" d="M'+_og(x0)+' '+gy+'L'+_og(xr)+' '+top+'L408 '+top+'L408 '+gy+'Z"/>'
+   +_ogR(8,gy,404,16,"og-suelo").replace('class="og-suelo"','class="og-suelo" fill="url(#ogh'+df.k+')"')+_ogL(8,gy,412,gy,"og-l og-g")
+   +_ogR(8,gy-34,x0-8,34,"og-vec")+_ogL(x0,gy,x0,top,"og-eje")+_ogT(x0,top-6,"Deslinde","middle","og-s")+_ogT(26,gy-14,"Vecino","middle","og-s")
+   +_ogR(bx,ht,bwp,gy-ht,"og-edi")
+   +(function(){var a="",i;for(i=1;i<C.pis;i++){var y=gy-i*C.hp*s;a+=_ogL(bx,y,bx+bwp,y,"og-l og-fn")}return a})()
+   +_ogL(x0,gy,xr,top,under?"og-ras":"og-ras no")+_ogL(x0,hmY,408,hmY,"og-hm")+_ogT(404,hmY-4,"Altura máx. "+_m31F(N.alt)+" m","end","og-s")
+   +_ogD(x0,gy+10,bx,gy+10,_m31F(N.dl)+" m",9)+_ogD(bx+bwp+8,gy,bx+bwp+8,ht,_m31F(C.H)+" m",-7)
+   +'<path class="og-arc" d="M'+_og(x0+30)+' '+gy+'A30 30 0 0 0 '+_og(x0+30*Math.cos(Math.atan(tg)))+' '+_og(gy-30*Math.sin(Math.atan(tg)))+'"/>'+_ogT(x0+38,gy-8,_m31F(N.ras,0)+"°","start","og-b")
+   +_ogN(x0-14,gy-50,1)+_ogN(x0+(gy-top)*.5/tg+10,(gy+top)/2,2)+_ogN(380,hmY+12,3)
+   +(under?"":_ogT(bx+bwp/2,ht-6,"Excede la rasante","middle","og-warn"))+'</svg>';
+  return v}
+
+function _ogIso(C){var N=C.N,df=_ogDefs(),a=N.fr,b=N.fo,hp=3,nf=Math.max(1,C.pisMin||1),sc=Math.min(330/((a+b)*.866),128/((a+b)*.5+nf*hp)),ox=210-(a-b)*.433*sc,oy=184-(a+b)*.5*sc*.0-(a+b)*.5*sc+((a+b)*.5*sc);
+  var c=.866*sc,sn=.5*sc,P=function(x,y,z){return [210+(x-y)*.866*sc+(b-a)*.433*sc,200-(a+b)*.5*sc+(x+y)*.5*sc-z*sc]},
+    poly=function(pts,cl){return '<path class="'+cl+'" d="M'+pts.map(function(p){return _og(p[0])+' '+_og(p[1])}).join("L")+'Z"/>'},
+    box=function(x0,y0,z0,x1,y1,z1,cs){return poly([P(x0,y1,z1),P(x1,y1,z1),P(x1,y1,z0),P(x0,y1,z0)],cs[1])+poly([P(x1,y0,z1),P(x1,y1,z1),P(x1,y1,z0),P(x1,y0,z0)],cs[2])+poly([P(x0,y0,z1),P(x1,y0,z1),P(x1,y1,z1),P(x0,y1,z1)],cs[0])};
+  var fe=Math.max(.1,C.fe),dd=Math.min(C.pe,C.huella/fe),xl=(N.agr==="aislado"?N.dl:0),yb=b-N.an-dd,v='<svg viewBox="0 0 420 232" class="og" role="img" aria-label="Volumen edificable">'+df.d
+   +poly([P(0,0,0),P(a,0,0),P(a,b,0),P(0,b,0)],"og-pred")+poly([P(0,0,0),P(a,0,0),P(a,b,0),P(0,b,0)],"og-pl")
+   +poly([P(0,b-N.an,0),P(a,b-N.an,0),P(a,b,0),P(0,b,0)],"og-ant");
+  var rest=C.tot,k;
+  for(k=0;k<nf&&rest>0;k++){var fr=Math.min(1,rest/Math.max(.1,C.huella)),d2=dd*fr;v+=box(xl,yb+dd-d2,k*hp,xl+fe,yb+dd,(k+1)*hp,["og-f1","og-f2","og-f3"]);rest-=C.huella}
+  var q=P(a,b,0),w0=P(0,b,0),z0=P(a,0,0);
+  v+=_ogT(w0[0]-6,w0[1]+16,"Calle","end","og-s")+_ogD(w0[0],w0[1]+8,q[0],q[1]+8,_m31F(N.fr)+" m",13)
+   +_ogN(P(a/2,b*.25,0)[0],P(a/2,b*.25,0)[1],1)+_ogN(P(xl+fe,yb,nf*hp)[0]+14,P(xl+fe,yb,nf*hp)[1]-6,2)
+   +_ogT(210,222,"CC "+_m31F(N.cc)+" × "+_m31F(C.S)+" m² = "+_m31F(C.tot)+" m² · "+nf+(nf===1?" piso":" pisos")+" de "+_m31F(C.huella)+" m²","middle","og-b")+'</svg>';
+  return v}
+
+function _ogAgr(C){var df=_ogDefs(),v='<svg viewBox="0 0 420 150" class="og" role="img" aria-label="Aislado, pareado y continuo">'+df.d,T=[["aislado","Aislado",[[0,1,1,1],[1,0,1,1],[1,1,0,1]]],["pareado","Pareado",[[1,1,1,0],[1,0,1,1],[1,1,0,1]]],["continuo","Continuo",[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]];
+  T.forEach(function(t,i){var x0=8+i*136,on=C.N.agr===t[0],lw=36,gap=4;
+    v+='<g class="og-ag'+(on?" on":"")+'">'+_ogR(x0,12,128,110,"og-agb");
+    for(var j=0;j<3;j++){var lx=x0+8+j*(lw+gap)+(j>0?gap:0),bx=lx+(t[0]==="aislado"?5:t[0]==="pareado"?(j===0?5:j===1?0:2):0),bw=lw-(t[0]==="aislado"?10:t[0]==="pareado"?(j===0?5:j===1?2:5):0);
+      if(t[0]==="pareado"){if(j===0){bx=lx+5;bw=lw-5+gap/2}else if(j===1){bx=lx-gap/2;bw=lw-5+gap/2+0}else{bx=lx+5;bw=lw-10}}
+      if(t[0]==="continuo"){bx=lx-(j>0?gap:0);bw=lw+(j>0?gap:0)+(j<2?gap:0)}
+      v+=_ogR(lx,20,lw,94,"og-pred")+_ogR(bx,44,bw,56,j===1?"og-edi":"og-edif")}
+    v+=_ogL(x0+4,118,x0+124,118,"og-eje")+_ogT(x0+64,138,t[1],"middle",on?"og-b":"og-s")+'</g>'});
+  return v+'</svg>'}
+
+/* ══ Catálogo normado ══ */
+var _m33c={cap:null,gr:null,cp:null,q:""};
+function _m33Ref(e){if(typeof e[3]==="number")return e[3];var t={apu:_m31cl(M31_APU[e[3]]||[])};return _m31PU(t).PU}
+function _m33EnObra(c){return !!_m31Part(c)}
+function m33CC(c){_m33c.cap=_m33c.cap===c?null:c;_m33c.gr=null;_m33c.cp=null;_m33c.q="";m31Pinta()}
+function m33CG(g){_m33c.gr=_m33c.gr===g?null:g;_m33c.cp=null;m31Pinta()}
+function m33CP(c){_m33c.cp=_m33c.cp===c?null:c;m31Pinta()}
+function m33CGo(n){if(n<=0){_m33c.cap=null}if(n<=1)_m33c.gr=null;if(n<=2)_m33c.cp=null;m31Pinta()}
+function m33CQ(v){_m33c.q=v;var e=document.getElementById("m33-cm");if(e)e.innerHTML=_m33CatMap()}
+function m33CHit(c){var g=_m33GrOf(c),en=_m33Ent(c);_m33c.q="";_m33c.cap=_m31Cap(c);_m33c.gr=g?g[0]:null;_m33c.cp=c;m31Pinta()}
+function m33CAdd(c){if(!_m31Part(c)){_m33MkPart(c);_m31Sv()}m31Pinta()}
+function m33CVe(c){_m32.cap=_m31Cap(c);_m32.open=c;_m32.sub=null;_m31.add=null;m31Tab(2)}
+function _m33Chips(L){return '<span class="m33-nms">'+L.map(function(k){var n=M33_NORMAS[k];return n?'<span class="m33-nm" title="'+_m31E(n[1])+'">'+_m31E(n[0])+'</span>':""}).join("")+'</span>'}
+function _m33CatMap(){var q=_m33c.q.trim().toLowerCase();
+  if(q){var R=M33_ALL.filter(function(e){return (e[0]+" "+e[1]+" "+e[4]).toLowerCase().indexOf(q)>=0}).slice(0,40);
+    return '<div class="m32-map" style="overflow:visible"><section class="m32-col" style="width:100%;max-width:640px"><div class="m32-ch">'+R.length+(R.length===1?" resultado":" resultados")+'</div>'
+     +(R.map(function(e){return '<button class="m32-n p" onclick="m33CHit(\''+e[0]+'\')"><span class="cd">'+e[0]+'</span><span class="tx"><b class="nm">'+_m31E(e[1])+'</b><small>'+e[2]+' · '+_m31E((_m33GrOf(e[0])||[0,0,"—"])[2])+'</small></span>'+(_m33EnObra(e[0])?'<b class="v ok">en obra</b>':"")+'</button>'}).join("")||'<p class="m31-nota">Nada coincide. Prueba con otra palabra.</p>')+'</section></div>'}
+  var C=_m33c.cap?_m32Capo(_m33c.cap):null,G=_m33c.gr?M33_GR.filter(function(g){return g[0]===_m33c.gr})[0]:null,E=_m33c.cp?_m33Ent(_m33c.cp):null;
+  var h='<div class="m32-map"><section class="m32-col"><div class="m32-ch">Catálogo · '+M33_ALL.length+' partidas</div>'+M31_CAP.map(function(c){
+      var n=M33_ALL.filter(function(e){return _m31Cap(e[0])===c[0]}).length,k=_m31Ob().parts.filter(function(p){return _m31Cap(p.c)===c[0]}).length,on=_m33c.cap===c[0];
+      return '<button class="m32-n c'+(on?" on":"")+'" onclick="m33CC(\''+c[0]+'\')" aria-expanded="'+on+'"><span class="ic">'+c[2]+'</span><span class="tx"><b>'+c[0]+'. '+c[1]+'</b><small>'+n+' en el catálogo · '+k+' en tu obra</small></span></button>'}).join("")+'</section>';
+  if(C){h+='<section class="m32-col"><div class="m32-ch"><span>'+C[2]+'</span> '+C[0]+' · '+_m31E(C[1])+'</div>'+M33_GR.filter(function(g){return g[1]===C[0]}).map(function(g){var on=_m33c.gr===g[0];
+      return '<button class="m32-n g'+(on?" on":"")+'" onclick="m33CG(\''+g[0]+'\')" aria-expanded="'+on+'"><span class="tx"><b>'+_m31E(g[2])+'</b><small>'+g[3].length+' partidas</small>'+_m33Chips(g[4].slice(0,3))+'</span><span class="ch">›</span></button>'}).join("")+'</section>'}
+  if(G){h+='<section class="m32-col"><div class="m32-ch">'+_m31E(G[2])+'</div><p class="m31-hint"><b>Cómo se mide.</b> '+_m31E(G[5])+'</p>'+G[3].map(_m33Ent).filter(Boolean).map(function(e){var on=_m33c.cp===e[0],en=_m33EnObra(e[0]);
+      return '<button class="m32-n p'+(on?" on":"")+'" onclick="m33CP(\''+e[0]+'\')" aria-expanded="'+on+'"><span class="cd">'+e[0]+'</span><span class="tx"><b class="nm">'+_m31E(e[1])+'</b><small>por '+e[2]+'</small></span>'+(en?'<b class="v ok">✓</b>':'')+'</button>'}).join("")+'</section>'}
+  if(E&&G){var en=_m33EnObra(E[0]);
+    h+='<section class="m32-col wide"><div class="m32-ch"><span class="cd">'+E[0]+'</span> Ficha de la partida</div><div class="m32-card"><b class="ttl">'+_m31E(E[1])+'</b>'
+     +'<div class="m32-eq"><span><small>Unidad</small><b>'+E[2]+'</b></span><i>·</i><span class="t"><small>Precio de referencia</small><b>'+_m31P(_m33Ref(E))+' / '+E[2]+'</b></span></div></div>'
+     +'<p class="m31-hint"><b>Cómo se cubica.</b> '+_m31E(E[4])+'</p><h5>Normas que la rigen</h5><ul class="m33-nl">'+G[4].map(function(k){var n=M33_NORMAS[k];return n?'<li><b>'+_m31E(n[0])+'</b> '+_m31E(n[1])+'</li>':""}).join("")+'</ul>'
+     +'<div class="m31-acts s">'+(en?'<button onclick="m33CVe(\''+E[0]+'\')">Abrir en Partidas ›</button>':'<button onclick="m33CAdd(\''+E[0]+'\')">+ Agregar a mi obra</button>')+'</div>'
+     +(en?'<p class="m31-nota">Esta partida ya está en tu obra.</p>':'<p class="m31-nota">Se agrega con su precio de referencia y sin mediciones: mide en Partidas o usa el modelo 3D.</p>')
+     +'<p class="m31-nota">Precios de referencia del catálogo; cámbialos por tus cotizaciones. Las normas son una guía de estudio: revisa el texto vigente.</p></section>'}
+  return h+'</div>'}
+function _m33Cat(){var C=_m33c.cap?_m32Capo(_m33c.cap):null,G=_m33c.gr?M33_GR.filter(function(g){return g[0]===_m33c.gr})[0]:null,cr=[["Catálogo","m33CGo(0)"]];
+  if(C)cr.push([C[0]+". "+_m31E(C[1]),"m33CGo(1)"]);if(G)cr.push([_m31E(G[2]),"m33CGo(2)"]);if(_m33c.cp&&G)cr.push([_m33c.cp,"m33CGo(3)","cr-p"]);
+  return '<h3 class="m33-h">Catálogo ordenado por norma chilena</h3><p class="m31-lead">Todas las partidas de una obra de edificación, separadas por capítulo y por la norma que las rige. Elige un capítulo, luego el grupo y la partida: verás cómo se cubica, qué norma la respalda y su precio de referencia.</p>'
+   +'<div class="m28-search m33-q"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input placeholder="Buscar partida: moldaje, cerámica, tablero…" value="'+_m31E(_m33c.q)+'" oninput="m33CQ(this.value)" aria-label="Buscar en el catálogo"></div>'
+   +_m32Crumb(cr)+'<div id="m33-cm">'+_m33CatMap()+'</div>'}
+
+window.addEventListener("resize",function(){clearTimeout(_m33.rz);_m33.rz=setTimeout(function(){var r=document.getElementById("m28-cub");if(r&&r.querySelector(".m33")&&(r.getBoundingClientRect().width<900)!==!!_m33.nar&&!(_m33M&&_m33M.ptrN))m31Pinta()},160)});
+
+/* ══ v3.3 · Modelo 3D tipo Revit ══
+   Edificio paramétrico, visor propio (z-buffer en canvas, sin librerías), navegador de proyecto, propiedades,
+   caja de sección y generación de la cubicación en Partidas. */
+var M33_MD0={L:10,W:6,pisos:2,hp:2.6,el:.18,em:.15,et:.1,mat:"ladrillo",cb:.4,ch:.6,sc:.35,ar:.1,techo:"dos",pend:30,alero:.5,vf:2,vd:1,vt:2,vi:1,vw:1.2,vh:1.1,va:.9,pw:.9,ph:2.1,px:5,nt:1,esc:1,cuH:90,cuF:40,pav:"flot"};
+var M33_LIM={L:[3,40],W:[3,30],pisos:[1,8],hp:[2.2,4.5],el:[.1,.35],em:[.1,.4],et:[.05,.2],cb:[.2,1.2],ch:[.2,1.5],sc:[.15,.8],pend:[0,100],alero:[0,1.5],vf:[0,8],vd:[0,8],vt:[0,8],vi:[0,8],vw:[.4,3],vh:[.4,2],va:[0,1.6],pw:[.7,1.5],ph:[1.8,2.6],px:[1,40],nt:[0,4],cuH:[0,250],cuF:[0,200]};
+var M33_CATS=[["Terreno","🌱"],["Fundaciones","⛏️"],["Muros","🧱"],["Tabiques","▤"],["Losas","⬛"],["Escalera","🪜"],["Cubierta","🏠"],["Ventanas","🪟"],["Puertas","🚪"],["Cielos","▭"]];
+var M33_COL={pasto:[146,174,118],calle:[100,104,110],lote:[168,188,138],borde:[205,184,132],cim:[150,154,158],sob:[168,172,175],rad:[178,182,184],mLad:[199,122,92],mBlo:[190,184,172],mHor:[184,188,192],tab:[236,230,218],losa:[170,176,182],cub:[122,132,142],cubP:[104,110,118],vid:[148,200,230],mar:[66,72,82],pue:[142,98,64],esc:[168,162,152],cielo:[243,241,237]};
+var _m33M={cam:{yaw:-.87,pit:.42,dist:20,tx:5,ty:3,tz:2,ortho:false},sel:null,hid:{},sty:"sh",cuts:{x:100,y:100,z:100},cotas:true,dock:"nav",exp:{Muros:1},els:null,A:null,gm:"rep",done:null,view:"3d",fitD:20,ptr:{},ptrN:0,tw:null,fr:0,hq:0,lastSel:null};
+
+function _m33Md(){var O=_m31Ob();if(!O.mod)O.mod=_m31cl(M33_MD0);else for(var k in M33_MD0)if(O.mod[k]==null)O.mod[k]=M33_MD0[k];return O.mod}
+function m33P(k,v){var m=_m33Md(),a=M33_LIM[k];if(typeof M33_MD0[k]==="string"||k==="esc"){m[k]=k==="esc"?(v?1:0):v}else{var n=_m31n(v);if(n==null)return;if(a)n=Math.max(a[0],Math.min(a[1],n));if(k==="pisos"||/^v[fdti]$|^nt$/.test(k))n=Math.round(n);m[k]=n}
+  m.px=Math.max(1,Math.min(m.L-1,m.px));_m31Sv();_m33M.els=null;if(/^(L|W|pisos|hp|techo|pend|alero)$/.test(k))_m33FitSoft();_m33Req(true);var d=document.getElementById("m33-dk");if(d&&(_m33M.dock==="can"||_m33M.dock==="nav"))_m33DockFill();_m33NormPost()}
+
+/* ── geometría ── */
+function _m33Gen(){
+  var m=_m33Md(),els=[],id=0,L=m.L,W=m.W,hp=m.hp,np=m.pisos,em=m.em,et=m.et,el=m.el,plana=m.techo==="plana",
+      ext=m.mat==="bloque"?"mBlo":m.mat==="hormigon"?"mHor":"mLad",matN={ladrillo:"Albañilería de ladrillo",bloque:"Albañilería de bloque",hormigon:"Hormigón armado"}[m.mat]||"Albañilería",
+      pExt={ladrillo:"5.1",bloque:"5.2",hormigon:"4.3"}[m.mat]||"5.1",A={P:2*((L-em)+(W-em)),Li:L-2*em,Wi:W-2*em,extNet:0,extGab:0,tabNet:0,tabLen:0,tabDoorW:0,winArea:0,winN:0,doorInt:0,slabVol:0,slabN:0,hole:null,stairVol:0,stairA:0,stairN:0,roofA:0,roofRise:0,zt:np*hp,maxZ:np*hp};
+  function mk(cat,name,lvl,part){var e={id:++id,cat:cat,name:name,lvl:lvl,polys:[],part:part||null,pq:0,info:[]};els.push(e);return e}
+  function box(e,x0,y0,z0,x1,y1,z1,c){if(x1-x0<1e-4||y1-y0<1e-4||z1-z0<1e-4)return;
+    e.polys.push({v:[[x0,y0,z0],[x0,y1,z0],[x0,y1,z1],[x0,y0,z1]],n:[-1,0,0],c:c},{v:[[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],n:[1,0,0],c:c},
+      {v:[[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1]],n:[0,-1,0],c:c},{v:[[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],n:[0,1,0],c:c},
+      {v:[[x0,y0,z0],[x1,y0,z0],[x1,y1,z0],[x0,y1,z0]],n:[0,0,-1],c:c},{v:[[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],n:[0,0,1],c:c})}
+  function solid(e,F,c,cen){F.forEach(function(v){var a=v[0],b=v[1],d=v[2],ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],wx=d[0]-a[0],wy=d[1]-a[1],wz=d[2]-a[2],
+      n=[uy*wz-uz*wy,uz*wx-ux*wz,ux*wy-uy*wx],l=Math.hypot(n[0],n[1],n[2])||1;n=[n[0]/l,n[1]/l,n[2]/l];
+      if(n[0]*(a[0]-cen[0])+n[1]*(a[1]-cen[1])+n[2]*(a[2]-cen[2])<0)n=[-n[0],-n[1],-n[2]];e.polys.push({v:v,n:n,c:c})})}
+  function wallBoxes(e,ax,a0,a1,f0,f1,z0,z1,ops,c){function B(s0,s1,za,zb){if(ax==="x")box(e,s0,f0,za,s1,f1,zb,c);else box(e,f0,s0,za,f1,s1,zb,c)}
+    ops.sort(function(p,q){return p.s-q.s});var cur=a0;ops.forEach(function(o){B(cur,o.s,z0,z1);B(o.s,o.e,z0,o.zb);B(o.s,o.e,o.zt,z1);cur=o.e});B(cur,a1,z0,z1)}
+  function win(ax,s,en,f0,f1,zb,zt,lvl,face){var e=mk("Ventanas","Ventana "+_m31F(m.vw)+" × "+_m31F(m.vh)+" · "+face+" · N"+(lvl+1),lvl,"9.3"),fm=(f0+f1)/2,t=.035,fw=.05;
+    var X=function(a,b,c,d,g,h){ax==="x"?box(e,a,fm-t,c,b,fm+t,d,g):box(e,fm-t,a,c,fm+t,b,d,g)};
+    X(s,en,zb,zb+fw,0,0,"mar");X(s,en,zt-fw,zt,0,0,"mar");X(s,s+fw,zb+fw,zt-fw,0,0,"mar");X(en-fw,en,zb+fw,zt-fw,0,0,"mar");
+    if(ax==="x")box(e,s+fw,fm-.012,zb+fw,en-fw,fm+.012,zt-fw,"vid");else box(e,fm-.012,s+fw,zb+fw,fm+.012,en-fw,zt-fw,"vid");
+    e.pq=(en-s)*(zt-zb);e.u="m²";e.info=[["Ancho",en-s,"m"],["Alto",zt-zb,"m"],["Antepecho",zb-lvl*hp,"m"]];A.winArea+=e.pq;A.winN++;return e}
+  function door(ax,s,en,f0,f1,z0,zt,lvl,acc,face){var e=mk("Puertas",(acc?"Puerta de acceso":"Puerta interior")+" "+_m31F(en-s)+" × "+_m31F(zt-z0)+" · "+face+" · N"+(lvl+1),lvl,acc?"9.2":"9.1"),fm=(f0+f1)/2;
+    if(ax==="x")box(e,s,fm-.025,z0,en,fm+.025,zt,"pue");else box(e,fm-.025,s,z0,fm+.025,en,zt,"pue");e.pq=1;e.u="un";e.info=[["Ancho",en-s,"m"],["Alto",zt-z0,"m"]];return e}
+  /* terreno */
+  var N=_m33Nm(),px0=(L-N.fr)/2,px1=px0+N.fr,py0=-N.an,py1=py0+N.fo,gz=-.15,e0=mk("Terreno","Terreno natural",0);
+  box(e0,Math.min(px0,0)-10,py0-20,gz-.6,Math.max(px1,L)+10,Math.max(py1,W)+8,gz,"pasto");e0.noq=1;
+  var eC=mk("Terreno","Calle",0);box(eC,Math.min(px0,0)-10,py0-9,gz,Math.max(px1,L)+10,py0-2,gz+.01,"calle");eC.noq=1;
+  var eP=mk("Terreno","Predio y antejardín",0);box(eP,px0,py0,gz,px1,py1,gz+.012,"lote");[[px0,py0,px1,py0+.07],[px0,py1-.07,px1,py1],[px0,py0,px0+.07,py1],[px1-.07,py0,px1,py1]].forEach(function(r){box(eP,r[0],r[1],gz,r[2],r[3],gz+.03,"borde")});eP.noq=1;
+  /* fundaciones */
+  var cb=m.cb,ch=m.ch,sc=m.sc,ar=m.ar,wf=em+.05,x0o=em/2-cb/2,x1o=L-em/2+cb/2,y0o=em/2-cb/2,y1o=W-em/2+cb/2;
+  var sides=[["Frente",x0o,y0o,x1o,y0o+cb,L,"x"],["Fondo",x0o,y1o-cb,x1o,y1o,L,"x"],["Izquierda",x0o,y0o+cb,x0o+cb,y1o-cb,W-cb,"y"],["Derecha",x1o-cb,y0o+cb,x1o,y1o-cb,W-cb,"y"]];
+  sides.forEach(function(s){var e=mk("Fundaciones","Cimiento corrido · "+s[0],0,"3.2");box(e,s[1],s[2],-sc-ch,s[3],s[4],-sc,"cim");var ln=s[6]==="x"?s[3]-s[1]:s[4]-s[2];
+    e.pq=ln*cb*ch;e.u="m³";e.info=[["Largo",ln,"m"],["Ancho",cb,"m"],["Alto",ch,"m"]];
+    var f=mk("Fundaciones","Sobrecimiento · "+s[0],0,"3.5");
+    if(s[6]==="x"){var cy2=(s[2]+s[4])/2;box(f,s[1]+(cb-wf)/2,cy2-wf/2,-sc,s[3]-(cb-wf)/2,cy2+wf/2,0,"sob")}else{var cx3=(s[1]+s[3])/2;box(f,cx3-wf/2,s[2],-sc,cx3+wf/2,s[4],0,"sob")}
+    f.pq=ln*wf*sc;f.u="m³";f.info=[["Largo",ln,"m"],["Ancho",wf,"m"],["Alto",sc,"m"]]});
+  var er=mk("Fundaciones","Radier e = "+_m31F(ar*100,0)+" cm",0,"7.1");box(er,em,em,-ar,L-em,W-em,0,"rad");er.pq=A.Li*A.Wi;er.u="m²";er.info=[["Largo",A.Li,"m"],["Ancho",A.Wi,"m"],["Espesor",ar,"m"]];
+  /* niveles */
+  var k,zt=np*hp,hx0=em,hx1=em+1.0,ns=Math.max(2,Math.round(hp/.18)),tread=.27,sy0=em+.15,hy0=sy0,hy1=sy0+(ns-1)*tread,stair=!!m.esc&&np>1&&W-em>hy1+.3;
+  for(k=0;k<np;k++){
+    var z0=k*hp,z1=(k<np-1||plana)?(k+1)*hp-el:(k+1)*hp,lv="N"+(k+1);
+    var Wall=function(face,ax,a0,a1,f0,f1,n,wins,door0){
+      var e=mk("Muros","Muro exterior · "+face+" · "+lv+" ("+matN+" e="+_m31F(em*100,0)+")",k,pExt),ops=[],len=a1-a0,i,
+          door_=door0,ws=[];
+      for(i=0;i<n;i++){var cc=a0+len*(i+.5)/n,s=cc-m.vw/2,en=cc+m.vw/2;if(s<a0+.2||en>a1-.2)continue;if(door_&&Math.abs(cc-door_.c)<(m.vw+m.pw)/2+.15)continue;
+        var zb=z0+m.va,zt2=Math.min(z1-.1,zb+m.vh);ops.push({s:s,e:en,zb:zb,zt:zt2});ws.push([s,en,zb,zt2])}
+      var dopen=0;if(door_){var ds=door_.c-m.pw/2,de=door_.c+m.pw/2;ops.push({s:ds,e:de,zb:z0,zt:z0+m.ph});dopen=m.pw*m.ph;door_.s=ds;door_.e=de}
+      wallBoxes(e,ax,a0,a1,f0,f1,z0,z1,ops,ext);
+      var gross=len*(z1-z0),opn=ws.reduce(function(a,w){return a+(w[1]-w[0])*(w[3]-w[2])},0)+dopen,net=gross-opn;
+      e.u=m.mat==="hormigon"?"m³":"m²";e.pq=m.mat==="hormigon"?net*em:net;e.net=net;A.extNet+=net;
+      e.info=[["Largo",len,"m"],["Alto",z1-z0,"m"],["Área bruta",gross,"m²"],["Vanos",opn,"m²"],["Área neta",net,"m²"],["Espesor",em,"m"]];
+      ws.forEach(function(w){win(ax,w[0],w[1],f0,f1,w[2],w[3],k,face)});
+      if(door_)door(ax,door_.s,door_.e,f0,f1,z0,z0+m.ph,k,true,face)};
+    Wall("Frente","x",0,L,0,em,m.vf,1,k===0?{c:Math.max(1,Math.min(L-1,m.px))}:null);
+    Wall("Fondo","x",0,L,W-em,W,m.vt,1,null);
+    Wall("Izquierda","y",em,W-em,0,em,m.vi,1,null);
+    Wall("Derecha","y",em,W-em,L-em,L,m.vd,1,null);
+    /* tabiques */
+    for(var t=0;t<m.nt;t++){var xt=L*(t+1)/(m.nt+1),e=mk("Tabiques","Tabique "+(t+1)+" · "+lv+" (e="+_m31F(et*100,0)+" cm)",k,"5.5"),yc=Math.max(em+.6,Math.min(W-em-.6,W*.4)),ops2=[{s:yc-.4,e:yc+.4,zb:z0,zt:z0+2}];
+      wallBoxes(e,"y",em,W-em,xt-et/2,xt+et/2,z0,z1,ops2,"tab");var len2=W-2*em,net2=len2*(z1-z0)-.8*2;e.pq=net2;e.u="m²";e.info=[["Largo",len2,"m"],["Alto",z1-z0,"m"],["Área neta",net2,"m²"]];A.tabNet+=net2;A.tabLen+=len2;A.tabDoorW+=.8;
+      var d=door("y",yc-.4,yc+.4,xt-et/2,xt+et/2,z0,z0+2,k,false,"tabique "+(t+1));A.doorInt++}
+  }
+  /* losas */
+  var nL=plana?np:np-1;
+  for(k=1;k<=nL;k++){var zs=k*hp,e=mk("Losas",k===np?"Losa de cubierta":"Losa de entrepiso N"+k+"–N"+(k+1),k,"4.4"),hole=stair&&k<np;
+    if(hole){box(e,0,0,zs-el,L,hy0,zs,"losa");box(e,0,hy1,zs-el,L,W,zs,"losa");box(e,0,hy0,zs-el,hx0,hy1,zs,"losa");box(e,hx1,hy0,zs-el,L,hy1,zs,"losa");A.hole=[hx1-hx0,hy1-hy0]}else box(e,0,0,zs-el,L,W,zs,"losa");
+    var ar2=L*W-(hole?(hx1-hx0)*(hy1-hy0):0);e.pq=ar2*el;e.u="m³";e.info=[["Área",ar2,"m²"],["Espesor",el,"m"],["Volumen",ar2*el,"m³"]];A.slabVol+=ar2*el;A.slabN++}
+  /* escalera */
+  if(stair){var r=hp/ns,sw=hx1-hx0-.05;for(k=0;k<np-1;k++){var e=mk("Escalera","Escalera N"+(k+1)+"–N"+(k+2)+" ("+ns+" contrahuellas)",k,"4.5"),vol=0;
+      for(var i=0;i<ns-1;i++){box(e,hx0+.0,hy0+i*tread,k*hp,hx0+sw,hy0+(i+1)*tread,k*hp+(i+1)*r,"esc");vol+=sw*tread*(i+1)*r}
+      e.pq=vol;e.u="m³";e.info=[["Ancho",sw,"m"],["Huella",tread,"m"],["Contrahuella",r,"m"],["Volumen",vol,"m³"]];A.stairVol+=vol;A.stairN++;A.stairA+=sw*Math.hypot((ns-1)*tread,hp)+(ns-1)*tread*hp}}
+  /* cielo y cubierta */
+  if(!plana){var ec=mk("Cielos","Cielo de yeso-cartón · N"+np,np-1,"8.4");box(ec,em,em,zt-.04,L-em,W-em,zt-.015,"cielo");ec.pq=A.Li*A.Wi;ec.u="m²";ec.info=[["Largo",A.Li,"m"],["Ancho",A.Wi,"m"]];
+    var s=m.pend/100,a=m.alero,th=.09,rh=s*W/2,mkRoof=function(name,front){var e=mk("Cubierta",name,np,"6.2"),yE=front?-a:W+a,yM=W/2,zE=zt-s*a,zM=zt+rh,
+        B=[[-a,yE,zE],[L+a,yE,zE],[L+a,yM,zM],[-a,yM,zM]],T=B.map(function(p){return [p[0],p[1],p[2]+th]});
+      var F=[[B[0],B[1],B[2],B[3]],[T[0],T[1],T[2],T[3]],[B[0],B[1],T[1],T[0]],[B[1],B[2],T[2],T[1]],[B[2],B[3],T[3],T[2]],[B[3],B[0],T[0],T[3]]];
+      solid(e,F,"cub",[L/2,(yE+yM)/2,(zE+zM)/2+th/2]);var ar3=(L+2*a)*Math.hypot(Math.abs(yM-yE),zM-zE);e.pq=ar3;e.u="m²";e.info=[["Largo",L+2*a,"m"],["Pendiente",m.pend,"%"],["Área real",ar3,"m²"]];A.roofA+=ar3};
+    mkRoof("Plano de cubierta · Frente",true);mkRoof("Plano de cubierta · Fondo",false);A.roofRise=rh;A.maxZ=zt+rh+th;
+    [[0,em,"Izquierdo"],[L-em,L,"Derecho"]].forEach(function(g){var e=mk("Muros","Hastial "+g[2]+" ("+matN+")",np-1,pExt),x0=g[0],x1=g[1],
+        F=[[[x0,0,zt],[x0,W,zt],[x0,W/2,zt+rh]],[[x1,0,zt],[x1,W,zt],[x1,W/2,zt+rh]],[[x0,0,zt],[x1,0,zt],[x1,W,zt],[x0,W,zt]],[[x0,0,zt],[x1,0,zt],[x1,W/2,zt+rh],[x0,W/2,zt+rh]],[[x0,W,zt],[x1,W,zt],[x1,W/2,zt+rh],[x0,W/2,zt+rh]]];
+      solid(e,F,ext,[(x0+x1)/2,W/2,zt+rh/3]);var ar4=W*rh/2;e.u=m.mat==="hormigon"?"m³":"m²";e.pq=m.mat==="hormigon"?ar4*em:ar4;e.net=ar4;A.extNet+=ar4;A.extGab+=ar4;e.info=[["Base",W,"m"],["Altura",rh,"m"],["Área",ar4,"m²"]]})}
+  else A.maxZ=zt;
+  els.forEach(function(e){e.qty=e.pq||0});
+  els.forEach(function(e){var p=e.part,s=0;e.cost=0;if(p&&!e.noq){var K=_m31Calc(),pu=K.PU[p]?K.PU[p].PU:(_m33Ent(p)?_m33Ref(_m33Ent(p)):0);e.cost=e.qty*pu;e.pu=pu}});
+  _m33M.A=A;return els}
+function _m33Els(){if(!_m33M.els)_m33M.els=_m33Gen();return _m33M.els}
+
+/* ── cubicación: filas por partida ── */
+function _m33Rows(){_m33Els();var m=_m33Md(),A=_m33M.A,L=m.L,W=m.W,np=m.pisos,hp=m.hp,em=m.em,el=m.el,P=A.P,Li=A.Li,Wi=A.Wi,R=[],T="[Modelo] ",plana=m.techo==="plana",
+    add=function(c,u,ub,row){R.push({c:c,u:u,r:[T+ub].concat(row)})};
+  var volF=P*m.cb*m.ch+P*(em+.05)*m.sc,kgF=m.cuF*volF;
+  add("1.5","m²","Despeje del predio",[1,L+4,W+4]);add("1.7","m²","Trazado y niveles",[1,L+2,W+2]);
+  add("2.3","m³","Zanjas de fundación",[1,P,m.cb+.3,m.sc+m.ch-.15]);add("2.8","m³","Base bajo radier",[1,Li,Wi,.1]);
+  add("3.1","m³","Emplantillado",[1,P,m.cb+.1,.05]);add("3.2","m³","Cimiento corrido",[1,P,m.cb,m.ch]);add("3.5","m³","Sobrecimiento",[1,P,m.em+.05,m.sc]);
+  add("3.6","m²","Moldaje de sobrecimiento (2 caras)",[1,2*P,m.sc]);add("3.7","kg","Acero fundaciones ("+_m31F(m.cuF,0)+" kg/m³)",[1,kgF*162/144,12]);add("3.8","m²","Impermeabilización de sobrecimiento",[1,P,m.sc]);
+  add("7.1","m²","Radier interior",[1,Li,Wi]);add("7.2","m²","Afinado de pisos por nivel",[np,Li,Wi]);
+  add({cer:"7.3",por:"7.4",flot:"7.5"}[m.pav]||"7.5","m²","Pavimento por nivel",[np,Li,Wi]);
+  add("7.6","ml","Guardapolvos: perímetro por nivel",[np,2*(Li+Wi)]);if(A.tabLen)add("7.6","ml","Guardapolvos: tabiques 2 caras",[2,A.tabLen]);add("7.6","ml","Descuento de puertas",[-(1+A.doorInt)*1,m.pw]);
+  add("8.1","m²","Estuco exterior (neto de vanos)",[1,A.extNet]);add("8.2","m²","Enlucido interior de muros exteriores",[1,A.extNet]);
+  if(!plana)add("8.4","m²","Cielo del último nivel",[1,Li,Wi]);
+  add("8.5","m²","Pintura: muros exteriores (cara interior)",[1,A.extNet]);if(A.tabNet)add("8.5","m²","Pintura: tabiques 2 caras",[2,A.tabNet]);
+  add("8.5","m²","Pintura: cielo y fondo de losas",[np,Li,Wi]);
+  if(A.slabN){add("4.4","m³","Losas de entrepiso"+(plana?" y cubierta":""),[A.slabN,L,W,el]);if(A.hole)add("4.4","m³","Descuento de abertura de escalera",[-(plana?np-1:A.slabN),A.hole[0],A.hole[1],el]);
+    add("4.9","m²","Moldaje de losas",[A.slabN,L,W]);add("4.9","m²","Cantos de losa",[A.slabN,2*(L+W),el])}
+  if(A.stairN){add("4.5","m³","Escalera de hormigón",[A.stairVol]);add("4.14","m²","Moldaje de escalera",[A.stairA])}
+  var vH=A.slabVol+A.stairVol+(m.mat==="hormigon"?A.extNet*em:0);
+  if(m.mat==="hormigon"){add("4.3","m³","Muros exteriores de hormigón",[1,A.extNet,em]);add("4.8","m²","Moldaje de muros (2 caras)",[2,A.extNet])}
+  else{add(m.mat==="bloque"?"5.2":"5.1","m²","Muros exteriores (neto de vanos"+(A.extGab?" y con hastiales":"")+")",[1,A.extNet]);
+    add("5.4","m³","Cadenas de confinamiento (por nivel)",[np,P,em,.2]);add("5.4","m³","Pilares de confinamiento",[Math.ceil(P/3.5),em,em+.05,np*hp])}
+  if(vH>0&&m.cuH>0)add("4.10","kg","Acero de estructura ("+_m31F(m.cuH,0)+" kg/m³ × "+_m31F(vH)+" m³)",[1,m.cuH*vH*162/144,12]);
+  if(A.tabNet){add("5.5","m²","Tabiques interiores (neto de puertas)",[1,A.tabNet]);add("5.6","m²","Aislación de tabiques",[1,A.tabNet])}
+  if(!plana){var a=m.alero;add("6.1","m²","Estructura de techumbre (con aleros)",[1,L+2*a,W+2*a]);add("6.2","m²","Cubierta (superficie inclinada)",[1,A.roofA]);add("6.3","m²","Barrera de humedad",[1,A.roofA]);
+    add("6.4","m²","Aislación de techumbre",[1,Li,Wi]);add("6.5","ml","Cumbrera",[1,L+2*a]);add("6.6","ml","Canales",[2,L+2*a]);add("6.6","ml","Bajadas",[4,A.zt])}
+  else{add("6.10","m²","Membrana asfáltica",[1,L,W]);add("6.11","m²","Pendientes y protección",[1,L,W])}
+  if(A.winArea)add("9.3","m²","Ventanas del modelo ("+A.winN+" un)",[1,A.winArea]);add("9.2","un","Puerta de acceso",[1]);if(A.doorInt)add("9.1","un","Puertas interiores",[A.doorInt]);
+  add("12.1","m²","Aseo final: superficie construida",[np,L,W]);
+  return R.filter(function(r){return r.r.slice(1).every(function(v){return v!=null&&isFinite(v)})})}
+function _m33Qty(R){var Q={};R.forEach(function(r){var q=_m31Fila(r.u,r.r);Q[r.c]=(Q[r.c]||0)+q});return Q}
+function m33GM(v){_m33M.gm=v;_m33DockFill()}
+function m33Gen(b){var R=_m33Rows(),Q=_m33Qty(R),cods=Object.keys(Q);
+  if(!b.classList.contains("conf")){b.classList.add("conf");b.dataset.t=b.innerHTML;b.innerHTML="Toca otra vez para escribir "+R.length+" filas en "+cods.length+" partidas";setTimeout(function(){b.classList.remove("conf");if(b.dataset.t)b.innerHTML=b.dataset.t},3500);return}
+  var O=_m31Ob(),m=_m33Md(),skip=0;O.parts.forEach(function(p){p.med=p.med.filter(function(r){return String(r[0]).indexOf("[Modelo]")!==0})});
+  cods.forEach(function(c){var p=_m31Part(c)||_m33MkPart(c);if(!p)return;if(p.modo==="expr"){skip++;return}if(_m33M.gm==="rep")p.med=[];
+    R.filter(function(r){return r.c===c}).forEach(function(r){p.med.push(r.r.slice())})});
+  O.ficha.sup=Math.round(m.L*m.W*m.pisos*10)/10;O.ficha.pisos=m.pisos;_m31Sv();_m33M.done={n:R.length,p:cods.length,skip:skip};m31Pinta()}
+
+/* ── cámara y proyección ── */
+function _m33Cam(W,H){var c=_m33M.cam,cp=Math.cos(c.pit),sp=Math.sin(c.pit),cy=Math.cos(c.yaw),sy=Math.sin(c.yaw),
+    ex=c.tx+c.dist*cp*cy,ey=c.ty+c.dist*cp*sy,ez=c.tz+c.dist*sp,f=[-cp*cy,-cp*sy,-sp],r=[-sy,cy,0],u=[r[1]*f[2]-r[2]*f[1],r[2]*f[0]-r[0]*f[2],r[0]*f[1]-r[1]*f[0]],
+    fov=38*Math.PI/180,F=(H/2)/Math.tan(fov/2),o=c.ortho,sc=F/c.dist;
+  return {e:[ex,ey,ez],f:f,r:r,u:u,F:F,o:o,sc:sc,W:W,H:H,
+    P:function(p){var dx=p[0]-ex,dy=p[1]-ey,dz=p[2]-ez,zc=dx*f[0]+dy*f[1]+dz*f[2],xc=dx*r[0]+dy*r[1]+dz*r[2],yc=dx*u[0]+dy*u[1]+dz*u[2];
+      return o?[W/2+xc*sc,H/2-yc*sc,-zc,zc]:[W/2+xc/zc*F,H/2-yc/zc*F,1/zc,zc]}}}
+function _m33ClipP(P,fn){var o=[],n=P.length,i;for(i=0;i<n;i++){var a=P[i],b=P[(i+1)%n],da=fn(a),db=fn(b);
+    if(da>=0)o.push(a);if((da>=0)!==(db>=0)){var t=da/(da-db);o.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t])}}return o}
+function _m33Bnd(){_m33Els();var m=_m33Md(),A=_m33M.A,N=_m33Nm();return {x0:-.8,x1:m.L+.8,y0:-.8,y1:m.W+.8,z0:-.3,z1:A.maxZ+.2}}
+function _m33Px(c){var s=getComputedStyle(document.documentElement),v=(s.getPropertyValue(c)||"").trim();return v}
+function _m33Rgb(str,fb){try{var c=document.createElement("canvas");c.width=c.height=1;var x=c.getContext("2d");x.fillStyle="#010203";x.fillStyle=str;x.fillRect(0,0,1,1);var d=x.getImageData(0,0,1,1).data;if(d[0]===1&&d[1]===2&&d[2]===3&&!/^#0?10203$/i.test(str))return fb;return [d[0],d[1],d[2]]}catch(e){return fb}}
+var _m33Buf={W:0,H:0,col:null,zb:null,id:null,nk:null,ed:null,off:null,img:null};
+function _m33Render(hi){var M=_m33M,cv=M.cv;if(!cv||!document.body.contains(cv))return;
+  var rc=cv.getBoundingClientRect(),cw=Math.max(160,Math.round(rc.width)),chh=Math.max(140,Math.round(rc.height)),dpr=Math.min(window.devicePixelRatio||1,2);
+  if(cv.width!==Math.round(cw*dpr)||cv.height!==Math.round(chh*dpr)){cv.width=Math.round(cw*dpr);cv.height=Math.round(chh*dpr)}
+  var q=hi?Math.min(1.5,Math.max(1,dpr)):.62,W=Math.max(80,Math.round(cw*q)),H=Math.max(70,Math.round(chh*q)),B=_m33Buf;
+  if(B.W!==W||B.H!==H){B.W=W;B.H=H;B.col=new Uint32Array(W*H);B.zb=new Float32Array(W*H);B.id=new Int32Array(W*H);B.nk=new Int32Array(W*H);B.ed=new Uint8Array(W*H);B.off=document.createElement("canvas");B.off.width=W;B.off.height=H;B.img=B.off.getContext("2d").createImageData(W,H)}
+  var bgS=getComputedStyle(cv).backgroundColor,bg=_m33Rgb(bgS,[245,245,242]),dark=(bg[0]*.3+bg[1]*.59+bg[2]*.11)<110,sty=M.sty,
+      acc=_m33Rgb(_m33Px("--accent")||"#3b82f6",[59,130,246]),paper=dark?[56,60,68]:[250,249,246],edgeC=dark?(sty==="hid"?[214,218,226]:[16,18,22]):[44,48,56],
+      pk=function(r,g,b){return (255<<24)|((b&255)<<16)|((g&255)<<8)|(r&255)},edgeK=pk(edgeC[0],edgeC[1],edgeC[2]),accK=pk(acc[0],acc[1],acc[2]);
+  var col=B.col,zb=B.zb,idb=B.id,nkb=B.nk,ed=B.ed,y,x,n=W*H;
+  var top=sty==="sh"?(dark?[40,52,70]:[196,218,240]):bg,bot=sty==="sh"?(dark?[58,66,78]:[236,240,238]):bg;
+  for(y=0;y<H;y++){var t=y/H,r=top[0]+(bot[0]-top[0])*t,g=top[1]+(bot[1]-top[1])*t,b=top[2]+(bot[2]-top[2])*t,k=pk(r,g,b),i0=y*W;for(x=0;x<W;x++)col[i0+x]=k}
+  zb.fill(-1e30);idb.fill(0);nkb.fill(0);ed.fill(0);
+  var C=_m33Cam(W,H),els=_m33Els(),Bn=_m33Bnd(),cu=M.cuts,cx=Bn.x0+(Bn.x1-Bn.x0)*cu.x/100,cy=Bn.y0+(Bn.y1-Bn.y0)*cu.y/100,cz=Bn.z0+(Bn.z1-Bn.z0)*cu.z/100,
+      cuts=[];if(cu.x<100)cuts.push(function(p){return cx-p[0]});if(cu.y<100)cuts.push(function(p){return cy-p[1]});if(cu.z<100)cuts.push(function(p){return cz-p[2]});
+  var near=.2,ex=C.e[0],ey=C.e[1],ez=C.e[2],fx=C.f[0],fy=C.f[1],fz=C.f[2];
+  if(!C.o)cuts.push(function(p){return (p[0]-ex)*fx+(p[1]-ey)*fy+(p[2]-ez)*fz-near});
+  var Lv=[-.45,-.62,.64],ln=Math.hypot(Lv[0],Lv[1],Lv[2]);Lv=[Lv[0]/ln,Lv[1]/ln,Lv[2]/ln];
+  var CC=0,ID=0,NK=0;
+  function tri(ax,ay,ad,bx,by,bd,cx2,cy2,cd){var t;
+    if(ay>by){t=ax;ax=bx;bx=t;t=ay;ay=by;by=t;t=ad;ad=bd;bd=t}if(ay>cy2){t=ax;ax=cx2;cx2=t;t=ay;ay=cy2;cy2=t;t=ad;ad=cd;cd=t}if(by>cy2){t=bx;bx=cx2;cx2=t;t=by;by=cy2;cy2=t;t=bd;bd=cd;cd=t}
+    var y0=Math.max(0,Math.ceil(ay-.5)),y1=Math.min(H-1,Math.floor(cy2-.5)),yy;
+    for(yy=y0;yy<=y1;yy++){var py=yy+.5,tt=(py-ay)/((cy2-ay)||1e-9),xl=ax+(cx2-ax)*tt,dl=ad+(cd-ad)*tt,xr,dr;
+      if(py<by){var t2=(py-ay)/((by-ay)||1e-9);xr=ax+(bx-ax)*t2;dr=ad+(bd-ad)*t2}else{var t3=(py-by)/((cy2-by)||1e-9);xr=bx+(cx2-bx)*t3;dr=bd+(cd-bd)*t3}
+      if(xl>xr){t=xl;xl=xr;xr=t;t=dl;dl=dr;dr=t}
+      var xs=Math.max(0,Math.ceil(xl-.5)),xe=Math.min(W-1,Math.floor(xr-.5));if(xe<xs)continue;
+      var dd=(dr-dl)/((xr-xl)||1e-9),d=dl+dd*(xs+.5-xl),ix=yy*W+xs,xx;
+      for(xx=xs;xx<=xe;xx++,ix++,d+=dd){if(d>zb[ix]){zb[ix]=d;col[ix]=CC;idb[ix]=ID;nkb[ix]=NK}}}}
+  var nkMap={},nkN=0;
+  els.forEach(function(e){if(M.hid[e.cat])return;if(e.lvl!=null&&M.lvMax!=null&&e.cat!=="Terreno"&&e.lvl>M.lvMax)return;
+    e.polys.forEach(function(pl){var P=pl.v,i;for(i=0;i<cuts.length&&P.length>=3;i++)P=_m33ClipP(P,cuts[i]);if(P.length<3)return;
+      var Q=P.map(C.P),nx=pl.n[0],ny=pl.n[1],nz=pl.n[2],base=M33_COL[pl.c]||[200,200,200],lam=Math.max(0,nx*Lv[0]+ny*Lv[1]+nz*Lv[2]),sh,rgb;
+      if(sty==="hid"){sh=.93+.07*lam;rgb=[paper[0]*sh,paper[1]*sh,paper[2]*sh];if(pl.c==="vid")rgb=dark?[84,108,132]:[206,226,240]}
+      else if(sty==="cat"){sh=.88+.12*lam;rgb=[base[0]*sh,base[1]*sh,base[2]*sh]}
+      else{sh=.5+.5*lam;if(nz<-.5)sh=.45;rgb=[base[0]*sh,base[1]*sh,base[2]*sh];if(dark){rgb=[rgb[0]*.86,rgb[1]*.86,rgb[2]*.9]}}
+      CC=pk(rgb[0],rgb[1],rgb[2]);ID=e.id;var key=Math.round(nx*4+8)*10000+Math.round(ny*4+8)*100+Math.round(nz*4+8);NK=nkMap[key]||(nkMap[key]=++nkN);
+      for(i=1;i<Q.length-1;i++)tri(Q[0][0],Q[0][1],Q[0][2],Q[i][0],Q[i][1],Q[i][2],Q[i+1][0],Q[i+1][1],Q[i+1][2])})});
+  /* líneas: donde cambia el elemento o la orientación de la cara */
+  var i,j,sel=M.sel;
+  for(y=0;y<H-1;y++){var r0=y*W;for(x=0;x<W-1;x++){i=r0+x;
+    if(idb[i]!==idb[i+1]||nkb[i]!==nkb[i+1]){j=zb[i]>=zb[i+1]?i:i+1;ed[j]=1}
+    if(idb[i]!==idb[i+W]||nkb[i]!==nkb[i+W]){j=zb[i]>=zb[i+W]?i:i+W;ed[j]=1}}}
+  var tint=sel?pk(acc[0],acc[1],acc[2]):0;
+  for(i=0;i<n;i++){if(sel&&idb[i]===sel){var c0=col[i],rr=(c0&255),gg=(c0>>8)&255,bb=(c0>>16)&255;col[i]=pk(rr*.6+acc[0]*.4,gg*.6+acc[1]*.4,bb*.6+acc[2]*.4);if(ed[i])col[i]=accK}else if(ed[i])col[i]=edgeK}
+  if(sel&&hi){/* contorno grueso del elemento elegido */for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){i=y*W+x;if(ed[i]&&idb[i]===sel){col[i-1]=accK;col[i+1]=accK;col[i-W]=accK;col[i+W]=accK}}}
+  new Uint32Array(B.img.data.buffer).set(col);B.off.getContext("2d").putImageData(B.img,0,0);
+  var ctx=cv.getContext("2d");ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(B.off,0,0,cv.width,cv.height);
+  ctx.setTransform(dpr,0,0,dpr,0,0);M.cw=cw;M.chh=chh;M.bq=q;_m33Over(ctx,cw,chh,dark,acc)}
+
+/* cotas, ejes y rótulos encima de la imagen */
+function _m33Over(ctx,W,H,dark,acc){var M=_m33M,m=_m33Md(),C=_m33Cam(W,H),A=M.A,ink=dark?"#e6e8ee":"#262a33",accS="rgb("+acc[0]+","+acc[1]+","+acc[2]+")";
+  if(M.cotas){var L=m.L,Wd=m.W,z=-.15,g=function(p){return C.P(p)},seg=function(a,b,txt,off){var p=g(a),q=g(b);if(p[3]<.1||q[3]<.1)return;var dx=q[0]-p[0],dy=q[1]-p[1],l=Math.hypot(dx,dy);if(l<28)return;
+      ctx.strokeStyle=accS;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);var nx=-dy/l*5,ny=dx/l*5;ctx.moveTo(p[0]-nx,p[1]-ny);ctx.lineTo(p[0]+nx,p[1]+ny);ctx.moveTo(q[0]-nx,q[1]-ny);ctx.lineTo(q[0]+nx,q[1]+ny);ctx.stroke();
+      ctx.font="600 11px system-ui,sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";var mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2,w=ctx.measureText(txt).width+8;ctx.fillStyle=dark?"rgba(24,27,33,.82)":"rgba(255,255,255,.86)";ctx.fillRect(mx-w/2,my-8,w,16);ctx.fillStyle=ink;ctx.fillText(txt,mx,my)};
+    seg([0,-1.1,z],[L,-1.1,z],_m31F(L)+" m");seg([L+1.1,0,z],[L+1.1,Wd,z],_m31F(Wd)+" m");seg([-1.1,-1.1,0],[-1.1,-1.1,np(m)*m.hp],_m31F(np(m)*m.hp)+" m")}
+  /* ejes */
+  var o=[W-34,H-34],ax=[[1,0,0,"x","#d94b4b"],[0,1,0,"y","#3f9f5a"],[0,0,1,"z","#3f78d9"]];ctx.font="700 10px system-ui";ctx.textAlign="center";ctx.textBaseline="middle";
+  ax.forEach(function(a){var vx=a[0]*C.r[0]+a[1]*C.r[1]+a[2]*C.r[2],vy=a[0]*C.u[0]+a[1]*C.u[1]+a[2]*C.u[2];ctx.strokeStyle=a[4];ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(o[0],o[1]);ctx.lineTo(o[0]+vx*22,o[1]-vy*22);ctx.stroke();ctx.fillStyle=a[4];ctx.fillText(a[3],o[0]+vx*30,o[1]-vy*30)});
+  if(M.sel){var e=_m33Els().filter(function(x){return x.id===M.sel})[0];if(e){/* nada: el resaltado ya va en la imagen */}}}
+function np(m){return m.pisos}
+var _m33Rf=0;
+function _m33Req(hiAfter){var M=_m33M;if(M.fr)return;M.fr=requestAnimationFrame(function(){M.fr=0;_m33Render(false);clearTimeout(M.hq);M.hq=setTimeout(function(){_m33Render(true)},hiAfter?60:170)})}
+function _m33Resize(){if(_m33M.cv)_m33Req(true)}
+window.addEventListener("resize",function(){clearTimeout(_m33M.rzT);_m33M.rzT=setTimeout(_m33Resize,100)});
+
+/* ── vistas ── */
+var M33_VIEWS={"3d":[-.87,.42,false],"pl":[-Math.PI/2,1.5,true],"fr":[-Math.PI/2,0,true],"de":[0,0,true],"fo":[Math.PI/2,0,true],"iz":[Math.PI,0,true]};
+function _m33FitDist(){var B=_m33Bnd(),R=.5*Math.hypot(B.x1-B.x0,B.y1-B.y0,B.z1-B.z0),as=_m33M.cw&&_m33M.chh?_m33M.cw/_m33M.chh:1.6,fov=38*Math.PI/180;return R/Math.tan(fov/2)/Math.min(1,as)*1.04}
+function _m33FitSoft(){var B=_m33Bnd(),c=_m33M.cam;c.tx=(B.x0+B.x1)/2;c.ty=(B.y0+B.y1)/2;c.tz=(B.z0+B.z1)/2;c.dist=_m33FitDist()}
+function m33V(v){var M=_m33M,V=M33_VIEWS[v],c=M.cam,B=_m33Bnd();M.view=v;
+  if(v==="pl"){if(M.cuts.z>=100){var m0=_m33Md();M.cuts.z=Math.min(100,Math.max(1,(1.2-B.z0)/(B.z1-B.z0)*100));M.autoCut=1;M.lvMax=null;_m33DockFill()}}
+  else if(M.autoCut){M.cuts.z=100;M.autoCut=0;_m33DockFill()}
+  var to={yaw:V[0],pit:V[1],dist:_m33FitDist()*(v==='pl'?.62:V[2]?.82:1),tx:(B.x0+B.x1)/2,ty:(B.y0+B.y1)/2,tz:(B.z0+B.z1)/2},from={yaw:c.yaw,pit:c.pit,dist:c.dist,tx:c.tx,ty:c.ty,tz:c.tz};
+  while(to.yaw-from.yaw>Math.PI)to.yaw-=2*Math.PI;while(to.yaw-from.yaw<-Math.PI)to.yaw+=2*Math.PI;
+  if(V[2])c.ortho=true;else c.ortho=false;
+  var t0=performance.now(),dur=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches?0:380;cancelAnimationFrame(M.tw);
+  (function step(now){var t=dur?Math.min(1,(now-t0)/dur):1,e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;for(var k in to)c[k]=from[k]+(to[k]-from[k])*e;_m33Render(t>=1);if(t<1)M.tw=requestAnimationFrame(step)})(t0);
+  document.querySelectorAll("#m28-cub .m33-vb [data-v]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-v")===v)})}
+function m33Sty(s){_m33M.sty=s;document.querySelectorAll("#m28-cub [data-sty]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-sty")===s)});_m33Req(true)}
+function m33Cota(v){_m33M.cotas=!!v;_m33Req(true)}
+function m33Cut(k,v){_m33M.cuts[k]=+v;_m33M.lvMax=null;_m33Req(false);var o=document.getElementById("m33-cv-"+k);if(o)o.textContent=Math.round(v)+" %"}
+function m33CutR(){_m33M.cuts={x:100,y:100,z:100};_m33M.lvMax=null;_m33M.hid.Terreno=!!_m33M.hid.Terreno&&_m33M.hid.Terreno;_m33DockFill();_m33Req(true)}
+function m33Niv(k){var m=_m33Md(),B=_m33Bnd(),M=_m33M;if(k<0){M.cuts.z=100;M.lvMax=null}else{var zt=(k+1)*m.hp+.02;M.cuts.z=Math.min(100,Math.max(1,(zt-B.z0)/(B.z1-B.z0)*100));M.lvMax=k;}_m33DockFill();_m33Req(true)}
+function m33Vis(cat){_m33M.hid[cat]=!_m33M.hid[cat];_m33DockFill();_m33Req(true)}
+function m33Exp(cat){_m33M.exp[cat]=!_m33M.exp[cat];_m33DockFill()}
+function m33Sel(id){var M=_m33M;M.sel=id||null;if(id){var e=_m33Els().filter(function(x){return x.id===id})[0];if(e&&e.cat==="Fundaciones"&&!M.hid.Terreno){M.hid.Terreno=true;M.note="Terreno oculto para ver la fundación"}M.dock="pro"}else M.note=null;
+  document.querySelectorAll("#m28-cub .m33-dt button").forEach(function(b){b.setAttribute("aria-selected",b.getAttribute("data-d")===M.dock)});_m33DockFill();_m33Req(true)}
+function m33Dock(d){_m33M.dock=d;document.querySelectorAll("#m28-cub .m33-dt button").forEach(function(b){b.setAttribute("aria-selected",b.getAttribute("data-d")===d)});_m33DockFill()}
+function m33VePart(c){_m32.cap=_m31Cap(c);_m32.open=c;_m32.sub=null;_m31.add=null;m31Tab(2)}
+
+/* ── paneles ── */
+function _m33Fld(l,k,u,step){var m=_m33Md();return '<label><span>'+l+'</span><span class="u"><input inputmode="decimal" value="'+_m31V(m[k])+'" oninput="m33P(\''+k+'\',this.value)"><em>'+u+'</em></span></label>'}
+function _m33Sel(l,k,opts){var m=_m33Md();return '<label><span>'+l+'</span><select onchange="m33P(\''+k+'\',this.value)">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(m[k]===o[0]?" selected":"")+'>'+o[1]+'</option>'}).join("")+'</select></label>'}
+function _m33DNav(){var M=_m33M,m=_m33Md(),els=_m33Els(),h='<div class="m33-g1"><b>Estilo visual</b><div class="m33-ch">'+[["sh","Sombreado"],["hid","Líneas"],["cat","Colores"]].map(function(s){return '<button data-sty="'+s[0]+'" class="'+(M.sty===s[0]?"on":"")+'" onclick="m33Sty(\''+s[0]+'\')">'+s[1]+'</button>'}).join("")+'</div></div>'
+   +'<div class="m33-g1"><b>Niveles</b><div class="m33-ch"><button class="'+(M.lvMax==null?"on":"")+'" onclick="m33Niv(-1)">Todos</button>'+Array.apply(null,Array(m.pisos)).map(function(_,k){return '<button class="'+(M.lvMax===k?"on":"")+'" onclick="m33Niv('+k+')">Hasta N'+(k+1)+'</button>'}).join("")+'</div></div>'
+   +'<div class="m33-g1"><b>Caja de sección</b>'+[["x","Corte en X (largo)"],["y","Corte en Y (ancho)"],["z","Corte en Z (altura)"]].map(function(c){return '<label class="m33-rg"><span>'+c[1]+'</span><input type="range" min="1" max="100" value="'+M.cuts[c[0]]+'" oninput="m33Cut(\''+c[0]+'\',this.value)" aria-label="'+c[1]+'"><em id="m33-cv-'+c[0]+'">'+Math.round(M.cuts[c[0]])+' %</em></label>'}).join("")+'<button class="m33-lk" onclick="m33CutR()">Quitar cortes</button></div>'
+   +'<div class="m33-g1"><b>Navegador del proyecto</b>'+(M.note?'<p class="m31-nota">'+M.note+'</p>':'')+'<ul class="m33-tree">'+M33_CATS.map(function(c){var L=els.filter(function(e){return e.cat===c[0]});if(!L.length)return "";var off=M.hid[c[0]],ex=M.exp[c[0]];
+      return '<li><div class="r"><button class="eye'+(off?" off":"")+'" onclick="m33Vis(\''+c[0]+'\')" aria-label="'+(off?"Mostrar ":"Ocultar ")+c[0]+'" aria-pressed="'+(!off)+'"><i></i></button><button class="nm" onclick="m33Exp(\''+c[0]+'\')" aria-expanded="'+(!!ex)+'"><span>'+c[1]+'</span><b>'+c[0]+'</b><em>'+L.length+'</em><i class="ch'+(ex?" o":"")+'">›</i></button></div>'
+       +(ex?'<ul>'+L.map(function(e){return '<li><button class="it'+(M.sel===e.id?" on":"")+'" onclick="m33Sel('+e.id+')">'+_m31E(e.name)+'</button></li>'}).join("")+'</ul>':"")+'</li>'}).join("")+'</ul></div>'
+   +'<div class="m33-g1"><label class="m31-sw"><input type="checkbox"'+(M.cotas?" checked":"")+' onchange="m33Cota(this.checked)"><span>Mostrar cotas</span></label></div>';
+  return h}
+function _m33DPro(){var M=_m33M,e=M.sel?_m33Els().filter(function(x){return x.id===M.sel})[0]:null;
+  if(!e)return '<div class="m33-empty"><b>Toca un elemento del modelo</b><p>Verás su categoría, sus medidas, cuánto mide para el presupuesto y a qué partida se carga. También puedes elegirlo en el navegador.</p></div>';
+  var cat=M33_CATS.filter(function(c){return c[0]===e.cat})[0]||["",""],pt=e.part?_m31Part(e.part):null,ent=e.part?_m33Ent(e.part):null,nm=pt?pt.n:ent?ent[1]:"",f=function(v){return _m31F(v)};
+  var h='<div class="m33-pr"><div class="hd"><span>'+cat[1]+'</span><div><small>'+e.cat+(e.lvl!=null&&e.cat!=="Terreno"?' · nivel '+(e.lvl+1):'')+'</small><b>'+_m31E(e.name)+'</b></div></div>';
+  if(e.info&&e.info.length)h+='<dl class="m33-dl">'+e.info.map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+f(r[1])+' '+r[2]+'</dd></div>'}).join("")+'</dl>';
+  if(e.part&&!e.noq){h+='<div class="m33-qt"><small>Cantidad para el presupuesto</small><b>'+f(e.qty)+' '+(e.u||"")+'</b><span>Partida '+e.part+' · '+_m31E(nm)+'</span></div>'
+     +'<div class="m33-qt c"><small>Costo directo estimado</small><b>'+_m31P(e.cost)+'</b><span>'+f(e.qty)+' × '+_m31P(e.pu)+'</span></div><div class="m31-acts s"><button onclick="m33VePart(\''+e.part+'\')">Ver la partida ›</button><button onclick="m33Sel(null)">Quitar selección</button></div>'}
+  else h+='<p class="m31-nota">Este elemento da contexto al modelo y no se cuantifica.</p><div class="m31-acts s"><button onclick="m33Sel(null)">Quitar selección</button></div>';
+  return h+'</div>'}
+function _m33DPar(){var m=_m33Md();
+  return '<div class="m33-g1"><b>Planta y niveles</b><div class="m33-pa">'+_m33Fld("Largo (eje X)","L","m")+_m33Fld("Ancho (eje Y)","W","m")+_m33Fld("Pisos","pisos","")+_m33Fld("Altura de piso","hp","m")+'</div></div>'
+   +'<div class="m33-g1"><b>Muros y losas</b><div class="m33-pa">'+_m33Sel("Muro exterior","mat",[["ladrillo","Albañilería de ladrillo"],["bloque","Albañilería de bloque"],["hormigon","Hormigón armado"]])+_m33Fld("Espesor muro","em","m")+_m33Fld("Espesor losa","el","m")+_m33Fld("Tabiques transversales","nt","un")+_m33Fld("Espesor tabique","et","m")+'<label class="chk"><input type="checkbox"'+(m.esc?" checked":"")+' onchange="m33P(\'esc\',this.checked)"><span>Escalera interior</span></label></div></div>'
+   +'<div class="m33-g1"><b>Fundación</b><div class="m33-pa">'+_m33Fld("Ancho cimiento","cb","m")+_m33Fld("Alto cimiento","ch","m")+_m33Fld("Alto sobrecimiento","sc","m")+_m33Fld("Espesor radier","ar","m")+'</div></div>'
+   +'<div class="m33-g1"><b>Cubierta</b><div class="m33-pa">'+_m33Sel("Tipo","techo",[["dos","Dos aguas"],["plana","Losa plana"]])+_m33Fld("Pendiente","pend","%")+_m33Fld("Alero","alero","m")+'</div></div>'
+   +'<div class="m33-g1"><b>Aberturas por nivel</b><div class="m33-pa">'+_m33Fld("Ventanas frente","vf","un")+_m33Fld("Ventanas fondo","vt","un")+_m33Fld("Ventanas izquierda","vi","un")+_m33Fld("Ventanas derecha","vd","un")+_m33Fld("Ancho ventana","vw","m")+_m33Fld("Alto ventana","vh","m")+_m33Fld("Antepecho","va","m")+_m33Fld("Puerta: ancho","pw","m")+_m33Fld("Puerta: alto","ph","m")+_m33Fld("Puerta: posición","px","m")+'</div></div>'
+   +'<div class="m33-g1"><b>Para cubicar</b><div class="m33-pa">'+_m33Sel("Pavimento","pav",[["flot","Piso flotante"],["cer","Cerámico"],["por","Porcelanato"]])+_m33Fld("Acero en estructura","cuH","kg/m³")+_m33Fld("Acero en fundación","cuF","kg/m³")+'</div><p class="m31-nota">Cambia un valor y el edificio y las cantidades se recalculan al instante.</p></div>'
+   +'<div class="m31-acts s"><button onclick="m33Defecto(this)">Volver al ejemplo</button></div>'}
+function m33Defecto(b){if(!b.classList.contains("conf")){b.classList.add("conf");b.textContent="Toca otra vez para confirmar";setTimeout(function(){b.classList.remove("conf");b.textContent="Volver al ejemplo"},3000);return}
+  _m31Ob().mod=_m31cl(M33_MD0);_m31Sv();_m33M.els=null;_m33M.sel=null;m31Pinta()}
+function _m33DCan(){var R=_m33Rows(),Q=_m33Qty(R),K=_m31Calc(),cods=Object.keys(Q).sort(function(a,b){return _m31Ord(a)-_m31Ord(b)}),tot=0,M=_m33M,d=M.done;
+  var rows=cods.map(function(c){var e=_m33Ent(c)||[c,"",""],pu=K.PU[c]?K.PU[c].PU:_m33Ref(e),t=Q[c]*pu;tot+=t;return '<tr><td>'+c+'</td><td>'+_m31E(e[1])+'</td><td class="n">'+_m31F(Q[c])+' '+e[2]+'</td><td class="n">'+_m31P(t)+'</td></tr>'}).join("");
+  return '<div class="m33-g1"><b>Cómo se escribe en Partidas</b><div class="m33-ch"><button class="'+(M.gm==="rep"?"on":"")+'" onclick="m33GM(\'rep\')">Reemplazar mediciones</button><button class="'+(M.gm==="sum"?"on":"")+'" onclick="m33GM(\'sum\')">Sumar a las existentes</button></div>'
+   +'<p class="m31-nota">'+(M.gm==="rep"?"Las partidas que mide el modelo parten de cero con las filas «[Modelo]». Las demás no se tocan.":"Se agregan filas «[Modelo]» a lo que ya mediste. Ojo con duplicar cantidades.")+'</p></div>'
+   +'<div class="m31-acts s"><button class="go" onclick="m33Gen(this)">Generar cubicación del modelo</button></div>'
+   +(d?'<p class="m33-ok">Listo: '+d.n+' filas en '+d.p+' partidas'+(d.skip?' ('+d.skip+' con fórmula no se tocaron)':'')+'. <button class="m33-lk" onclick="m31Tab(2)">Revisar en Partidas ›</button></p>':'')
+   +'<div class="m33-sc"><table><thead><tr><th>Cód.</th><th>Partida</th><th class="n">Cantidad</th><th class="n">Costo</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="3">Costo directo de lo que mide el modelo</td><td class="n">'+_m31P(tot)+'</td></tr></tfoot></table></div>'
+   +'<p class="m31-nota">Cantidades netas del modelo. Instalaciones, terminaciones por recinto y obras exteriores se miden en Partidas o en el catálogo. Precios: los de tu obra, o los de referencia del catálogo.</p>'}
+function _m33DockFill(){var d=document.getElementById("m33-dk");if(!d)return;var s=d.scrollTop,f=document.activeElement,keep=f&&d.contains(f)&&(f.tagName==="INPUT"||f.tagName==="SELECT");if(keep&&_m33M.dock==="par")return;
+  d.innerHTML={nav:_m33DNav,pro:_m33DPro,par:_m33DPar,can:_m33DCan}[_m33M.dock]();d.scrollTop=s}
+
+/* ── pantalla ── */
+function _m33Modelo(){var M=_m33M,d=M.done;
+  return '<h3 class="m33-h">Modelo 3D del anteproyecto</h3><p class="m31-lead">Un edificio paramétrico como en Revit: cambia las medidas, gira el modelo, corta, elige un elemento y mira cuánto mide. Luego pásalo al presupuesto con un botón.</p>'
+   +'<div class="m33-3d"><div class="m33-vp"><div class="m33-vb" role="toolbar" aria-label="Vistas">'+[["3d","3D"],["pl","Planta"],["fr","Frente"],["de","Derecha"],["fo","Fondo"],["iz","Izquierda"]].map(function(v){return '<button data-v="'+v[0]+'" class="'+(M.view===v[0]?"on":"")+'" onclick="m33V(\''+v[0]+'\')">'+v[1]+'</button>'}).join("")+'<button class="fit" onclick="m33V(_m33M.view)" aria-label="Encuadrar">⤢</button></div>'
+   +'<canvas id="m33-cv" tabindex="0" role="img" aria-label="Modelo 3D del edificio. Arrastra para girar, usa la rueda o pellizca para acercar."></canvas><div class="m33-tip" id="m33-tip" hidden></div><p class="m33-hn">Arrastra para girar · rueda o pellizco para acercar · mayús + arrastrar para desplazar · toca un elemento para ver sus datos</p></div>'
+   +'<aside class="m33-dock"><div class="m33-dt" role="tablist">'+[["nav","Navegador"],["pro","Propiedades"],["par","Parámetros"],["can","Cantidades"]].map(function(t){return '<button role="tab" data-d="'+t[0]+'" aria-selected="'+(M.dock===t[0])+'" onclick="m33Dock(\''+t[0]+'\')">'+t[1]+'</button>'}).join("")+'</div><div class="m33-dk" id="m33-dk"></div></aside></div>'
+   +'<div class="m33-cta"><div><b>Del modelo al presupuesto</b><small></small></div><button class="go" onclick="m33Dock(\'can\')">Ver cantidades y generar ›</button></div>'
+   +(d?'<p class="m33-ok">Cubicación generada: '+d.n+' filas en '+d.p+' partidas.</p>':'')+'<p class="m31-nota">Modelo simplificado de anteproyecto: muros, losas, escalera, cubierta y aberturas. Sirve para estimar cantidades; los planos de proyecto mandan.</p>'}
+function _m33ModeloInit(){var M=_m33M,cv=document.getElementById("m33-cv");if(!cv)return;M.cv=cv;_m33Els();_m33DockFill();
+  var cw=cv.getBoundingClientRect().width;M.cw=cw;M.chh=cv.getBoundingClientRect().height;if(!M.inited){M.inited=1;m33V0()}else{}
+  _m33Bind(cv);if(window.ResizeObserver){try{if(M.ro)M.ro.disconnect();M.ro=new ResizeObserver(function(){_m33Resize()});M.ro.observe(cv.parentNode)}catch(e){}}
+  _m33Render(true);var n=document.querySelector("#m28-cub .m33-cta small");if(n)n.textContent=Object.keys(_m33Qty(_m33Rows())).length+" partidas reciben cantidades del modelo"}
+function m33V0(){var M=_m33M;_m33FitSoft();M.cam.yaw=M33_VIEWS["3d"][0];M.cam.pit=M33_VIEWS["3d"][1];M.cam.ortho=false}
+function _m33Bind(cv){var M=_m33M,tip=document.getElementById("m33-tip");
+  cv.onpointerdown=function(e){try{cv.setPointerCapture(e.pointerId)}catch(x){}M.ptr[e.pointerId]={x:e.clientX,y:e.clientY};M.ptrN=Object.keys(M.ptr).length;M.drag={mv:0,t:Date.now(),btn:e.button,sh:e.shiftKey,one:M.ptrN===1,pd:0};e.preventDefault()};
+  cv.onpointermove=function(e){var p=M.ptr[e.pointerId];
+    if(!p){if(e.pointerType==="mouse"&&tip)_m33Hover(e,cv,tip);return}
+    var c=M.cam,ids=Object.keys(M.ptr);
+    if(ids.length===1){var dx=e.clientX-p.x,dy=e.clientY-p.y;p.x=e.clientX;p.y=e.clientY;if(M.drag)M.drag.mv+=Math.abs(dx)+Math.abs(dy);
+      if(M.drag&&(M.drag.btn===2||M.drag.btn===1||M.drag.sh||e.shiftKey))_m33Pan(dx,dy);else{c.yaw-=dx*.008;c.pit=Math.max(-.2,Math.min(1.5,c.pit+dy*.006));M.view="";c.ortho=false;_m33ViewOn("")}
+      _m33Req(false)}
+    else if(ids.length===2){var o=M.ptr[ids[0]===String(e.pointerId)?ids[1]:ids[0]],ox=p.x,oy=p.y,d0=Math.hypot(ox-o.x,oy-o.y),mx0=(ox+o.x)/2,my0=(oy+o.y)/2;p.x=e.clientX;p.y=e.clientY;var d1=Math.hypot(p.x-o.x,p.y-o.y),mx1=(p.x+o.x)/2,my1=(p.y+o.y)/2;
+      if(M.drag)M.drag.mv+=20;if(d0>0)c.dist=Math.max(2,Math.min(200,c.dist*d0/Math.max(10,d1)));_m33Pan(mx1-mx0,my1-my0);_m33Req(false)}};
+  var up=function(e){var p=M.ptr[e.pointerId];if(!p)return;delete M.ptr[e.pointerId];M.ptrN=Object.keys(M.ptr).length;
+    if(M.drag&&M.drag.one&&M.drag.mv<7&&Date.now()-M.drag.t<600&&M.ptrN===0){var r=cv.getBoundingClientRect();_m33Pick(e.clientX-r.left,e.clientY-r.top)}
+    if(!M.ptrN){M.drag=null;_m33Req(true)}};
+  cv.onpointerup=up;cv.onpointercancel=up;cv.onpointerleave=function(){if(tip)tip.hidden=true};
+  cv.onwheel=function(e){e.preventDefault();var c=M.cam;c.dist=Math.max(2,Math.min(200,c.dist*Math.exp(e.deltaY*.0013)));_m33Req(false)};
+  cv.oncontextmenu=function(e){e.preventDefault()};
+  cv.onkeydown=function(e){var c=M.cam,k=e.key,h=true;if(k==="ArrowLeft")c.yaw+=.1;else if(k==="ArrowRight")c.yaw-=.1;else if(k==="ArrowUp")c.pit=Math.min(1.5,c.pit+.08);else if(k==="ArrowDown")c.pit=Math.max(-.2,c.pit-.08);else if(k==="+"||k==="=")c.dist=Math.max(2,c.dist*.9);else if(k==="-")c.dist=Math.min(200,c.dist*1.1);else if(k==="Escape")m33Sel(null);else h=false;if(h){e.preventDefault();c.ortho=false;M.view="";_m33ViewOn("");_m33Req(true)}}}
+function _m33ViewOn(v){document.querySelectorAll("#m28-cub .m33-vb [data-v]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-v")===v)})}
+function _m33Pan(dx,dy){var M=_m33M,c=M.cam,C=_m33Cam(M.cw||600,M.chh||400),k=(c.ortho?c.dist/C.F:c.dist/C.F)*(1);
+  c.tx+=(-dx*C.r[0]+dy*C.u[0])*k;c.ty+=(-dx*C.r[1]+dy*C.u[1])*k;c.tz+=(-dx*C.r[2]+dy*C.u[2])*k}
+function _m33At(x,y){var B=_m33Buf,M=_m33M;if(!B.id||!M.bq)return 0;var bx=Math.floor(x*(B.W/M.cw)),by=Math.floor(y*(B.H/M.chh));if(bx<0||by<0||bx>=B.W||by>=B.H)return 0;return B.id[by*B.W+bx]}
+function _m33Pick(x,y){var id=_m33At(x,y),e=id?_m33Els().filter(function(q){return q.id===id})[0]:null;if(e&&e.cat==="Terreno"&&e.noq&&e.name!=="Predio y antejardín"){}m33Sel(e&&e.cat!=="Terreno"?id:(e?id:null))}
+function _m33Hover(ev,cv,tip){var r=cv.getBoundingClientRect(),id=_m33At(ev.clientX-r.left,ev.clientY-r.top),e=id?_m33Els().filter(function(q){return q.id===id})[0]:null;
+  if(!e){tip.hidden=true;cv.style.cursor="grab";return}cv.style.cursor="pointer";tip.hidden=false;tip.textContent=e.name;tip.style.left=Math.min(r.width-170,Math.max(6,ev.clientX-r.left+12))+"px";tip.style.top=Math.max(6,ev.clientY-r.top+14)+"px"}
 
 </script>
 
