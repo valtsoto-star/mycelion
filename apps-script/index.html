@@ -10481,7 +10481,7 @@ function viewRamos(){
 </style>
 <script>
 /* ══════════════════════════════════════════════════════
-   MYCELION OS v3.1
+   MYCELION OS v3.2
    · Pestaña inferior = ramo abierto (sale Evalúate)
    · Programación con nombres de ramo + ficha del curso
    · Evaluaciones → Google Calendar (Apps Script / enlaces / .ics)
@@ -14008,9 +14008,146 @@ body .m29-b.sec{background:var(--bg);color:var(--text);border:1px solid var(--li
 .m31-tb tr.a td{color:var(--text-2);font-family:inherit;white-space:normal;text-align:left}
 .m31-tb tr.a td:first-child{font-family:var(--font-mono,monospace)}
 .m31-tb tr.a td:last-child{font-family:var(--font-mono,monospace);color:var(--text);text-align:right;white-space:nowrap}
+
+/* ══ v3.2 · Presupuesto de obra: mapa micelio ══ */
+.m31{--hifa:color-mix(in srgb,var(--accent) 70%,var(--text));--hifa-s:color-mix(in srgb,var(--accent) 38%,var(--line))}
+.m31[data-guia="0"] .m32-gd,.m31[data-guia="0"] .m31-lead{display:none}
+.m31-tool .m31-sw span{white-space:nowrap}
+/* barra de dónde estás */
+.m32-crumb{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none;margin:0 -2px}
+.m32-crumb::-webkit-scrollbar{display:none}
+.m32-crumb button{flex:none;max-width:15em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:0;background:none;padding:6px 10px;border-radius:99px;font-size:.78rem;color:var(--text-2)}
+.m32-crumb button[aria-current="true"]{color:var(--text);font-weight:700;background:var(--m31-s)}
+.m32-crumb i{font-style:normal;color:var(--hifa-s);flex:none}
+/* mapa: columnas que crecen hacia el lado */
+.m32-map{position:relative;display:flex;gap:30px;align-items:flex-start;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scroll-padding-left:54px;padding:6px 4px 16px;margin:0 -4px;scrollbar-width:thin;scrollbar-color:var(--hifa-s) transparent;overscroll-behavior-x:contain}
+.m32-col{position:relative;z-index:1;flex:none;width:min(calc(100% - 58px),360px);scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;min-width:0;animation:m32in .35s ease both}
+.m32-col.wide{width:min(calc(100% - 58px),540px)}
+@keyframes m32in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.m32-ch{font:800 .66rem var(--font-mono,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);padding:6px 10px 4px 12px;display:flex;align-items:center;gap:6px;line-height:1.3}
+.m32-ch .cd{color:var(--text)}
+.m32-ch b{margin-left:auto;font-weight:700;letter-spacing:0;text-transform:none;color:var(--text)}
+.m32-wires{position:absolute;left:0;top:0;z-index:0;pointer-events:none;overflow:visible}
+.m32-wires path{fill:none;stroke:var(--hifa-s);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:m32w .7s .12s ease forwards}
+.m32-wires circle{fill:var(--accent);opacity:.9}
+@keyframes m32w{to{stroke-dashoffset:0}}
+/* nodos */
+.m32-n{position:relative;display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:1px solid var(--line);background:var(--surface);border-radius:14px;text-align:left;transition:border-color .2s,background .2s,transform .2s}
+.m32-n:hover{border-color:var(--hifa-s)}
+.m32-n.on{border-color:var(--hifa-s);background:var(--m31-s);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}
+.m32-n .ic{flex:none;font-size:1.15rem;width:1.6em;text-align:center}
+.m32-n .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.m32-n .tx b{font-weight:700;font-size:.88rem;line-height:1.3}
+.m32-n .tx small{font-size:.74rem;color:var(--text-2);line-height:1.35}
+.m32-n .v{flex:none;font:700 .8rem var(--font-mono,monospace);white-space:nowrap}
+.m32-n .ch{flex:none;color:var(--hifa);font-size:1.1rem}
+.m32-n.p{align-items:flex-start}
+.m32-n.p .cd{flex:none;min-width:2.4em;font:700 .74rem var(--font-mono,monospace);color:var(--text-2);padding-top:2px}
+.m32-n.p .nm{font-weight:500;font-size:.86rem}
+.m32-n.p .tx small{font:600 .72rem var(--font-mono,monospace)}
+.m32-n.e .nn{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:800 .72rem var(--font-mono,monospace);background:var(--bg);border:2px solid var(--hifa-s)}
+.m32-n.e.ok .nn{background:var(--accent);color:var(--accent-ink,var(--bg));border-color:var(--accent)}
+.m32-n.e .c{flex:none;font:700 .72rem var(--font-mono,monospace);padding:3px 8px;border-radius:99px;border:1px solid var(--line)}
+.m32-bar{display:block;height:5px;border-radius:99px;background:var(--line);position:relative;overflow:hidden;margin-top:3px}
+.m32-bar::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w,0%);background:var(--accent);border-radius:99px;transition:width .3s}
+.m32-add{padding:10px;border-radius:14px;border:1px dashed var(--hifa-s);background:none;font-size:.82rem;font-weight:600}
+/* tarjeta de la partida */
+.m32-card{border:1px solid var(--hifa-s);background:var(--m31-s);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.m32-card .ttl{font:700 1rem var(--font-display,system-ui);line-height:1.3}
+.m32-card .sb{margin:0;font-size:.82rem;color:var(--text-2);line-height:1.4}
+.m32-eq{display:grid;grid-template-columns:1fr auto 1fr;gap:8px 6px;align-items:center}
+.m32-eq i:last-of-type{display:none}
+.m32-eq span.t{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:baseline;border-top:1px solid var(--hifa-s);padding-top:8px}
+.m32-eq span{display:flex;flex-direction:column;gap:1px;min-width:0}
+.m32-eq small{font-size:.66rem;color:var(--text-2)}
+.m32-eq b{font:700 .78rem var(--font-mono,monospace);overflow-wrap:anywhere}
+.m32-eq span.t b{color:var(--accent);font-size:1rem}
+.m32-eq span.t small{font-size:.74rem}
+.m32-eq i{font-style:normal;color:var(--hifa);font-weight:700}
+.m32-pasos{margin:0;font-size:.78rem;line-height:1.5;color:var(--text-2);padding:0 4px}
+.m32-pasos b{display:inline-grid;place-items:center;width:1.3em;height:1.3em;border-radius:50%;background:var(--accent);color:var(--accent-ink,var(--bg));font-size:.72rem;margin-right:2px}
+/* guía con diagrama */
+.m32-how{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.m32-how .f{margin:0;font:700 .88rem var(--font-mono,monospace);text-align:center;color:var(--accent)}
+.m32-how ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:5px;font-size:.82rem;line-height:1.45;color:var(--text-2)}
+.m32-how ol li::marker{color:var(--hifa);font-weight:700}
+.m32-how2{margin:0;font-size:.82rem;line-height:1.5;color:var(--text-2);padding:0 2px}
+.m32-d{width:100%;height:auto;max-height:150px}
+.m32-d .a1{fill:color-mix(in srgb,var(--accent) 24%,var(--surface));stroke:var(--hifa);stroke-width:1.6}
+.m32-d .a2{fill:color-mix(in srgb,var(--accent) 38%,var(--surface));stroke:var(--hifa);stroke-width:1.6}
+.m32-d .a3{fill:color-mix(in srgb,var(--accent) 14%,var(--surface));stroke:var(--hifa);stroke-width:1.6}
+.m32-d .n{fill:var(--bg);stroke:#c0392b;stroke-dasharray:4 3;stroke-width:1.5}
+.m32-d .dm{fill:none;stroke:var(--text-2);stroke-width:1.2}
+.m32-d .dm.w{stroke:var(--hifa);stroke-width:6;stroke-linecap:round}
+.m32-d .dm.w.b{stroke:var(--accent)}
+.m32-d .dm.w.c{stroke:color-mix(in srgb,var(--accent) 45%,var(--text))}
+.m32-d .dt{fill:var(--bg);stroke:var(--hifa);stroke-width:2}
+.m32-d .t{font:600 10px var(--font-mono,monospace);fill:var(--text-2)}
+.m32-d .t.s{font-size:8.5px}
+.m32-d .t.b{font-size:18px;fill:var(--text);font-weight:800}
+.m32-d .n+.t.s{fill:#c0392b}
+/* segmento mediciones / fórmula */
+.m32-seg{display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--bg);border:1px solid var(--line);align-self:flex-start}
+.m32-seg button{padding:7px 12px;border-radius:9px;border:0;background:none;font-size:.8rem;font-weight:600;color:var(--text-2)}
+.m32-seg button.on{background:var(--text);color:var(--bg)}
+/* composición del precio unitario */
+.m32-stk{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--line);border:1px solid var(--line)}
+.m32-stk i{display:block;height:100%;width:0;transition:width .3s}
+.m32-stk.vac{opacity:.6}
+.s-M{background:#4ea8ff}.s-MO{background:#f2b84b}.s-EQ{background:#7bd389}.s-HM{background:#9aa3ad}.s-SC{background:#c58cff}
+.m32-lg{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.m32-lg span{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--text-2);min-width:0}
+.m32-lg span i{flex:none;width:9px;height:9px;border-radius:3px}
+.m32-lg span b{margin-left:auto;font:700 .76rem var(--font-mono,monospace);color:var(--text);white-space:nowrap}
+/* ramos relacionados */
+.m32-rms{display:flex;flex-direction:column;gap:6px}
+.m32-rm{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:1px solid var(--line);background:var(--surface);border-radius:14px;text-align:left}
+.m32-rm:hover{border-color:var(--hifa-s)}
+.m32-rm.now{border-color:var(--hifa-s);background:var(--m31-s)}
+.m32-rm .ic{flex:none;font-size:1.15rem}
+.m32-rm .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.m32-rm .tx b{font-size:.86rem}
+.m32-rm .tx b em{font:700 .62rem var(--font-mono,monospace);font-style:normal;margin-left:4px;padding:2px 6px;border-radius:99px;background:var(--accent);color:var(--accent-ink,var(--bg));vertical-align:1px}
+.m32-rm .tx small{font-size:.74rem;color:var(--text-2);line-height:1.35}
+.m32-rm .ch{flex:none;color:var(--hifa)}
+/* línea del proceso */
+.m32-line{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:8px 6px 4px}
+.m32-ln{width:100%;height:auto;display:block}
+.m32-ln .hy{fill:none;stroke:var(--hifa-s);stroke-width:2.6;stroke-linecap:round}
+.m32-ln .nd{cursor:pointer;outline:none}
+.m32-ln .nd .bg{fill:var(--bg);stroke:var(--hifa-s);stroke-width:2}
+.m32-ln .nd .pr{fill:none;stroke:var(--accent);stroke-width:3}
+.m32-ln .nd.ok .bg{fill:var(--accent);stroke:var(--accent)}
+.m32-ln .nd .nn{font:800 9px var(--font-mono,monospace);fill:var(--text);pointer-events:none}
+.m32-ln .nd.ok .nn{fill:var(--accent-ink,var(--bg))}
+.m32-ln .nd .sel{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-dasharray:3 3}
+.m32-ln .nd .lb{font:600 8.5px var(--font-mono,monospace);fill:var(--text-2);pointer-events:none}
+.m32-ln .nd.on .lb{fill:var(--text);font-weight:800}
+.m32-ln .nd:focus-visible .bg{stroke:var(--accent);stroke-width:3}
+.m32-ln .pz{font:700 8px var(--font-mono,monospace);fill:var(--text-2);letter-spacing:.04em}
+/* cadena del precio */
+.m32-chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:6px}
+.m32-chain span{display:flex;flex-direction:column;gap:2px;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.m32-chain span.t{background:var(--m31-s);border-color:var(--hifa-s)}
+.m32-chain small{font-size:.68rem;color:var(--text-2)}
+.m32-chain b{font:700 .8rem var(--font-mono,monospace);overflow-wrap:anywhere}
+/* columnas anchas dentro del mapa: la edición no se estira */
+.m32-col .m31-mh,.m32-col .m31-mr{grid-template-columns:minmax(3.4em,1.3fr) repeat(4,minmax(2.2em,.6fr)) minmax(3em,.8fr) 22px}
+.m32-col .m31-med.kg .m31-mh,.m32-col .m31-med.kg .m31-mr{grid-template-columns:minmax(3.4em,1.3fr) repeat(3,minmax(2.5em,.7fr)) minmax(3em,.8fr) 22px}
+.m32-col .m31-ay{background:var(--surface)}
+@media (min-width:760px){.m32-col{width:340px}.m32-col.wide{width:520px}}
+@media (prefers-reduced-motion:reduce){.m32-col{animation:none}.m32-wires path{animation:none;stroke-dashoffset:0}.m32-n,.m32-bar::after,.m32-stk i{transition:none}}
+/* los estilos de otros módulos (.m24 .a) no deben tocar la etiqueta de precisión */
+.m31-chip.a{font-size:.76rem;line-height:1.3;color:var(--text)}
+/* foco: las columnas anteriores se atenúan para no marear */
+.m32-col{transition:opacity .25s}
+.m32-col:not(:last-child):not(:hover):not(:focus-within){opacity:.6}
+.m32-ln .pz{font:700 8px var(--font-mono,monospace);fill:var(--text-2)}
+.m32-ln .pb{fill:url(#m32g)}
+.m32-rm .tx b em{display:inline-block;white-space:nowrap;margin-top:2px}
 </style>
 <script>
-/* MYCELION OS v3.1 */
+/* MYCELION OS v3.2 */
 /* ══════════════════════════════════════════════════════
    MYCELION OS v2.0 · Parte A
    · Barra inferior que no tapa: se esconde con teclado, hojas abiertas y al bajar
@@ -25701,6 +25838,7 @@ function _m31Live(){_m31K=null;var K=_m31Calc(),O=_m31Ob(),uf=+O.ficha.uf||0,s=+
       case "pct":v=K.CD?_m31F((K.cap[a[1]]||0)/K.CD*100,1)+" %":"";break;
     }
     e.textContent=v});
+  if(typeof _m32Post==="function")_m32Post(K,O);
   _m31Sv()}
 
 /* ── pantalla ── */
@@ -25955,6 +26093,301 @@ window.addEventListener("load",function(){setTimeout(function(){
     var row='<button class="m24-row" onclick="m31Abrir(0)"><span class="ic">📐</span><span class="m"><b>Presupuesto de obra</b><small>Del terreno a la entrega de llaves: cubicación, APU, GG y flujo</small></span><span class="a">›</span></button>';
     var i=h.indexOf('<button class="m24-row" onclick="mycGo(\'formulas\')"');return i>=0?h.slice(0,i)+row+h.slice(i):h};
 },1300)});
+
+/* ══ v3.2 · Presupuesto de obra: guía por unidad, diagramas y ramos relacionados ══ */
+
+/* Cómo se mide cada tipo de unidad: pasos, fórmula y diagrama */
+var M32_U={
+ "m³":{t:"Volumen",f:"V = largo × ancho × alto",
+  pasos:["Identifica el elemento en los planos: cada fundación, viga o excavación es una fila.","Anota la ubicación (eje o recinto), cuántas veces se repite y sus tres medidas en metros.","Cada fila se calcula sola: veces × largo × ancho × alto. Un hueco que se descuenta va en una fila con veces negativas.","Compara el total con una estimación gruesa antes de seguir."]},
+ "m²":{t:"Superficie",f:"A = largo × alto − vanos",
+  pasos:["Mide cada paño por separado (muro, losa o recinto) y ponle su eje o nombre.","Cada fila: veces × largo × ancho o alto. Las terminaciones se miden por recinto, no por planta completa.","Resta puertas y ventanas con una fila de descuento (veces −1).","En techos inclinados usa la ayuda de pendiente: multiplica la planta por √(1 + p²)."]},
+ "ml":{t:"Longitud",f:"L = Σ largos × veces",
+  pasos:["Recorre el elemento en planta: cada tramo recto es una fila.","Anota el largo de cada tramo y las veces que se repite (por ejemplo, cada nivel).","Suma los tramos; las esquinas y encuentros se miden una sola vez."]},
+ "kg":{t:"Acero de refuerzo",f:"kg = barras × largo × Ø² / 162",
+  pasos:["Lista cada tipo de barra: diámetro, largo con ganchos y traslapos, y cuántas son.","El peso por metro sale de Ø²/162 (Ø en mm). Una barra de 12 mm pesa cerca de 0,89 kg/m.","Suma por diámetro. La pérdida por despuntes va en el APU, no aquí.","Compara con la cuantía: kilos de acero por m³ de hormigón del elemento."]},
+ "un":{t:"Conteo",f:"N = unidades contadas",
+  pasos:["Cuenta en los planos y en los cuadros de puertas, ventanas y artefactos.","Una fila por tipo o por recinto, con la cantidad en «Veces».","Cuenta sólo lo que esta partida compra o instala, para no duplicar con otra."]},
+ "gl":{t:"Global",f:"1 gl = precio acordado",
+  pasos:["Se usa cuando no se mide: instalación de faenas, trámites o paquetes subcontratados.","Pon 1 en «Veces» y el precio total en el análisis de precio unitario.","Pide al menos dos cotizaciones y anota qué incluye cada una."]},
+ "pto":{t:"Puntos",f:"N = puntos de instalación",
+  pasos:["Cuenta cada punto (enchufe, luminaria, salida de agua) en el plano de la especialidad.","Una fila por recinto con la cantidad en «Veces».","Los tableros, matrices y arranques van como partidas aparte."]},
+ "día":{t:"Tiempo",f:"Cantidad = días × recursos",
+  pasos:["Úsalo para costos que dependen del tiempo: arriendos de equipos y cuadrillas.","Cantidad = días de uso × cuántos recursos hay.","Si cambia el plazo, revisa esta cantidad."]},
+ "mes":{t:"Tiempo",f:"Cantidad = meses × recursos",
+  pasos:["Úsalo para gastos mensuales: arriendos, servicios y personal.","Cantidad = meses del plazo × unidades arrendadas.","Si cambia el plazo en la ficha, cambia el costo."]}
+};
+
+/* Diagramas por unidad (SVG en línea, colores por variables de la app) */
+function M32_SVG(u){
+ var o='<svg viewBox="0 0 300 132" class="m32-d" role="img" aria-label="';
+ if(u==="m³")return o+'Volumen de un prisma: largo por ancho por alto"><polygon class="a2" points="50,50 92,24 212,24 170,50"/><polygon class="a3" points="170,50 212,24 212,86 170,112"/><rect class="a1" x="50" y="50" width="120" height="62"/>'
+  +'<path class="dm" d="M50 122H170M50 118v8M170 118v8"/><text class="t" x="110" y="131" text-anchor="middle">Largo</text>'
+  +'<path class="dm" d="M38 50V112M34 50h8M34 112h8"/><text class="t" x="32" y="84" text-anchor="end">Alto</text>'
+  +'<path class="dm" d="M96 18L216 18"/><text class="t" x="156" y="12" text-anchor="middle">Ancho</text></svg>';
+ if(u==="m²")return o+'Superficie de un muro con ventana y puerta descontadas"><rect class="a1" x="40" y="14" width="200" height="90"/>'
+  +'<rect class="n" x="84" y="34" width="46" height="32"/><text class="t s" x="107" y="54" text-anchor="middle">ventana</text>'
+  +'<rect class="n" x="168" y="46" width="34" height="58"/><text class="t s" x="185" y="78" text-anchor="middle">puerta</text>'
+  +'<path class="dm" d="M40 114H240M40 110v8M240 110v8"/><text class="t" x="140" y="128" text-anchor="middle">Largo</text>'
+  +'<path class="dm" d="M30 14V104M26 14h8M26 104h8"/><text class="t" x="24" y="62" text-anchor="end">Alto</text></svg>';
+ if(u==="ml")return o+'Longitud total como suma de tramos"><path class="dm w" d="M30 62H78"/><path class="dm w b" d="M78 62H190"/><path class="dm w c" d="M190 62H264"/>'
+  +'<circle class="dt" cx="30" cy="62" r="4"/><circle class="dt" cx="78" cy="62" r="4"/><circle class="dt" cx="190" cy="62" r="4"/><circle class="dt" cx="264" cy="62" r="4"/>'
+  +'<text class="t" x="54" y="50" text-anchor="middle">L1</text><text class="t" x="134" y="50" text-anchor="middle">L2</text><text class="t" x="227" y="50" text-anchor="middle">L3</text>'
+  +'<text class="t" x="150" y="100" text-anchor="middle">ml = L1 + L2 + L3</text></svg>';
+ if(u==="kg")return o+'Barra de acero: largo, diámetro y peso por metro"><rect class="a1" x="24" y="48" width="180" height="16" rx="8"/><path class="dm" d="M24 78H204M24 74v8M204 74v8"/><text class="t" x="114" y="96" text-anchor="middle">Largo (m)</text>'
+  +'<circle class="a2" cx="254" cy="56" r="20"/><path class="dm" d="M234 56H274"/><text class="t" x="254" y="98" text-anchor="middle">Ø mm</text>'
+  +'<text class="t s" x="254" y="120" text-anchor="middle">Ø²/162 kg/m</text></svg>';
+ if(u==="gl"||u==="día"||u==="mes"||u==="pto"||u==="un"){var n=u==="un"||u==="pto"?5:6,w=Math.floor(240/n),x,s="",lb=u==="gl"?"1 gl":u==="día"?"días":u==="mes"?"meses":u==="pto"?"puntos":"unidades";
+  if(u==="gl")return o+'Partida global: una sola unidad con precio acordado"><rect class="a1" x="90" y="28" width="120" height="64" rx="12"/><text class="t b" x="150" y="68" text-anchor="middle">1 gl</text><text class="t" x="150" y="112" text-anchor="middle">un solo precio acordado</text></svg>';
+  for(x=0;x<n;x++)s+='<rect class="a'+(1+x%2)+'" x="'+(30+x*w)+'" y="36" width="'+(w-8)+'" height="46" rx="8"/><text class="t" x="'+(30+x*w+(w-8)/2)+'" y="64" text-anchor="middle">'+(x+1)+'</text>';
+  return o+'Conteo de '+lb+'">'+s+'<text class="t" x="150" y="112" text-anchor="middle">Cantidad = '+lb+' contados</text></svg>'}
+ return o+'Diagrama"><rect class="a1" x="60" y="30" width="180" height="60" rx="10"/></svg>'}
+
+/* Ramos relacionados por capítulo del presupuesto: [id del ramo, por qué sirve] */
+var M32_CAPR={
+ "1":[["legisl-seg","Instalación de faenas, cierres y seguridad"],["topografia","Trazado y replanteo inicial"],["admin-log","Bodegas, accesos y logística de faena"]],
+ "2":[["topografia","Cotas, perfiles y volúmenes de terreno"],["mec-suelos","Tipo de suelo, talud y esponjamiento"],["obras-civiles","Excavaciones, rellenos y compactación"],["cubicacion","Planilla de medición"]],
+ "3":[["mec-suelos","Capacidad de soporte y nivel de fundación"],["partidas-gruesa","Moldaje, enfierradura y hormigonado de cimientos"],["estructuras","Dimensiones de zapatas y cimientos"],["cubicacion","Volúmenes y kilos de acero"]],
+ "4":[["tec-hormigon","Dosificación, resistencia y curado"],["analisis-estruct","Secciones y cuantías de acero"],["estructuras","Elementos de hormigón armado"],["partidas-gruesa","Moldaje, enfierradura y hormigonado"],["taller-gruesa","Práctica de obra gruesa"]],
+ "5":[["partidas-gruesa","Albañilería y tabiquería"],["partidas-term","Estucos y terminación de muros"],["cubicacion","Descuento de vanos"]],
+ "6":[["partidas-gruesa","Estructura de techumbre"],["partidas-term","Cubiertas y hojalatería"],["cubicacion","Superficie inclinada con pendiente"]],
+ "7":[["partidas-term","Radieres, pavimentos y pisos"],["tec-hormigon","Hormigón de radieres"]],
+ "8":[["partidas-term","Revestimientos y pinturas"],["taller-term","Práctica de terminaciones"],["cubicacion","Superficies por recinto"]],
+ "9":[["partidas-term","Puertas, ventanas y quincallería"],["constr-sust","Eficiencia térmica y materiales"],["interp-planos","Cuadros de puertas y ventanas en planos"]],
+ "10":[["instal-domic","Agua, alcantarillado, electricidad y gas"],["interp-planos","Planos de especialidades"],["model-coord","Coordinación de especialidades"]],
+ "11":[["obras-civiles","Pavimentos y obras exteriores"],["obras-infra","Urbanización y redes"],["constr-sust","Paisajismo y aguas lluvias"]],
+ "12":[["gest-calidad","Protocolos y recepción de partidas"],["legisl-seg","Recepción final y certificados"]]};
+
+/* Ramos relacionados por etapa del proceso */
+var M32_ETR={
+ e1:[["topografia","Levantamiento y cotas del terreno"],["mec-suelos","Estudio de suelo y napa"],["legisl-seg","LGUC y OGUC: qué se puede construir"],["econ-eval","Viabilidad y costo del proyecto"]],
+ e2:[["interp-planos","Leer y cuadrar plantas y cortes"],["dibujo-lectura","Dibujo del anteproyecto"],["econ-eval","Estimación y comparación de alternativas"]],
+ e3:[["interp-planos","Planos y especificaciones técnicas"],["estructuras","Estructura y planillas de acero"],["analisis-estruct","Cálculo estructural"],["model-coord","Coordinación de especialidades (BIM)"],["instal-domic","Proyectos de instalaciones"]],
+ e4:[["legisl-seg","Permiso de edificación y normativa"],["interp-planos","Expediente de planos"]],
+ e5:[["estudio-prop","Preparar y comparar la oferta"],["presup-costos","APU, gastos generales y utilidad"],["cubicacion","Cantidades por partida"],["contab-constr","Costos y flujo de la obra"]],
+ e6:[["planif-partidas","Rendimientos y duración de partidas"],["prog-obras","Carta Gantt y ruta crítica"],["admin-log","Compras y logística"]],
+ e7:[["partidas-gruesa","Obra gruesa en terreno"],["partidas-term","Terminaciones"],["gest-calidad","Control de calidad"],["gest-personas","Cuadrillas y supervisión"],["legisl-seg","Seguridad y prevención de riesgos"]],
+ e8:[["contab-constr","Estados de pago y costos reales"],["prog-obras","Avance físico contra programado"],["presup-costos","Control presupuestario"]],
+ e9:[["gest-calidad","Recepción de partidas y observaciones"],["legisl-seg","Recepción final municipal"],["constr-sust","Entrega y manual del propietario"]]};
+
+/* Qué hace cada etapa del presupuesto con el APU: etiqueta corta para la línea del proceso */
+var M32_ETC=["Terreno","Anteproy.","Proyecto","Permiso","Propuesta","Plan","Obra","Control","Llaves"];
+
+/* ══ v3.2 · Presupuesto de obra: mapa micelio ══
+   La obra se despliega hacia el lado, como el micelio: capítulos → partidas → partida → su menú editable.
+   Reemplaza las funciones de pantalla de v3.1 (la última declaración gana). */
+var _m32={cap:null,open:null,sub:null,et:null,esub:null,guia:true};
+try{_m32.guia=localStorage.getItem("m32_guia")!=="0"}catch(e){}
+var M32_PEEK=54;
+function _m32Capo(c){return M31_CAP.filter(function(x){return x[0]===c})[0]||null}
+function _m32Eto(id){return M31_ETAPAS.filter(function(x){return x.id===id})[0]||null}
+function _m32Done(e){var O=_m31Ob();return e.act.filter(function(a,i){return O.chk[e.id+"_"+i]}).length}
+function _m32Ramo(rid){try{return findRamo(rid)}catch(e){return null}}
+function _m32Cursa(rid){try{return _ramosSemestre().some(function(x){return x.rid===rid})}catch(e){return false}}
+function _m32Chips(L){var h=L.map(function(x){var r=_m32Ramo(x[0]);if(!r)return "";
+  return '<button class="m32-rm'+(_m32Cursa(x[0])?" now":"")+'" onclick="mycRamoGo(\''+x[0]+'\')"><span class="ic">'+(r.ic||"📘")+'</span><span class="tx"><b>'+_m31E(r.nom)+(_m32Cursa(x[0])?' <em>este semestre</em>':'')+'</b><small>'+_m31E(x[1])+'</small></span><span class="ch">›</span></button>'}).join("");
+  return h?'<div class="m32-rms">'+h+'</div>':'<p class="m31-nota">Sin ramos relacionados por ahora.</p>'}
+function _m32Crumb(items){return '<nav class="m32-crumb" aria-label="Dónde estás">'+items.map(function(x,i){return (i?'<i>›</i>':'')+'<button class="'+(x[2]||"")+'" onclick="'+x[1]+'"'+(i===items.length-1?' aria-current="true"':'')+'>'+x[0]+'</button>'}).join("")+'</nav>'}
+function m32Guia(v){_m32.guia=!!v;try{localStorage.setItem("m32_guia",v?"1":"0")}catch(e){}var r=document.querySelector("#m28-cub .m31");if(r)r.setAttribute("data-guia",v?"1":"0");_m32Wires()}
+function _m32Sw(extra){return '<div class="m31-tool">'+(extra||'<span></span>')+'<label class="m31-sw"><input type="checkbox"'+(_m32.guia?" checked":"")+' onchange="m32Guia(this.checked)"><span>Guía paso a paso</span></label></div>'}
+
+/* ── pantalla principal ── */
+function m31Pinta(){
+  var root=document.getElementById("m28-cub");if(!root)return;_m31Ob();_m31K=null;
+  var old=root.querySelector(".m32-map"),sl=old?old.scrollLeft:0,oc=old?old.querySelectorAll(".m32-col").length:0;
+  var K=_m31Calc(),O=_m31O;
+  var h='<div class="m31" data-guia="'+(_m32.guia?1:0)+'"><div class="m31-head"><div><small>Presupuesto de obra</small><b>'+_m31E(O.ficha.nom)+'</b></div><div class="m31-tot"><small>Total con IVA</small><b data-c="k|TOT">'+_m31P(K.TOT)+'</b><em data-c="uf|TOT"></em></div></div>'
+   +'<nav class="m31-tabs" role="tablist">'+M31_TABS.map(function(t,i){return '<button role="tab" aria-selected="'+(i===_m31.tab)+'" onclick="m31Tab('+i+')">'+t+'</button>'}).join("")+'</nav><div class="m31-body">';
+  h+=[_m32Proceso,_m31Ficha,_m32Partidas,_m31Insumos,_m32Resumen,_m31Flujo][_m31.tab]();
+  root.innerHTML=h+'</div></div>';_m31Live();_m32After(sl,oc)}
+function _m32After(sl,oc){var m=document.querySelector("#m28-cub .m32-map");if(!m)return;
+  var cols=m.querySelectorAll(".m32-col"),n=cols.length;m.scrollLeft=sl;_m32Wires();
+  if(n&&n!==oc){var to=Math.max(0,cols[n-1].offsetLeft-(n>1?M32_PEEK:0)),rm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+    requestAnimationFrame(function(){try{m.scrollTo({left:to,behavior:rm?"auto":"smooth"})}catch(e){m.scrollLeft=to}})}}
+/* hifas: curvas que unen el ítem abierto con su columna */
+function _m32Wires(){var m=document.querySelector("#m28-cub .m32-map");if(!m)return;
+  var sv=m.querySelector(".m32-wires");if(sv)sv.remove();
+  var cols=[].slice.call(m.querySelectorAll(".m32-col")),d="",dots="",i;
+  for(i=0;i<cols.length-1;i++){var on=cols[i].querySelector(".m32-n.on"),hd=cols[i+1].querySelector(".m32-ch");if(!on||!hd)continue;
+    var x1=cols[i].offsetLeft+on.offsetLeft+on.offsetWidth,y1=cols[i].offsetTop+on.offsetTop+on.offsetHeight/2,
+        x2=cols[i+1].offsetLeft,y2=cols[i+1].offsetTop+hd.offsetTop+hd.offsetHeight/2,dx=Math.max(14,(x2-x1)*.55);
+    d+='<path pathLength="1" d="M'+x1+' '+y1+' C'+(x1+dx)+' '+y1+' '+(x2-dx)+' '+y2+' '+x2+' '+y2+'"/>';
+    dots+='<circle cx="'+x1+'" cy="'+y1+'" r="4"/><circle cx="'+x2+'" cy="'+y2+'" r="4"/>'}
+  if(d)m.insertAdjacentHTML("afterbegin",'<svg class="m32-wires" width="'+m.scrollWidth+'" height="'+m.scrollHeight+'" aria-hidden="true">'+d+dots+'</svg>')}
+window.addEventListener("resize",function(){clearTimeout(_m32.rz);_m32.rz=setTimeout(_m32Wires,120)});
+
+/* refresco en vivo de barras (se llama desde _m31Live) */
+function _m32Post(K,O){
+  document.querySelectorAll("#m28-cub .m32-bar[data-cap]").forEach(function(e){var v=K.cap[e.getAttribute("data-cap")]||0;e.style.setProperty("--w",(K.CD?v/K.CD*100:0)+"%")});
+  document.querySelectorAll("#m28-cub .m32-stk[data-p]").forEach(function(e){var r=K.PU[e.getAttribute("data-p")]||{},t=r.PU||0;
+    e.classList.toggle("vac",!t);e.querySelectorAll("i[data-seg]").forEach(function(s){s.style.width=(t?Math.max(0,r[s.getAttribute("data-seg")]||0)/t*100:0)+"%"})})}
+
+/* ── 3 · partidas: mapa hacia el lado ── */
+function _m32Partidas(){var O=_m31Ob();
+  if(_m32.open&&!_m31Part(_m32.open)){_m32.open=null;_m32.sub=null}
+  if(_m32.open)_m32.cap=_m31Cap(_m32.open);
+  if(_m32.cap&&!_m32Capo(_m32.cap)){_m32.cap=null;_m32.open=null;_m32.sub=null}
+  if(!_m32.open)_m32.sub=null;
+  var C=_m32.cap?_m32Capo(_m32.cap):null,p=_m32.open?_m31Part(_m32.open):null,subs={q:"Cantidad",a:"Precio unitario",c:"En tus ramos",g:"Ajustes"};
+  var cr=[["Obra","m32Go(0)"]];
+  if(C)cr.push([C[0]+". "+_m31E(C[1]),"m32Go(1)"]);
+  if(p)cr.push([p.c+" "+_m31E(p.n),"m32Go(2)","cr-p"]);
+  if(p&&_m32.sub)cr.push([subs[_m32.sub],"m32Go(3)"]);
+  var h=_m32Sw('<label class="m31-sw"><input type="checkbox"'+(_m31.hide0?" checked":"")+' onchange="_m31.hide0=this.checked;m31Pinta()"><span>Ocultar partidas en cero</span></label>')
+   +'<p class="m31-lead">Toca un capítulo y se abre hacia el lado: sus partidas, luego la partida y su menú. Desliza hacia los lados para volver.</p>'
+   +_m32Crumb(cr)+'<div class="m32-map">'+_m32Col1();
+  if(C){h+=_m32Col2(C);if(p){h+=_m32Hub(p);if(_m32.sub)h+=_m32Det(p,_m32.sub)}}
+  return h+'</div><p class="m31-nota">Cubica como en una planilla profesional: cada fila es una medición con su ubicación (eje, recinto o elemento). Las filas con veces negativas descuentan vanos. Precios de ejemplo: reemplázalos por tus cotizaciones.</p>'}
+function _m32Col1(){var O=_m31Ob(),K=_m31Calc();
+  return '<section class="m32-col"><div class="m32-ch">Obra · '+M31_CAP.length+' capítulos <b data-c="k|CD"></b></div>'+M31_CAP.map(function(C){
+    var n=O.parts.filter(function(p){return _m31Cap(p.c)===C[0]}).length,on=_m32.cap===C[0],v=K.cap[C[0]]||0;
+    return '<button class="m32-n c'+(on?" on":"")+'" onclick="m32Cap(\''+C[0]+'\')" aria-expanded="'+on+'"><span class="ic">'+C[2]+'</span><span class="tx"><b>'+C[0]+'. '+C[1]+'</b><small>'+n+' partidas · <span data-c="pct|'+C[0]+'"></span></small><i class="m32-bar" data-cap="'+C[0]+'" style="--w:'+(K.CD?v/K.CD*100:0)+'%"></i></span><b class="v" data-c="cap|'+C[0]+'"></b></button>'}).join("")+'</section>'}
+function _m32Col2(C){var O=_m31Ob(),K=_m31Calc(),P=O.parts.filter(function(p){return _m31Cap(p.c)===C[0]}),
+    vis=P.filter(function(p){return !_m31.hide0||K.T[p.c]>0||_m32.open===p.c});
+  return '<section class="m32-col"><div class="m32-ch"><span>'+C[2]+'</span> Capítulo '+C[0]+' · '+_m31E(C[1])+'</div>'
+   +vis.map(function(p){var on=_m32.open===p.c;return '<button class="m32-n p'+(on?" on":"")+'" onclick="m32Pa(\''+p.c+'\')" aria-expanded="'+on+'"><span class="cd">'+p.c+'</span><span class="tx"><b class="nm">'+_m31E(p.n)+'</b><small data-c="q|'+p.c+'"></small></span><b class="v" data-c="t|'+p.c+'"></b></button>'}).join("")
+   +(vis.length?'':'<p class="m31-nota">Todas las partidas de este capítulo están en cero. Desmarca «Ocultar partidas en cero» para verlas.</p>')
+   +(_m31.add===C[0]?_m31AddF(C[0]):'<button class="m32-add" onclick="m31Add(\''+C[0]+'\')">+ Agregar partida</button>')+'</section>'}
+function _m32Hub(p){var c=p.c,nm=p.med.length,na=p.apu.length,on=_m32.sub,
+   B=[["q","📏","Cantidad",p.modo==="expr"?"Con fórmula de otras partidas":nm+(nm===1?" medición":" mediciones")],
+      ["a","💲","Precio unitario",na+(na===1?" insumo":" insumos")+" en el APU"],
+      ["c","📚","En tus ramos","Qué materia respalda esta partida"],
+      ["g","⚙️","Ajustes","Nombre, unidad y quitar"]];
+  return '<section class="m32-col m32-hub"><div class="m32-ch"><span class="cd">'+c+'</span> Partida</div>'
+   +'<div class="m32-card"><b class="ttl">'+_m31E(p.n)+'</b><div class="m32-eq"><span><small>Cantidad</small><b data-c="q|'+c+'"></b></span><i>×</i><span><small>Precio unitario</small><b data-c="pu|'+c+'"></b></span><i>=</i><span class="t"><small>Total</small><b data-c="t|'+c+'"></b></span></div></div>'
+   +'<p class="m32-gd m32-pasos"><b>1</b> Mide cuánto hay. <b>2</b> Arma el precio de una unidad. <b>3</b> Se multiplican y sale el total.</p>'
+   +(p.h?'<p class="m31-hint"><b>Cómo se cubica.</b> '+_m31E(p.h)+'</p>':'')
+   +B.map(function(b){return '<button class="m32-n b'+(on===b[0]?" on":"")+'" onclick="m32Sub(\''+b[0]+'\')" aria-expanded="'+(on===b[0])+'"><span class="ic">'+b[1]+'</span><span class="tx"><b>'+b[2]+'</b><small>'+b[3]+'</small></span><span class="ch">›</span></button>'}).join("")+'</section>'}
+function _m32Det(p,s){return s==="q"?_m32DQ(p):s==="a"?_m32DA(p):s==="c"?_m32DC(p):_m32DG(p)}
+
+/* rama · cantidad */
+function _m32DQ(p){var c=p.c,u=p.u,kg=u==="kg",U=M32_U[u]||M32_U["un"],H={"m³":["Largo","Ancho","Alto"],"m²":["Largo","Ancho o alto","Factor"],"ml":["Largo","Factor","Factor"]}[u]||["Factor","Factor","Factor"];
+  var h='<section class="m32-col wide"><div class="m32-ch">📏 Cantidad · '+U.t+'</div>'
+   +'<div class="m32-gd m32-how">'+M32_SVG(u)+'<p class="f">'+U.f+'</p><ol>'+U.pasos.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ol></div>'
+   +'<div class="m32-seg" role="group" aria-label="Cómo se obtiene la cantidad"><button class="'+(p.modo!=="expr"?"on":"")+'" onclick="m31PMo(\''+c+'\',\'med\')">Por mediciones</button><button class="'+(p.modo==="expr"?"on":"")+'" onclick="m31PMo(\''+c+'\',\'expr\')">Con fórmula</button></div>';
+  if(p.modo==="expr"){
+    h+='<label class="m31-expr"><span>Fórmula</span><input value="'+_m31E(p.expr)+'" oninput="m31PEx(\''+c+'\',this.value)" spellcheck="false"></label><p class="m31-nota">Escribe el código de otra partida entre corchetes. Ejemplo: ([2.1]+[2.3]−[2.6])×1,25 se escribe <code>([2.1]+[2.3]-[2.6])*1.25</code> (excavación menos relleno, por esponjamiento).</p>'}
+  else{
+    h+='<div class="m31-med'+(kg?" kg":"")+'"><div class="m31-mh"><span>Ubicación</span><span>'+(kg?'Barras':'Veces')+'</span><span>'+(kg?'Largo m':H[0])+'</span><span>'+(kg?'Ø mm':H[1])+'</span>'+(kg?'':'<span>'+H[2]+'</span>')+'<span>Parcial</span><span></span></div>'
+     +p.med.map(function(r,i){var neg=(r[1]||0)<0;
+       return '<div class="m31-mr'+(neg?" neg":"")+'"><input value="'+_m31E(r[0])+'" placeholder="Eje o recinto" oninput="m31Me(\''+c+'\','+i+',0,this.value)">'
+        +[1,2].map(function(k){return '<input inputmode="decimal" value="'+_m31V(r[k])+'" oninput="m31Me(\''+c+'\','+i+','+k+',this.value)">'}).join("")
+        +(kg?'<select onchange="m31Me(\''+c+'\','+i+',3,this.value)">'+M31_DIAM.map(function(d){return '<option'+(r[3]===d?" selected":"")+'>'+d+'</option>'}).join("")+'</select>'
+           :[3,4].map(function(k){return '<input inputmode="decimal" value="'+_m31V(r[k])+'" oninput="m31Me(\''+c+'\','+i+','+k+',this.value)">'}).join(""))
+        +'<b data-c="row|'+c+'|'+i+'"></b><button class="x" onclick="m31MeX(\''+c+'\','+i+')" aria-label="Quitar fila">✕</button></div>'}).join("")
+     +'</div><div class="m31-acts s"><button onclick="m31MeAdd(\''+c+'\',1)">+ Fila</button><button onclick="m31MeAdd(\''+c+'\',-1)">− Descuento</button>'
+     +(u==="m³"?'<button onclick="m31Ay(\'talud\')">Ayuda talud</button>':'')+(u==="m²"?'<button onclick="m31Ay(\'pend\')">Ayuda pendiente</button>':'')+'</div>'
+     +(kg?'<p class="m31-nota">Peso por metro = Ø²/162 (kg/m, Ø en mm). Incluye ganchos y traslapos en el largo; la pérdida por despuntes va en el APU.</p>':'<p class="m31-nota">Celdas vacías valen 1. Parcial = veces × las medidas escritas.</p>')
+     +_m31AyF(c)}
+  return h+'<div class="m31-qt"><span>Cantidad de la partida</span><b data-c="q|'+c+'"></b></div></section>'}
+
+/* rama · precio unitario */
+function _m32DA(p){var c=p.c,O=_m31Ob(),L=[["M","Materiales"],["MO","Mano de obra"],["EQ","Equipos"],["HM","Herr. menores"],["SC","Subcontratos"]];
+  var h='<section class="m32-col wide"><div class="m32-ch">💲 Precio unitario · por '+p.u+'</div>'
+   +'<p class="m32-gd m32-how2">Cada insumo trae su <b>cantidad</b> por '+p.u+', su <b>pérdida</b> y su <b>precio</b>. A la mano de obra se le cargan las leyes sociales ('+_m31F(O.ls)+' %). La suma es el precio de una unidad.</p>'
+   +'<div class="m32-stk" data-p="'+c+'" role="img" aria-label="Composición del precio unitario">'+L.map(function(x){return '<i class="s-'+x[0]+'" data-seg="'+x[0]+'"></i>'}).join("")+'</div>'
+   +'<div class="m32-lg">'+L.map(function(x){return '<span><i class="s-'+x[0]+'"></i>'+x[1]+'<b data-c="pux|'+c+'|'+x[0]+'"></b></span>'}).join("")+'</div>'
+   +'<h5>Insumos del APU</h5><div class="m31-apu">'
+   +p.apu.map(function(a,i){var I=_m31Ins(a[0])||["M","(insumo borrado)","",0];
+     return '<div class="m31-ar"><span class="ds"><span class="tp t-'+I[0]+'">'+I[0]+'</span> '+_m31E(I[1])+'<small>'+_m31E(I[2])+' por '+p.u+'</small></span>'
+      +'<label><span>Cant.</span><input inputmode="decimal" value="'+_m31V(a[1])+'" oninput="m31Ap(\''+c+'\','+i+',1,this.value)"></label>'
+      +'<label><span>Pérd. %</span><input inputmode="decimal" value="'+_m31V(a[2])+'" oninput="m31Ap(\''+c+'\','+i+',2,this.value)"></label>'
+      +'<label><span>Precio '+_m31E(I[2])+'</span><input inputmode="decimal" value="'+_m31V(_m31Pr(a[0]))+'" oninput="m31InP(\''+a[0]+'\',this.value)"></label>'
+      +'<b data-c="apu|'+c+'|'+i+'"></b><button class="x" onclick="m31ApX(\''+c+'\','+i+')" aria-label="Quitar insumo">✕</button></div>'}).join("")
+   +'</div>'+_m31ApAdd(c)
+   +'<div class="m31-pus"><span class="t">Precio unitario<b data-c="pu|'+c+'"></b></span><span class="t">Total partida<b data-c="t|'+c+'"></b></span></div>'
+   +'<p class="m31-nota">Cambiar un precio aquí lo cambia en toda la obra.</p></section>';
+  return h}
+
+/* rama · ramos relacionados */
+function _m32DC(p){var cap=_m31Cap(p.c),C=_m32Capo(cap),E=M31_ETAPAS.filter(function(e){return e.caps.indexOf(cap)>=0});
+  return '<section class="m32-col wide"><div class="m32-ch">📚 En tus ramos</div>'
+   +'<p class="m31-lead">«'+_m31E(p.n)+'» es del capítulo '+cap+(C?' ('+_m31E(C[1])+')':'')+'. Estos ramos de tu malla te dan la base para medirla, valorizarla y ejecutarla. Toca uno para ir a sus apuntes.</p>'
+   +_m32Chips(M32_CAPR[cap]||[])
+   +'<h5>En qué etapa del proceso aparece</h5><div class="m31-chips">'+(E.length?E.map(function(e){return '<button class="m31-chip b" onclick="m32VeEt(\''+e.id+'\')">'+e.ic+' '+e.t+'</button>'}).join(""):'<span class="m31-nota">Ninguna etapa lo lista aún.</span>')+'</div>'
+   +'<p class="m31-nota">Relación temática; el temario exacto de cada ramo lo define tu programa.</p></section>'}
+
+/* rama · ajustes */
+function _m32DG(p){var c=p.c;
+  return '<section class="m32-col wide"><div class="m32-ch">⚙️ Ajustes de la partida</div><div class="m31-in"><label class="w"><span>Partida</span><input value="'+_m31E(p.n)+'" oninput="m31PN(\''+c+'\',this.value)"></label>'
+   +'<label><span>Unidad</span><select onchange="m31PUn(\''+c+'\',this.value)">'+M31_UN.map(function(u){return '<option'+(p.u===u?" selected":"")+'>'+u+'</option>'}).join("")+'</select></label></div>'
+   +'<p class="m31-nota">Cambiar la unidad cambia cómo se miden las filas (por ejemplo, kg usa barras y diámetros).</p>'
+   +'<div class="m31-acts s"><button class="del" onclick="m31PDel(this,\''+c+'\')">Quitar partida</button></div></section>'}
+
+/* ── navegación del mapa ── */
+function m32Cap(c){_m32.cap=_m32.cap===c?null:c;_m32.open=null;_m32.sub=null;_m31.add=null;_m31.ayuda=null;_m31.nuevo=false;m31Pinta()}
+function m32Pa(c){_m32.open=_m32.open===c?null:c;_m32.sub=null;_m31.ayuda=null;_m31.nuevo=false;m31Pinta()}
+function m32Sub(s){_m32.sub=_m32.sub===s?null:s;_m31.ayuda=null;_m31.nuevo=false;m31Pinta()}
+function m32Go(n){if(n<=0)_m32.cap=null;if(n<=1)_m32.open=null;if(n<=2)_m32.sub=null;_m31.add=null;_m31.ayuda=null;m31Pinta()}
+function m32VeEt(id){_m31.tab=0;_m32.et=id;_m32.esub=null;m31Pinta();var r=document.getElementById("m28-cub");if(r&&r.getBoundingClientRect().top<0)r.scrollIntoView({block:"start"})}
+function m31VeCap(c){_m32.cap=c;_m32.open=null;_m32.sub=null;m31Tab(2)}
+function m31PDel(b,c){if(!b.classList.contains("conf")){b.classList.add("conf");b.textContent="Toca otra vez para quitarla";setTimeout(function(){b.classList.remove("conf");b.textContent="Quitar partida"},3000);return}
+  var O=_m31Ob();O.parts=O.parts.filter(function(p){return p.c!==c});_m32.open=null;_m32.sub=null;_m31Sv();m31Pinta()}
+function m31AddOk(cap){var O=_m31Ob(),s=document.getElementById("m31pc"),p;
+  if(s&&s.value){var c=M31_CAT.filter(function(x){return x[0]===s.value})[0];p={c:c[0],n:c[1],u:c[2],h:c[4],modo:"med",med:[],expr:"",apu:[]};
+    if(typeof c[3]==="string")p.apu=_m31cl(M31_APU[c[3]]);else{var id="sc_"+c[0];O.insX[id]=O.insX[id]||["SC",c[1],c[2],c[3]];p.apu=[[id,1,0]]}}
+  else{var n=document.getElementById("m31pn").value.trim();if(!n)return;var mx=0;O.parts.forEach(function(q){if(_m31Cap(q.c)===cap)mx=Math.max(mx,+String(q.c).split(".")[1]||0)});
+    var cod=cap+"."+(mx+1),un=document.getElementById("m31pu").value,id2="sc_"+cod+"_"+Date.now().toString(36);O.insX[id2]=["SC",n,un,0];p={c:cod,n:n,u:un,h:"",modo:"med",med:[],expr:"",apu:[[id2,1,0]]}}
+  var i=0;while(i<O.parts.length&&_m31Ord(O.parts[i].c)<_m31Ord(p.c))i++;O.parts.splice(i,0,p);
+  _m31.add=null;_m32.cap=cap;_m32.open=p.c;_m32.sub=null;_m31Sv();m31Pinta()}
+function m31PN(c,v){_m31Part(c).n=v;var e=document.querySelector("#m28-cub .m32-n.p.on .nm"),t=document.querySelector("#m28-cub .m32-hub .ttl"),b=document.querySelector("#m28-cub .cr-p");
+  if(e)e.textContent=v;if(t)t.textContent=v;if(b)b.textContent=c+" "+v;_m31Sv()}
+
+/* ── 1 · proceso: línea y mapa de etapas ── */
+function _m32Line(){var N=M31_ETAPAS.length,W=340,H=122,x0=22,dx=(W-2*x0)/(N-1),pts=[],i,
+    y=function(k){return 48+Math.sin(k*1.15)*14};
+  for(i=0;i<N;i++)pts.push([x0+i*dx,y(i)]);
+  var d="M"+pts[0][0]+" "+pts[0][1];for(i=1;i<N;i++)d+=" C"+(pts[i-1][0]+dx/2)+" "+pts[i-1][1]+" "+(pts[i][0]-dx/2)+" "+pts[i][1]+" "+pts[i][0]+" "+pts[i][1];
+  var s='<svg viewBox="0 0 '+W+' '+H+'" class="m32-ln" role="group" aria-label="Línea de las nueve etapas, del terreno a la entrega de llaves"><path class="hy" d="'+d+'"/>';
+  M31_ETAPAS.forEach(function(e,k){var n=e.act.length,dn=_m32Done(e),sel=_m32.et===e.id,C=2*Math.PI*11,p=pts[k],up=k%2===1;
+    s+='<g class="nd'+(dn===n?" ok":"")+(sel?" on":"")+'" tabindex="0" role="button" aria-label="Etapa '+(k+1)+': '+e.t+', '+dn+' de '+n+'" onclick="m32Et(\''+e.id+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();m32Et(\''+e.id+'\')}">'
+     +(sel?'<circle class="sel" cx="'+p[0]+'" cy="'+p[1]+'" r="16"/>':'')
+     +'<circle class="bg" cx="'+p[0]+'" cy="'+p[1]+'" r="11"/>'+(dn&&dn<n?'<circle class="pr" cx="'+p[0]+'" cy="'+p[1]+'" r="11" stroke-dasharray="'+(dn/n*C).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 '+p[0]+' '+p[1]+')"/>':'')
+     +'<text class="nn" x="'+p[0]+'" y="'+(p[1]+3.6)+'" text-anchor="middle">'+(dn===n?"✓":k+1)+'</text>'
+     +'<text class="lb" x="'+p[0]+'" y="'+(up?p[1]-19:p[1]+27)+'" text-anchor="middle">'+M32_ETC[k]+'</text></g>'});
+  return s+'<defs><linearGradient id="m32g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--accent);stop-opacity:.18"/><stop offset="1" style="stop-color:var(--accent);stop-opacity:1"/></linearGradient></defs><rect class="pb" x="'+x0+'" y="'+(H-10)+'" width="'+(W-2*x0)+'" height="4" rx="2"/><text class="pz" x="'+x0+'" y="'+(H-14)+'">±30 %</text><text class="pz" x="'+(W/2)+'" y="'+(H-14)+'" text-anchor="middle">precisión del presupuesto</text><text class="pz" x="'+(W-x0)+'" y="'+(H-14)+'" text-anchor="end">±5 %</text></svg>'}
+function _m32Proceso(){var O=_m31Ob(),tot=0,ok=0;
+  M31_ETAPAS.forEach(function(e){e.act.forEach(function(a,i){tot++;if(O.chk[e.id+"_"+i])ok++})});
+  var E=_m32.et?_m32Eto(_m32.et):null;if(_m32.et&&!E)_m32.et=null;
+  var subs={a:"Qué hacer",d:"Entregables y normas",p:"Presupuesto y ramos"},cr=[["Proceso","m32EGo(0)"]];
+  if(E)cr.push([E.t,"m32EGo(1)"]);if(E&&_m32.esub)cr.push([subs[_m32.esub],"m32EGo(2)"]);
+  var h=_m32Sw()+'<p class="m31-lead">Todo el camino de una edificación, de la compra del terreno a la entrega de llaves. Marca lo que ya está hecho en tu obra; el presupuesto se va afinando en cada etapa: de ±30 % con el terreno a ±5 % con la propuesta.</p>'
+   +'<div class="m32-line" id="m32-line">'+_m32Line()+'</div>'
+   +'<div class="m31-bar"><span>Avance del proceso</span><b>'+ok+' de '+tot+'</b><i><em style="width:'+(tot?ok/tot*100:0)+'%"></em></i></div>'
+   +_m32Crumb(cr)+'<div class="m32-map">'+_m32ECol1();
+  if(E){h+=_m32EHub(E);if(_m32.esub)h+=_m32EDet(E,_m32.esub)}
+  return h+'</div><p class="m31-nota">Normas citadas por su nombre; revísalas vigentes en bcn.cl y en el INN. El siguiente paso es la programación de la obra.</p>'}
+function _m32ECol1(){return '<section class="m32-col"><div class="m32-ch">Proceso · '+M31_ETAPAS.length+' etapas</div>'+M31_ETAPAS.map(function(e,k){var n=e.act.length,d=_m32Done(e),on=_m32.et===e.id;
+  return '<button class="m32-n e'+(on?" on":"")+(d===n?" ok":"")+'" data-et="'+e.id+'" onclick="m32Et(\''+e.id+'\')" aria-expanded="'+on+'"><span class="nn">'+(d===n?"✓":k+1)+'</span><span class="tx"><b>'+e.ic+' '+e.t+'</b><small>'+e.sub+'</small></span><span class="c" data-ec="'+e.id+'">'+d+'/'+n+'</span></button>'}).join("")+'</section>'}
+function _m32EHub(e){var n=e.act.length,d=_m32Done(e),on=_m32.esub,
+   B=[["a","✅","Qué hacer",d+" de "+n+" actividades"],["d","📄","Entregables y normas",e.doc.length+" entregables · "+e.norma.length+" normas"],["p","💰","Presupuesto y ramos",(M32_ETR[e.id]||[]).length+" ramos relacionados"]];
+  return '<section class="m32-col m32-hub"><div class="m32-ch">'+e.ic+' Etapa</div>'
+   +'<div class="m32-card"><b class="ttl">'+e.t+'</b><p class="sb">'+e.sub+'</p><div class="m31-chip a">'+e.prec+'</div><p class="m31-q"><b>Participan:</b> '+e.quien+'</p></div>'
+   +'<div class="m31-err"><b>Error típico</b>'+e.error+'</div>'
+   +B.map(function(b){return '<button class="m32-n b'+(on===b[0]?" on":"")+'" onclick="m32ESub(\''+b[0]+'\')" aria-expanded="'+(on===b[0])+'"><span class="ic">'+b[1]+'</span><span class="tx"><b>'+b[2]+'</b><small'+(b[0]==="a"?' data-ecs="'+e.id+'"':'')+'>'+b[3]+'</small></span><span class="ch">›</span></button>'}).join("")+'</section>'}
+function _m32EDet(e,s){var O=_m31Ob(),h='<section class="m32-col wide">';
+  if(s==="a")h+='<div class="m32-ch">✅ Qué hacer</div><ul class="m31-ck">'+e.act.map(function(a,i){var c=!!O.chk[e.id+"_"+i];return '<li><label><input type="checkbox"'+(c?" checked":"")+' onchange="m31Chk(\''+e.id+'_'+i+'\',this.checked)"><span>'+a+'</span></label></li>'}).join("")+'</ul>';
+  else if(s==="d")h+='<div class="m32-ch">📄 Entregables y normas</div><h5>Entregables</h5><div class="m31-chips">'+e.doc.map(function(x){return '<span class="m31-chip">'+x+'</span>'}).join("")+'</div><h5>Normativa</h5><div class="m31-chips">'+e.norma.map(function(x){return '<span class="m31-chip n">'+x+'</span>'}).join("")+'</div><p class="m31-nota">Revisa siempre la versión vigente en bcn.cl y en el INN.</p>';
+  else{h+='<div class="m32-ch">💰 Presupuesto y ramos</div><div class="m31-chip a">'+e.prec+'</div>'
+    +(e.caps.length?'<h5>Capítulos del presupuesto</h5><div class="m31-chips">'+e.caps.map(function(c){var C=_m32Capo(c);return C?'<button class="m31-chip b" onclick="m31VeCap(\''+c+'\')">'+C[2]+' '+c+'. '+C[1]+'</button>':''}).join("")+'</div>':'<p class="m31-nota">En esta etapa todavía no hay partidas: el presupuesto se estima por m² o por recintos.</p>')
+    +'<h5>Ramos que te sirven aquí</h5>'+_m32Chips(M32_ETR[e.id]||[])+'<p class="m31-nota">Relación temática; el temario exacto de cada ramo lo define tu programa.</p>'}
+  return h+'</section>'}
+function m32Et(id){_m32.et=_m32.et===id?null:id;_m32.esub=null;m31Pinta()}
+function m32ESub(s){_m32.esub=_m32.esub===s?null:s;m31Pinta()}
+function m32EGo(n){if(n<=0)_m32.et=null;if(n<=1)_m32.esub=null;m31Pinta()}
+function m31Chk(k,v){var O=_m31Ob();if(v)O.chk[k]=1;else delete O.chk[k];_m31Sv();
+  var tot=0,ok=0;M31_ETAPAS.forEach(function(e){var n=e.act.length,d=_m32Done(e);tot+=n;ok+=d;
+    document.querySelectorAll('#m28-cub [data-ec="'+e.id+'"]').forEach(function(x){x.textContent=d+"/"+n});
+    document.querySelectorAll('#m28-cub [data-ecs="'+e.id+'"]').forEach(function(x){x.textContent=d+" de "+n+" actividades"});
+    document.querySelectorAll('#m28-cub .m32-n.e[data-et="'+e.id+'"]').forEach(function(x){x.classList.toggle("ok",d===n);var nn=x.querySelector(".nn");if(nn)nn.textContent=d===n?"✓":(M31_ETAPAS.indexOf(e)+1)})});
+  var b=document.querySelector("#m28-cub .m31-bar b"),em=document.querySelector("#m28-cub .m31-bar em"),ln=document.getElementById("m32-line");
+  if(b)b.textContent=ok+" de "+tot;if(em)em.style.width=(tot?ok/tot*100:0)+"%";if(ln)ln.innerHTML=_m32Line()}
+
+/* ── 5 · resumen: cadena del precio ── */
+function _m32Resumen(){
+  return '<div class="m32-gd"><p class="m31-lead">Así se arma el precio final: el costo directo de todas las partidas se carga con gastos generales, imprevistos y utilidad; sobre el neto se suma el IVA.</p></div>'
+   +'<div class="m32-chain">'+[["Costo directo","k|CD"],["+ Gastos generales","k|GG"],["+ Imprevistos","k|IMP"],["+ Utilidad","k|UT"],["= Neto","k|NET"],["+ IVA","k|IVA"],["= Total","k|TOT"]].map(function(x){return '<span'+(x[0].charAt(0)==="="?' class="t"':'')+'><small>'+x[0]+'</small><b data-c="'+x[1]+'"></b></span>'}).join("")+'</div>'
+   +_m31Resumen()}
 
 </script>
 

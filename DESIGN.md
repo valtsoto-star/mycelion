@@ -127,3 +127,13 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 - Resumen: CD por capítulo, GG detallados (por mes según plazo, global o % del CD), imprevistos sobre CD, utilidad sobre CD + GG, IVA, $/m², UF/m² y vista del mandante (presupuesto oficial DOM, derechos 1,5 %, ITO, terreno, proyectos).
 - Flujo: capítulos repartidos en el plazo, curva S y estados de pago con anticipo y retención. Es la base de la programación, que viene después.
 - Se guarda en `m31_obra` (localStorage) y entra en el respaldo completo. Copia a Excel como texto separado por tabulaciones.
+
+## 15. v3.2 · Presupuesto de obra: mapa micelio
+- La pantalla de Partidas y la de Proceso dejan el acordeón vertical y se despliegan **hacia el lado**, como el micelio: capítulos → partidas → la partida → su menú. Cada columna nueva nace del ítem abierto, unida por una hifa (curva SVG que se dibuja sola). Archivos: `m32.js`, `m32.css`, `m32data.js`; `m32.js` reemplaza las funciones de pantalla de `m31.js` (la última declaración gana) y `_m31Live` llama a `_m32Post` para las barras.
+- Se ve una sola columna a la vez en el celular (la anterior asoma 54 px; las demás se atenúan). La barra «Obra › capítulo › partida › rama» lleva a cualquier nivel. Estado en `_m32` (cap, open, sub, et, esub).
+- Menú de la partida: Cantidad (mediciones o fórmula), Precio unitario (APU con barra de composición M/MO/EQ/HM/SC en vivo), En tus ramos, Ajustes. Proceso: cada etapa abre Qué hacer, Entregables y normas, Presupuesto y ramos.
+- **Guía paso a paso** (interruptor, se recuerda en `m32_guia`): diagrama SVG por unidad (m³, m², ml, kg, un, gl, tiempo), fórmula y pasos numerados; línea de las 9 etapas con avance; cadena del precio en Resumen (CD → GG → imprevistos → utilidad → neto → IVA).
+- **Ramos relacionados**: `M32_CAPR` (por capítulo) y `M32_ETR` (por etapa) enlazan con `mycRamoGo(rid)`; los del semestre en curso llevan la etiqueta «este semestre». Es una relación temática, no el temario del programa.
+- Los estilos `.m24 .a` de otros módulos pisaban `.m31-chip.a`; se corrige en `m32.css`.
+- Verificación: `tools/p32.js` y `tools/p32b.js` (mapa, edición en vivo, talud, agregar, renombrar, quitar, guía, ceros), más el resto de las regresiones.
+- `GUIA-GITHUB.md`: cómo ordenar los proyectos en GitHub, dejarlos en línea y cargar contenido nuevo.

@@ -2,10 +2,16 @@
 
 App de estudio de una sola página para Ingeniería en Construcción (Duoc UC). Funciona sin internet y guarda el progreso en el navegador.
 
-- Versión actual: **1.8**
+- Versión actual: **3.2** (historial de cambios en `DESIGN.md`)
 - Abrir en el navegador (GitHub Pages): https://valtsoto-star.github.io/mycelion/
 - `index.html`: la app completa. Cada versión nueva lo reemplaza.
+- `GUIA-GITHUB.md`: cómo guardar todos tus proyectos aquí, dejarlos en línea y cargar contenido nuevo.
 - `apps-script/`: la versión para Google Apps Script (guarda el progreso en tu Drive y pasa las evaluaciones a Google Calendar). Instrucciones en `apps-script/GUIA.md`.
+
+## Novedades 3.2
+
+- **Presupuesto de obra en mapa micelio**: capítulos, partidas y el menú editable de cada partida se despliegan hacia el lado, con diagramas y una guía paso a paso que se puede apagar.
+- Cada partida y cada etapa del proceso enlazan con los ramos de tu malla.
 
 ## Novedades 1.8
 
