@@ -145,3 +145,15 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 - **Modelo 3D** (`m33_3d.js`): edificio paramétrico (largo, ancho, pisos, alturas, espesores, material, cimiento, techo, vanos, escalera, pavimento) con renderer propio en canvas 2D: perspectiva u ortogonal, z-buffer, buffer de id para selección, bordes por id y normal, caja de sección X/Y/Z, niveles, estilos Sombreado/Líneas/Colores, vistas 3D, planta (corte a 1,2 m), frentes y laterales, cotas, navegador por categoría, propiedades por elemento y cantidades.
 - **Cubicación automática**: 45 filas con la etiqueta «[Modelo]» en 37 partidas. Reemplaza o suma a las mediciones; no toca partidas en modo fórmula. Es un anteproyecto: las cantidades son para estimar, no reemplazan el cómputo del proyecto de arquitectura y cálculo.
 - Verificación: `tools/p33.js` (pantallas, 3 anchos, 2 temas), `tools/g33.js` (generación de filas, selección, parámetros) y las regresiones previas.
+
+## 17. v3.4 · Contenido de todos los ramos (en tandas)
+- Objetivo: que cada ramo de la malla 2024 y de la malla 2026 tenga materia completa, de 1° semestre al final. Se entrega por tandas de semestres; esta cubre el 2° y el 3°.
+- Cada ramo es un módulo con el mismo motor de v2.3 (3 unidades × 3 temas, fichas con enlaces, normas por unidad, ejercicios resueltos, videos sugeridos, Evalúate con duelo, verdadero/falso, conecta, crisis y frases del Tío Lucho). Se genera desde datos (`c34_*.py` → `m23_*.js`) y se valida: enlaces de fichas, respuestas del duelo y nodos de las crisis.
+- **Alias entre mallas**: un módulo puede atender varios ramos (`alias`). Ejemplo: Álgebra (2024) también abre «Matemáticas para el Análisis Técnico» (2026); Mentalidad Emprendedora atiende Herramientas para el Emprendimiento y Gestión de la Microempresa. El motor registra `BT_MODS`, `EVA_ALIAS` y `MODS_ALIAS` para cada alias.
+- Tanda 1 (2° semestre): Cubicación, Dibujo y Lectura de Planos, Partidas de Terminaciones, Taller de Terminaciones, Habilidades de Comunicación Efectiva, Álgebra, Inglés Básico I y II.
+- Tanda 2 (3° semestre): Presupuesto y Análisis de Costos, Obras Civiles, Estructuras, Legislación y Seguridad, Topografía, Mentalidad Emprendedora, Fundamentos de Antropología (Inglés Básico II comparte módulo con el I).
+- Los módulos de 2024 que ya existían (1° semestre, Hormigón, Suelos, IA, etc.) no cambian.
+- Alcance honesto: es contenido general escrito para MYCELION, no el programa oficial de Duoc. Cada módulo lo dice en su nota. Las normas se citan para que revises el texto vigente en bcn.cl o en el INN; no se transcriben artículos.
+- Ajuste menor: si una unidad no tiene normas, no se dibuja la franja «Normas y documentos».
+- Verificación: `tools/t34.js` (todos los módulos con alias: cargan, 9 temas, fichas, pack y alias mapeado, 3 anchos y 2 temas) más las regresiones previas (t24, t20v24, t22, a29, s28, bk28, f28, g28).
+
