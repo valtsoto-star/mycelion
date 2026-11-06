@@ -2,11 +2,17 @@
 
 App de estudio de una sola página para Ingeniería en Construcción (Duoc UC). Funciona sin internet y guarda el progreso en el navegador.
 
-- Versión actual: **3.4** (historial de cambios en `DESIGN.md`)
+- Versión actual: **3.5** (historial de cambios en `DESIGN.md`)
 - Abrir en el navegador (GitHub Pages): https://valtsoto-star.github.io/mycelion/
 - `index.html`: la app completa. Cada versión nueva lo reemplaza.
 - `GUIA-GITHUB.md`: cómo guardar todos tus proyectos aquí, dejarlos en línea y cargar contenido nuevo.
 - `apps-script/`: la versión para Google Apps Script (guarda el progreso en tu Drive y pasa las evaluaciones a Google Calendar). Instrucciones en `apps-script/GUIA.md`.
+
+## Novedades 3.5
+
+- **Materia completa de todos los ramos**, del 1° semestre al final, en la malla 2024 y en la malla 2026 (incluye los ramos nuevos: Construcción y Sociedad, Diagnóstico y Recuperación de Edificaciones, Instalaciones Especiales y Gestión del Agua).
+- Cada ramo trae unidades, fichas, normas, ejercicios resueltos, videos sugeridos y Evalúate (duelo, verdadero/falso, conecta y crisis).
+- Es contenido general, no el programa oficial: compáralo con el material del curso. Los optativos no tienen materia fija.
 
 ## Novedades 3.4
 

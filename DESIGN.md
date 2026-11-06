@@ -157,3 +157,14 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 - Ajuste menor: si una unidad no tiene normas, no se dibuja la franja «Normas y documentos».
 - Verificación: `tools/t34.js` (todos los módulos con alias: cargan, 9 temas, fichas, pack y alias mapeado, 3 anchos y 2 temas) más las regresiones previas (t24, t20v24, t22, a29, s28, bk28, f28, g28).
 
+## 18. v3.5 · Materia completa de todos los ramos (1° a 8° semestre y malla 2026)
+- Se completan las tandas que faltaban: 4° al 8° semestre de la malla 2024 y los ramos propios de la malla 2026. Ahora cada ramo de ambas mallas abre materia propia, salvo los optativos (su contenido depende de lo que elijas) e «IA en Obras de Construcción», que ya tenía módulo propio.
+- Tanda 3 (4° semestre): Planificación de Partidas / Programación de Obras, Taller de Hormigón, Instalaciones Domiciliarias, Inglés Elemental I y II, Ética para el Trabajo, Formación Cristiana.
+- Tanda 4 (5° y 6° semestre): Contabilidad en la Construcción, Obras de Infraestructura (atiende también Obras Viales), Cálculo Diferencial.
+- Tanda 5 (7° y 8° semestre): Estudio de Propuestas, Gestión de la Calidad, Gestión de Personas, Construcción Sustentable, Administración y Logística de Obras, Taller de Estructuras y Edificación en Altura, Ética Profesional, Portafolio de Título, Práctica Profesional.
+- Ramos solo de la malla 2026 (módulo propio, código `m26-…`): Construcción y Sociedad, Diagnóstico y Recuperación de Edificaciones, Instalaciones Especiales y Gestión del Agua en la Construcción.
+- Alias nuevos hacia módulos que ya existían: Taller de Obras de Construcción → Taller de Obra Gruesa; Habilidades de Comunicación → Habilidades Básicas de Comunicación; Habilidades Numéricas → Nivelación Matemática; Gestión de Negocios y Evaluación de Proyectos → Economía y Evaluación de Proyectos; Coordinación BIM → Modelamiento y Coordinación; Análisis de Datos → Estadística; Análisis Estructural y Comportamiento Sísmico → Análisis Estructural; IA en Herramientas Digitales → Herramientas Digitales. Mecánica de Suelos y Tecnología del Hormigón conservan sus módulos dedicados de siempre (la versión 2026 enlaza a ellos).
+- Los módulos de 2026 propios se rotulan «Malla 2026» (en el motor, la nota al pie usa «Malla 2026» cuando el id parte con `m26-`).
+- Total: 44 módulos del motor de v2.3 (3 unidades × 3 temas cada uno, salvo los de v3.0 que ya eran más grandes) más los módulos dedicados anteriores.
+- Alcance honesto: es contenido general, no el programa oficial de Duoc. Las normas se citan para que revises el texto vigente; no se transcriben artículos. Los optativos (OPT-3, OPT-4, FCCG-6, OPT-67) y «Formación Complementaria» no tienen materia fija.
+- Verificación: `t34.js` sobre los 44 módulos (sin errores, 9 temas, pack completo, alias mapeados), `open34.js`/`pane34.js` para abrir cada ramo 2026, y las regresiones previas.
