@@ -168,3 +168,13 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 - Total: 44 módulos del motor de v2.3 (3 unidades × 3 temas cada uno, salvo los de v3.0 que ya eran más grandes) más los módulos dedicados anteriores.
 - Alcance honesto: es contenido general, no el programa oficial de Duoc. Las normas se citan para que revises el texto vigente; no se transcriben artículos. Los optativos (OPT-3, OPT-4, FCCG-6, OPT-67) y «Formación Complementaria» no tienen materia fija.
 - Verificación: `t34.js` sobre los 44 módulos (sin errores, 9 temas, pack completo, alias mapeados), `open34.js`/`pane34.js` para abrir cada ramo 2026, y las regresiones previas.
+
+## 19. v3.6 · Profundización de contenido y cierre de optativos
+- Se amplían 40 módulos del motor con una unidad nueva («casos y errores»): 3 temas con ejercicios resueltos y tablas, 4 fichas `x_*`, +4 preguntas de duelo, +2 verdadero/falso, +1 conecta, +1 crisis y +1 frase. El tema por ramo cambia (errores de signos, pérdidas y esponjamiento, escalas y RFI, ruta crítica, a/c y probetas, VAN y TIR, transmitancia U, punto de pedido y estados de pago, firma profesional, etc.).
+- Mecanismo: `tools/gen35.py` fusiona los datos de `tools/x35_*.py` (un diccionario `EXTS` por módulo) sobre el módulo base (`c34_*` o `c30_*`) y reescribe `m23_<pfx>.js`. Se ejecuta al final, porque regenerar con `gen34.py` pisa la ampliación. Valida enlaces entre fichas y las opciones del duelo.
+- Los módulos grandes de v3.0 (Análisis Estructural, Economía, Modelamiento, Estadística) y los de Inglés, Habilidades Básicas de Comunicación, Nivelación y Herramientas Digitales no se amplían: ya tienen 12 a 15 temas o su ampliación es de otra índole.
+- Módulos nuevos para optativos: `opd` (rid `m26-OPT-3`, alias `m26-OPT-67`) y `fcg` (rid `m26-OPT-4`, alias `m26-FCCG-6` y `form-compl`). Son guías de uso, no programa oficial: la oferta de optativos cambia por sede y semestre.
+- Cobertura: la malla 2024 (54 ramos) y la 2026 (44) abren materia; los únicos que no usan el motor son los de módulo propio (Mecánica de Suelos, Tecnología del Hormigón, IA en Obras).
+- Alcance honesto: contenido general y valores referenciales (λ, 25 kN/m³, 0,8 kg CO₂/kg de cemento, recargo del 50 % de horas extra, reducción de jornada). Se debe revisar la norma o el contrato vigentes.
+- Verificación: `t34.js` (12 temas por módulo ampliado), `pane34.js` para abrir los 9 ramos de optativos y complementarios, y regresiones t24, t20v24, t22, a29, s28, bk28, f28 y g28.
+
