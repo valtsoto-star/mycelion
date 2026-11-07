@@ -178,3 +178,10 @@ Antes de publicar: auditoría de contraste en los 8 temas (`aud.js`), capturas e
 - Alcance honesto: contenido general y valores referenciales (λ, 25 kN/m³, 0,8 kg CO₂/kg de cemento, recargo del 50 % de horas extra, reducción de jornada). Se debe revisar la norma o el contrato vigentes.
 - Verificación: `t34.js` (12 temas por módulo ampliado), `pane34.js` para abrir los 9 ramos de optativos y complementarios, y regresiones t24, t20v24, t22, a29, s28, bk28, f28 y g28.
 
+## 20. v3.7 · Nivel avanzado de exigencia profesional
+- Pedido: «ponle harta exigencia para que sea una ingeniería de construcción robusta». No hay PDA oficiales a mano, así que se define un nivel propio y general (no es el PDA).
+- Cada ramo ampliado suma una unidad «Nivel avanzado: exigencia profesional» con tres temas: problema integrador (ejercicio resuelto de varios pasos), criterios de aceptación (tabla: criterio, exigencia, cómo se verifica) y rúbrica de logro (Suficiente, Logrado, Destacado). Más 3 fichas `y_<pfx>_*`, +4 duelo, +2 verdadero/falso y una frase.
+- Mecanismo: `tools/x36lib.py` (función `U(...)`) y `tools/gen36.py`, que fusiona base + `x35_*` + `x36_*` y reescribe `m23_<pfx>.js`. Orden obligatorio al regenerar: `gen34` (módulos nuevos), `gen35`, `gen36`; si se corre `gen35` después de `gen36`, se pierde la unidad nueva.
+- Alcance: 45 módulos (los 40 de v3.6 más Comunicación Básica, Nivelación, Herramientas Digitales, y los optativos `opd` y `fcg`, que quedan con 4 unidades). Siguen sin ampliarse Análisis Estructural, Economía, Modelamiento y Estadística (no tienen archivo base en `tools/`) y los módulos dedicados.
+- Los números de los ejemplos se verificaron con Python. Las fórmulas de nivel didáctico (corte basal, factores de emisión, transmitancia, carbonatación, índices de siniestralidad) llevan la advertencia de revisar la norma vigente.
+- Verificación: `t34.js` (49 módulos, 15 temas en los ampliados, 12 en opd y fcg, 3 anchos y 2 temas, sin errores) y regresiones t24, t20v24, t22, a29, s28, bk28, f28 y g28.

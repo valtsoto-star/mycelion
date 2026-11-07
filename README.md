@@ -2,11 +2,18 @@
 
 App de estudio de una sola página para Ingeniería en Construcción (Duoc UC). Funciona sin internet y guarda el progreso en el navegador.
 
-- Versión actual: **3.6** (historial de cambios en `DESIGN.md`)
+- Versión actual: **3.7** (historial de cambios en `DESIGN.md`)
 - Abrir en el navegador (GitHub Pages): https://valtsoto-star.github.io/mycelion/
 - `index.html`: la app completa. Cada versión nueva lo reemplaza.
 - `GUIA-GITHUB.md`: cómo guardar todos tus proyectos aquí, dejarlos en línea y cargar contenido nuevo.
 - `apps-script/`: la versión para Google Apps Script (guarda el progreso en tu Drive y pasa las evaluaciones a Google Calendar). Instrucciones en `apps-script/GUIA.md`.
+
+## Novedades 3.7
+
+- **Nivel avanzado en cada ramo**: 45 ramos suman una unidad de exigencia profesional con un problema integrador de varios pasos (cantidades, plazos, costos, seguridad, estructuras, inglés técnico, ética), una tabla de criterios de aceptación y una rúbrica de logro (Suficiente, Logrado, Destacado) para autoevaluarte. Además, 3 fichas nuevas por ramo, 4 preguntas más de duelo y 2 de verdadero/falso.
+- **Es exigencia propia, no el PDA oficial**: como no se pudieron conseguir los PDA, el nivel avanzado fija una vara alta y general. Cuando tengas los PDA, se cruzan unidad por unidad para marcar qué es oficial y qué es extra.
+- Los ramos grandes de v3.0 (Análisis Estructural, Economía, Modelamiento, Estadística) quedan igual por ahora; los módulos dedicados (Suelos, Hormigón, IA en Obras) tampoco cambian.
+- Los valores numéricos son referenciales (ejemplo: 0,8 t CO₂ por tonelada de cemento, tasa de impuesto del 25 %, densidades y coeficientes sísmicos didácticos). Revisa la norma o el contrato vigente antes de usarlos en una obra real.
 
 ## Novedades 3.6
 
